@@ -61,8 +61,10 @@ export default function nodeAdapter(
 				res.setHeader(key, value);
 			}
 
-			for await (const chunk of response.body as any) {
-				res.write(chunk);
+			if (response.body) {
+				for await (const chunk of response.body as any) {
+					res.write(chunk);
+				}
 			}
 
 			res.end();
