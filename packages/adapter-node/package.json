@@ -1,0 +1,40 @@
+{
+	"name": "@hattip/adapter-node",
+	"version": "0.0.1",
+	"description": "Node.js adapter for Hattip",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"files": [
+		"dist",
+		"*.d.ts"
+	],
+	"exports": {
+		".": {
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.js"
+		},
+		"./adapter": {
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.js"
+		}
+	},
+	"author": "Fatih Aygün <cyco130@gmail.com>",
+	"repository": "https://github.com/cyco130/vavite",
+	"license": "MIT",
+	"scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch",
+		"prepack": "rm -rf dist && pnpm build",
+		"typecheck": "tsc -p tsconfig.json --noEmit",
+		"lint:ts": "eslint . --max-warnings 0 --ignore-pattern dist"
+	},
+	"devDependencies": {
+		"@cyco130/eslint-config": "^1.0.0",
+		"@hattip/core": "workspace:*",
+		"@types/node": "^17.0.21",
+		"eslint": "^8.10.0",
+		"node-fetch": "^3.2.1",
+		"tsup": "^5.11.13",
+		"typescript": "^4.6.2"
+	}
+}
