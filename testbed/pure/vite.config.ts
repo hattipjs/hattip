@@ -62,7 +62,7 @@ export default defineConfig((env) => {
 
 					bundleCfw({
 						entry: "entry-cfw.ts",
-						output: "./dist/cfw-bundle.js",
+						output: "dist/cfw-bundle/index.js",
 					});
 				},
 			},

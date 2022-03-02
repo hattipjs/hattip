@@ -2,7 +2,6 @@ compatibility_date = "2021-11-01"
 compatibility_flags = []
 name = "vavite-testbed"
 route = ''
-site = {entry-point = "dist/cfw-bundle.js"}
 type = "javascript"
 usage_model = ''
 workers_dev = true
@@ -12,4 +11,10 @@ zone_id = ''
 command = "DEPLOY_TARGET=cfw npm run build"
 
 [build.upload]
-format = "module"
+dir = "./dist/cfw-bundle"
+format = "modules"
+main = "./index.js"
+
+[[build.upload.rules]]
+globs = ["**/*.js"]
+type = "ESModule"
