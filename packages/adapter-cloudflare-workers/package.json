@@ -1,7 +1,7 @@
 {
-	"name": "@hattip/adapter-node",
+	"name": "@hattip/adapter-cloudflare-workers",
 	"version": "0.0.1",
-	"description": "Node.js adapter for Hattip",
+	"description": "Cloudflare Workers adapter for Hattip",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"files": [
@@ -12,6 +12,10 @@
 		".": {
 			"import": "./dist/index.mjs",
 			"require": "./dist/index.js"
+		},
+		"./bundler": {
+			"import": "./dist/bundler.mjs",
+			"require": "./dist/bundler.js"
 		}
 	},
 	"author": "Fatih Aygün <cyco130@gmail.com>",
@@ -25,12 +29,15 @@
 		"lint:ts": "eslint . --max-warnings 0 --ignore-pattern dist"
 	},
 	"devDependencies": {
+		"@cloudflare/workers-types": "^3.4.0",
 		"@cyco130/eslint-config": "^1.0.0",
 		"@hattip/core": "workspace:*",
 		"@types/node": "^17.0.21",
 		"eslint": "^8.10.0",
-		"node-fetch": "^3.2.1",
 		"tsup": "^5.11.13",
 		"typescript": "^4.6.2"
+	},
+	"dependencies": {
+		"esbuild": "^0.14.23"
 	}
 }

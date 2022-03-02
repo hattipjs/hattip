@@ -32,14 +32,6 @@ test("renders binary", async () => {
 	);
 });
 
-test("renders string stream", async () => {
-	const response = await fetch(host + "/str-stream");
-	const text = await response.text();
-	expect(text).toEqual(
-		"This is rendered as a string stream with non-ASCII chars 😊",
-	);
-});
-
 test("renders binary stream", async () => {
 	const response = await fetch(host + "/bin-stream");
 	const text = await response.text();

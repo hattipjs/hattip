@@ -9,6 +9,7 @@
 	},
 	"devDependencies": {
 		"@cyco130/eslint-config": "^1.0.0",
+		"@hattip/adapter-cloudflare-workers": "workspace:*",
 		"@hattip/adapter-node": "workspace:*",
 		"@hattip/core": "workspace:*",
 		"@types/node": "^17.0.21",

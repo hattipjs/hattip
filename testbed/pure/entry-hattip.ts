@@ -8,7 +8,6 @@ export default async function handler(request: Request, context: Context) {
 	const routes: Record<string, undefined | (() => Promise<Route>)> = {
 		"/": () => import("./routes/index"),
 		"/binary": () => import("./routes/binary"),
-		"/str-stream": () => import("./routes/str-stream"),
 		"/bin-stream": () => import("./routes/bin-stream"),
 		"/echo-text": () => import("./routes/echo-text"),
 		"/echo-bin": () => import("./routes/echo-bin"),
