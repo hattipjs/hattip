@@ -13,6 +13,7 @@ export default async function handler(request: Request, context: Context) {
 		"/echo-text": () => import("./routes/echo-text"),
 		"/echo-bin": () => import("./routes/echo-bin"),
 		"/cookies": () => import("./routes/cookies"),
+		"/status": () => import("./routes/status"),
 	};
 
 	const url = new URL(request.url);

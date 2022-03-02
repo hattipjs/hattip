@@ -10,7 +10,10 @@ const nodeFetchInstallPromise = import("node-fetch").then((nodeFetch) => {
 	(globalThis as any).Headers = nodeFetch.Headers;
 
 	class Response extends nodeFetch.Response {
-		constructor(input: any, init?: any) {
+		constructor(
+			input: import("node-fetch").BodyInit,
+			init?: import("node-fetch").ResponseInit,
+		) {
 			if (input instanceof ReadableStream) {
 				input = Readable.from(input as any);
 			}
@@ -53,6 +56,8 @@ export default function nodeAdapter(
 		});
 
 		if (response) {
+			res.statusCode = response.status;
+
 			const rawHeaders: Record<string, string | string[]> = (
 				response.headers as any
 			).raw();
@@ -61,10 +66,35 @@ export default function nodeAdapter(
 				res.setHeader(key, value);
 			}
 
+			const contentLengthSet = response.headers.get("content-length");
+
 			if (response.body) {
-				for await (const chunk of response.body as any) {
-					res.write(chunk);
+				// We will buffer a single chunk of data, so that we can set
+				// the Content-Length header if the whole response is made of
+				// a single chunk.
+				let lastChunk: Buffer | undefined;
+				let chunkCount = 0;
+
+				for await (let chunk of response.body as any) {
+					chunk = Buffer.from(chunk);
+					if (lastChunk) {
+						res.write(lastChunk);
+					}
+					lastChunk = chunk;
+					chunkCount++;
 				}
+
+				if (chunkCount === 1 && !contentLengthSet) {
+					res.setHeader("content-length", lastChunk!.length);
+				}
+
+				if (lastChunk) {
+					res.write(lastChunk);
+				} else if (!contentLengthSet) {
+					res.setHeader("content-length", "0");
+				}
+			} else if (!contentLengthSet) {
+				res.setHeader("content-length", "0");
 			}
 
 			res.end();
