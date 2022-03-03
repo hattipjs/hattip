@@ -1,13 +1,12 @@
 {
-  "name": "@hattip/adapter-cloudflare-workers",
+  "name": "@hattip/vite-cloudflare-workers",
   "version": "0.0.1",
-  "description": "Cloudflare Workers adapter for Hattip",
+  "description": "Cloudflare Workers Vite plugin for Hattip",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "files": [
     "dist",
-    "*.d.ts",
-    "default-entry.mjs"
+    "*.d.ts"
   ],
   "exports": {
     ".": {
@@ -15,7 +14,7 @@
       "require": "./dist/index.js"
     },
     "./default-entry": {
-      "import": "./default-entry.mjs"
+      "import": "./dist/default-entry.mjs"
     }
   },
   "author": "Fatih Aygün <cyco130@gmail.com>",
@@ -28,13 +27,21 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint:ts": "eslint . --max-warnings 0 --ignore-pattern dist"
   },
+  "peerDependencies": {
+    "vite": "^2.8.5"
+  },
   "devDependencies": {
     "@cloudflare/workers-types": "^3.4.0",
     "@cyco130/eslint-config": "^1.0.0",
+    "@hattip/adapter-cloudflare-workers": "workspace:*",
     "@hattip/core": "workspace:*",
     "@types/node": "^17.0.21",
     "eslint": "^8.10.0",
     "tsup": "^5.11.13",
-    "typescript": "^4.6.2"
+    "typescript": "^4.6.2",
+    "vite": "^2.8.5"
+  },
+  "dependencies": {
+    "@hattip/bundler-cloudflare-workers": "workspace:*"
   }
 }

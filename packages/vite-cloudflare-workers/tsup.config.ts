@@ -6,7 +6,13 @@ export default defineConfig([
     format: ["esm", "cjs"],
     platform: "node",
     target: "node14",
-    shims: false,
     dts: true,
+  },
+  {
+    entry: ["./src/default-entry.mjs"],
+    format: ["esm"],
+    shims: false,
+    target: "node14",
+    external: ["virtual:hattip:handler-entry"],
   },
 ]);

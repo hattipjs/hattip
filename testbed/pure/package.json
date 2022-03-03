@@ -1,23 +1,24 @@
 {
-	"name": "@hattip/example-kitchen-sink",
-	"private": true,
-	"scripts": {
-		"start": "node dist",
-		"dev": "vite --open",
-		"build": "vite build --ssr",
-		"test": "vitest"
-	},
-	"devDependencies": {
-		"@cyco130/eslint-config": "^1.0.0",
-		"@hattip/adapter-cloudflare-workers": "workspace:*",
-		"@hattip/adapter-node": "workspace:*",
-		"@hattip/core": "workspace:*",
-		"@types/node": "^17.0.21",
-		"eslint": "^8.10.0",
-		"node-fetch": "^3.2.1",
-		"typescript": "^4.6.2",
-		"vavite": "1.1.0",
-		"vite": "^2.8.5",
-		"vitest": "^0.5.9"
-	}
+  "name": "@hattip/example-kitchen-sink",
+  "private": true,
+  "scripts": {
+    "start": "node dist",
+    "dev": "vite --open",
+    "build": "vite build --ssr",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@cyco130/eslint-config": "^1.0.0",
+    "@hattip/adapter-node": "workspace:*",
+    "@hattip/vite-cloudflare-workers": "workspace:*",
+    "@hattip/adapter-cloudflare-workers": "workspace:*",
+    "@hattip/core": "workspace:*",
+    "@types/node": "^17.0.21",
+    "eslint": "^8.10.0",
+    "node-fetch": "^3.2.1",
+    "typescript": "^4.6.2",
+    "vavite": "1.1.0",
+    "vite": "^2.8.5",
+    "vitest": "^0.5.9"
+  }
 }

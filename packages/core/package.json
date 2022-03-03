@@ -1,8 +1,8 @@
 {
-	"name": "@hattip/core",
-	"files": [
-		"index.d.ts"
-	],
-	"types": "index.d.ts",
-	"version": "0.0.1"
+  "name": "@hattip/core",
+  "files": [
+    "index.d.ts"
+  ],
+  "types": "index.d.ts",
+  "version": "0.0.1"
 }
