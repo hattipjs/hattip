@@ -25,20 +25,27 @@ const nodeFetchInstallPromise = import("node-fetch").then((nodeFetch) => {
   (globalThis as any).Response = Response;
 });
 
-type Middleware = (
-  req: IncomingMessage,
+interface DecoratedRequest extends IncomingMessage {
+  ip?: string;
+  protocol?: string;
+  hostname?: string;
+}
+
+export type Middleware = (
+  req: DecoratedRequest,
   res: ServerResponse,
   next: () => void,
 ) => void;
 
-export default function nodeAdapter(
-  handler: Handler,
-  origin: string,
-): Middleware {
+export default function nodeAdapter(handler: Handler): Middleware {
   return async function nodeAdapterHandler(req, res, next) {
     await nodeFetchInstallPromise;
 
-    const request = new Request(origin + req.url, {
+    const protocol =
+      req.protocol || ((req.socket as any).encrypted ? "https" : "http");
+    const hostname = req.hostname || req.headers.host;
+
+    const request = new Request(protocol + "://" + hostname + req.url, {
       method: req.method,
       headers: req.headers as Record<string, string>,
       body:
@@ -50,6 +57,8 @@ export default function nodeAdapter(
     const waited: Promise<any>[] = [];
 
     const response = await handler(request, {
+      ip: req.ip || req.socket.remoteAddress || "",
+
       waitUntil(promise) {
         waited.push(promise);
       },

@@ -12,11 +12,19 @@ const host = process.env.TEST_HOST || "http://localhost:3000";
 test("renders HTML", async () => {
   const response = await fetch(host);
   const text = await response.text();
-  const EXPECTED = "<h1>Hello from Hattip!</h1>";
+
+  let ip: string;
+
+  if (new URL(host).hostname === "localhost") {
+    ip = "127.0.0.1";
+  } else {
+    ip = await fetch("http://api.ipify.org").then((r) => r.text());
+  }
+
+  const EXPECTED = `<h1>Hello from Hattip!</h1><p>URL: <span>${
+    host + "/"
+  }</span></p><p>Your IP address is: <span>${ip}</span></p>`;
   expect(text).toContain(EXPECTED);
-  expect(response.headers.get("content-length")).toEqual(
-    Buffer.from(EXPECTED).length.toString(),
-  );
   expect(response.headers.get("content-type")).toEqual(
     "text/html; charset=utf-8",
   );
@@ -27,9 +35,6 @@ test("renders binary", async () => {
   const text = await response.text();
   const EXPECTED = "This is rendered as binary with non-ASCII chars 😊";
   expect(text).toEqual(EXPECTED);
-  expect(response.headers.get("content-length")).toEqual(
-    Buffer.from(EXPECTED).length.toString(),
-  );
 });
 
 test("renders binary stream", async () => {

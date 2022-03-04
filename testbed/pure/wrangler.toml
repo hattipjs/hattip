@@ -11,7 +11,7 @@ zone_id = ''
 command = "DEPLOY_TARGET=cfw npm run build"
 
 [build.upload]
-dir = "./dist/cfw-bundle"
+dir = "./dist/cloudflare-workers-bundle"
 format = "modules"
 main = "./index.js"
 

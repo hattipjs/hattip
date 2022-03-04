@@ -4,10 +4,6 @@ export type Handler = (
 ) => undefined | Response | Promise<undefined | Response>;
 
 export interface Context {
+  ip: string;
   waitUntil(promise: Promise<any>): void;
-}
-
-export interface Adapter {
-  defaultEntry: string;
-  bundle?: () => Promise<void>;
 }
