@@ -1,0 +1,26 @@
+{
+  "name": "@hattip/testbed-native-esm",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node entry-node.js",
+    "dev": "nodemon entry-node.js",
+    "test": "vitest",
+    "build:cfw": "node build-cfw.js"
+  },
+  "devDependencies": {
+    "@cyco130/eslint-config": "^1.0.0",
+    "@hattip/adapter-cloudflare-workers": "workspace:*",
+    "@hattip/adapter-node": "workspace:*",
+    "@hattip/bundler-cloudflare-workers": "workspace:*",
+    "@hattip/core": "workspace:*",
+    "@types/node": "^17.0.21",
+    "eslint": "^8.10.0",
+    "node-fetch": "^3.2.1",
+    "nodemon": "^2.0.15",
+    "typescript": "^4.6.2",
+    "vavite": "1.1.0",
+    "vite": "^2.8.5",
+    "vitest": "^0.5.9"
+  }
+}

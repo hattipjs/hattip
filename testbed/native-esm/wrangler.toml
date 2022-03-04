@@ -8,7 +8,7 @@ workers_dev = true
 zone_id = ''
 
 [build]
-command = "DEPLOY_TARGET=cfw npm run build"
+command = "npm run build:cfw"
 
 [build.upload]
 dir = "./dist/cloudflare-workers-bundle"
