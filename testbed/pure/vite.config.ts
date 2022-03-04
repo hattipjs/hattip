@@ -22,7 +22,7 @@ export default defineConfig((env) => {
         enforce: "pre",
         resolveId(source, importer, options) {
           if (source === "virtual:hattip:handler-entry") {
-            return this.resolve("/entry-hattip.ts", importer, options);
+            return this.resolve("/index.ts", importer, options);
           }
         },
       },

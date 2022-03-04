@@ -3,9 +3,8 @@
 import { test, expect } from "vitest";
 import fetch from "node-fetch";
 
-// Pull in the routes so that tests rerun everytime routes change.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const routes = import.meta.glob("./routes/*.ts");
+// Pull in the entry module so that tests rerun everytime something changes.
+import ".";
 
 const host = process.env.TEST_HOST || "http://localhost:3000";
 

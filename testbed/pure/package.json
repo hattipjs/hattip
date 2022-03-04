@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "node dist",
-    "dev": "vite --open",
+    "dev": "vite",
     "build": "vite build --ssr",
     "test": "vitest"
   },
@@ -13,6 +13,7 @@
     "@hattip/vite-cloudflare-workers": "workspace:*",
     "@hattip/adapter-cloudflare-workers": "workspace:*",
     "@hattip/core": "workspace:*",
+    "@hattip/router": "workspace:*",
     "@types/node": "^17.0.21",
     "eslint": "^8.10.0",
     "node-fetch": "^3.2.1",

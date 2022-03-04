@@ -1,5 +1,5 @@
 import nodeAdapter from "@hattip/adapter-node";
-import handler from "./src/entry-hattip.js";
+import handler from "./index.js";
 import { createServer } from "http";
 
 const middleware = (req, res, next) => {

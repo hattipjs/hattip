@@ -1,5 +1,5 @@
 import nodeAdapter, { Middleware } from "@hattip/adapter-node";
-import handler from "./entry-hattip";
+import handler from ".";
 
 const middleware: Middleware = (req, res, next) => {
   function getForwardedHeader(name: string) {

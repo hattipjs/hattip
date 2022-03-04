@@ -1,5 +1,5 @@
 import cloudflareWorkersAdapter from "@hattip/adapter-cloudflare-workers";
-import handler from "./entry-hattip";
+import handler from ".";
 
 export default {
   fetch: cloudflareWorkersAdapter(handler),
