@@ -31,19 +31,57 @@ interface DecoratedRequest extends IncomingMessage {
   hostname?: string;
 }
 
-export type Middleware = (
+export type NodeHandler = (
   req: DecoratedRequest,
   res: ServerResponse,
   next: () => void,
 ) => void;
 
-export default function nodeAdapter(handler: Handler): Middleware {
+export interface NodeAdapterOptions {
+  origin?: string;
+  trustProxy?: boolean;
+}
+
+export default function nodeAdapter(
+  handler: Handler,
+  options: NodeAdapterOptions = {},
+): NodeHandler {
+  const {
+    origin = process.env.ORIGIN,
+    trustProxy = process.env.TRUST_PROXY === "1",
+  } = options;
+
+  let { protocol, hostname } = origin
+    ? new URL(origin)
+    : ({} as Record<string, undefined>);
+
   return async function nodeAdapterHandler(req, res, next) {
     await nodeFetchInstallPromise;
 
-    const protocol =
-      req.protocol || ((req.socket as any).encrypted ? "https" : "http");
-    const hostname = req.hostname || req.headers.host;
+    function getForwardedHeader(name: string) {
+      return (String(req.headers["x-forwarded-" + name]) || "")
+        .split(",", 1)[0]
+        .trim();
+    }
+
+    protocol =
+      protocol ||
+      req.protocol ||
+      (trustProxy && getForwardedHeader("proto")) ||
+      ((req.socket as any).encrypted && "https") ||
+      "http";
+
+    hostname =
+      hostname ||
+      req.hostname ||
+      (trustProxy && getForwardedHeader("host")) ||
+      req.headers.host;
+
+    const ip =
+      req.ip ||
+      (trustProxy && getForwardedHeader("for")) ||
+      req.socket.remoteAddress ||
+      "";
 
     const request = new Request(protocol + "://" + hostname + req.url, {
       method: req.method,
@@ -54,13 +92,13 @@ export default function nodeAdapter(handler: Handler): Middleware {
           : (req as any),
     });
 
-    const waited: Promise<any>[] = [];
+    const toBeWaited: Promise<any>[] = [];
 
     const response = await handler(request, {
-      ip: req.ip || req.socket.remoteAddress || "",
+      ip,
 
       waitUntil(promise) {
-        waited.push(promise);
+        toBeWaited.push(promise);
       },
     });
 
@@ -109,7 +147,7 @@ export default function nodeAdapter(handler: Handler): Middleware {
       res.end();
     }
 
-    await Promise.all(waited);
+    await Promise.all(toBeWaited);
 
     next();
   };
