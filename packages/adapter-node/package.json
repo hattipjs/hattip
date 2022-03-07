@@ -37,9 +37,9 @@
     "@hattip/core": "workspace:*",
     "@types/node": "^17.0.21",
     "eslint": "^8.10.0",
-    "node-fetch": "^3.2.1",
+    "node-fetch": "^3.2.2",
     "sirv": "^2.0.2",
-    "tsup": "^5.11.13",
+    "tsup": "^5.12.0",
     "typescript": "^4.6.2"
   }
 }

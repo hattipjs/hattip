@@ -9,10 +9,10 @@ export default defineConfig([
     dts: true,
   },
   {
-    entry: ["./src/default-entry.mjs"],
+    entry: ["./src/default-entry.mjs", "./src/static-assets-entry.mjs"],
     format: ["esm"],
     shims: false,
     target: "node14",
-    external: ["virtual:hattip:handler-entry"],
+    external: ["virtual:hattip:handler-entry", "__STATIC_CONTENT_MANIFEST"],
   },
 ]);

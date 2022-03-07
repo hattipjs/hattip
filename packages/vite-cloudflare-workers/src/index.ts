@@ -1,17 +1,22 @@
+/// <reference types="@vavite/multibuild/vite-config" />
+
 import { PluginOption, UserConfig, SSROptions, ResolvedConfig } from "vite";
 import bundle from "@hattip/bundler-cloudflare-workers";
 
 export interface CloudflareWorkersPluginOptions {
   entry?: string;
   output?: string;
+  serveStaticAssets?: boolean;
 }
 
 export default function cloudflareWorkersPlugin(
   options: CloudflareWorkersPluginOptions = {},
 ): PluginOption[] {
-  const { entry, output } = options;
+  const { entry, output, serveStaticAssets } = options;
 
   let resolvedConfig: ResolvedConfig;
+  let skip = false;
+  let buildFailed = false;
 
   return [
     !entry && {
@@ -22,19 +27,14 @@ export default function cloudflareWorkersPlugin(
       resolveId(source, importer, options) {
         if (source === DEFAULT_ENTRY_NAME) {
           return this.resolve(
-            "@hattip/vite-cloudflare-workers/default-entry",
+            serveStaticAssets
+              ? "@hattip/vite-cloudflare-workers/static-assets-entry"
+              : "@hattip/vite-cloudflare-workers/default-entry",
             importer,
             options,
           );
-          return source;
         }
       },
-
-      // load(id) {
-      //   if (id === DEFAULT_ENTRY_NAME) {
-      //     return `export { default } from "@hattip/vite-cloudflare-workers/default-entry";`;
-      //   }
-      // },
 
       config() {
         const config: UserConfig & { ssr: SSROptions } = {
@@ -52,7 +52,12 @@ export default function cloudflareWorkersPlugin(
       apply: "build",
       enforce: "post",
 
-      config() {
+      config(cfg) {
+        if (!cfg.build?.ssr) {
+          skip = true;
+          return;
+        }
+
         const config: UserConfig & {
           ssr?: SSROptions;
         } = {
@@ -78,23 +83,37 @@ export default function cloudflareWorkersPlugin(
       },
 
       configResolved(config) {
+        resolvedConfig = config;
+
+        if (skip) return;
+
         // This hack is needed to remove a `require` call inserted by this builtin Vite plugin.
         (config.plugins as any) = config.plugins.filter(
           (x) => x && x.name !== "vite:ssr-require-hook",
         );
-
-        resolvedConfig = config;
       },
 
       generateBundle() {
+        if (skip) return;
+
         this.emitFile({
           type: "asset",
           fileName: "cloudflare-workers-entry.js",
-          source: `export { default } from "."`,
+          source: serveStaticAssets
+            ? STATIC_ASSETS_HANDLER
+            : `export { default } from "."`,
         });
       },
 
+      buildEnd(error) {
+        if (error) {
+          buildFailed = true;
+        }
+      },
+
       async closeBundle() {
+        if (skip || buildFailed) return;
+
         resolvedConfig.logger.info("Bundling for Cloudflare Workers");
 
         bundle({
@@ -109,3 +128,8 @@ export default function cloudflareWorkersPlugin(
 }
 
 const DEFAULT_ENTRY_NAME = "/virtual:hattip:cloudflare-workers:default-entry";
+const STATIC_ASSETS_HANDLER = `
+  import createHandler from ".";
+  import manifest from "__STATIC_CONTENT_MANIFEST";
+  export default createHandler(manifest);
+`;

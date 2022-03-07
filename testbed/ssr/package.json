@@ -1,10 +1,10 @@
 {
-  "name": "@hattip/example-kitchen-sink",
+  "name": "@hattip/example-vite-ssr",
   "private": true,
   "scripts": {
-    "start": "node dist",
+    "start": "node dist/server",
     "dev": "vite",
-    "build": "vite build --ssr",
+    "build": "vavite",
     "test": "vitest"
   },
   "devDependencies": {
@@ -15,11 +15,20 @@
     "@hattip/router": "workspace:*",
     "@hattip/vite-cloudflare-workers": "workspace:*",
     "@types/node": "^17.0.21",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.13",
+    "@vitejs/plugin-react": "^1.2.0",
+    "@vitejs/plugin-vue": "^2.2.4",
     "eslint": "^8.10.0",
     "node-fetch": "^3.2.2",
     "typescript": "^4.6.2",
     "vavite": "1.1.3",
     "vite": "^2.8.6",
     "vitest": "^0.6.0"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "vue": "^3.2.31"
   }
 }

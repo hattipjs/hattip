@@ -21,8 +21,8 @@ export default async function bundle(
     target: "chrome96",
     format: "esm",
     mainFields: ["module", "main", "browser"],
-    conditions: ["worker"],
-    external: builtinModules,
+    conditions: ["worker", "import", "require"],
+    external: [...builtinModules, "__STATIC_CONTENT_MANIFEST"],
     ...esbuildOptionsOverride,
   });
 }

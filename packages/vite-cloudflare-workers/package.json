@@ -15,6 +15,9 @@
     },
     "./default-entry": {
       "import": "./dist/default-entry.mjs"
+    },
+    "./static-assets-entry": {
+      "import": "./dist/static-assets-entry.mjs"
     }
   },
   "author": "Fatih Aygün <cyco130@gmail.com>",
@@ -36,10 +39,11 @@
     "@hattip/adapter-cloudflare-workers": "workspace:*",
     "@hattip/core": "workspace:*",
     "@types/node": "^17.0.21",
+    "@vavite/multibuild": "^1.1.3",
     "eslint": "^8.10.0",
-    "tsup": "^5.11.13",
+    "tsup": "^5.12.0",
     "typescript": "^4.6.2",
-    "vite": "^2.8.5"
+    "vite": "^2.8.6"
   },
   "dependencies": {
     "@hattip/bundler-cloudflare-workers": "workspace:*"
