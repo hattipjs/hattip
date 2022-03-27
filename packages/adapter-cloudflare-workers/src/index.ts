@@ -1,6 +1,6 @@
 /// <reference types='@cloudflare/workers-types'/>
 
-import { Handler } from "@hattip/core";
+import { Handler, notFoundHandler } from "@hattip/core";
 
 export default function cloudflareWorkersAdapter(
   handler: Handler,
@@ -9,6 +9,7 @@ export default function cloudflareWorkersAdapter(
     const response = await handler(request, {
       ip: request.headers.get("CF-Connecting-IP") || "",
       waitUntil: ctx.waitUntil.bind(ctx),
+      next: notFoundHandler,
     });
 
     return response || new Response(null, { status: 404 });

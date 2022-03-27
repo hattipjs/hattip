@@ -26,20 +26,21 @@
   "repository": "https://github.com/cyco130/vavite",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && tsup",
+    "build": "rimraf dist && tsup",
     "dev": "tsup --watch",
     "prepack": "pnpm build",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
-    "lint:ts": "eslint . --max-warnings 0 --ignore-pattern dist"
+    "test": "pnpm test:typecheck && pnpm test:lint",
+    "test:typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist"
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
     "@cloudflare/workers-types": "^3.4.0",
     "@cyco130/eslint-config": "^1.0.0",
     "@hattip/core": "workspace:*",
-    "@types/node": "^17.0.21",
-    "eslint": "^8.10.0",
-    "tsup": "^5.12.0",
-    "typescript": "^4.6.2"
+    "@types/node": "^17.0.23",
+    "eslint": "^8.12.0",
+    "tsup": "^5.12.1",
+    "typescript": "^4.6.3"
   }
 }

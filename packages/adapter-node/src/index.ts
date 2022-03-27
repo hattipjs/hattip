@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "http";
-import { Handler } from "@hattip/core";
+import { Handler, notFoundHandler } from "@hattip/core";
 import { Readable } from "stream";
 
 // node-fetch is an ESM only package. This slightly awkward dynamic import
@@ -100,6 +100,8 @@ export default function nodeAdapter(
       waitUntil(promise) {
         toBeWaited.push(promise);
       },
+
+      next: notFoundHandler,
     });
 
     if (response) {

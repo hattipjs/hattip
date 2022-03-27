@@ -1,7 +1,7 @@
-import nodeAdapter, { Middleware } from "@hattip/adapter-node";
+import nodeAdapter, { NodeHandler } from "@hattip/adapter-node";
 import handler from ".";
 
-const middleware: Middleware = (req, res, next) => {
+const middleware: NodeHandler = (req, res, next) => {
   function getForwardedHeader(name: string) {
     return (String(req.headers["x-forwarded-" + name]) || "")
       .split(",", 1)[0]

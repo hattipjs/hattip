@@ -1,8 +1,29 @@
 {
   "name": "@hattip/core",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "rimraf dist && tsup",
+    "dev": "tsup --watch",
+    "prepack": "pnpm build",
+    "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:unit",
+    "test:unit": "vitest",
+    "test:typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist"
+  },
   "files": [
+    "dist",
     "index.d.ts"
   ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "index.d.ts",
-  "version": "0.0.1"
+  "devDependencies": {
+    "@cyco130/eslint-config": "^1.0.0",
+    "@hattip/core": "workspace:*",
+    "eslint": "^8.12.0",
+    "node-fetch": "^3.2.3",
+    "tsup": "^5.12.1",
+    "typescript": "^4.6.3",
+    "vitest": "^0.7.12"
+  }
 }

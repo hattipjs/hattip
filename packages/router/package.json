@@ -18,12 +18,13 @@
   "repository": "https://github.com/cyco130/vavite",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && tsup",
+    "build": "rimraf dist && tsup",
     "dev": "tsup --watch",
     "prepack": "pnpm build",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
-    "lint:ts": "eslint . --max-warnings 0 --ignore-pattern dist",
-    "test": "vitest"
+    "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:unit",
+    "test:unit": "vitest",
+    "test:typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist"
   },
   "peerDependencies": {
     "@hattip/core": "workspace:*"
@@ -31,9 +32,9 @@
   "devDependencies": {
     "@cyco130/eslint-config": "^1.0.0",
     "@hattip/core": "workspace:*",
-    "eslint": "^8.10.0",
-    "tsup": "^5.12.0",
-    "typescript": "^4.6.2",
-    "vitest": "^0.6.0"
+    "eslint": "^8.12.0",
+    "tsup": "^5.12.1",
+    "typescript": "^4.6.3",
+    "vitest": "^0.7.12"
   }
 }

@@ -1,4 +1,4 @@
-import { Context } from "@hattip/core";
+import { Handler, Context } from "@hattip/core";
 
 export interface RouterContext<P = Record<string, string>> extends Context {
   url: URL;
@@ -6,7 +6,7 @@ export interface RouterContext<P = Record<string, string>> extends Context {
 }
 
 export interface Router {
-  handle(request: Request, context: Context): Promise<Response | undefined>;
+  handle: Handler;
 
   all: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
   checkout: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
@@ -45,7 +45,7 @@ export type Matcher<P = Record<string, string>> =
 export type RouteHandler<P = Record<string, string>> = (
   request: Request,
   context: RouterContext<P>,
-) => undefined | Response | Promise<undefined | Response>;
+) => null | Response | Promise<null | Response>;
 
 export function createRouter(): Router {
   const self = {
@@ -71,7 +71,7 @@ export function createRouter(): Router {
         let fn: (
           request: Request,
           context: RouterContext,
-        ) => undefined | any | Promise<undefined | any>;
+        ) => null | any | Promise<null | any>;
 
         // Adapted from: https://github.com/kwhitley/itty-router/blob/73148972bf2e205a4969e85672e1c0bfbf249c27/src/itty-router.js#L7
         if (typeof matcher === "string") {
