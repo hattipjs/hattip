@@ -1,10 +1,91 @@
 # ![HatTip](graphics/logo.svg)
 
-<p align="center" style="font-size: 1.5em">
-Like Express, but for the future
-</p>
+> Express.js from the Future. Write Once, Deploy Anywhere.
 
-HatTip is a tiny JavaScript framework for handling HTTP requests. It's based on web standards and aims to build a portable middleware ecosystem that works on any JavaScript platform. Currently supported targets are Node.js and Cloudflare Workers. Adapters for Netlify, Vercel, and Deno are in the works.
+Follow: [Twitter > @cyco130](https://twitter.com/cyco130)
+<br/>
+Chat: <a href="https://discord.com/invite/H23tjRxFvx">Discord > Vike<img src="/graphics/hash.svg" height="17" width="23" valign="text-bottom" alt="hash"/>HatTip</a>
+
+```js
+// handler.js
+
+// This server handler works everywhere: we use it for both Node.js and Cloudflare Workers.
+
+export default (req, ctx) => {
+  const { pathname } = ctx.url;
+  if (pathname === "/") {
+    return new Response("Hello from HatTip.");
+  }
+  if (pathname === "/about") {
+    return new Response(
+      "This HTTP handler works in Node.js and Cloudflare Workers.",
+    );
+  }
+  return null;
+};
+```
+
+`Response` and `req: Request` follow the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) standard. So if you're familiar with Cloudflare Workers or Deno, then you'll feel right a home. If not: learn today the standard that will tomorrow be ubiqutious.
+
+We also closely follow the [WinterCG](https://wintercg.org/) which lays the foundation beyond the Fetch API.
+
+```js
+// server.js
+
+import handler from "./handler";
+import nodeAdapter from "@hattip/adapter-node";
+
+// A Node.js server
+const server = nodeAdapter(handler);
+server.start();
+
+// That's all it takes to turn our hanlder into a Node.js server.
+```
+
+```js
+// worker.js
+
+import handler from "./handler";
+import cloudflareWorkersAdapter from "@hattip/adapter-cloudflare-workers";
+
+// A Cloudflare Worker
+export default {
+  fetch: cloudflareWorkersAdapter(handler),
+};
+```
+
+We can even embed our handler into an Express.js server:
+
+```js
+// server-express.js
+
+import handler from "./handler";
+import express from "express";
+import expressAdapter from "@hattip/adapter-express";
+
+const app = express();
+app.use(expressAdapter(handler));
+app.listen(3000);
+```
+
+That way, we can still use Express.js in case we need a tool that works only with Express.js. (Although this will luckley be soon a thing of the past.)
+
+HatTip is tiny and zero-dependency.
+
+**Adapters**
+
+- ✅ Node.js
+- ✅ Cloudflare Workers
+- ✅ Express.js
+- 🚧 Deno Deploy
+- 🚧 Netlify Edge
+- 🚧 Vercel Edge
+
+**Features**
+
+- [Request => Response](#request--response)
+- [`compose()`](#compose)
+- [`createRouter()`](#createRouter)
 
 ## Request => Response
 
@@ -17,6 +98,16 @@ const jsonHandler = () => new Response(JSON.stringify({ ping: "pong" }));
 ```
 
 Handlers can accept a second `context` (`ctx` for short) argument meant to be used for storing various things without monkey-patching the `Request` object. For example a router can parse path parameters (e.g. `/user/:id`) and make them available in the `ctx.params` object.
+
+If the handlers doesn't return a response, a generic `404` is returned.
+
+For additional flexibility, instead of a `Response` object, a handler can return or throw anything with a `toResponse` method that returns a `Response` object.
+
+That's it. This is the entirety of the HatTip API. Everything else is middleware functions that add various features.
+
+<br/>
+
+## `compose()`
 
 The `compose` function can be used to compose multiple handlers into a single handler. Each handler is called in sequence until one returns a response. A handler can pass control to the next handler by returning `null` or calling `ctx.next()`. The latter allows the handler to modify the response before returning:
 
@@ -71,8 +162,8 @@ export default compose(
 );
 ```
 
-If none of the handlers return a response, a generic 404 is returned.
+<br/>
 
-For additional flexibility, instead of a `Response` object, a handler can return or throw anything with a `toResponse` method that returns a `Response` object.
+## `createRouter()`
 
-That's it. This is the entirety of the HatTip API. Everything else is middleware functions similar the above that add various features.
+TODO
