@@ -5,6 +5,6 @@ BLUE='\033[1;34m'
 NC='\033[0m'
 
 echo -e ${WHITE}Updating package versions${NC}
-pnpm -r --filter=./packages exec -- bash -c "echo -e ${BLUE@Q}\$PNPM_PACKAGE_NAME${NC@Q}@${GREEN@Q}\`npm version --allow-same-version --no-git-tag-version $@\`${NC@Q}"
+pnpm -r --filter=./packages/* exec -- bash -c "echo -e ${BLUE@Q}\$PNPM_PACKAGE_NAME${NC@Q}@${GREEN@Q}\`npm version --allow-same-version --no-git-tag-version $@\`${NC@Q}"
 echo -e ${WHITE}Updating dependency versions in examples${NC}
-pnpm -r --filter=./examples update --workspace --save-workspace-protocol=false 'hattip' '@hattip/*'
+pnpm -r --filter=./examples/* update --workspace --save-workspace-protocol=false 'hattip' '@hattip/*'

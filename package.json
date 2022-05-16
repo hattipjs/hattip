@@ -11,10 +11,10 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "husky": "^7.0.4",
-    "lint-staged": "^12.3.7",
-    "prettier": "^2.6.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^12.4.1",
+    "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
-    "vitest": "^0.7.12"
+    "vitest": "^0.12.6"
   }
 }
