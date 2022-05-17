@@ -1,6 +1,6 @@
 import { test, expect } from "vitest";
-import { Handler } from "./types";
-import { compose } from "./compose";
+import { Handler } from "../types";
+import { compose } from "./index";
 import * as nodeFetch from "node-fetch";
 
 (globalThis as any).fetch = nodeFetch.default;

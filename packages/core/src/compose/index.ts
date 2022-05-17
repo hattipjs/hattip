@@ -1,4 +1,4 @@
-import type { Handler, Context } from "./types";
+import type { Handler, Context } from "../types";
 
 async function runHandler(
   request: Request,
