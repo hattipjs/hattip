@@ -12,7 +12,7 @@ jobs:
         os: [ubuntu-latest]
         node_version: [18]
       fail-fast: false
-    name: 'Test on node-${{ matrix.node_version }}, ${{ matrix.os }}'
+    name: "Test on node-${{ matrix.node_version }}, ${{ matrix.os }}"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
