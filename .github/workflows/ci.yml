@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node_version: [18]
+      fail-fast: false
+    name: 'Test on node-${{ matrix.node_version }}, ${{ matrix.os }}'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Set node version to ${{ matrix.node_version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node_version }}
+          cache: "pnpm"
+
+      - name: Install
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Run tests
+        run: pnpm run test
