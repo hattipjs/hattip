@@ -1,6 +1,6 @@
 # `compose()`
 
-The `compose` function can be used to compose multiple handlers into a single handler. Each handler is called in sequence until one returns a response. A handler can pass control to the next handler by returning `null` or calling `ctx.next()`. The latter allows the handler to modify the response before returning:
+The `compose()` utility composes multiple handlers into a single handler. Each handler is called in sequence until one returns a response. A handler can pass control to the next handler by returning `null` or calling `ctx.next()`. The latter allows the handler to modify the response before returning:
 
 ```js
 import { compose } from "@hattip/core";

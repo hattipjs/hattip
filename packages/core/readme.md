@@ -1,6 +1,6 @@
 # HatTip Core: `Request` => `Response`
 
-HatTip handlers are JavaScript functions that take a standard [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object and return a [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) object (or a `Promise` of one). Here are a few simple handler examples:
+At its core, HatTip is about handlers: JavaScript functions that take a standard [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object and return a [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) object (or a `Promise` of one). Here are a few simple handler examples:
 
 ```js
 const helloHandler = () => new Response("Hello world!");

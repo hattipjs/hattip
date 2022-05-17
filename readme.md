@@ -4,12 +4,12 @@
 
 Follow: [Twitter > @cyco130](https://twitter.com/cyco130)
 <br/>
-Chat: <a href="https://discord.com/invite/H23tjRxFvx">Discord > Vike<img src="/graphics/hash.svg" height="17" width="23" valign="text-bottom" alt="hash"/>HatTip</a>
+Chat: <a href="https://discord.com/invite/vTvXzBMySh">Discord > Vike<img src="/graphics/hash.svg" height="17" width="23" valign="text-bottom" alt="hash"/>HatTip</a>
 
 ```js
 // handler.js
 
-// This server handler works everywhere: we use it for both Node.js and Cloudflare Workers.
+// This server handler works anywhere: it can be used for Node.js and Cloudflare Workers.
 
 export default (req, ctx) => {
   const { pathname } = ctx.url;
@@ -25,9 +25,13 @@ export default (req, ctx) => {
 };
 ```
 
-`Response` and `req: Request` follow the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) standard. So if you're familiar with Cloudflare Workers or Deno, then you'll feel right a home. If not: learn today the standard that will tomorrow be ubiqutious.
+`Response` and `req: Request` follow the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) standard. So if you're familiar with Cloudflare Workers or Deno, you'll feel right a home. If not: learn today the standard that will tomorrow be ubiqutious.
 
 We also closely follow the [WinterCG](https://wintercg.org/) which lays the foundation beyond the Fetch API.
+
+This is how you embed handlers:
+
+> 🚧 There is work-in-progress for zero-config embedding.
 
 ```js
 // server.js
@@ -68,9 +72,9 @@ app.use(expressAdapter(handler));
 app.listen(3000);
 ```
 
-That way, we can still use Express.js in case we need a tool that works only with Express.js. (Although this will luckley be soon a thing of the past.)
+That way, we can use Express.js in case we need a tool that works only with Express.js. (Although this will luckley be soon a thing of the past.)
 
-HatTip is tiny and HatTip core is zero-dependency.
+HatTip is tiny and HatTip's core is zero-dependency.
 
 **Adapters**
 
@@ -83,6 +87,6 @@ HatTip is tiny and HatTip core is zero-dependency.
 
 **Features**
 
-- [HatTip Core: Request => Response](./packages/core#readme)
+- [HatTip Core: `Request` => `Response`](./packages/core#readme)
 - [`compose()`](./packages/core/src/compose#readme)
 - [`createRouter()`](./packages/router#readme)
