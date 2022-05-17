@@ -28,7 +28,7 @@ import { compose } from "@hattip/core";
 const urlParser = (req, ctx) => {
   ctx.url = new URL();
   return null;
-}
+};
 
 // Example of modifying the response
 // Middleware to add an X-Powered-By header
@@ -36,7 +36,7 @@ const poweredBy = async (req, ctx) => {
   const response = await ctx.next();
   response.headers.set("X-Powered-By", "HatTip");
   return response;
-}
+};
 
 const homeHandler = (req, ctx) => {
   if (ctx.url.pathname === "/") {
@@ -44,7 +44,7 @@ const homeHandler = (req, ctx) => {
   } else {
     return null;
   }
-}
+};
 
 const fooHandler = (req, ctx) => {
   if (ctx.url.pathname === "/foo") {
@@ -52,7 +52,7 @@ const fooHandler = (req, ctx) => {
   } else {
     return null;
   }
-}
+};
 
 const barHandler = (req, ctx) => {
   if (ctx.url.pathname === "/bar") {
@@ -60,14 +60,14 @@ const barHandler = (req, ctx) => {
   } else {
     return null;
   }
-}
+};
 
 export default compose(
   urlParser,
   poweredBy,
   homeHandler,
   fooHandler,
-  barHandler
+  barHandler,
 );
 ```
 
