@@ -11,6 +11,14 @@ export type Handler = (
   | Promise<Response | ResponseConvertible | null>;
 
 /**
+ * Request handler with return value converted to Response
+ */
+export type StrictHandler = (
+  request: Request,
+  context: Context,
+) => Response | null | Promise<Response | null>;
+
+/**
  * Request context
  */
 export interface Context {
