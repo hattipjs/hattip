@@ -6,7 +6,7 @@ export interface RouterContext<P = Record<string, string>> extends Context {
 }
 
 export interface Router {
-  handle: Handler;
+  handler: Handler;
 
   all: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
   checkout: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;

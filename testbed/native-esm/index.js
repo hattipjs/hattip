@@ -79,4 +79,4 @@ router.get("/cookies", () => {
 
 router.get("/status", () => new Response(null, { status: 201 }));
 
-export default router.handle;
+export default router.handler;

@@ -80,4 +80,4 @@ router.get("/vue", async () => {
   });
 });
 
-export default router.handle;
+export default router.handler;
