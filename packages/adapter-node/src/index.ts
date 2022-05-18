@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "http";
-import { Handler, notFoundHandler } from "@hattip/core";
+import { Context, Handler, notFoundHandler, runHandler } from "@hattip/core";
 import { Readable } from "stream";
 
 // node-fetch is an ESM only package. This slightly awkward dynamic import
@@ -34,7 +34,7 @@ interface DecoratedRequest extends IncomingMessage {
 export type NodeHandler = (
   req: DecoratedRequest,
   res: ServerResponse,
-  next: () => void,
+  next?: () => void,
 ) => void;
 
 export interface NodeAdapterOptions {
@@ -94,17 +94,19 @@ export default function nodeAdapter(
 
     const toBeWaited: Promise<any>[] = [];
 
-    const response = await handler(request, {
+    const context: Context = {
       ip,
 
       waitUntil(promise) {
         toBeWaited.push(promise);
       },
 
-      next: notFoundHandler,
-    });
+      next: () => notFoundHandler(request, context),
+    };
 
-    if (response) {
+    const response = (await runHandler(handler, request, context))!;
+
+    if (!next || !context.isNotFound) {
       res.statusCode = response.status;
 
       const rawHeaders: Record<string, string | string[]> = (
@@ -151,6 +153,6 @@ export default function nodeAdapter(
 
     await Promise.all(toBeWaited);
 
-    next();
+    next?.();
   };
 }
