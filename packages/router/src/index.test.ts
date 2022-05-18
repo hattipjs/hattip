@@ -3,11 +3,9 @@ import { test, expect } from "vitest";
 import { createRouter } from ".";
 
 // Minimal mock to make `instanceof Response` work
-globalThis.Response =
-  globalThis.Response ||
-  class {
-    constructor(public body: string) {}
-  };
+globalThis.Response = class {
+  constructor(public body: string) {}
+} as any;
 
 test("finds simple routes", async () => {
   const router = createRouter();
