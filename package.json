@@ -2,8 +2,8 @@
   "name": "hattip-workspace-root",
   "private": "true",
   "scripts": {
-    "dev": "pnpm -r --filter \"./packages/**\" --parallel dev",
-    "build": "pnpm -r --filter \"./packages/**\" build",
+    "dev": "pnpm -r --parallel --filter='./packages/*' run dev",
+    "build": "pnpm -r --filter='./packages/*' run build",
     "prepare": "husky install",
     "precommit": "lint-staged",
     "test": "pnpm test:prettier && cross-env CI=true pnpm -r --stream run test",
