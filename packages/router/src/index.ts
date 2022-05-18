@@ -1,4 +1,6 @@
-import { Handler, Context } from "@hattip/core";
+/// reference types="../ambient.d.ts" />
+
+import { Handler, Context, StrictHandler, compose } from "@hattip/core";
 
 export interface RouterContext<P = Record<string, string>> extends Context {
   url: URL;
@@ -49,15 +51,12 @@ export type RouteHandler<P = Record<string, string>> = (
 
 export function createRouter(): Router {
   const self = {
-    handlers: [] as RouteHandler[],
+    _handlers: [] as RouteHandler[],
+    _composed: undefined as StrictHandler | undefined,
 
-    async handle(request: Request, context: Context) {
-      for (const handler of self.handlers) {
-        const result = await handler(request, context as any);
-        if (result) {
-          return result;
-        }
-      }
+    async handler(request: Request, context: Context) {
+      const composed = self._composed || compose(...self._handlers);
+      return composed(request, context);
     },
   };
 
@@ -67,7 +66,10 @@ export function createRouter(): Router {
         return target[prop as keyof typeof target];
       }
 
-      return function (matcher: Matcher, handler: RouteHandler) {
+      return ((target as any)[prop] = function (
+        matcher: Matcher,
+        handler: RouteHandler,
+      ) {
         let fn: (
           request: Request,
           context: RouterContext,
@@ -112,8 +114,9 @@ export function createRouter(): Router {
           return handler(request, context);
         }
 
-        target.handlers.push(route as any);
-      };
+        target._handlers.push(route as any);
+        target._composed = undefined;
+      });
     },
   }) as any;
 }

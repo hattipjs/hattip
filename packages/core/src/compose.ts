@@ -31,7 +31,7 @@ export function compose(...handlers: Handler[]): StrictHandler {
 }
 
 /**
- * Run a kandler taking care of errors and toResponse.
+ * Run a handler taking care of errors and toResponse.
  */
 export async function runHandler(
   handler: Handler,
