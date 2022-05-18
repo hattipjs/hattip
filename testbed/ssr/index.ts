@@ -30,10 +30,6 @@ import { createElement } from "react";
 import { renderToString as renderReactToString } from "react-dom/server";
 import { ReactApp } from "./client/react-page";
 
-import { createSSRApp } from "vue";
-import { renderToString as renderVueToString } from "vue/server-renderer";
-import VueApp from "./client/vue-page.vue";
-
 router.get("/react", async () => {
   let scriptPath = "client/react.tsx";
   const manifestEntry = clientManifest[scriptPath];
@@ -56,6 +52,10 @@ router.get("/react", async () => {
     },
   });
 });
+
+import { createSSRApp } from "vue";
+import { renderToString as renderVueToString } from "vue/server-renderer";
+import VueApp from "./client/vue-page.vue";
 
 router.get("/vue", async () => {
   let scriptPath = "client/vue.ts";
