@@ -2,28 +2,35 @@ import type { IncomingMessage, ServerResponse } from "http";
 import { Context, Handler, notFoundHandler, runHandler } from "@hattip/core";
 import { Readable } from "stream";
 
-// node-fetch is an ESM only package. This slightly awkward dynamic import
-// is required to use it in CJS.
-const nodeFetchInstallPromise = import("node-fetch").then((nodeFetch) => {
-  (globalThis as any).fetch = nodeFetch.default;
-  (globalThis as any).Request = nodeFetch.Request;
-  (globalThis as any).Headers = nodeFetch.Headers;
+let nodeFetchInstallPromise: Promise<void> | undefined;
 
-  class Response extends nodeFetch.Response {
-    constructor(
-      input: import("node-fetch").BodyInit,
-      init?: import("node-fetch").ResponseInit,
-    ) {
-      if (input instanceof ReadableStream) {
-        input = Readable.from(input as any);
+// Prefer the native `fetch` where available.
+if (typeof fetch === "undefined") {
+  // node-fetch is an ESM only package. This awkward dynamic import
+  // is required to use it in CJS.
+  nodeFetchInstallPromise = import("node-fetch").then((nodeFetch) => {
+    (globalThis as any).fetch = nodeFetch.default;
+    (globalThis as any).Request = nodeFetch.Request;
+    (globalThis as any).Headers = nodeFetch.Headers;
+
+    // node-fetch doesn't allow constructing a Request from ReadableStream
+    // see: https://github.com/node-fetch/node-fetch/issues/1096
+    class Response extends nodeFetch.Response {
+      constructor(
+        input: import("node-fetch").BodyInit,
+        init?: import("node-fetch").ResponseInit,
+      ) {
+        if (input instanceof ReadableStream) {
+          input = Readable.from(input as any);
+        }
+
+        super(input as any, init);
       }
-
-      super(input as any, init);
     }
-  }
 
-  (globalThis as any).Response = Response;
-});
+    (globalThis as any).Response = Response;
+  });
+}
 
 interface DecoratedRequest extends IncomingMessage {
   ip?: string;
@@ -109,12 +116,18 @@ export default function nodeAdapter(
     if (!next || !context.isNotFound) {
       res.statusCode = response.status;
 
-      const rawHeaders: Record<string, string | string[]> = (
-        response.headers as any
-      ).raw();
+      if ("raw" in response.headers) {
+        const rawHeaders: Record<string, string | string[]> = (
+          response.headers as any
+        ).raw();
 
-      for (const [key, value] of Object.entries(rawHeaders)) {
-        res.setHeader(key, value);
+        for (const [key, value] of Object.entries(rawHeaders)) {
+          res.setHeader(key, value);
+        }
+      } else {
+        for (const [key, value] of response.headers) {
+          res.setHeader(key, value);
+        }
       }
 
       const contentLengthSet = response.headers.get("content-length");
