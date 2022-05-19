@@ -1,68 +1,117 @@
-import type { IncomingMessage, ServerResponse } from "http";
 import { Context, Handler, notFoundHandler, runHandler } from "@hattip/core";
+import { Stats } from "fs";
+import {
+  createServer as createHttpServer,
+  Server as HttpServer,
+  IncomingMessage,
+  ServerResponse,
+  ServerOptions,
+} from "http";
 import { Readable } from "stream";
+import sirv from "sirv";
 
-let nodeFetchInstallPromise: Promise<void> | undefined;
-
-// Prefer the native `fetch` where available.
-if (typeof fetch === "undefined") {
-  // node-fetch is an ESM only package. This awkward dynamic import
-  // is required to use it in CJS.
-  nodeFetchInstallPromise = import("node-fetch").then((nodeFetch) => {
-    (globalThis as any).fetch = nodeFetch.default;
-    (globalThis as any).Request = nodeFetch.Request;
-    (globalThis as any).Headers = nodeFetch.Headers;
-
-    // node-fetch doesn't allow constructing a Request from ReadableStream
-    // see: https://github.com/node-fetch/node-fetch/issues/1096
-    class Response extends nodeFetch.Response {
-      constructor(
-        input: import("node-fetch").BodyInit,
-        init?: import("node-fetch").ResponseInit,
-      ) {
-        if (input instanceof ReadableStream) {
-          input = Readable.from(input as any);
-        }
-
-        super(input as any, init);
-      }
-    }
-
-    (globalThis as any).Response = Response;
-  });
-}
-
-interface DecoratedRequest extends IncomingMessage {
+/**
+ * `IncomingMessage` possibly augmented by Express-specific
+ * `ip` and `protocol` properties.
+ */
+export interface DecoratedRequest extends IncomingMessage {
   ip?: string;
   protocol?: string;
-  hostname?: string;
 }
 
-export type NodeHandler = (
+/** Connect/Express style request listener/middleware */
+export type NodeMiddleware = (
   req: DecoratedRequest,
   res: ServerResponse,
   next?: () => void,
 ) => void;
 
-export interface NodeAdapterOptions {
-  origin?: string;
-  trustProxy?: boolean;
+/**
+ * Options passed to `sirv` middleware.
+ * @see https://github.com/lukeed/sirv/tree/master/packages/sirv
+ */
+export interface SirvOptions {
+  dev?: boolean;
+  etag?: boolean;
+  maxAge?: number;
+  immutable?: boolean;
+  single?: string | boolean;
+  ignores?: false | string | RegExp | (string | RegExp)[];
+  extensions?: string[];
+  dotfiles?: boolean;
+  brotli?: boolean;
+  gzip?: boolean;
+  onNoMatch?: (req: IncomingMessage, res: ServerResponse) => void;
+  setHeaders?: (res: ServerResponse, pathname: string, stats: Stats) => void;
 }
 
-export default function nodeAdapter(
+/** Adapter options */
+export interface NodeAdapterOptions {
+  /**
+   * Set the origin part of the URL to a constant value.
+   * It defaults to `process.env.ORIGIN`. If neither is set,
+   * the origin is computed from the protocol and hostname.
+   * To determine the protocol, `req.protocol` is tried first.
+   * If `trustProxy` is set, `X-Forwarded-Proto` header is used.
+   * Otherwise, `req.socket.encrypted` is used.
+   * To determine the hostname, `X-Forwarded-Host`
+   * (if `trustProxy` is set) or `Host` header is used.
+   */
+  origin?: string;
+  /**
+   * Whether to trust `X-Forwarded-*` headers. `X-Forwarded-Proto`
+   * and `X-Forwarded-Host` are used to determine the origin when
+   * `origin` and `process.env.ORIGIN` are not set. `X-Forwarded-For`
+   * is used to determine the IP address. The leftmost value is used
+   * if multiple values are set. Defaults to true if `process.env.TRUST_PROXY`
+   * is set to `1`, otherwise false.
+   */
+  trustProxy?: boolean;
+  /**
+   * The directory to serve static files from. For security, no static files
+   * will be served if this is not set.
+   */
+  staticAssetsDir?: string;
+  /**
+   * Options passed to `sirv` middleware for serving static files.
+   * @see https://github.com/lukeed/sirv/tree/master/packages/sirv
+   */
+  sirvOptions?: SirvOptions;
+  /**
+   * Whether to use native fetch when available instead of `node-fetch`.
+   * Defaults to false.
+   */
+  preferNativeFetch?: boolean;
+}
+
+/**
+ * Creates a request handler to be passed to http.createServer().
+ * It can also be used as a middleware in Express or other
+ * Connect-compatible frameworks).
+ */
+export function createListener(
   handler: Handler,
   options: NodeAdapterOptions = {},
-): NodeHandler {
+): NodeMiddleware {
   const {
     origin = process.env.ORIGIN,
     trustProxy = process.env.TRUST_PROXY === "1",
+    staticAssetsDir,
+    sirvOptions = {},
+    preferNativeFetch = false,
   } = options;
+
+  const nodeFetchInstallPromise = installNodeFetch(preferNativeFetch);
 
   let { protocol, hostname } = origin
     ? new URL(origin)
     : ({} as Record<string, undefined>);
 
-  return async function nodeAdapterHandler(req, res, next) {
+  const sirvMiddleware = staticAssetsDir
+    ? sirv(staticAssetsDir, sirvOptions)
+    : null;
+
+  const nodeAdapterHandler: NodeMiddleware = async (req, res, next) => {
     await nodeFetchInstallPromise;
 
     function getForwardedHeader(name: string) {
@@ -80,7 +129,6 @@ export default function nodeAdapter(
 
     hostname =
       hostname ||
-      req.hostname ||
       (trustProxy && getForwardedHeader("host")) ||
       req.headers.host;
 
@@ -168,4 +216,58 @@ export default function nodeAdapter(
 
     next?.();
   };
+
+  if (sirvMiddleware) {
+    return (req, res, next) =>
+      sirvMiddleware(req, res, () => {
+        nodeAdapterHandler(req, res, next);
+      });
+  } else {
+    return nodeAdapterHandler;
+  }
+}
+
+/**
+ * Installs node-fetch into the global scope.
+ * @param preferNative Don't install and use native `fetch` if available.
+ */
+export async function installNodeFetch(preferNative = true) {
+  if (!preferNative || typeof fetch === "undefined") {
+    await import("node-fetch").then((nodeFetch) => {
+      (globalThis as any).fetch = nodeFetch.default;
+      (globalThis as any).Request = nodeFetch.Request;
+      (globalThis as any).Headers = nodeFetch.Headers;
+
+      // node-fetch doesn't allow constructing a Request from ReadableStream
+      // see: https://github.com/node-fetch/node-fetch/issues/1096
+      class Response extends nodeFetch.Response {
+        constructor(
+          input: import("node-fetch").BodyInit,
+          init?: import("node-fetch").ResponseInit,
+        ) {
+          if (input instanceof ReadableStream) {
+            input = Readable.from(input as any);
+          }
+
+          super(input as any, init);
+        }
+      }
+
+      (globalThis as any).Response = Response;
+    });
+  }
+}
+
+/**
+ * Create an HTTP server
+ */
+export function createServer(
+  handler: Handler,
+  adapterOptions?: NodeAdapterOptions,
+  serverOptions?: ServerOptions,
+): HttpServer {
+  const listener = createListener(handler, adapterOptions);
+  return serverOptions
+    ? createHttpServer(serverOptions, listener)
+    : createHttpServer(listener);
 }

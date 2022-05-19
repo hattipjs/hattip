@@ -12,14 +12,6 @@
     ".": {
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
-    },
-    "./simple-server": {
-      "import": "./dist/simple-server.mjs",
-      "require": "./dist/simple-server.js"
-    },
-    "./full-stack-server": {
-      "import": "./dist/full-stack-server.mjs",
-      "require": "./dist/full-stack-server.js"
     }
   },
   "author": "Fatih Aygün <cyco130@gmail.com>",
