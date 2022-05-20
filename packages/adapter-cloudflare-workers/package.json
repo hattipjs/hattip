@@ -2,7 +2,6 @@
   "name": "@hattip/adapter-cloudflare-workers",
   "version": "0.0.2",
   "description": "Cloudflare Workers adapter for Hattip",
-  "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "files": [
     "dist",
@@ -12,14 +11,10 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.mjs"
     },
-    "./default-entry": {
-      "import": "./default-entry.mjs"
-    },
-    "./static-assets-entry": {
-      "import": "./static-assets-entry.mjs"
+    "./no-static": {
+      "import": "./dist/no-static.mjs"
     }
   },
   "author": "Fatih Aygün <cyco130@gmail.com>",

@@ -2,6 +2,7 @@ compatibility_date = "2021-11-01"
 compatibility_flags = []
 name = "hattip-testbed-pure"
 route = ''
+site = {bucket = "public"}
 type = "javascript"
 usage_model = ''
 workers_dev = true

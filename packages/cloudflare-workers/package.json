@@ -1,7 +1,7 @@
 {
-  "name": "@hattip/vite-cloudflare-workers",
+  "name": "@hattip/cloudflare-workers",
   "version": "0.0.2",
-  "description": "Cloudflare Workers Vite plugin for Hattip",
+  "description": "Cloudflare Workers solution for Hattip",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "files": [
@@ -47,6 +47,7 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
+    "@hattip/adapter-cloudflare-workers": "workspace:*",
     "@hattip/bundler-cloudflare-workers": "workspace:*"
   }
 }

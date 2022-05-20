@@ -16,7 +16,7 @@
     "@hattip/adapter-node": "workspace:*",
     "@hattip/core": "workspace:*",
     "@hattip/router": "workspace:*",
-    "@hattip/vite-cloudflare-workers": "workspace:*",
+    "@hattip/cloudflare-workers": "workspace:*",
     "@types/node": "^17.0.33",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.4",

@@ -30,6 +30,13 @@ test("renders HTML", async () => {
   );
 });
 
+test("serves static files", async () => {
+  const response = await fetch(host + "/static.txt");
+  const text = await response.text();
+
+  expect(text).toContain("This is a static file!");
+});
+
 test("renders binary", async () => {
   const response = await fetch(host + "/binary");
   const text = await response.text();

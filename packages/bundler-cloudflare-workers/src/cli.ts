@@ -13,11 +13,20 @@ cli
     "-e, --entry",
     "Interpret <input> as a Cloudflare Workers module entry instead of a HatTip handler entry",
   )
+  .option("--no-static", "Do not serve static files")
   .action(
-    async (input: string, output: string, options: { entry: boolean }) => {
+    async (
+      input: string,
+      output: string,
+      options: {
+        entry: boolean;
+        static: boolean;
+      },
+    ) => {
       await bundler({
         cfwEntry: options.entry ? input : undefined,
         handlerEntry: options.entry ? undefined : input,
+        serveStaticFiles: options.entry ? undefined : options.static,
         output,
       });
     },
