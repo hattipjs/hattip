@@ -8,9 +8,13 @@ HatTip adapter for Node.js.
 import { createServer } from "@hattip/adapter-node";
 import handler from "./handler.js";
 
-createServer(handler, {}).listen(3000, "localhost", () => {
-  console.log("Server listening on http://localhost:3000");
-});
+createServer(handler, { staticAssetsDir: "public" }).listen(
+  3000,
+  "localhost",
+  () => {
+    console.log("Server listening on http://localhost:3000");
+  },
+);
 ```
 
 ## Using with Express
@@ -22,12 +26,26 @@ import express from "express";
 
 const app = express();
 
-const middleware = createListener(handler);
+// You can also use express.static instead of `staticAssetsDir` if you wish
+const middleware = createListener(handler, { staticAssetsDir: "public" });
 app.use(middleware);
 
 app.listen(3000, "localhost", () => {
   console.log("Server listening on http://localhost:3000");
 });
+```
+
+## Using with `vavite`
+
+> [`vavite`](https://github.com/cyco130/vavite) is a tool for developing and building server-side applications with [Vite](https://vitejs.dev).
+
+```js
+import { createListener } from "@hattip/adapter-node";
+import handler from ".";
+
+// vavite handles serving of static assets for you
+// so you shouldn't pass the `staticAssetsDir` option
+export default createListener(handler);
 ```
 
 ## API
@@ -38,12 +56,19 @@ app.listen(3000, "localhost", () => {
  * It can also be used as a middleware in Express or other
  * Connect-compatible frameworks).
  */
-function createListener(handler: Handler, options?: NodeAdapterOptions): NodeMiddleware;
+function createListener(
+  handler: Handler,
+  options?: NodeAdapterOptions,
+): NodeMiddleware;
 
 /**
  * Create an HTTP server
  */
-function createServer(handler: Handler, adapterOptions?: NodeAdapterOptions, serverOptions?: ServerOptions): Server;
+function createServer(
+  handler: Handler,
+  adapterOptions?: NodeAdapterOptions,
+  serverOptions?: ServerOptions,
+): Server;
 
 /** Adapter options */
 interface NodeAdapterOptions {
