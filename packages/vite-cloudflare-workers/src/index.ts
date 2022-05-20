@@ -117,7 +117,8 @@ export default function cloudflareWorkersPlugin(
         resolvedConfig.logger.info("Bundling for Cloudflare Workers");
 
         bundle({
-          entry: resolvedConfig.build.outDir + "/cloudflare-workers-entry.js",
+          cfwEntry:
+            resolvedConfig.build.outDir + "/cloudflare-workers-entry.js",
           output:
             output ||
             resolvedConfig.build.outDir + "/cloudflare-workers-bundle/index.js",

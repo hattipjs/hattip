@@ -1,0 +1,29 @@
+import { cac } from "cac";
+import { version } from "../package.json";
+import bundler from ".";
+
+const cli = cac("hattip-cloudflare-workers");
+
+cli
+  .command(
+    "<input> <output>",
+    "Bundle the HatTip app in <input> into <output> as a Clourflare Workers module",
+  )
+  .option(
+    "-e, --entry",
+    "Interpret <input> as a Cloudflare Workers module entry instead of a HatTip handler entry",
+  )
+  .action(
+    async (input: string, output: string, options: { entry: boolean }) => {
+      await bundler({
+        cfwEntry: options.entry ? input : undefined,
+        handlerEntry: options.entry ? undefined : input,
+        output,
+      });
+    },
+  );
+
+cli.help();
+cli.version(version);
+
+cli.parse();

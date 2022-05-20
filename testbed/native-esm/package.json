@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node entry-node.js",
     "dev": "nodemon entry-node.js",
-    "build:cfw": "node build-cfw.js",
+    "build:cfw": "hattip-cloudflare-workers index.js dist/cloudflare-workers-bundle/index.js",
     "ci": "vitest"
   },
   "devDependencies": {
