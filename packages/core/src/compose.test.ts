@@ -160,3 +160,18 @@ test("runs initial next", async () => {
 
   expect(response?.headers.get("x-test")).toEqual("test");
 });
+
+test("flattens handlers", async () => {
+  const h1: Handler = () => null;
+  const h2: Handler = () => new Response("1");
+
+  const composed = compose([h1, h2]);
+
+  const r1 = await (
+    await composed(new Request("http://example.com"), {
+      next: notFoundHandler,
+    } as any)
+  )?.text();
+
+  expect(r1).toEqual("1");
+});

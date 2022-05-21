@@ -1,14 +1,21 @@
 /// <reference types='@cloudflare/workers-types'/>
 /* eslint-disable import/no-unresolved */
 
-import { Handler, notFoundHandler, runHandler } from "@hattip/core";
+import {
+  compose,
+  HandlerStack,
+  notFoundHandler,
+  runHandler,
+} from "@hattip/core";
 import { getAssetFromKV, NotFoundError } from "@cloudflare/kv-asset-handler";
 // @ts-expect-error: No typing for this
 import manifest from "__STATIC_CONTENT_MANIFEST";
 
 export default function cloudflareWorkersAdapter(
-  handler: Handler,
+  handlerStack: HandlerStack,
 ): ExportedHandlerFetchHandler {
+  const handler = compose(handlerStack);
+
   return async function fetchHandler(request, env, ctx) {
     if (request.method === "GET" || request.method === "HEAD") {
       try {

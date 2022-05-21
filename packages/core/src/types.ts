@@ -10,6 +10,8 @@ export type Handler = (
   | null
   | Promise<Response | ResponseConvertible | null>;
 
+export type HandlerStack = Handler | HandlerStack[];
+
 /**
  * Request handler with return value converted to Response
  */

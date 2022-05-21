@@ -1,4 +1,11 @@
-import { Context, Handler, notFoundHandler, runHandler } from "@hattip/core";
+import {
+  compose,
+  Context,
+  Handler,
+  HandlerStack,
+  notFoundHandler,
+  runHandler,
+} from "@hattip/core";
 import { Stats } from "fs";
 import {
   createServer as createHttpServer,
@@ -90,9 +97,11 @@ export interface NodeAdapterOptions {
  * Connect-compatible frameworks).
  */
 export function createListener(
-  handler: Handler,
+  handlerStack: HandlerStack,
   options: NodeAdapterOptions = {},
 ): NodeMiddleware {
+  const handler = compose(handlerStack);
+
   const {
     origin = process.env.ORIGIN,
     trustProxy = process.env.TRUST_PROXY === "1",

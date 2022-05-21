@@ -1,10 +1,17 @@
 /// <reference types='@cloudflare/workers-types'/>
 
-import { Handler, notFoundHandler, runHandler } from "@hattip/core";
+import {
+  compose,
+  HandlerStack,
+  notFoundHandler,
+  runHandler,
+} from "@hattip/core";
 
 export default function cloudflareWorkersAdapter(
-  handler: Handler,
+  handlerStack: HandlerStack,
 ): ExportedHandlerFetchHandler {
+  const handler = compose(handlerStack);
+
   return async function fetchHandler(request, env, ctx) {
     const context = {
       ip: request.headers.get("CF-Connecting-IP") || "",

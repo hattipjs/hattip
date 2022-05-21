@@ -1,9 +1,10 @@
-import type { Handler, Context, StrictHandler } from "./types";
+import type { Handler, Context, StrictHandler, HandlerStack } from "./types";
 
 /**
  * Compose multiple handlers into a single handler.
  */
-export function compose(...handlers: Handler[]): StrictHandler {
+export function compose(...handlerStack: HandlerStack[]): StrictHandler {
+  const handlers = handlerStack.flat() as Handler[];
   let next: () => Promise<Response> | Response;
 
   const composed = handlers.reduceRight(
