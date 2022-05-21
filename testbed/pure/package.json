@@ -16,7 +16,6 @@
     "@hattip/adapter-node": "workspace:*",
     "@hattip/core": "workspace:*",
     "@hattip/router": "workspace:*",
-    "@hattip/cloudflare-workers": "workspace:*",
     "@types/node": "^17.0.33",
     "eslint": "^8.15.0",
     "node-fetch": "^3.2.4",

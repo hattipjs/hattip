@@ -18,14 +18,6 @@ importers:
       rimraf: 3.0.2
       vitest: 0.12.6
 
-  examples/hello-world:
-    specifiers:
-      '@hattip/adapter-node': ^0.0.2
-      '@hattip/core': ^0.0.2
-    dependencies:
-      '@hattip/adapter-node': link:../../packages/adapter-node
-      '@hattip/core': link:../../packages/core
-
   packages/adapter-cloudflare-workers:
     specifiers:
       '@cloudflare/kv-asset-handler': ^0.2.0
@@ -84,33 +76,6 @@ importers:
       eslint: 8.15.0
       tsup: 5.12.7_typescript@4.6.4
       typescript: 4.6.4
-
-  packages/cloudflare-workers:
-    specifiers:
-      '@cloudflare/workers-types': ^3.10.0
-      '@cyco130/eslint-config': ^1.1.0
-      '@hattip/adapter-cloudflare-workers': workspace:*
-      '@hattip/bundler-cloudflare-workers': workspace:*
-      '@hattip/core': workspace:*
-      '@types/node': ^17.0.33
-      '@vavite/multibuild': ^1.2.0
-      eslint: ^8.15.0
-      tsup: ^5.12.7
-      typescript: ^4.6.4
-      vite: ^2.9.9
-    dependencies:
-      '@hattip/adapter-cloudflare-workers': link:../adapter-cloudflare-workers
-      '@hattip/bundler-cloudflare-workers': link:../bundler-cloudflare-workers
-    devDependencies:
-      '@cloudflare/workers-types': 3.10.0
-      '@cyco130/eslint-config': 1.1.0_hcfsmds2fshutdssjqluwm76uu
-      '@hattip/core': link:../core
-      '@types/node': 17.0.33
-      '@vavite/multibuild': 1.2.0_vite@2.9.9
-      eslint: 8.15.0
-      tsup: 5.12.7_typescript@4.6.4
-      typescript: 4.6.4
-      vite: 2.9.9
 
   packages/core:
     specifiers:
@@ -183,7 +148,6 @@ importers:
       '@cyco130/eslint-config': ^1.1.0
       '@hattip/adapter-cloudflare-workers': workspace:*
       '@hattip/adapter-node': workspace:*
-      '@hattip/cloudflare-workers': workspace:*
       '@hattip/core': workspace:*
       '@hattip/router': workspace:*
       '@types/node': ^17.0.33
@@ -197,7 +161,6 @@ importers:
       '@cyco130/eslint-config': 1.1.0_hcfsmds2fshutdssjqluwm76uu
       '@hattip/adapter-cloudflare-workers': link:../../packages/adapter-cloudflare-workers
       '@hattip/adapter-node': link:../../packages/adapter-node
-      '@hattip/cloudflare-workers': link:../../packages/cloudflare-workers
       '@hattip/core': link:../../packages/core
       '@hattip/router': link:../../packages/router
       '@types/node': 17.0.33
@@ -213,7 +176,6 @@ importers:
       '@cyco130/eslint-config': ^1.1.0
       '@hattip/adapter-cloudflare-workers': workspace:*
       '@hattip/adapter-node': workspace:*
-      '@hattip/cloudflare-workers': workspace:*
       '@hattip/core': workspace:*
       '@hattip/router': workspace:*
       '@types/node': ^17.0.33
@@ -238,7 +200,6 @@ importers:
       '@cyco130/eslint-config': 1.1.0_hcfsmds2fshutdssjqluwm76uu
       '@hattip/adapter-cloudflare-workers': link:../../packages/adapter-cloudflare-workers
       '@hattip/adapter-node': link:../../packages/adapter-node
-      '@hattip/cloudflare-workers': link:../../packages/cloudflare-workers
       '@hattip/core': link:../../packages/core
       '@hattip/router': link:../../packages/router
       '@types/node': 17.0.33

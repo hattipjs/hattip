@@ -15,7 +15,7 @@
     }
   },
   "bin": {
-    "hattip-cloudflare-workers": "./dist/cli.js"
+    "hattip-cloudflare-workers": "./cli.mjs"
   },
   "author": "Fatih Aygün <cyco130@gmail.com>",
   "repository": "https://github.com/cyco130/vavite",

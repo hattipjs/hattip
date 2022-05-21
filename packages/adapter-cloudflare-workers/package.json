@@ -5,9 +5,7 @@
   "module": "./dist/index.mjs",
   "files": [
     "dist",
-    "*.d.ts",
-    "default-entry.mjs",
-    "static-assets-entry.mjs"
+    "*.d.ts"
   ],
   "exports": {
     ".": {
