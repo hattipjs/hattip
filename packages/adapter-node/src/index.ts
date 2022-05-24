@@ -1,7 +1,6 @@
 import {
   compose,
   Context,
-  Handler,
   HandlerStack,
   notFoundHandler,
   runHandler,
@@ -188,31 +187,38 @@ export function createListener(
       }
 
       const contentLengthSet = response.headers.get("content-length");
-
       if (response.body) {
-        // We will buffer a single chunk of data, so that we can set
-        // the Content-Length header if the whole response is made of
-        // a single chunk.
-        let lastChunk: Buffer | undefined;
-        let chunkCount = 0;
-
-        for await (let chunk of response.body as any) {
-          chunk = Buffer.from(chunk);
-          if (lastChunk) {
-            res.write(lastChunk);
+        if (contentLengthSet) {
+          for await (let chunk of response.body as any) {
+            chunk = Buffer.from(chunk);
+            res.write(chunk);
           }
-          lastChunk = chunk;
-          chunkCount++;
-        }
+        } else {
+          const reader = (
+            response.body as any as AsyncIterable<Buffer | string>
+          )[Symbol.asyncIterator]();
 
-        if (chunkCount === 1 && !contentLengthSet) {
-          res.setHeader("content-length", lastChunk!.length);
-        }
+          const first = await reader.next();
+          if (first.done) {
+            res.setHeader("content-length", "0");
+          } else {
+            const secondPromise = reader.next();
+            let second = await Promise.race([
+              secondPromise,
+              Promise.resolve(null),
+            ]);
 
-        if (lastChunk) {
-          res.write(lastChunk);
-        } else if (!contentLengthSet) {
-          res.setHeader("content-length", "0");
+            if (second && second.done) {
+              res.setHeader("content-length", first.value.length);
+              res.write(first.value);
+            } else {
+              res.write(first.value);
+              second = await secondPromise;
+              for (; !second.done; second = await reader.next()) {
+                res.write(Buffer.from(second.value));
+              }
+            }
+          }
         }
       } else if (!contentLengthSet) {
         res.setHeader("content-length", "0");
@@ -264,6 +270,10 @@ export async function installNodeFetch(preferNative = true) {
 
       (globalThis as any).Response = Response;
     });
+  } else if (typeof TransformStream === "undefined") {
+    await import("node:stream/web").then((stream) => {
+      global.TransformStream = stream.TransformStream as any;
+    });
   }
 }
 
@@ -271,11 +281,11 @@ export async function installNodeFetch(preferNative = true) {
  * Create an HTTP server
  */
 export function createServer(
-  handler: Handler,
+  handlerStack: HandlerStack,
   adapterOptions?: NodeAdapterOptions,
   serverOptions?: ServerOptions,
 ): HttpServer {
-  const listener = createListener(handler, adapterOptions);
+  const listener = createListener(handlerStack, adapterOptions);
   return serverOptions
     ? createHttpServer(serverOptions, listener)
     : createHttpServer(listener);

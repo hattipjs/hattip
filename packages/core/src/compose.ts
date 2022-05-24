@@ -55,6 +55,7 @@ export async function runHandler(
     } else if (context.handleError) {
       return context.handleError(error);
     } else {
+      console.error(error);
       return new Response("Internal Server Error", { status: 500 });
     }
   }
