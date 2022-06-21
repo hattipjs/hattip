@@ -2,7 +2,7 @@
 
 > <small>(nothing)</small> Like Express.js.
 
-Follow: [Twitter > @cyco130](https://twitter.com/cyco130)  
+Follow: [Twitter > @cyco130](https://twitter.com/cyco130) & [Twitter > @brillout](https://twitter.com/brillout)  
 Chat: <a href="https://discord.com/invite/vTvXzBMySh">Discord > Cubes<img src="./graphics/hash.svg" height="17" width="23" valign="text-bottom" alt="hash"/>HatTip</a>
 
 HatTip is a JavaScript framework for handling HTTP requests.
