@@ -1,20 +1,23 @@
 # ![HatTip](graphics/logo.svg)
 
-> <small>(nothing)</small> Like Express but Runs Anywhere
+> <small>(nothing)</small> Like Express.js.
 
 Follow: [Twitter > @cyco130](https://twitter.com/cyco130)  
-Chat: <a href="https://discord.com/invite/vTvXzBMySh">Discord > Vike<img src="./graphics/hash.svg" height="17" width="23" valign="text-bottom" alt="hash"/>HatTip</a>
+Chat: <a href="https://discord.com/invite/vTvXzBMySh">Discord > Cubes<img src="./graphics/hash.svg" height="17" width="23" valign="text-bottom" alt="hash"/>HatTip</a>
 
-HatTip is a modern, modular, and minimalist JavaScript framework for handling HTTP requests. It aims to build a universal middleware ecosystem that can be used across the entire JavaScript universe.
+HatTip is a JavaScript framework for handling HTTP requests.
 
-- ✨ Modern: Based on current and future web standards
-- 🧩 Modular: Use as much or as little as you need
-- 🪛 Minimalist: Everything you need, nothing you don't
+- &#x2728; Modern: Based on current and future web standards (Fetch API & WinterCG).
+- &#x1F30D; Universal: Runs anywhere (Node.js, the Edge, Deno, ...).
+- &#x1F9E9; Modular: Use as much or as little as you need.
+- &#x1FA9B; Mininimalist: Everything you need, nothing you don't.
+
+It aims to build an ecosystem of universal middlewares that can be used across the entire JavaScript universe.
 
 ```js
 // handler.js
 
-// This server handler works anywhere: it can be used for Node.js and Cloudflare Workers.
+// This server handler works anywhere, e.g. Node.js or Cloudflare Workers.
 
 export default (context) => {
   const { pathname } = new URL(context.request.url);
@@ -36,8 +39,9 @@ We believe in a diverse but interoperable future for the JavaScript ecosystem an
 
 ## Adapters
 
-- ✅ Node.js (including Express)
+- ✅ Node.js
 - ✅ Cloudflare Workers
+- ✅ Express.js (use HatTip handlers/middlewares in your Express.js app)
 - 🚧 Deno
 - 🚧 Netlify
 - 🚧 Vercel
@@ -70,11 +74,14 @@ You can even use your HatTip application as an Express middleware when you have 
 
 ```js
 // entry-express.js
+
+// The Node.js adapter can be used as Express.js adapter
 import { createListener } from "@hattip/adapter-node";
 import handler from "./handler.js";
 import express from "express";
 import coolExpressMiddleware from "cool-express-middleware";
 
+// Create a connect middleware (which works with Express.js)
 const middleware = createListener(handler, {
   staticAssetsDir: "public",
 });
