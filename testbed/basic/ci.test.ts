@@ -1,11 +1,9 @@
 // @ts-check
-/// <reference types="vite/client" />
 
 import { test, expect, describe, beforeAll, afterAll } from "vitest";
 import fetch from "node-fetch";
 import { ChildProcess, spawn } from "child_process";
 import psTree from "ps-tree";
-
 import ".";
 import { kill } from "process";
 import { promisify } from "util";
@@ -43,7 +41,7 @@ if (process.env.CI === "true") {
     },
     fetchAvailable && {
       env: "Node with native fetch",
-      command: "USE_NATIVE_FETCH=true node --experimental-fetch entry-node.js",
+      command: "node --experimental-fetch entry-node-native-fetch.js",
       skipCookieTest: true,
     },
     miniflareAvailable && {

@@ -35,19 +35,6 @@ app.listen(3000, "localhost", () => {
 });
 ```
 
-## Using with `vavite`
-
-> [`vavite`](https://github.com/cyco130/vavite) is a tool for developing and building server-side applications with [Vite](https://vitejs.dev).
-
-```js
-import { createListener } from "@hattip/adapter-node";
-import handler from ".";
-
-// vavite handles serving of static assets for you
-// so you shouldn't pass the `staticAssetsDir` option
-export default createListener(handler);
-```
-
 ## API
 
 ```ts
@@ -92,23 +79,12 @@ interface NodeAdapterOptions {
    * is set to `1`, otherwise false.
    */
   trustProxy?: boolean;
-  /**
-   * The directory to serve static files from. For security, no static files
-   * will be served if this is not set.
-   */
-  staticAssetsDir?: string;
-  /**
-   * Options passed to `sirv` middleware for serving static files.
-   * @see https://github.com/lukeed/sirv/tree/master/packages/sirv
-   */
-  sirvOptions?: SirvOptions;
-  /**
-   * Whether to use native fetch instead of `node-fetch`. Will result in an
-   * error if native fetch is not available. Defaults to false.
-   */
-  useNativeFetch?: boolean;
 }
 ```
+
+## Using native `fetch`
+
+This adapter uses [`node-fetch`](https://github.com/node-fetch/node-fetch) as its `fetch` implementation. Node versions since 16.15 and 17.5 support the `--experimental-fetch` flag. You can opt in for the native implementation by importing your adapter from `@hattip/adapter-node/native-fetch`. Please note that Node's native `fetch` doesn't support setting more than one `Set-Cookie` headers at the moment.
 
 ## `context.platform`
 

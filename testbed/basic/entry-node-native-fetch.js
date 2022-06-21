@@ -1,7 +1,7 @@
 // @ts-check
 import { createServer } from "http";
 import connect from "connect";
-import { createMiddleware } from "@hattip/adapter-node";
+import { createMiddleware } from "@hattip/adapter-node/native-fetch";
 import handler from "./index.js";
 import sirv from "sirv";
 

@@ -11,8 +11,10 @@
   "devDependencies": {
     "@hattip/adapter-cloudflare-workers": "workspace:*",
     "@hattip/bundler-cloudflare-workers": "workspace:*",
+    "@hattip/bundler-vercel": "workspace:*",
     "@types/node": "^18.0.0",
     "@types/ps-tree": "^1.1.2",
+    "@vercel/ncc": "^0.34.0",
     "miniflare": "^2.5.1",
     "node-fetch": "^3.2.6",
     "nodemon": "^2.0.16",
@@ -24,6 +26,8 @@
     "@hattip/adapter-node": "workspace:*",
     "@hattip/compose": "workspace:*",
     "@hattip/router": "workspace:*",
-    "express": "^4.18.1"
+    "connect": "^3.7.0",
+    "express": "^4.18.1",
+    "sirv": "^2.0.2"
   }
 }
