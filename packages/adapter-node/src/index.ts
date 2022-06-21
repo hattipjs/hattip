@@ -1,11 +1,4 @@
-import {
-  compose,
-  Context,
-  HandlerStack,
-  notFoundHandler,
-  runHandler,
-} from "@hattip/core";
-import { Stats } from "fs";
+import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
 import {
   createServer as createHttpServer,
   Server as HttpServer,
@@ -14,7 +7,7 @@ import {
   ServerOptions,
 } from "http";
 import { Readable } from "stream";
-import sirv from "sirv";
+import sirv, { Options as SirvOptions } from "sirv";
 
 /**
  * `IncomingMessage` possibly augmented by Express-specific
@@ -36,20 +29,7 @@ export type NodeMiddleware = (
  * Options passed to `sirv` middleware.
  * @see https://github.com/lukeed/sirv/tree/master/packages/sirv
  */
-export interface SirvOptions {
-  dev?: boolean;
-  etag?: boolean;
-  maxAge?: number;
-  immutable?: boolean;
-  single?: string | boolean;
-  ignores?: false | string | RegExp | (string | RegExp)[];
-  extensions?: string[];
-  dotfiles?: boolean;
-  brotli?: boolean;
-  gzip?: boolean;
-  onNoMatch?: (req: IncomingMessage, res: ServerResponse) => void;
-  setHeaders?: (res: ServerResponse, pathname: string, stats: Stats) => void;
-}
+export type { SirvOptions };
 
 /** Adapter options */
 export interface NodeAdapterOptions {
@@ -84,10 +64,14 @@ export interface NodeAdapterOptions {
    */
   sirvOptions?: SirvOptions;
   /**
-   * Whether to use native fetch when available instead of `node-fetch`.
-   * Defaults to false.
+   * Whether to use native fetch instead of `node-fetch`.Defaults to false.
    */
-  preferNativeFetch?: boolean;
+  useNativeFetch?: boolean | "auto";
+}
+
+export interface NodePlatformInfo {
+  request: DecoratedRequest;
+  response: ServerResponse;
 }
 
 /**
@@ -96,20 +80,18 @@ export interface NodeAdapterOptions {
  * Connect-compatible frameworks).
  */
 export function createListener(
-  handlerStack: HandlerStack,
+  handler: HattipHandler,
   options: NodeAdapterOptions = {},
 ): NodeMiddleware {
-  const handler = compose(handlerStack);
-
   const {
     origin = process.env.ORIGIN,
     trustProxy = process.env.TRUST_PROXY === "1",
     staticAssetsDir,
     sirvOptions = {},
-    preferNativeFetch = false,
+    useNativeFetch = false,
   } = options;
 
-  const nodeFetchInstallPromise = installNodeFetch(preferNativeFetch);
+  const nodeFetchInstallPromise = installFetch(useNativeFetch);
 
   let { protocol, hostname } = origin
     ? new URL(origin)
@@ -155,23 +137,32 @@ export function createListener(
           : (req as any),
     });
 
-    const toBeWaited: Promise<any>[] = [];
+    let passThroughCalled = false;
 
-    const context: Context = {
+    const context: AdapterRequestContext<NodePlatformInfo> = {
+      request,
+
       ip,
 
       waitUntil(promise) {
-        toBeWaited.push(promise);
+        // Do nothing
+        void promise;
       },
 
-      next: () => notFoundHandler(request, context),
+      passThrough() {
+        passThroughCalled = true;
+      },
+
+      platform: {
+        request: req,
+        response: res,
+      },
     };
 
-    const response = (await runHandler(handler, request, context))!;
+    const response = await handler(context);
 
-    if (!next || !context.isNotFound) {
+    if (!next || !passThroughCalled) {
       res.statusCode = response.status;
-
       if ("raw" in response.headers) {
         const rawHeaders: Record<string, string | string[]> = (
           response.headers as any
@@ -227,8 +218,6 @@ export function createListener(
       res.end();
     }
 
-    await Promise.all(toBeWaited);
-
     next?.();
   };
 
@@ -243,11 +232,11 @@ export function createListener(
 }
 
 /**
- * Installs node-fetch into the global scope.
- * @param preferNative Don't install and use native `fetch` if available.
+ * Installs `fetch` into the global scope.
+ * @param useNative Whether to use native `fetch`.
  */
-export async function installNodeFetch(preferNative = true) {
-  if (!preferNative || typeof fetch === "undefined") {
+export async function installFetch(useNative: boolean | "auto" = false) {
+  if (!useNative || (useNative === "auto" && typeof fetch === "undefined")) {
     await import("node-fetch").then((nodeFetch) => {
       (globalThis as any).fetch = nodeFetch.default;
       (globalThis as any).Request = nodeFetch.Request;
@@ -271,6 +260,12 @@ export async function installNodeFetch(preferNative = true) {
       (globalThis as any).Response = Response;
     });
   } else if (typeof TransformStream === "undefined") {
+    if (typeof fetch === "undefined") {
+      throw new Error(
+        "Native fetch is not available. Try running with --experimental-fetch or use node-fetch.",
+      );
+    }
+
     await import("node:stream/web").then((stream) => {
       global.TransformStream = stream.TransformStream as any;
     });
@@ -281,11 +276,11 @@ export async function installNodeFetch(preferNative = true) {
  * Create an HTTP server
  */
 export function createServer(
-  handlerStack: HandlerStack,
+  handler: HattipHandler,
   adapterOptions?: NodeAdapterOptions,
   serverOptions?: ServerOptions,
 ): HttpServer {
-  const listener = createListener(handlerStack, adapterOptions);
+  const listener = createListener(handler, adapterOptions);
   return serverOptions
     ? createHttpServer(serverOptions, listener)
     : createHttpServer(listener);

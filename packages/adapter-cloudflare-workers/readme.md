@@ -17,6 +17,6 @@ export default {
 };
 ```
 
-If you don't need to serve static files, you can import the adapter from `@hattip/adapter-cloudflare-workers/no-static` instead. You will get an error if you don't do this and you don't setup `site = { bucket = "static-files-dir" }` in your `wrangler.toml`.
+If you don't need to serve static files, you can import the adapter from `@hattip/adapter-cloudflare-workers/no-static` instead. You will get an error if you use the default adapter but you don't setup `site = { bucket = "static-files-dir" }` in your `wrangler.toml`.
 
 `@hattip/adapter-cloudflare-workers` uses the modern [modules format](https://blog.cloudflare.com/workers-javascript-modules) instead of the old service worker format.

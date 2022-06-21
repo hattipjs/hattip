@@ -1,26 +1,25 @@
 /// <reference types='@cloudflare/workers-types'/>
 
-import {
-  compose,
-  HandlerStack,
-  notFoundHandler,
-  runHandler,
-} from "@hattip/core";
+import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
+import type { CloudflareWorkersPlatformInfo } from ".";
+
+export type { CloudflareWorkersPlatformInfo };
 
 export default function cloudflareWorkersAdapter(
-  handlerStack: HandlerStack,
+  handler: HattipHandler,
 ): ExportedHandlerFetchHandler {
-  const handler = compose(handlerStack);
-
   return async function fetchHandler(request, env, ctx) {
-    const context = {
+    const context: AdapterRequestContext<CloudflareWorkersPlatformInfo> = {
+      request,
       ip: request.headers.get("CF-Connecting-IP") || "",
       waitUntil: ctx.waitUntil.bind(ctx),
-      next: () => notFoundHandler(request, context),
+      passThrough() {
+        // TODO: Investigate if there is a way to make CFW pass through the
+        // request to the origin server.
+      },
+      platform: { env, context: ctx },
     };
 
-    const response = await runHandler(handler, request, context);
-
-    return response!;
+    return handler(context);
   };
 }

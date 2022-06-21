@@ -1,8 +1,9 @@
-import "@hattip/core";
+import "@hattip/compose";
 
-declare module "@hattip/core" {
-  interface Context {
+declare module "@hattip/compose" {
+  interface RequestContext {
     url: URL;
+    method: string;
     params: any;
   }
 }

@@ -1,21 +1,19 @@
 /// <reference types='@cloudflare/workers-types'/>
 /* eslint-disable import/no-unresolved */
 
-import {
-  compose,
-  HandlerStack,
-  notFoundHandler,
-  runHandler,
-} from "@hattip/core";
+import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
 import { getAssetFromKV, NotFoundError } from "@cloudflare/kv-asset-handler";
 // @ts-expect-error: No typing for this
 import manifest from "__STATIC_CONTENT_MANIFEST";
 
-export default function cloudflareWorkersAdapter(
-  handlerStack: HandlerStack,
-): ExportedHandlerFetchHandler {
-  const handler = compose(handlerStack);
+export interface CloudflareWorkersPlatformInfo {
+  env: unknown;
+  context: ExecutionContext;
+}
 
+export default function cloudflareWorkersAdapter(
+  handler: HattipHandler,
+): ExportedHandlerFetchHandler {
   return async function fetchHandler(request, env, ctx) {
     if (request.method === "GET" || request.method === "HEAD") {
       try {
@@ -37,14 +35,17 @@ export default function cloudflareWorkersAdapter(
       }
     }
 
-    const context = {
+    const context: AdapterRequestContext<CloudflareWorkersPlatformInfo> = {
+      request,
       ip: request.headers.get("CF-Connecting-IP") || "",
       waitUntil: ctx.waitUntil.bind(ctx),
-      next: () => notFoundHandler(request, context),
+      passThrough() {
+        // TODO: Investigate if there is a way to make CFW pass through the
+        // request to the origin server.
+      },
+      platform: { env, context: ctx },
     };
 
-    const response = await runHandler(handler, request, context);
-
-    return response!;
+    return handler(context);
   };
 }

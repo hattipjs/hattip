@@ -1,14 +1,19 @@
 /// reference types="../ambient.d.ts" />
 
-import { Handler, Context, StrictHandler, compose } from "@hattip/core";
+import {
+  RequestHandler,
+  RequestContext,
+  MaybeAsyncResponse,
+} from "@hattip/compose";
 
-export interface RouterContext<P = Record<string, string>> extends Context {
+export interface RouterContext<P = Record<string, string>>
+  extends RequestContext {
   url: URL;
   params: P;
 }
 
 export interface Router {
-  handler: Handler;
+  handlers: RequestHandler[];
 
   all: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
   checkout: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
@@ -39,25 +44,15 @@ export interface Router {
 export type Matcher<P = Record<string, string>> =
   | string
   | RegExp
-  | ((
-      request: Request,
-      context: Context,
-    ) => undefined | P | Promise<undefined | P>);
+  | ((context: RequestContext) => undefined | P | Promise<undefined | P>);
 
 export type RouteHandler<P = Record<string, string>> = (
-  request: Request,
   context: RouterContext<P>,
-) => null | Response | Promise<null | Response>;
+) => MaybeAsyncResponse;
 
 export function createRouter(): Router {
   const self = {
-    _handlers: [] as RouteHandler[],
-    _composed: undefined as StrictHandler | undefined,
-
-    async handler(request: Request, context: Context) {
-      const composed = self._composed || compose(...self._handlers);
-      return composed(request, context);
-    },
+    handlers: [] as RouteHandler[],
   };
 
   return new Proxy(self, {
@@ -70,10 +65,7 @@ export function createRouter(): Router {
         matcher: Matcher,
         handler: RouteHandler,
       ) {
-        let fn: (
-          request: Request,
-          context: RouterContext,
-        ) => null | any | Promise<null | any>;
+        let fn: (context: RequestContext) => null | any | Promise<null | any>;
 
         // Adapted from: https://github.com/kwhitley/itty-router/blob/73148972bf2e205a4969e85672e1c0bfbf249c27/src/itty-router.js#L7
         if (typeof matcher === "string") {
@@ -90,10 +82,10 @@ export function createRouter(): Router {
         if (typeof matcher === "function") {
           fn = matcher;
         } else if (matcher instanceof RegExp) {
-          fn = (request, context) => {
+          fn = (context) => {
             if (
               prop === "all" ||
-              request.method === String(prop).toUpperCase()
+              context.method === String(prop).toUpperCase()
             ) {
               const match = context.url.pathname.match(matcher as RegExp);
 
@@ -104,18 +96,18 @@ export function createRouter(): Router {
           throw new TypeError("Invalid matcher");
         }
 
-        function route(request: Request, context: RouterContext) {
-          context.url = new URL(request.url);
-          context.params = fn(request, context);
+        function route(context: RequestContext) {
+          context.url = new URL(context.request.url);
+          context.method = context.request.method;
+          context.params = fn(context);
           if (!context.params) {
             return;
           }
 
-          return handler(request, context);
+          return handler(context);
         }
 
-        target._handlers.push(route as any);
-        target._composed = undefined;
+        target.handlers.push(route as any);
       });
     },
   }) as any;

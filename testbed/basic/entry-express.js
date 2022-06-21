@@ -1,8 +1,11 @@
+// @ts-check
 import { createListener } from "@hattip/adapter-node";
 import handler from "./index.js";
 import express from "express";
 
-const middleware = createListener(handler, { staticAssetsDir: "public" });
+const middleware = createListener(handler, {
+  staticAssetsDir: "public",
+});
 
 const app = express();
 

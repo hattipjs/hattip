@@ -1,39 +1,43 @@
-import { Context } from "@hattip/core";
+import { compose, RequestContext } from "@hattip/compose";
 import { test, expect } from "vitest";
 import { createRouter } from ".";
 
 // Minimal mock to make `instanceof Response` work
 globalThis.Response = class {
-  constructor(public body: string) {}
+  public status: number;
+
+  constructor(public body: string, options: any = {}) {
+    this.status = options.status || 200;
+  }
 } as any;
 
 test("finds simple routes", async () => {
   const router = createRouter();
   router.get("/a", () => new Response("A"));
   router.get("/b", () => new Response("B"));
+  const handler = compose(router.handlers);
 
-  expect(
-    await router.handler(makeRequest("GET", "/a"), makeContext()),
-  ).toMatchObject({ body: "A" });
-  expect(
-    await router.handler(makeRequest("GET", "/b"), makeContext()),
-  ).toMatchObject({ body: "B" });
+  expect(await handler(makeRequestContext("GET", "/a"))).toMatchObject({
+    body: "A",
+  });
+  expect(await handler(makeRequestContext("GET", "/b"))).toMatchObject({
+    body: "B",
+  });
 
-  expect(
-    await router.handler(makeRequest("GET", "/c"), makeContext()),
-  ).toMatchObject({ status: 404 });
-  expect(
-    await router.handler(makeRequest("POST", "/a"), makeContext()),
-  ).toMatchObject({ status: 404 });
+  expect(await handler(makeRequestContext("GET", "/c"))).toMatchObject({
+    status: 404,
+  });
+  expect(await handler(makeRequestContext("POST", "/a"))).toMatchObject({
+    status: 404,
+  });
 });
 
 test("collects parameters", async () => {
   const router = createRouter();
-  router.get("/:param1/:param2", (request, context) => context.params as any);
+  router.get("/:param1/:param2", (context) => context.params as any);
+  const handler = compose(router.handlers);
 
-  expect(
-    await router.handler(makeRequest("GET", "/aaa/bbb"), makeContext()),
-  ).toMatchObject({
+  expect(await handler(makeRequestContext("GET", "/aaa/bbb"))).toMatchObject({
     param1: "aaa",
     param2: "bbb",
   });
@@ -42,15 +46,15 @@ test("collects parameters", async () => {
 test("returning null works", async () => {
   const router = createRouter();
 
-  router.get("/", async () => null);
+  router.get("/", async () => undefined);
 
   router.get("/", () => {
     return { body: "Hello" } as any;
   });
 
-  expect(
-    await router.handler(makeRequest("GET", "/"), makeContext()),
-  ).toMatchObject({
+  const handler = compose(router.handlers);
+
+  expect(await handler(makeRequestContext("GET", "/"))).toMatchObject({
     body: "Hello",
   });
 });
@@ -58,7 +62,7 @@ test("returning null works", async () => {
 test("ctx.next works", async () => {
   const router = createRouter();
 
-  router.get("/", async (request, context) => {
+  router.get("/", async (context) => {
     const result: Response = await context.next();
     (result as any).test = true;
     return result;
@@ -68,9 +72,9 @@ test("ctx.next works", async () => {
     return { body: "Hello" } as any;
   });
 
-  expect(
-    await router.handler(makeRequest("GET", "/"), makeContext()),
-  ).toMatchObject({
+  const handler = compose(router.handlers);
+
+  expect(await handler(makeRequestContext("GET", "/"))).toMatchObject({
     body: "Hello",
     test: true,
   });
@@ -83,8 +87,16 @@ function makeRequest(method: string, url: string): Request {
   } as any;
 }
 
-function makeContext(): Context {
+function makeContext(request: Request): RequestContext {
   return {
+    request,
     next: () => Promise.resolve({ body: "Not Found", status: 404 }),
+    passThrough() {
+      /**/
+    },
   } as any;
+}
+
+function makeRequestContext(method: string, url: string) {
+  return makeContext(makeRequest(method, url));
 }

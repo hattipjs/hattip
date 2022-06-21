@@ -1,22 +1,6 @@
 {
-  "name": "@hattip/router",
+  "name": "@hattip/compose",
   "version": "0.0.3",
-  "description": "Express-like imperative router for Hattip",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "files": [
-    "dist",
-    "*.d.ts"
-  ],
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    }
-  },
-  "author": "Fatih Aygün <cyco130@gmail.com>",
-  "repository": "https://github.com/cyco130/vavite",
-  "license": "MIT",
   "scripts": {
     "build": "rimraf dist && tsup",
     "dev": "tsup --watch",
@@ -27,18 +11,27 @@
     "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
     "test:package": "publint"
   },
-  "peerDependencies": {
-    "@hattip/core": "workspace:*"
+  "files": [
+    "dist",
+    "index.d.ts"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
   },
+  "types": "index.d.ts",
   "devDependencies": {
     "@cyco130/eslint-config": "^1.1.0",
+    "@hattip/core": "workspace:*",
     "eslint": "^8.15.0",
+    "node-fetch": "^3.2.4",
     "publint": "^0.1.1",
     "tsup": "^5.12.7",
     "typescript": "^4.6.4",
     "vitest": "^0.12.6"
-  },
-  "dependencies": {
-    "@hattip/compose": "workspace:*"
   }
 }

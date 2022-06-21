@@ -103,9 +103,9 @@ interface NodeAdapterOptions {
    */
   sirvOptions?: SirvOptions;
   /**
-   * Whether to use native fetch when available instead of `node-fetch`.
-   * Defaults to false.
+   * Whether to use native fetch instead of `node-fetch`. Will result in an
+   * error if native fetch is not available. Defaults to false.
    */
-  preferNativeFetch?: boolean;
+  useNativeFetch?: boolean;
 }
 ```
