@@ -17,18 +17,21 @@ let cases: Array<{
   skipCookieTest?: boolean;
 }>;
 
-if (process.env.CI === "true") {
-  const versions = process.versions.node.split(".");
-  const major = +versions[0];
-  const minor = +versions[1];
+const nodeVersions = process.versions.node.split(".");
+const nodeVersionMajor = +nodeVersions[0];
+const nodeVersionMinor = +nodeVersions[1];
 
+if (process.env.CI === "true") {
   const fetchAvailable =
-    major >= 18 || (major >= 17 && minor >= 5) || (major >= 16 && minor >= 15);
+    nodeVersionMajor >= 18 ||
+    (nodeVersionMajor >= 17 && nodeVersionMinor >= 5) ||
+    (nodeVersionMajor >= 16 && nodeVersionMinor >= 15);
   if (!fetchAvailable) {
     console.warn("Node version < 17.5 or 16.15, will skip native fetch tests");
   }
 
-  const miniflareAvailable = major >= 17 || (major >= 16 && minor >= 7);
+  const miniflareAvailable =
+    nodeVersionMajor >= 17 || (nodeVersionMajor >= 16 && nodeVersionMinor >= 7);
   if (!miniflareAvailable) {
     console.warn("Node version < 16.7, will skip miniflare tests");
   }
@@ -107,9 +110,10 @@ describe.each(cases)("$env", ({ env, command, skipCookieTest }) => {
       }
 
       const tree = await promisify(psTree)(cp.pid);
+      const pids = [cp.pid, ...tree.map((p) => +p.PID)];
 
-      for (const p of tree) {
-        kill(+p.PID, "SIGINT");
+      for (const pid of pids) {
+        kill(+pid, "SIGINT");
       }
 
       await new Promise((resolve) => {
@@ -125,15 +129,19 @@ describe.each(cases)("$env", ({ env, command, skipCookieTest }) => {
     let ip;
 
     if (new URL(host).hostname === "localhost") {
-      ip = "127.0.0.1";
+      ip = ["::1", "127.0.0.1"];
     } else {
-      ip = await fetch("http://api.ipify.org").then((r) => r.text());
+      ip = [await fetch("http://api.ipify.org").then((r) => r.text())];
     }
 
-    const EXPECTED = `<h1>Hello from Hattip!</h1><p>URL: <span>${
-      host + "/"
-    }</span></p><p>Your IP address is: <span>${ip}</span></p>`;
-    expect(text).toContain(EXPECTED);
+    const EXPECTED = ip.map(
+      (ip) =>
+        `<h1>Hello from Hattip!</h1><p>URL: <span>${
+          host + "/"
+        }</span></p><p>Your IP address is: <span>${ip}</span></p>`,
+    );
+
+    expect(EXPECTED.some((e) => text.includes(e))).toBe(true);
     expect(response.headers.get("content-type")).toEqual(
       "text/html; charset=utf-8",
     );
