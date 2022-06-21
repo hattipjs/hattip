@@ -206,3 +206,32 @@ test("flattens RequestHandlers", async () => {
 
   expect(r1).toEqual("1");
 });
+
+test("installs default error handler", async () => {
+  const h1: RequestHandler = () => {
+    throw new Error("1");
+  };
+  const composed = compose(h1);
+
+  const r = await composed({
+    request: new Request("http://example.com"),
+  } as any);
+
+  expect(r.status).toEqual(500);
+});
+
+test("calls handleError", async () => {
+  const h1: RequestHandler = (ctx) => {
+    ctx.handleError = (error: any) => new Response(error.message);
+  };
+  const h2: RequestHandler = () => {
+    throw new Error("1");
+  };
+  const composed = compose(h1, h2);
+
+  const r = await composed({
+    request: new Request("http://example.com"),
+  } as any);
+
+  expect(r.text()).resolves.toEqual("1");
+});

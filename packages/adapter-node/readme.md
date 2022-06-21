@@ -109,3 +109,7 @@ interface NodeAdapterOptions {
   useNativeFetch?: boolean;
 }
 ```
+
+## `context.platform`
+
+This adapter makes Node's native `request` and `response` objects available in `context.platform`.

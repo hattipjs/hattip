@@ -1,6 +1,6 @@
 {
   "name": "@hattip/compose",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "build": "rimraf dist && tsup",
     "dev": "tsup --watch",
@@ -25,13 +25,13 @@
   },
   "types": "index.d.ts",
   "devDependencies": {
-    "@cyco130/eslint-config": "^1.1.0",
+    "@cyco130/eslint-config": "^2.0.0",
     "@hattip/core": "workspace:*",
-    "eslint": "^8.15.0",
-    "node-fetch": "^3.2.4",
+    "eslint": "^8.18.0",
+    "node-fetch": "^3.2.6",
     "publint": "^0.1.1",
-    "tsup": "^5.12.7",
-    "typescript": "^4.6.4",
-    "vitest": "^0.12.6"
+    "tsup": "^6.1.2",
+    "typescript": "^4.7.4",
+    "vitest": "^0.15.2"
   }
 }

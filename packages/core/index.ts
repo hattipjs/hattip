@@ -3,7 +3,7 @@
  */
 export interface AdapterRequestContext<P = unknown> {
   /**
-   * The request.
+   * The request. @see https://developer.mozilla.org/en-US/docs/Web/API/Request
    */
   request: Request;
   /**
@@ -12,7 +12,8 @@ export interface AdapterRequestContext<P = unknown> {
    */
   ip: string;
   /**
-   * Platform specific stuff.
+   * Platform specific stuff. Check with the platform adapter documentation for
+   * more information.
    */
   platform: P;
   /**
@@ -34,6 +35,9 @@ export interface AdapterRequestContext<P = unknown> {
 
 /**
  * Main handler that adapters expect.
+ *
+ * @returns A response or a promise that resolves to a response.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Response
  */
 export type HattipHandler = (
   context: AdapterRequestContext,

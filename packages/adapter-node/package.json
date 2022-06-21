@@ -1,6 +1,6 @@
 {
   "name": "@hattip/adapter-node",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Node.js adapter for Hattip",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -27,14 +27,14 @@
     "test:package": "publint"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^1.1.0",
+    "@cyco130/eslint-config": "^2.0.0",
     "@hattip/core": "workspace:*",
-    "@types/node": "^17.0.33",
-    "eslint": "^8.15.0",
-    "node-fetch": "^3.2.4",
+    "@types/node": "^18.0.0",
+    "eslint": "^8.18.0",
+    "node-fetch": "^3.2.6",
     "publint": "^0.1.1",
     "sirv": "^2.0.2",
-    "tsup": "^5.12.7",
-    "typescript": "^4.6.4"
+    "tsup": "^6.1.2",
+    "typescript": "^4.7.4"
   }
 }

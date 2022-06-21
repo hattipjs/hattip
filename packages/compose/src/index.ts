@@ -1,7 +1,12 @@
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
 
+/**
+ * Request context
+ */
 export interface RequestContext extends AdapterRequestContext {
+  /** Call the next handler in the chain */
   next(): Promise<Response>;
+  /** Redefine to handle errors by generating a response from an error */
   handleError(error: unknown): Response | Promise<Response>;
 }
 
@@ -11,7 +16,7 @@ export interface ResponseConvertible {
 
 export type ResponseLike = Response | ResponseConvertible;
 
-export type MaybeRespone = ResponseLike | undefined;
+export type MaybeRespone = ResponseLike | void;
 
 export type MaybeAsyncResponse = MaybeRespone | Promise<MaybeRespone>;
 
@@ -28,6 +33,12 @@ function finalHandler(context: RequestContext): Response {
 
 export function compose(...handlers: RequestHandlerStack[]): HattipHandler {
   const flatHandlers = handlers.flat().filter(Boolean) as RequestHandler[];
+  flatHandlers.unshift((context) => {
+    context.handleError = (error: unknown) => {
+      console.error(error);
+      return new Response("Internal Server Error", { status: 500 });
+    };
+  });
 
   return flatHandlers.map(wrap).reduceRight((prev, current) => {
     return async (context: RequestContext) => {
@@ -40,9 +51,7 @@ export function compose(...handlers: RequestHandlerStack[]): HattipHandler {
 
 function wrap(
   handler: RequestHandler,
-): (
-  context: RequestContext,
-) => Response | undefined | Promise<Response | undefined> {
+): (context: RequestContext) => Response | void | Promise<Response | void> {
   return async (context: RequestContext) => {
     let result: Response | ResponseConvertible;
     try {
@@ -52,6 +61,8 @@ function wrap(
         return error;
       } else if (isResponseConvertible(error)) {
         return error.toResponse();
+      } else if (context.handleError) {
+        return context.handleError(error);
       } else {
         throw error;
       }

@@ -2,8 +2,6 @@
 
 HatTip bundler for [Cloudflare Workers](https://workers.cloudflare.com). It uses [`esbuild`](https://esbuild.github.io) behind the scenes.
 
-> This is a low level package, we recommend using `@hattip/cloudflare-workers` for most use cases.
-
 ## CLI
 
 ```

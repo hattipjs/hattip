@@ -1,6 +1,6 @@
 {
   "name": "@hattip/adapter-cloudflare-workers",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Cloudflare Workers adapter for Hattip",
   "module": "./dist/index.mjs",
   "files": [
@@ -29,13 +29,13 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
-    "@cloudflare/workers-types": "^3.10.0",
-    "@cyco130/eslint-config": "^1.1.0",
+    "@cloudflare/workers-types": "^3.13.0",
+    "@cyco130/eslint-config": "^2.0.0",
     "@hattip/core": "workspace:*",
-    "@types/node": "^17.0.33",
-    "eslint": "^8.15.0",
+    "@types/node": "^18.0.0",
+    "eslint": "^8.18.0",
     "publint": "^0.1.1",
-    "tsup": "^5.12.7",
-    "typescript": "^4.6.4"
+    "tsup": "^6.1.2",
+    "typescript": "^4.7.4"
   }
 }
