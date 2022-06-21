@@ -27,9 +27,6 @@
     "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
     "test:package": "publint"
   },
-  "peerDependencies": {
-    "@hattip/core": "workspace:*"
-  },
   "devDependencies": {
     "@cyco130/eslint-config": "^2.0.0",
     "eslint": "^8.18.0",
@@ -39,6 +36,7 @@
     "vitest": "^0.15.2"
   },
   "dependencies": {
+    "@hattip/core": "workspace:*",
     "@hattip/compose": "workspace:*"
   }
 }

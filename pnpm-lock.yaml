@@ -125,6 +125,7 @@ importers:
     specifiers:
       '@cyco130/eslint-config': ^2.0.0
       '@hattip/compose': workspace:*
+      '@hattip/core': workspace:*
       eslint: ^8.18.0
       publint: ^0.1.1
       tsup: ^6.1.2
@@ -132,6 +133,7 @@ importers:
       vitest: ^0.15.2
     dependencies:
       '@hattip/compose': link:../compose
+      '@hattip/core': link:../core
     devDependencies:
       '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
       eslint: 8.18.0
