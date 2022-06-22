@@ -67,6 +67,11 @@ if (process.env.CI === "true") {
         BROWSER: "none",
       },
     },
+    {
+      name: "Deno",
+      command:
+        "pnpm build:deno && deno run --allow-read --allow-net dist/deno/index.js",
+    },
   ].filter(Boolean) as typeof cases;
   host = "http://localhost:3000";
 } else {
@@ -129,7 +134,7 @@ describe.each(cases)(
               });
           }, 250);
         });
-      });
+      }, 60_000);
 
       afterAll(async () => {
         if (!cp || cp.exitCode || !cp.pid) {

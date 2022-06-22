@@ -1,0 +1,36 @@
+{
+  "name": "@hattip/adapter-deno",
+  "version": "0.0.4",
+  "description": "Deno adapter for Hattip",
+  "module": "./dist/index.mjs",
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs"
+    }
+  },
+  "author": "Fatih Aygün <cyco130@gmail.com>",
+  "repository": "https://github.com/cyco130/vavite",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && tsup",
+    "dev": "tsup --watch",
+    "prepack": "pnpm build",
+    "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:package",
+    "test:typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
+    "test:package": "publint"
+  },
+  "devDependencies": {
+    "@cyco130/eslint-config": "^2.0.0",
+    "@hattip/core": "workspace:*",
+    "@types/node": "^18.0.0",
+    "eslint": "^8.18.0",
+    "publint": "^0.1.1",
+    "tsup": "^6.1.2",
+    "typescript": "^4.7.4"
+  }
+}

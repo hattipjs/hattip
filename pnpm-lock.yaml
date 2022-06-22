@@ -43,6 +43,24 @@ importers:
       tsup: 6.1.2_typescript@4.7.4
       typescript: 4.7.4
 
+  packages/adapter-deno:
+    specifiers:
+      '@cyco130/eslint-config': ^2.0.0
+      '@hattip/core': workspace:*
+      '@types/node': ^18.0.0
+      eslint: ^8.18.0
+      publint: ^0.1.1
+      tsup: ^6.1.2
+      typescript: ^4.7.4
+    devDependencies:
+      '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
+      '@hattip/core': link:../core
+      '@types/node': 18.0.0
+      eslint: 8.18.0
+      publint: 0.1.1
+      tsup: 6.1.2_typescript@4.7.4
+      typescript: 4.7.4
+
   packages/adapter-netlify-edge:
     specifiers:
       '@cyco130/eslint-config': ^2.0.0
@@ -135,6 +153,31 @@ importers:
       esbuild: 0.14.47
     devDependencies:
       '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
+      '@types/node': 18.0.0
+      eslint: 8.18.0
+      publint: 0.1.1
+      tsup: 6.1.2_typescript@4.7.4
+      typescript: 4.7.4
+
+  packages/bundler-deno:
+    specifiers:
+      '@cyco130/eslint-config': ^2.0.0
+      '@types/fs-extra': ^9.0.13
+      '@types/node': ^18.0.0
+      cac: ^6.7.12
+      esbuild: ^0.14.47
+      eslint: ^8.18.0
+      fs-extra: ^10.1.0
+      publint: ^0.1.1
+      tsup: ^6.1.2
+      typescript: ^4.7.4
+    dependencies:
+      cac: 6.7.12
+      esbuild: 0.14.47
+      fs-extra: 10.1.0
+    devDependencies:
+      '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
+      '@types/fs-extra': 9.0.13
       '@types/node': 18.0.0
       eslint: 8.18.0
       publint: 0.1.1
@@ -250,11 +293,13 @@ importers:
   testbed/basic:
     specifiers:
       '@hattip/adapter-cloudflare-workers': workspace:*
+      '@hattip/adapter-deno': workspace:*
       '@hattip/adapter-netlify-edge': workspace:*
       '@hattip/adapter-netlify-functions': workspace:*
       '@hattip/adapter-node': workspace:*
       '@hattip/adapter-vercel-edge': workspace:*
       '@hattip/bundler-cloudflare-workers': workspace:*
+      '@hattip/bundler-deno': workspace:*
       '@hattip/bundler-netlify': workspace:*
       '@hattip/bundler-vercel': workspace:*
       '@hattip/compose': workspace:*
@@ -281,17 +326,19 @@ importers:
       sirv: 2.0.2
     devDependencies:
       '@hattip/adapter-cloudflare-workers': link:../../packages/adapter-cloudflare-workers
+      '@hattip/adapter-deno': link:../../packages/adapter-deno
       '@hattip/adapter-netlify-edge': link:../../packages/adapter-netlify-edge
       '@hattip/adapter-netlify-functions': link:../../packages/adapter-netlify-functions
       '@hattip/adapter-vercel-edge': link:../../packages/adapter-vercel-edge
       '@hattip/bundler-cloudflare-workers': link:../../packages/bundler-cloudflare-workers
+      '@hattip/bundler-deno': link:../../packages/bundler-deno
       '@hattip/bundler-netlify': link:../../packages/bundler-netlify
       '@hattip/bundler-vercel': link:../../packages/bundler-vercel
       '@types/node': 18.0.0
       '@types/ps-tree': 1.1.2
       '@vercel/ncc': 0.34.0
       miniflare: 2.5.1
-      netlify-cli: 10.6.0
+      netlify-cli: 10.6.1
       node-fetch: 3.2.6
       nodemon: 2.0.16
       ps-tree: 1.2.0
@@ -696,8 +743,8 @@ packages:
       glob-to-regexp: 0.3.0
     dev: true
 
-  /@netlify/build/27.1.6:
-    resolution: {integrity: sha512-Xy5ipN6fMrJzwr3dyB6vv26RbYoTUXTKHTyVw3FmWyY0Zag88cY5A5fauqeXHjrVFIu1U6Y34t/8o8L8Nb8/ow==}
+  /@netlify/build/27.2.0:
+    resolution: {integrity: sha512-Kn9OiZd7V2M+ZHKI57Poo58xkOpN40Q5cOD8orBpEo6ZulIAeJbLLSvVnclSqU8/cC3wzeb6XXSWfe9YMZ6bnw==}
     engines: {node: ^12.20.0 || ^14.14.0 || >=16.0.0}
     hasBin: true
     dependencies:
@@ -4846,7 +4893,6 @@ packages:
       graceful-fs: 4.2.10
       jsonfile: 6.1.0
       universalify: 2.0.0
-    dev: true
 
   /fs-minipass/1.2.7:
     resolution: {integrity: sha512-GWSSJGFy4e9GUeCcbIkED+bgAoFyj7XF1mV8rma3QW4NIqX9Kyx79N/PF61H5udOV3aY1IaMLs6pGbH71nlCTA==}
@@ -5230,7 +5276,6 @@ packages:
 
   /graceful-fs/4.2.10:
     resolution: {integrity: sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==}
-    dev: true
 
   /graphql/16.0.0:
     resolution: {integrity: sha512-n9NxoRfwnpYBZB/WJ7L166gyrShuZ8qYgVaX8oxVyELcJfAwkvwPt6WlYIl90WRlzqDjaNWvLmNOSnKs5llZWQ==}
@@ -6113,7 +6158,6 @@ packages:
       universalify: 2.0.0
     optionalDependencies:
       graceful-fs: 4.2.10
-    dev: true
 
   /jsonwebtoken/8.5.1:
     resolution: {integrity: sha512-XjwVfRS6jTMsqYs0EsuJ4LGxXV14zQybNd4L2r0UvbVnSF9Af8x7p5MzbJ90Ioz/9TI41/hTCvznF/loiSzn8w==}
@@ -7052,13 +7096,13 @@ packages:
     resolution: {integrity: sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==}
     dev: true
 
-  /netlify-cli/10.6.0:
-    resolution: {integrity: sha512-pOxYwgvJzufLcIfz+xx0Zw2M321uJX++SbYZe/0D5gkgTSF82UbHTrTg8xv4DMt2ZTo5GwMg6tIDzh7AQUiXVQ==}
+  /netlify-cli/10.6.1:
+    resolution: {integrity: sha512-0GPFHrAp8da8R7ni7MFSOeKmOUFwU599+u0zxvM0vV0mgUDjXJbr4Jv1jssZlIl2yGtpBU1NxqbIsdPze1jNMA==}
     engines: {node: ^12.20.0 || ^14.14.0 || >=16.0.0}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@netlify/build': 27.1.6
+      '@netlify/build': 27.2.0
       '@netlify/config': 18.0.2
       '@netlify/edge-bundler': 1.4.1
       '@netlify/framework-info': 9.1.0
@@ -9858,7 +9902,6 @@ packages:
   /universalify/2.0.0:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
     engines: {node: '>= 10.0.0'}
-    dev: true
 
   /unixify/1.0.0:
     resolution: {integrity: sha512-6bc58dPYhCMHHuwxldQxO3RRNZ4eCogZ/st++0+fcC1nr0jiGUtAdBJ2qzmLQWSxbtz42pWt4QQMiZ9HvZf5cg==}
@@ -10106,7 +10149,7 @@ packages:
   /wide-align/1.1.5:
     resolution: {integrity: sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==}
     dependencies:
-      string-width: 4.2.3
+      string-width: 1.0.2
     dev: true
 
   /widest-line/3.1.0:

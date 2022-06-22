@@ -27,6 +27,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Install Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2.1.0
         with:

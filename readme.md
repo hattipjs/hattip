@@ -46,7 +46,7 @@ We believe in a diverse but interoperable future for the JavaScript ecosystem an
 - ✅ Vercel Edge Functions
 - ✅ Netlify Functions
 - ✅ Netlify Edge Functions
-- 🚧 Deno
+- ✅ Deno (including Deno Deploy)
 - 🚧 Service Workers
 
 Adapters let you run HatTip on any platform. Here's how you can use HatTip with Node.js:
@@ -157,10 +157,12 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`adapter-vercel-edge`](./packages/adapter-vercel-edge): Vercel Edge Functions
   - [`adapter-netlify-functions`](./packages/adapter-netlify-functions): Netlify Functions
   - [`adapter-netlify-edge`](./packages/adapter-netlify-edge): Netlify Edge Functions
+  - [`adapter-deno`](./packages/adapter-deno): Deno
 - **Bundlers:** Worker and serverless platforms usually require your code to be in bundled form. These packages provide bundlers fine-tuned for their respective platforms:
   - [`bundler-cloudflare-workers`](./packages/bundler-cloudflare-workers): Bundler for Cloudflare Workers
   - [`bundler-vercel`](./packages/bundler-vercel): Bundler for Vercel edge and serverless functions
   - [`bundler-netlify`](./packages/bundler-netlify): Bundler for Netlify edge and Netlify functions
+  - [`bundler-deno`](./packages/bundler-deno): Bundler for Deno
 - [`compose`](./packages/compose): A middleware system for combining multiple handlers into a single one.
 
 A zero-config development environment based on [Vite](https://vitejs.dev) is also in the works
