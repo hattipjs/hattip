@@ -48,6 +48,7 @@ importers:
       '@cyco130/eslint-config': ^2.0.0
       '@hattip/adapter-node': workspace:*
       '@hattip/core': workspace:*
+      '@types/node': ^18.0.0
       eslint: ^8.18.0
       netlify-lambda-types: ^1.0.0
       publint: ^0.1.1
@@ -59,6 +60,7 @@ importers:
       netlify-lambda-types: 1.0.0
     devDependencies:
       '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
+      '@types/node': 18.0.0
       eslint: 8.18.0
       publint: 0.1.1
       tsup: 6.1.2_typescript@4.7.4

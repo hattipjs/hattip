@@ -1,3 +1,5 @@
+/// <reference types='node'/>
+
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
 import type {
   NetlifyFunction,
