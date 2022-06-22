@@ -1,16 +1,10 @@
-# HatTip basic integration tests
+# HatTip Basic Integration Tests
 
-## CI
+## Running
 
-When the environment variable `CI` equals `true`, `pnpm run ci` will run 3 tests:
+When the environment variable `CI` equals `true`, `pnpm run ci` will all the automatic tests. When the environment variable `CI` does not equal `true`, `pnpm run ci` will run its tests on an already running server. You can set the server address by setting the environment variable `TEST_HOST` which defaults to `http://localhost:3000`.
 
-- Node.js with `node-fetch`
-- Node.js with native fetch
-- Miniflare
-
-## Manual
-
-When the environment variable `CI` does not equal `true`, `pnpm run ci` will run its tests on an already running server. You can set the server address by setting the environment variable `TEST_HOST` which defaults to `http://localhost:3000`.
+TODO: Tests except the first three are currently run manually. Find a way to run them automatically.
 
 ## Status
 
@@ -26,21 +20,19 @@ Setting multiple `Set-Cookie` headers is not currently supported by the native f
 
 ### Miniflare
 
-> Launch with `miniflare --modules --port 3000 dist/cloudflare-workers-bundle/index.js`. Miniflare doesn't understand the `main` field in the `wrangler.toml` files yet.
-
 All tests pass.
+
+Launch with `miniflare --modules --port 3000 dist/cloudflare-workers-bundle/index.js`. Miniflare doesn't understand the `main` field in the `wrangler.toml` files yet.
 
 ### Cloudflare Workers
 
-> Publish with `wrangler publish`.
-
 All tests pass.
 
-TODO: This test is currently run manually. Find a way to run it automatically.
+Publish with `wrangler publish`.
 
 ### Vercel Serverless Functions
 
-All tests except "doesn't fully buffer binary stream" pass. Vercel Serverless Functions has no streaming support.
+All tests except "doesn't fully buffer binary stream" pass. Vercel Serverless Functions have no streaming support.
 
 Build locally with `hattip-vercel --staticDir public --serverless entry-vercel-serverless.js --outputDir vercel-build/output`.
 
@@ -57,3 +49,9 @@ Also the `ENABLE_VC_BUILD` environment variable must be set to `1` on the dashbo
 All tests pass.
 
 Build locally with `hattip-vercel --staticDir public --edge entry-vercel-edge.js --outputDir vercel-build/output`. Check the previous section for set up and deployment instructions.
+
+### Netlify Functions
+
+All tests except "doesn't fully buffer binary stream" pass. Netlify Functions have no streaming support.
+
+Build locally with `hattip-netlify --staticDir public --func entry-netlify-function.js`. Deploy with `netlify deploy`.

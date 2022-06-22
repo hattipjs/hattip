@@ -11,8 +11,10 @@
   },
   "devDependencies": {
     "@hattip/adapter-cloudflare-workers": "workspace:*",
+    "@hattip/adapter-netlify-functions": "workspace:*",
     "@hattip/adapter-vercel-edge": "workspace:*",
     "@hattip/bundler-cloudflare-workers": "workspace:*",
+    "@hattip/bundler-netlify": "workspace:*",
     "@hattip/bundler-vercel": "workspace:*",
     "@types/node": "^18.0.0",
     "@types/ps-tree": "^1.1.2",

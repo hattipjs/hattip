@@ -131,3 +131,6 @@ dist
 
 .vercel
 vercel-build
+
+# Local Netlify folder
+.netlify

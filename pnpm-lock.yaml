@@ -56,10 +56,10 @@ importers:
     dependencies:
       '@hattip/adapter-node': link:../adapter-node
       '@hattip/core': link:../core
+      netlify-lambda-types: 1.0.0
     devDependencies:
       '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
       eslint: 8.18.0
-      netlify-lambda-types: 1.0.0
       publint: 0.1.1
       tsup: 6.1.2_typescript@4.7.4
       typescript: 4.7.4
@@ -117,6 +117,31 @@ importers:
       '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
       '@types/node': 18.0.0
       eslint: 8.18.0
+      publint: 0.1.1
+      tsup: 6.1.2_typescript@4.7.4
+      typescript: 4.7.4
+
+  packages/bundler-netlify:
+    specifiers:
+      '@cyco130/eslint-config': ^2.0.0
+      '@types/fs-extra': ^9.0.13
+      '@types/node': ^18.0.0
+      cac: ^6.7.12
+      esbuild: ^0.14.47
+      eslint: ^8.18.0
+      fs-extra: ^10.1.0
+      publint: ^0.1.1
+      tsup: ^6.1.2
+      typescript: ^4.7.4
+    dependencies:
+      cac: 6.7.12
+      esbuild: 0.14.47
+    devDependencies:
+      '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
+      '@types/fs-extra': 9.0.13
+      '@types/node': 18.0.0
+      eslint: 8.18.0
+      fs-extra: 10.1.0
       publint: 0.1.1
       tsup: 6.1.2_typescript@4.7.4
       typescript: 4.7.4
@@ -205,9 +230,11 @@ importers:
   testbed/basic:
     specifiers:
       '@hattip/adapter-cloudflare-workers': workspace:*
+      '@hattip/adapter-netlify-functions': workspace:*
       '@hattip/adapter-node': workspace:*
       '@hattip/adapter-vercel-edge': workspace:*
       '@hattip/bundler-cloudflare-workers': workspace:*
+      '@hattip/bundler-netlify': workspace:*
       '@hattip/bundler-vercel': workspace:*
       '@hattip/compose': workspace:*
       '@hattip/router': workspace:*
@@ -232,8 +259,10 @@ importers:
       sirv: 2.0.2
     devDependencies:
       '@hattip/adapter-cloudflare-workers': link:../../packages/adapter-cloudflare-workers
+      '@hattip/adapter-netlify-functions': link:../../packages/adapter-netlify-functions
       '@hattip/adapter-vercel-edge': link:../../packages/adapter-vercel-edge
       '@hattip/bundler-cloudflare-workers': link:../../packages/bundler-cloudflare-workers
+      '@hattip/bundler-netlify': link:../../packages/bundler-netlify
       '@hattip/bundler-vercel': link:../../packages/bundler-vercel
       '@types/node': 18.0.0
       '@types/ps-tree': 1.1.2
@@ -506,7 +535,7 @@ packages:
 
   /@types/aws-lambda/8.10.101:
     resolution: {integrity: sha512-84geGyVc0H9P9aGbcg/vkDh5akJq0bEf3tizHNR2d1gcm0wsp9IZ/SW6rPxvgjJFi3OeVxDc8WTKCAjoZbogzg==}
-    dev: true
+    dev: false
 
   /@types/chai-subset/1.3.3:
     resolution: {integrity: sha512-frBecisrNGz+F4T6bcc+NLeolfiojh5FxW2klu669+8BARtyQv2C/GkNW6FUodVe4BroGMP/wER/YDGc7rEllw==}
@@ -540,7 +569,7 @@ packages:
 
   /@types/node/14.18.21:
     resolution: {integrity: sha512-x5W9s+8P4XteaxT/jKF0PSb7XEvo5VmqEWgsMlyeY4ZlLK8I6aH6g5TPPyDlLAep+GYf4kefb7HFyc7PAO3m+Q==}
-    dev: true
+    dev: false
 
   /@types/node/18.0.0:
     resolution: {integrity: sha512-cHlGmko4gWLVI27cGJntjs/Sj8th9aYwplmZFwmmgYQQvL5NUsgVJG7OddLvNfLqYS31KFN0s3qlaD9qCaxACA==}
@@ -2925,7 +2954,7 @@ packages:
     dependencies:
       '@types/aws-lambda': 8.10.101
       '@types/node': 14.18.21
-    dev: true
+    dev: false
 
   /node-domexception/1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}

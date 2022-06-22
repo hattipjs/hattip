@@ -54,8 +54,11 @@ export default function netlifyFunctionsAdapter(
 
     const headers: Record<string, string> = {};
     const multiValueHeaders: Record<string, string[]> = {};
+    const rawHeaders: Record<string, string | string[]> = (
+      response.headers as any
+    ).raw();
 
-    for (const [key, value] of Object.entries(response.headers || {})) {
+    for (const [key, value] of Object.entries(rawHeaders)) {
       if (Array.isArray(value)) {
         multiValueHeaders[key] = value;
       } else {

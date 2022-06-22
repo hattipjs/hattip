@@ -8,9 +8,9 @@ Assuming you have your HatTip handler defined in `handler.js`, create an entry f
 
 ```js
 import netlifyFunctionsAdapter from "@hattip/adapter-netlify-functions";
-import handler from "./handler.js";
+import hattipHandler from "./handler.js";
 
-export default netlifyFunctionsAdapter(handler);
+export const handler = netlifyFunctionsAdapter(hattipHandler);
 ```
 
 ## `fetch` implementation
