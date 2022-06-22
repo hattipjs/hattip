@@ -134,3 +134,4 @@ vercel-build
 
 # Local Netlify folder
 .netlify
+testbed/*/netlify

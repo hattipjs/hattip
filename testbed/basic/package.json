@@ -7,6 +7,7 @@
     "dev": "nodemon entry-node.js",
     "build:cfw": "hattip-cloudflare-workers -e entry-cfw.js dist/cloudflare-workers-bundle/index.js",
     "build:vercel": "cp -R vercel-build/output .vercel/",
+    "build:netlify-functions": "hattip-netlify --staticDir public --func entry-netlify-function.js",
     "ci": "vitest --reporter=verbose"
   },
   "devDependencies": {
@@ -20,6 +21,7 @@
     "@types/ps-tree": "^1.1.2",
     "@vercel/ncc": "^0.34.0",
     "miniflare": "^2.5.1",
+    "netlify-cli": "^10.5.1",
     "node-fetch": "^3.2.6",
     "nodemon": "^2.0.16",
     "ps-tree": "^1.2.0",

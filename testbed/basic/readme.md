@@ -4,7 +4,7 @@
 
 When the environment variable `CI` equals `true`, `pnpm run ci` will all the automatic tests. When the environment variable `CI` does not equal `true`, `pnpm run ci` will run its tests on an already running server. You can set the server address by setting the environment variable `TEST_HOST` which defaults to `http://localhost:3000`.
 
-TODO: Tests except the first three are currently run manually. Find a way to run them automatically.
+TODO: Tests except the first four are currently run manually. Find a way to run them automatically.
 
 ## Status
 
@@ -14,15 +14,19 @@ All tests pass.
 
 ### Node.js with native fetch
 
-All tests except "sends multiple cookies" pass which is automatically skipped in the CI.
-
-Setting multiple `Set-Cookie` headers is not currently supported by the native fetch implementation.
+All tests except "sends multiple cookies" pass which is automatically skipped in the CI. Setting multiple `Set-Cookie` headers is not currently supported by the native fetch implementation.
 
 ### Miniflare
 
 All tests pass.
 
 Launch with `miniflare --modules --port 3000 dist/cloudflare-workers-bundle/index.js`. Miniflare doesn't understand the `main` field in the `wrangler.toml` files yet.
+
+### Netlify Functions with `netlify dev`
+
+All tests except "doesn't fully buffer binary stream" pass which is automatically skipped in the CI. Netlify Functions have no streaming support.
+
+Build locally with `pnpm build:netlify-functions`, test with `netlify dev`.
 
 ### Cloudflare Workers
 
@@ -50,8 +54,8 @@ All tests pass.
 
 Build locally with `hattip-vercel --staticDir public --edge entry-vercel-edge.js --outputDir vercel-build/output`. Check the previous section for set up and deployment instructions.
 
-### Netlify Functions
+### Netlify Functions (live)
 
 All tests except "doesn't fully buffer binary stream" pass. Netlify Functions have no streaming support.
 
-Build locally with `hattip-netlify --staticDir public --func entry-netlify-function.js`. Deploy with `netlify deploy`.
+Build locally with `pnpm build:netlify-functions`, deploy with `netlify deploy`.

@@ -21,19 +21,35 @@ export default function netlifyFunctionsAdapter(
   return async (event, netlifyContext) => {
     await installPromise;
 
+    if (event.path === "/net") {
+      return {
+        statusCode: 200,
+        body: JSON.stringify(event, null, 2),
+      };
+    }
+
+    const clientConnectionIp = event.headers["x-nf-client-connection-ip"];
+
     const context: AdapterRequestContext<NetlifyFunctionsPlatformInfo> = {
-      request: new Request("https://" + event.headers.host + event.path, {
-        method: event.httpMethod,
+      request: new Request(
+        (clientConnectionIp ? "https://" : "http://") +
+          event.headers.host +
+          event.path,
+        {
+          method: event.httpMethod,
 
-        body:
-          event.httpMethod === "GET" || event.httpMethod === "HEAD"
-            ? undefined
-            : event.isBase64Encoded
-            ? Buffer.from(event.body, "base64")
-            : event.body,
-      }),
+          body:
+            event.httpMethod === "GET" || event.httpMethod === "HEAD"
+              ? undefined
+              : event.isBase64Encoded
+              ? Buffer.from(event.body, "base64")
+              : event.body,
 
-      ip: event.headers["x-nf-client-connection-ip"],
+          headers: event.headers,
+        },
+      ),
+
+      ip: clientConnectionIp || event.headers["client-ip"],
 
       waitUntil(promise) {
         // Do nothing

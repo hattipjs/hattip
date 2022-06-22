@@ -145,7 +145,7 @@ export async function bundleRegularFunction(
     outfile: outputDir + "/index.js",
     platform: "node",
     target: "node16",
-    format: "cjs",
+    format: "esm",
     external: builtinModules,
   };
 
