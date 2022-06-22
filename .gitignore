@@ -129,3 +129,5 @@ dist
 # Local files
 *.local.*
 
+.vercel
+vercel-build

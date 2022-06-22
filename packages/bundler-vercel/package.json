@@ -3,17 +3,10 @@
   "version": "0.0.4",
   "description": "Vercel bundler for Hattip",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
   "files": [
     "dist",
     "*.d.ts"
   ],
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    }
-  },
   "bin": {
     "hattip-vercel": "./cli.js"
   },
