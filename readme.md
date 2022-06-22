@@ -10,7 +10,7 @@ HatTip is a JavaScript framework for handling HTTP requests.
 - &#x2728; Modern: Based on current and future web standards (Fetch API & WinterCG).
 - &#x1F30D; Universal: Runs anywhere (Node.js, the Edge, Deno, ...).
 - &#x1F9E9; Modular: Use as much or as little as you need.
-- &#x1FA9B; Mininimalist: Everything you need, nothing you don't.
+- &#x1FA9B; Minimalist: Everything you need, nothing you don't.
 
 It aims to build an ecosystem of universal middlewares that can be used across the entire JavaScript universe.
 
@@ -80,13 +80,13 @@ You can even use your HatTip application as an Express middleware when you have 
 import { createMiddleware } from "@hattip/adapter-node";
 import handler from "./handler.js";
 import express from "express";
-import coolExpressMiddleware from "cool-express-middleware";
+import oldAndRustyExpressMiddleware from "old-and-rusty-express-middleware";
 
 const hattip = createMiddleware(handler);
 const app = express();
 
-// TODO: Replace with coolHatTipMiddleware once available
-app.use(coolExpressMiddleware());
+// TODO: Replace with shinyNewHatTipMiddleware once ready
+app.use(oldAndRustyExpressMiddleware());
 app.use(hattip);
 
 app.listen(3000, "localhost", () => {
