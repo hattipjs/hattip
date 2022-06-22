@@ -115,6 +115,7 @@ const poweredBy = async (ctx) => {
   return response;
 };
 
+// HatTip does have a router but this illustrates the very basics
 const homeHandler = (ctx) => {
   if (ctx.url.pathname === "/") {
     return new Response("Home");
@@ -163,6 +164,7 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`bundler-vercel`](./packages/bundler-vercel): Bundler for Vercel edge and serverless functions
   - [`bundler-netlify`](./packages/bundler-netlify): Bundler for Netlify edge and Netlify functions
   - [`bundler-deno`](./packages/bundler-deno): Bundler for Deno
-- [`compose`](./packages/compose): A middleware system for combining multiple handlers into a single one.
+- [`compose`](./packages/compose): A middleware system for combining multiple handlers into a single one
+- [`router`](./packages/router): Express-style imperative router
 
 A zero-config development environment based on [Vite](https://vitejs.dev) is also in the works
