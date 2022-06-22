@@ -20,14 +20,14 @@ createServer(handler, { staticAssetsDir: "public" }).listen(
 ## Using with Express
 
 ```js
-import { createListener } from "@hattip/adapter-node";
+import { createMiddleware } from "@hattip/adapter-node";
 import handler from "./index.js";
 import express from "express";
 
 const app = express();
 
 // You can also use express.static instead of `staticAssetsDir` if you wish
-const middleware = createListener(handler, { staticAssetsDir: "public" });
+const middleware = createMiddleware(handler, { staticAssetsDir: "public" });
 app.use(middleware);
 
 app.listen(3000, "localhost", () => {
@@ -43,7 +43,7 @@ app.listen(3000, "localhost", () => {
  * It can also be used as a middleware in Express or other
  * Connect-compatible frameworks).
  */
-function createListener(
+function createMiddleware(
   handler: Handler,
   options?: NodeAdapterOptions,
 ): NodeMiddleware;
@@ -84,8 +84,12 @@ interface NodeAdapterOptions {
 
 ## Using native `fetch`
 
-This adapter uses [`node-fetch`](https://github.com/node-fetch/node-fetch) as its `fetch` implementation. Node versions since 16.15 and 17.5 support the `--experimental-fetch` flag. You can opt in for the native implementation by importing your adapter from `@hattip/adapter-node/native-fetch`. Please note that Node's native `fetch` doesn't support setting more than one `Set-Cookie` headers at the moment.
+This adapter uses [`node-fetch`](https://github.com/node-fetch/node-fetch) as its `fetch` implementation. Node versions since 16.15 and 17.5 have a native implementation behind the `--experimental-fetch` flag. You can opt in for the native implementation by importing your adapter from `@hattip/adapter-node/native-fetch`. Please note that Node's native `fetch` doesn't support setting more than one `Set-Cookie` headers at the moment.
+
+## `context.passThrough` behavior
+
+Calling `context.passThrough` will pass the request to the next handler when used as a middleware. Otherwise the placeholder response will be returned.
 
 ## `context.platform`
 
-This adapter makes Node's native `request` and `response` objects available in `context.platform`.
+This adapter makes Node's native `request` (`IncomingMessage`) and `response` (`ServerResponse`) objects available in `context.platform`.

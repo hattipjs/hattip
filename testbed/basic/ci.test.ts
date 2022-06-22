@@ -46,7 +46,8 @@ if (process.env.CI === "true") {
     },
     miniflareAvailable && {
       env: "MiniFlare",
-      command: "miniflare --modules --port 3000",
+      command:
+        "miniflare --modules --port 3000 dist/cloudflare-workers-bundle/index.js",
     },
   ].filter(Boolean) as typeof cases;
   host = "http://localhost:3000";

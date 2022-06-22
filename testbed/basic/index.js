@@ -81,4 +81,11 @@ router.get("/cookies", () => {
 
 router.get("/status", () => new Response(null, { status: 201 }));
 
+router.get("/headers", (ctx) => {
+  const headers = Object.fromEntries(ctx.request.headers.entries());
+  return new Response(JSON.stringify(headers, null, 2));
+});
+
+router.get("/pass", (ctx) => new Response("Passed on from an edge middleware"));
+
 export default compose(router.handlers);

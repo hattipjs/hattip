@@ -75,6 +75,7 @@ export function createMiddleware(
     : ({} as Record<string, undefined>);
 
   return async (req, res, next) => {
+    // TODO: Support the newer `Forwarded` standard header
     function getForwardedHeader(name: string) {
       return (String(req.headers["x-forwarded-" + name]) || "")
         .split(",", 1)[0]

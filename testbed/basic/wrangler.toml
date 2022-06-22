@@ -1,21 +1,12 @@
+
 compatibility_date = "2021-11-01"
-compatibility_flags = []
-name = "hattip-testbed-pure"
-route = ''
-site = {bucket = "public"}
-type = "javascript"
-usage_model = ''
+main = "dist/cloudflare-workers-bundle/index.js"
+name = "hattip-basic"
+usage_model = 'bundled'
 workers_dev = true
-zone_id = ''
+
+[site]
+bucket = "./public"
 
 [build]
 command = "npm run build:cfw"
-
-[build.upload]
-dir = "./dist/cloudflare-workers-bundle"
-format = "modules"
-main = "./index.js"
-
-[[build.upload.rules]]
-globs = ["**/*.js"]
-type = "ESModule"

@@ -4,7 +4,9 @@
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
 import { getAssetFromKV, NotFoundError } from "@cloudflare/kv-asset-handler";
 // @ts-expect-error: No typing for this
-import manifest from "__STATIC_CONTENT_MANIFEST";
+import manifestText from "__STATIC_CONTENT_MANIFEST";
+
+const manifest = JSON.parse(manifestText);
 
 export interface CloudflareWorkersPlatformInfo {
   env: unknown;
@@ -20,7 +22,7 @@ export default function cloudflareWorkersAdapter(
         return await getAssetFromKV(
           {
             request,
-            waitUntil: (promise) => context.waitUntil(promise),
+            waitUntil: (promise) => ctx.waitUntil(promise),
           },
           {
             ASSET_NAMESPACE: (env as any).__STATIC_CONTENT,

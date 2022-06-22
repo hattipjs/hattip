@@ -1,14 +1,13 @@
 // @ts-check
-import { createListener } from "@hattip/adapter-node";
+import { createMiddleware } from "@hattip/adapter-node";
 import handler from "./index.js";
 import express from "express";
 
-const middleware = createListener(handler, {
-  staticAssetsDir: "public",
-});
+const middleware = createMiddleware(handler);
 
 const app = express();
 
+app.use(express.static("public"));
 app.use(middleware);
 
 app.listen(3000, "localhost", () => {
