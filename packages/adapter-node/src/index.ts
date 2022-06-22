@@ -10,7 +10,7 @@ import {
   createMiddleware as createNodeMiddleware,
   DecoratedRequest,
   NodeAdapterOptions,
-} from "./native-fetch";
+} from "./common";
 
 export type { DecoratedRequest, NodeAdapterOptions };
 
