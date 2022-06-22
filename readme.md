@@ -44,8 +44,9 @@ We believe in a diverse but interoperable future for the JavaScript ecosystem an
 - ✅ Express.js (use HatTip handlers/middlewares in your Express.js app)
 - ✅ Vercel Serverless Functions
 - ✅ Vercel Edge Functions
+- ✅ Netlify Functions
+- 🚧 Netlify Edge Functions
 - 🚧 Deno
-- 🚧 Netlify
 
 Adapters let you run HatTip on any platform. Here's how you can use HatTip with Node.js:
 
@@ -153,6 +154,7 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`adapter-node`](./packages/adapter-node): Node.js either as a standalone server or as a middleware function that can be used with Express and similar frameworks. Also works for Vercel Edge Functions.
   - [`adapter-cloudflare-workers`](./packages/adapter-cloudflare-workers): Cloudflare Workers
   - [`adapter-vercel-edge`](./packages/adapter-vercel-edge): Vercel Edge Functions
+  - [`adapter-netlify-functions`](./packages/adapter-vercel-edge): Netlify Functions
 - Bundlers: Worker and serverless platforms usually require your code to be in bundled form. These packages provide fine-tuned bundlers for their respective platforms:
   - [`bundler-cloudflare-workers`](./packages/bundler-cloudflare-workers): [`esbuild`](https://esbuild.github.io)-based bundler for Cloudflare Workers
   - [`bundler-vercel`](./packages/bundler-vercel): [`esbuild`](https://esbuild.github.io)-based bundler for Vercel edge and serverless functions
