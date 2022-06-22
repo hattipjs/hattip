@@ -24,10 +24,10 @@ Options:
 The edge function entry should be in the following form:
 
 ```js
-import adapterNetlifyEdge from "@hattip/adapter-netlify-edge";
+import netlifyEdgeAdapter from "@hattip/adapter-netlify-edge";
 import handler from "./handler.js";
 
-export default adapterVercel(handler);
+export default netlifyEdgeAdapter(handler);
 ```
 
 The regular function entry should be in the following form:

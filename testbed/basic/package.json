@@ -8,10 +8,12 @@
     "build:cfw": "hattip-cloudflare-workers -e entry-cfw.js dist/cloudflare-workers-bundle/index.js",
     "build:vercel": "cp -R vercel-build/output .vercel/",
     "build:netlify-functions": "hattip-netlify --staticDir public --func entry-netlify-function.js",
+    "build:netlify-edge": "hattip-netlify --staticDir public --edge entry-netlify-edge.js",
     "ci": "vitest --reporter=verbose"
   },
   "devDependencies": {
     "@hattip/adapter-cloudflare-workers": "workspace:*",
+    "@hattip/adapter-netlify-edge": "workspace:*",
     "@hattip/adapter-netlify-functions": "workspace:*",
     "@hattip/adapter-vercel-edge": "workspace:*",
     "@hattip/bundler-cloudflare-workers": "workspace:*",

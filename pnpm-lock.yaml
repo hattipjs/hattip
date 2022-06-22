@@ -43,6 +43,24 @@ importers:
       tsup: 6.1.2_typescript@4.7.4
       typescript: 4.7.4
 
+  packages/adapter-netlify-edge:
+    specifiers:
+      '@cyco130/eslint-config': ^2.0.0
+      '@hattip/core': workspace:*
+      '@types/node': ^18.0.0
+      eslint: ^8.18.0
+      publint: ^0.1.1
+      tsup: ^6.1.2
+      typescript: ^4.7.4
+    devDependencies:
+      '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
+      '@hattip/core': link:../core
+      '@types/node': 18.0.0
+      eslint: 8.18.0
+      publint: 0.1.1
+      tsup: 6.1.2_typescript@4.7.4
+      typescript: 4.7.4
+
   packages/adapter-netlify-functions:
     specifiers:
       '@cyco130/eslint-config': ^2.0.0
@@ -232,6 +250,7 @@ importers:
   testbed/basic:
     specifiers:
       '@hattip/adapter-cloudflare-workers': workspace:*
+      '@hattip/adapter-netlify-edge': workspace:*
       '@hattip/adapter-netlify-functions': workspace:*
       '@hattip/adapter-node': workspace:*
       '@hattip/adapter-vercel-edge': workspace:*
@@ -262,6 +281,7 @@ importers:
       sirv: 2.0.2
     devDependencies:
       '@hattip/adapter-cloudflare-workers': link:../../packages/adapter-cloudflare-workers
+      '@hattip/adapter-netlify-edge': link:../../packages/adapter-netlify-edge
       '@hattip/adapter-netlify-functions': link:../../packages/adapter-netlify-functions
       '@hattip/adapter-vercel-edge': link:../../packages/adapter-vercel-edge
       '@hattip/bundler-cloudflare-workers': link:../../packages/bundler-cloudflare-workers
@@ -271,7 +291,7 @@ importers:
       '@types/ps-tree': 1.1.2
       '@vercel/ncc': 0.34.0
       miniflare: 2.5.1
-      netlify-cli: 10.5.1
+      netlify-cli: 10.6.0
       node-fetch: 3.2.6
       nodemon: 2.0.16
       ps-tree: 1.2.0
@@ -684,7 +704,7 @@ packages:
       '@bugsnag/js': 7.17.0
       '@netlify/cache-utils': 4.1.4_supports-color@9.2.2
       '@netlify/config': 18.0.2
-      '@netlify/edge-bundler': 1.4.0
+      '@netlify/edge-bundler': 1.4.1
       '@netlify/functions-utils': 4.1.15_supports-color@9.2.2
       '@netlify/git-utils': 4.1.1
       '@netlify/plugins-list': 6.28.0
@@ -788,8 +808,8 @@ packages:
       yargs: 17.5.1
     dev: true
 
-  /@netlify/edge-bundler/1.4.0:
-    resolution: {integrity: sha512-JyT3sWyU2YJefPWP9IPaUwwnCc3oyw5W3j02uLdCJzDLmyYgzxpYFzPnOajgjUu/mFcx6JX5eyHG5FuCgmmcHQ==}
+  /@netlify/edge-bundler/1.4.1:
+    resolution: {integrity: sha512-sgahUAtGiOHGT/mznoxsLrUmKKq8pzEitS4i5CNHFbdPcY2wUnqHTiKGNLEl1VLtenyLRa6RAujjxRVpYE90mg==}
     engines: {node: ^12.20.0 || ^14.14.0 || >=16.0.0}
     dependencies:
       common-path-prefix: 3.0.0
@@ -2524,7 +2544,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       '@types/keyv': 3.1.4
-      keyv: 4.3.1
+      keyv: 4.3.2
     dev: true
 
   /cacheable-request/2.1.4:
@@ -2559,7 +2579,7 @@ packages:
       clone-response: 1.0.2
       get-stream: 5.2.0
       http-cache-semantics: 4.1.0
-      keyv: 4.3.1
+      keyv: 4.3.2
       lowercase-keys: 2.0.0
       normalize-url: 6.1.0
       responselike: 2.0.0
@@ -5217,11 +5237,6 @@ packages:
     engines: {node: ^12.22.0 || ^14.16.0 || >=16.0.0}
     dev: true
 
-  /graphql/16.5.0:
-    resolution: {integrity: sha512-qbHgh8Ix+j/qY+a/ZcJnFQ+j8ezakqPiHwPiZhV/3PgGlgf96QMBB5/f2rkiC9sgLoy/xvT6TSiaf2nTHJh5iA==}
-    engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
-    dev: true
-
   /has-ansi/0.1.0:
     resolution: {integrity: sha512-1YsTg1fk2/6JToQhtZkArMkurq8UoWU1Qe0aR3VUHjgij4nOylSWLWAtBXoZ4/dXOmugfLGm1c+QhuD0JyedFA==}
     engines: {node: '>=0.10.0'}
@@ -6172,8 +6187,8 @@ packages:
       json-buffer: 3.0.0
     dev: true
 
-  /keyv/4.3.1:
-    resolution: {integrity: sha512-nwP7AQOxFzELXsNq3zCx/oh81zu4DHWwCE6W9RaeHb7OHO0JpmKS8n801ovVQC7PTsZDWtPA5j1QY+/WWtARYg==}
+  /keyv/4.3.2:
+    resolution: {integrity: sha512-kn8WmodVBe12lmHpA6W8OY7SNh6wVR+Z+wZESF4iF5FCazaVXGWOtnbnvX0tMQ1bO+/TmOD9LziuYMvrIIs0xw==}
     dependencies:
       compress-brotli: 1.3.8
       json-buffer: 3.0.1
@@ -7037,15 +7052,15 @@ packages:
     resolution: {integrity: sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==}
     dev: true
 
-  /netlify-cli/10.5.1:
-    resolution: {integrity: sha512-4WCcWDPXt2BEWm0kxelUSZhjixAQj9QUff6GamgtLwb/JSoD5blvVYddhaZfPGGz/K0ddIpf1n6fNTJuQhADcg==}
+  /netlify-cli/10.6.0:
+    resolution: {integrity: sha512-pOxYwgvJzufLcIfz+xx0Zw2M321uJX++SbYZe/0D5gkgTSF82UbHTrTg8xv4DMt2ZTo5GwMg6tIDzh7AQUiXVQ==}
     engines: {node: ^12.20.0 || ^14.14.0 || >=16.0.0}
     hasBin: true
     requiresBuild: true
     dependencies:
       '@netlify/build': 27.1.6
       '@netlify/config': 18.0.2
-      '@netlify/edge-bundler': 1.4.0
+      '@netlify/edge-bundler': 1.4.1
       '@netlify/framework-info': 9.1.0
       '@netlify/local-functions-proxy': 1.1.1
       '@netlify/plugins-list': 6.28.0
@@ -7067,7 +7082,7 @@ packages:
       concordance: 5.0.4
       configstore: 5.0.1
       content-type: 1.0.4
-      cookie: 0.4.2
+      cookie: 0.5.0
       copy-template-dir: 1.4.0
       cron-parser: 4.4.0
       debug: 4.3.4
@@ -7091,7 +7106,6 @@ packages:
       git-clone: 0.2.0
       git-repo-info: 2.1.1
       gitconfiglocal: 2.1.0
-      graphql: 16.5.0
       hasbin: 1.2.3
       hasha: 5.2.2
       http-proxy: 1.18.1_debug@4.3.4
@@ -7116,7 +7130,7 @@ packages:
       multiparty: 4.2.3
       netlify: 11.0.2
       netlify-headers-parser: 6.0.2
-      netlify-onegraph-internal: 0.0.50
+      netlify-onegraph-internal: 0.3.1
       netlify-redirect-parser: 13.0.5
       netlify-redirector: 0.2.1
       node-fetch: 2.6.7
@@ -7181,8 +7195,8 @@ packages:
       '@types/node': 14.18.21
     dev: false
 
-  /netlify-onegraph-internal/0.0.50:
-    resolution: {integrity: sha512-58nsdeGU1a2OTR6UIdk6vd1HhIN3oj4X7EBX02inNK8O3Cx0zcMt1qGvsX6wbBkFMt/n2M8bUpJSwc3dPk3Jrg==}
+  /netlify-onegraph-internal/0.3.1:
+    resolution: {integrity: sha512-VU649035kx14sTFARPOgo0mF7jT7aEJlnpYS1IrGyUUwVM3wLdy6bLbn9UEng8ommRc7BHwPHWRV6NzRb2FYEQ==}
     dependencies:
       graphql: 16.0.0
       node-fetch: 2.6.7
@@ -7215,7 +7229,7 @@ packages:
       node-fetch: 3.2.6
       omit.js: 2.0.2
       p-wait-for: 4.1.0
-      qs: 6.10.3
+      qs: 6.10.5
     dev: true
 
   /node-domexception/1.0.0:
@@ -7918,7 +7932,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       got: 9.6.0
-      registry-auth-token: 4.2.1
+      registry-auth-token: 4.2.2
       registry-url: 5.1.0
       semver: 6.3.0
     dev: true
@@ -8321,6 +8335,13 @@ packages:
     dependencies:
       side-channel: 1.0.4
 
+  /qs/6.10.5:
+    resolution: {integrity: sha512-O5RlPh0VFtR78y79rgcgKK4wbAI0C5zGVLztOIdpWX6ep368q5Hv6XRxDvXuZ9q3C6v+e3n8UfZZJw7IIG27eQ==}
+    engines: {node: '>=0.6'}
+    dependencies:
+      side-channel: 1.0.4
+    dev: true
+
   /query-string/5.1.1:
     resolution: {integrity: sha512-gjWOsm2SoGlgLEdAGt7a6slVOk9mGiXmPFMqrEhLQ68rhQuBnpfs3+EmlvqKyxnCo9/PPlF+9MtY02S1aFg+Jw==}
     engines: {node: '>=0.10.0'}
@@ -8487,8 +8508,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /registry-auth-token/4.2.1:
-    resolution: {integrity: sha512-6gkSb4U6aWJB4SF2ZvLb76yCBjcvufXBqvvEx1HbmKPkutswjW1xNVRY0+daljIYRbogN7O0etYSlbiaEQyMyw==}
+  /registry-auth-token/4.2.2:
+    resolution: {integrity: sha512-PC5ZysNb42zpFME6D/XlIgtNGdTl8bBOCw90xQLVMpzuuubJKYDWFAEuUNc+Cn8Z8724tg2SDhDRrkVEsqfDMg==}
     engines: {node: '>=6.0.0'}
     dependencies:
       rc: 1.2.8

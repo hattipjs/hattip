@@ -70,21 +70,8 @@ export async function bundle(options: NetlifyBundlerOptions = {}) {
   if (edgeEntry) {
     await bundleEdgeFunction(
       edgeEntry,
-      outputDir + "/functions/_edge.func",
+      outputDir + "/edge-functions/edge",
       manipulateEsbuildOptions,
-    );
-
-    await fs.promises.writeFile(
-      outputDir + "/functions/_edge.func/.vc-config.json",
-      JSON.stringify(
-        {
-          runtime: "edge",
-          entrypoint: "index.js",
-          // TODO: Investigate and expose envVarsInUse
-        },
-        null,
-        2,
-      ),
     );
   }
 
@@ -100,13 +87,6 @@ export async function bundle(options: NetlifyBundlerOptions = {}) {
       "/*  /.netlify/functions/function  200\n",
     );
   }
-
-  void createConfigFile;
-  // await createConfigFile(outputDir, {
-  //   static: !!staticDir,
-  //   edge: !!edgeEntry,
-  //   serverless: !!functionEntry,
-  // });
 }
 
 export async function bundleEdgeFunction(
@@ -151,44 +131,4 @@ export async function bundleRegularFunction(
 
   await manipulateEsbuildOptions?.(esbuildOptions, "regular");
   await build(esbuildOptions);
-}
-
-interface CreateConfigFileOptions {
-  static: boolean;
-  edge: boolean;
-  serverless: boolean;
-}
-
-async function createConfigFile(
-  outputDir: string,
-  options: CreateConfigFileOptions,
-) {
-  const config = {
-    version: 3,
-    routes: [
-      options.static && {
-        handle: "filesystem",
-      },
-      options.edge &&
-        options.serverless && {
-          src: ".*",
-          middlewarePath: "_edge",
-          continue: true,
-        },
-      options.edge &&
-        !options.serverless && {
-          src: ".*",
-          dest: "_edge",
-        },
-      options.serverless && {
-        src: ".*",
-        dest: "/",
-      },
-    ].filter(Boolean),
-  };
-
-  await fs.promises.writeFile(
-    outputDir + "/config.json",
-    JSON.stringify(config, null, 2),
-  );
 }

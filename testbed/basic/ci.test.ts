@@ -59,6 +59,14 @@ if (process.env.CI === "true") {
         BROWSER: "none",
       },
     },
+    {
+      name: "Netlify Edge Functions with netlify dev",
+      command: "pnpm build:netlify-edge && netlify dev -op 3000",
+      skipStreamingTest: true,
+      envOverride: {
+        BROWSER: "none",
+      },
+    },
   ].filter(Boolean) as typeof cases;
   host = "http://localhost:3000";
 } else {
@@ -71,7 +79,7 @@ if (process.env.CI === "true") {
 }
 
 describe.each(cases)(
-  "$env",
+  "$name",
   ({ name, command, skipCookieTest, skipStreamingTest, envOverride }) => {
     if (skipCookieTest) {
       console.warn("Skipping multiple Set-Cookie test for", name);

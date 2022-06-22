@@ -28,6 +28,12 @@ All tests except "doesn't fully buffer binary stream" pass which is automaticall
 
 Build locally with `pnpm build:netlify-functions`, test with `netlify dev`.
 
+### Netlify Edge Functions with `netlify dev`
+
+All tests except "doesn't fully buffer binary stream" pass which is automatically skipped in the CI. `netlify dev` doesn't seem to support streaming. It works fine when actually deployed, though.
+
+Build locally with `pnpm build:netlify-edge`, test with `netlify dev`.
+
 ### Cloudflare Workers
 
 All tests pass.
@@ -59,3 +65,9 @@ Build locally with `hattip-vercel --staticDir public --edge entry-vercel-edge.js
 All tests except "doesn't fully buffer binary stream" pass. Netlify Functions have no streaming support.
 
 Build locally with `pnpm build:netlify-functions`, deploy with `netlify deploy`.
+
+### Netlify Edge Functions (live)
+
+All tests pass.
+
+Build locally with `pnpm build:netlify-edge`, deploy with `netlify deploy`.

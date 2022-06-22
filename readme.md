@@ -17,7 +17,7 @@ It aims to build an ecosystem of universal middlewares that can be used across t
 ```js
 // handler.js
 
-// This server handler works anywhere, e.g. Node.js or Cloudflare Workers.
+// This request handler works anywhere, e.g. Node.js or Cloudflare Workers.
 
 export default (context) => {
   const { pathname } = new URL(context.request.url);
@@ -45,8 +45,9 @@ We believe in a diverse but interoperable future for the JavaScript ecosystem an
 - ✅ Vercel Serverless Functions
 - ✅ Vercel Edge Functions
 - ✅ Netlify Functions
-- 🚧 Netlify Edge Functions
+- ✅ Netlify Edge Functions
 - 🚧 Deno
+- 🚧 Service Workers
 
 Adapters let you run HatTip on any platform. Here's how you can use HatTip with Node.js:
 
@@ -143,21 +144,23 @@ export default compose(
 
 A handler can return or throw a `Response` or anything with a `toResponse` method when used with the `compose` function. Handlers can also set `context.handleError` to handle uncaught errors.
 
-That's it. This is the entirety of the HatTip API. Everything else is middleware functions similar the above that add various features.
+**That's it**. This is the entirety of the HatTip API. Everything else is middleware functions similar the above that add various features and development tools to make your life easier.
 
 ## Packages
 
 HatTip is extremely modular so you can use as little or as much as you need:
 
 - [`core`](./packages/core): A type-only package that defines the interface between your application and platform adapters
-- Adapters: Enable HatTip to run on any platform:
-  - [`adapter-node`](./packages/adapter-node): Node.js either as a standalone server or as a middleware function that can be used with Express and similar frameworks. Also works for Vercel Edge Functions.
+- **Adapters:** Enable HatTip to run on any platform:
+  - [`adapter-node`](./packages/adapter-node): Node.js, either as a standalone server or as a middleware function that can be used with Express and similar frameworks. Also works for Vercel Edge Functions.
   - [`adapter-cloudflare-workers`](./packages/adapter-cloudflare-workers): Cloudflare Workers
   - [`adapter-vercel-edge`](./packages/adapter-vercel-edge): Vercel Edge Functions
-  - [`adapter-netlify-functions`](./packages/adapter-vercel-edge): Netlify Functions
-- Bundlers: Worker and serverless platforms usually require your code to be in bundled form. These packages provide fine-tuned bundlers for their respective platforms:
-  - [`bundler-cloudflare-workers`](./packages/bundler-cloudflare-workers): [`esbuild`](https://esbuild.github.io)-based bundler for Cloudflare Workers
-  - [`bundler-vercel`](./packages/bundler-vercel): [`esbuild`](https://esbuild.github.io)-based bundler for Vercel edge and serverless functions
-- [`compose`](./packages/compose): A middleware system for combining multiple handlers into a single handler.
+  - [`adapter-netlify-functions`](./packages/adapter-netlify-functions): Netlify Functions
+  - [`adapter-netlify-edge`](./packages/adapter-netlify-edge): Netlify Edge Functions
+- **Bundlers:** Worker and serverless platforms usually require your code to be in bundled form. These packages provide bundlers fine-tuned for their respective platforms:
+  - [`bundler-cloudflare-workers`](./packages/bundler-cloudflare-workers): Bundler for Cloudflare Workers
+  - [`bundler-vercel`](./packages/bundler-vercel): Bundler for Vercel edge and serverless functions
+  - [`bundler-netlify`](./packages/bundler-netlify): Bundler for Netlify edge and Netlify functions
+- [`compose`](./packages/compose): A middleware system for combining multiple handlers into a single one.
 
 A zero-config development environment based on [Vite](https://vitejs.dev) is also in the works
