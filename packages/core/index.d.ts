@@ -42,3 +42,9 @@ export interface AdapterRequestContext<P = unknown> {
 export type HattipHandler = (
   context: AdapterRequestContext,
 ) => Response | Promise<Response>;
+
+declare global {
+  interface Headers {
+    getSetCookie(): string[];
+  }
+}

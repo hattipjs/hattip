@@ -164,6 +164,7 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`bundler-vercel`](./packages/bundler-vercel): Bundler for Vercel edge and serverless functions
   - [`bundler-netlify`](./packages/bundler-netlify): Bundler for Netlify edge and Netlify functions
   - [`bundler-deno`](./packages/bundler-deno): Bundler for Deno
+- [`polyfills](./packages/polyfills): A collection of polyfills used by adapters for compatibility across platforms
 - [`compose`](./packages/compose): A middleware system for combining multiple handlers into a single one
 - [`router`](./packages/router): Express-style imperative router
 

@@ -130,16 +130,11 @@ export function createMiddleware(
 
     if (!next || !passThroughCalled) {
       res.statusCode = response.status;
-      if ("raw" in response.headers) {
-        const rawHeaders: Record<string, string | string[]> = (
-          response.headers as any
-        ).raw();
-
-        for (const [key, value] of Object.entries(rawHeaders)) {
-          res.setHeader(key, value);
-        }
-      } else {
-        for (const [key, value] of response.headers) {
+      for (const [key, value] of response.headers) {
+        if (key === "set-cookie") {
+          const setCookie = response.headers.getSetCookie();
+          res.setHeader("set-cookie", setCookie);
+        } else {
           res.setHeader(key, value);
         }
       }
