@@ -84,7 +84,7 @@ interface NodeAdapterOptions {
 
 ## Using native `fetch`
 
-This adapter uses [`node-fetch`](https://github.com/node-fetch/node-fetch) as its `fetch` implementation. Node versions since 16.15 and 17.5 have a native implementation behind the `--experimental-fetch` flag. You can opt in for the native implementation by importing your adapter from `@hattip/adapter-node/native-fetch`. Please note that Node's native `fetch` doesn't support setting more than one `Set-Cookie` headers at the moment.
+This adapter uses [`node-fetch`](https://github.com/node-fetch/node-fetch) as its `fetch` implementation. Node versions since 16.15 and 17.5 have a native implementation behind the `--experimental-fetch` flag. You can opt in for the native implementation by importing your adapter from `@hattip/adapter-node/native-fetch`.
 
 ## `context.passThrough` behavior
 

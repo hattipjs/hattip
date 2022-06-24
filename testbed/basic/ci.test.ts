@@ -13,7 +13,6 @@ let cases: Array<{
   name: string;
   command?: string;
   envOverride?: Record<string, string>;
-  skipCookieTest?: boolean;
   skipStreamingTest?: boolean;
 }>;
 
@@ -44,7 +43,6 @@ if (process.env.CI === "true") {
     fetchAvailable && {
       name: "Node with native fetch",
       command: "node --experimental-fetch entry-node-native-fetch.js",
-      skipCookieTest: true,
     },
     miniflareAvailable && {
       name: "MiniFlare",
@@ -85,11 +83,7 @@ if (process.env.CI === "true") {
 
 describe.each(cases)(
   "$name",
-  ({ name, command, skipCookieTest, skipStreamingTest, envOverride }) => {
-    if (skipCookieTest) {
-      console.warn("Skipping multiple Set-Cookie test for", name);
-    }
-
+  ({ name, command, skipStreamingTest, envOverride }) => {
     if (skipStreamingTest) {
       console.warn("Skipping streaming test for", name);
     }
@@ -233,15 +227,13 @@ describe.each(cases)(
       expect(text).toEqual("65, 66, 67");
     });
 
-    if (!skipCookieTest) {
-      test("sends multiple cookies", async () => {
-        const response = await fetch(host + "/cookies");
-        expect(response.headers.raw()["set-cookie"]).toMatchObject([
-          "name1=value1",
-          "name2=value2",
-        ]);
-      });
-    }
+    test("sends multiple cookies", async () => {
+      const response = await fetch(host + "/cookies");
+      expect(response.headers.raw()["set-cookie"]).toMatchObject([
+        "name1=value1",
+        "name2=value2",
+      ]);
+    });
 
     test("sets status", async () => {
       const response = await fetch(host + "/status");
