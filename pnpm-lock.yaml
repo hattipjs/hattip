@@ -84,6 +84,7 @@ importers:
       '@cyco130/eslint-config': ^2.0.0
       '@hattip/adapter-node': workspace:*
       '@hattip/core': workspace:*
+      '@hattip/polyfills': workspace:*
       '@types/node': ^18.0.0
       eslint: ^8.18.0
       netlify-lambda-types: ^1.0.0
@@ -93,6 +94,7 @@ importers:
     dependencies:
       '@hattip/adapter-node': link:../adapter-node
       '@hattip/core': link:../core
+      '@hattip/polyfills': link:../polyfills
       netlify-lambda-types: 1.0.0
     devDependencies:
       '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
@@ -106,18 +108,19 @@ importers:
     specifiers:
       '@cyco130/eslint-config': ^2.0.0
       '@hattip/core': workspace:*
+      '@hattip/polyfills': workspace:*
       '@types/node': ^18.0.0
       eslint: ^8.18.0
-      node-fetch: ^3.2.6
       publint: ^0.1.1
       tsup: ^6.1.2
       typescript: ^4.7.4
+    dependencies:
+      '@hattip/core': link:../core
+      '@hattip/polyfills': link:../polyfills
     devDependencies:
       '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
-      '@hattip/core': link:../core
       '@types/node': 18.0.0
       eslint: 8.18.0
-      node-fetch: 3.2.6
       publint: 0.1.1
       tsup: 6.1.2_typescript@4.7.4
       typescript: 4.7.4
@@ -268,6 +271,29 @@ importers:
 
   packages/hattip:
     specifiers: {}
+
+  packages/polyfills:
+    specifiers:
+      '@cyco130/eslint-config': ^2.0.0
+      '@hattip/core': workspace:*
+      '@types/node': ^18.0.0
+      eslint: ^8.18.0
+      node-fetch-native: ^0.1.4
+      publint: ^0.1.1
+      tsup: ^6.1.2
+      typescript: ^4.7.4
+      vitest: ^0.15.2
+    dependencies:
+      '@hattip/core': link:../core
+      node-fetch-native: 0.1.4
+    devDependencies:
+      '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
+      '@types/node': 18.0.0
+      eslint: 8.18.0
+      publint: 0.1.1
+      tsup: 6.1.2_typescript@4.7.4
+      typescript: 4.7.4
+      vitest: 0.15.2
 
   packages/router:
     specifiers:
@@ -7280,6 +7306,10 @@ packages:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
     dev: true
+
+  /node-fetch-native/0.1.4:
+    resolution: {integrity: sha512-10EKpOCQPXwZVFh3U1ptOMWBgKTbsN7Vvo6WVKt5pw4hp8zbv6ZVBZPlXw+5M6Tyi1oc1iD4/sNPd71KYA16tQ==}
+    dev: false
 
   /node-fetch/2.6.7:
     resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}

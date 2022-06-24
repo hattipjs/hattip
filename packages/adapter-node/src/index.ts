@@ -1,3 +1,5 @@
+// TODO: Remove or update this rule!
+/* eslint-disable import/no-unresolved */
 import type { HattipHandler } from "@hattip/core";
 import {
   createServer as createHttpServer,
@@ -5,12 +7,16 @@ import {
   ServerResponse,
   ServerOptions,
 } from "http";
-import { Readable } from "stream";
 import {
   createMiddleware as createNodeMiddleware,
   DecoratedRequest,
   NodeAdapterOptions,
 } from "./common";
+import installNodeFetch from "@hattip/polyfills/node-fetch";
+import installGetSetCookie from "@hattip/polyfills/get-set-cookie";
+
+installNodeFetch();
+installGetSetCookie();
 
 export type { DecoratedRequest, NodeAdapterOptions };
 
@@ -35,42 +41,11 @@ export function createMiddleware(
   handler: HattipHandler,
   options: NodeAdapterOptions = {},
 ): NodeMiddleware {
-  const nodeFetchInstallPromise = installNodeFetch();
-
   const nodeAdapterHandler = createNodeMiddleware(handler, options);
 
   return async (req, res, next) => {
-    await nodeFetchInstallPromise;
     nodeAdapterHandler(req, res, next);
   };
-}
-
-/**
- * Installs `node-fetch` into the global scope.
- */
-export async function installNodeFetch() {
-  await import("node-fetch").then((nodeFetch) => {
-    (globalThis as any).fetch = nodeFetch.default;
-    (globalThis as any).Request = nodeFetch.Request;
-    (globalThis as any).Headers = nodeFetch.Headers;
-
-    // node-fetch doesn't allow constructing a Request from ReadableStream
-    // see: https://github.com/node-fetch/node-fetch/issues/1096
-    class Response extends nodeFetch.Response {
-      constructor(
-        input: import("node-fetch").BodyInit,
-        init?: import("node-fetch").ResponseInit,
-      ) {
-        if (input instanceof ReadableStream) {
-          input = Readable.from(input as any);
-        }
-
-        super(input as any, init);
-      }
-    }
-
-    (globalThis as any).Response = Response;
-  });
 }
 
 /**

@@ -6,7 +6,11 @@ import type {
   NetlifyFunctionEvent,
   NetlifyFunctionContext,
 } from "netlify-lambda-types";
-import { installNodeFetch } from "@hattip/adapter-node";
+import installNodeFetch from "@hattip/polyfills/node-fetch";
+import installGetSetCookie from "@hattip/polyfills/get-set-cookie";
+
+installNodeFetch();
+installGetSetCookie();
 
 export interface NetlifyFunctionsPlatformInfo {
   event: NetlifyFunctionEvent;
@@ -15,14 +19,10 @@ export interface NetlifyFunctionsPlatformInfo {
 
 export type { NetlifyFunctionEvent, NetlifyFunctionContext };
 
-const installPromise = installNodeFetch();
-
 export default function netlifyFunctionsAdapter(
   handler: HattipHandler,
 ): NetlifyFunction {
   return async (event, netlifyContext) => {
-    await installPromise;
-
     if (event.path === "/net") {
       return {
         statusCode: 200,
@@ -72,13 +72,10 @@ export default function netlifyFunctionsAdapter(
 
     const headers: Record<string, string> = {};
     const multiValueHeaders: Record<string, string[]> = {};
-    const rawHeaders: Record<string, string | string[]> = (
-      response.headers as any
-    ).raw();
 
-    for (const [key, value] of Object.entries(rawHeaders)) {
-      if (Array.isArray(value)) {
-        multiValueHeaders[key] = value;
+    for (const [key, value] of response.headers) {
+      if (key === "set-cookie") {
+        multiValueHeaders[key] = response.headers.getSetCookie();
       } else {
         headers[key] = value;
       }
