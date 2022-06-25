@@ -25,9 +25,11 @@
     }
   },
   "types": "index.d.ts",
+  "dependencies": {
+    "@hattip/core": "workspace:*"
+  },
   "devDependencies": {
     "@cyco130/eslint-config": "^2.0.0",
-    "@hattip/core": "workspace:*",
     "eslint": "^8.18.0",
     "node-fetch": "^3.2.6",
     "publint": "^0.1.1",
