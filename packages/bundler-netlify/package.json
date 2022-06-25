@@ -1,6 +1,6 @@
 {
   "name": "@hattip/bundler-netlify",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Netlify bundler for Hattip",
   "main": "./dist/index.js",
   "files": [
