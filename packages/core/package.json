@@ -8,9 +8,9 @@
     "test:package": "publint"
   },
   "files": [
-    "index.ts"
+    "index.d.ts"
   ],
-  "types": "index.ts",
+  "types": "index.d.ts",
   "devDependencies": {
     "@cyco130/eslint-config": "^2.0.0",
     "eslint": "^8.18.0",
