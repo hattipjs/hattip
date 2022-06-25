@@ -1,6 +1,6 @@
 {
   "name": "@hattip/adapter-node",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Node.js adapter for Hattip",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

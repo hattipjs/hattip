@@ -1,6 +1,6 @@
 {
   "name": "@hattip/polyfills",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Fetch API polyfills",
   "files": [
     "dist",
