@@ -6,20 +6,20 @@ importers:
     specifiers:
       cross-env: ^7.0.3
       husky: ^8.0.1
-      lint-staged: ^13.0.2
+      lint-staged: ^13.0.3
       prettier: ^2.7.1
       rimraf: ^3.0.2
       typescript: ^4.7.4
-      vitest: ^0.15.2
+      vitest: ^0.16.0
     dependencies:
       typescript: 4.7.4
     devDependencies:
       cross-env: 7.0.3
       husky: 8.0.1
-      lint-staged: 13.0.2
+      lint-staged: 13.0.3
       prettier: 2.7.1
       rimraf: 3.0.2
-      vitest: 0.15.2
+      vitest: 0.16.0
 
   packages/adapter-cloudflare-workers:
     specifiers:
@@ -246,7 +246,7 @@ importers:
       publint: ^0.1.1
       tsup: ^6.1.2
       typescript: ^4.7.4
-      vitest: ^0.15.2
+      vitest: ^0.16.0
     devDependencies:
       '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
       '@hattip/core': link:../core
@@ -255,7 +255,7 @@ importers:
       publint: 0.1.1
       tsup: 6.1.2_typescript@4.7.4
       typescript: 4.7.4
-      vitest: 0.15.2
+      vitest: 0.16.0
 
   packages/core:
     specifiers:
@@ -282,7 +282,7 @@ importers:
       publint: ^0.1.1
       tsup: ^6.1.2
       typescript: ^4.7.4
-      vitest: ^0.15.2
+      vitest: ^0.16.0
     dependencies:
       '@hattip/core': link:../core
       node-fetch-native: 0.1.4
@@ -293,7 +293,7 @@ importers:
       publint: 0.1.1
       tsup: 6.1.2_typescript@4.7.4
       typescript: 4.7.4
-      vitest: 0.15.2
+      vitest: 0.16.0
 
   packages/router:
     specifiers:
@@ -304,7 +304,7 @@ importers:
       publint: ^0.1.1
       tsup: ^6.1.2
       typescript: ^4.7.4
-      vitest: ^0.15.2
+      vitest: ^0.16.0
     dependencies:
       '@hattip/compose': link:../compose
       '@hattip/core': link:../core
@@ -314,7 +314,7 @@ importers:
       publint: 0.1.1
       tsup: 6.1.2_typescript@4.7.4
       typescript: 4.7.4
-      vitest: 0.15.2
+      vitest: 0.16.0
 
   testbed/basic:
     specifiers:
@@ -336,13 +336,13 @@ importers:
       connect: ^3.7.0
       express: ^4.18.1
       miniflare: ^2.5.1
-      netlify-cli: ^10.5.1
+      netlify-cli: ^10.6.2
       node-fetch: ^3.2.6
-      nodemon: ^2.0.16
+      nodemon: ^2.0.18
       ps-tree: ^1.2.0
       sirv: ^2.0.2
       typescript: ^4.7.4
-      vitest: ^0.15.2
+      vitest: ^0.16.0
     dependencies:
       '@hattip/adapter-node': link:../../packages/adapter-node
       '@hattip/compose': link:../../packages/compose
@@ -364,12 +364,12 @@ importers:
       '@types/ps-tree': 1.1.2
       '@vercel/ncc': 0.34.0
       miniflare: 2.5.1
-      netlify-cli: 10.6.1
+      netlify-cli: 10.6.2
       node-fetch: 3.2.6
-      nodemon: 2.0.16
+      nodemon: 2.0.18
       ps-tree: 1.2.0
       typescript: 4.7.4
-      vitest: 0.15.2
+      vitest: 0.16.0
 
 packages:
 
@@ -769,20 +769,20 @@ packages:
       glob-to-regexp: 0.3.0
     dev: true
 
-  /@netlify/build/27.2.0:
-    resolution: {integrity: sha512-Kn9OiZd7V2M+ZHKI57Poo58xkOpN40Q5cOD8orBpEo6ZulIAeJbLLSvVnclSqU8/cC3wzeb6XXSWfe9YMZ6bnw==}
+  /@netlify/build/27.3.1:
+    resolution: {integrity: sha512-7b1/mgZKRK4mDxA0GsaUHX/8bkzKSm1YufedOyZquq13WxMubrBqY55jsBBblT2SOd+PQgTq+/Nb/tgx12nU0Q==}
     engines: {node: ^12.20.0 || ^14.14.0 || >=16.0.0}
     hasBin: true
     dependencies:
       '@bugsnag/js': 7.17.0
       '@netlify/cache-utils': 4.1.4_supports-color@9.2.2
-      '@netlify/config': 18.0.2
+      '@netlify/config': 18.1.0
       '@netlify/edge-bundler': 1.4.1
-      '@netlify/functions-utils': 4.1.15_supports-color@9.2.2
+      '@netlify/functions-utils': 4.2.0_supports-color@9.2.2
       '@netlify/git-utils': 4.1.1
-      '@netlify/plugins-list': 6.28.0
+      '@netlify/plugins-list': 6.29.0
       '@netlify/run-utils': 4.0.1
-      '@netlify/zip-it-and-ship-it': 5.10.2_supports-color@9.2.2
+      '@netlify/zip-it-and-ship-it': 5.11.1_supports-color@9.2.2
       '@sindresorhus/slugify': 2.1.0
       '@types/node': 16.11.41
       ansi-escapes: 5.0.0
@@ -850,8 +850,8 @@ packages:
       - supports-color
     dev: true
 
-  /@netlify/config/18.0.2:
-    resolution: {integrity: sha512-iFp3HZxDXMgSmtNkiB3ZW/RW+iA0fEQ/G28va1hwlsRdj4L2gJbDZrcDB1AjM0L9kRRlPguZRSYtlJiHbLaoXQ==}
+  /@netlify/config/18.1.0:
+    resolution: {integrity: sha512-l5CpXb3qM2fmduu3VnrlBNBZ1Xtwm0+ZLZCIUkDa3GFe3X2LLXN2TEttHP/KFSQg7LmRRYX154ReYcpH0QJNpA==}
     engines: {node: ^12.20.0 || ^14.14.0 || >=16.0.0}
     hasBin: true
     dependencies:
@@ -1120,11 +1120,11 @@ packages:
       semver: 7.3.7
     dev: true
 
-  /@netlify/functions-utils/4.1.15_supports-color@9.2.2:
-    resolution: {integrity: sha512-Zwyk1SE7OnyQi0KIKK//7xocQw/AUQT0M/BYBQ+W5y2UIZiso/8ABuatfkCjDyzyucTHau/jMIYbEaaS08tF0g==}
+  /@netlify/functions-utils/4.2.0_supports-color@9.2.2:
+    resolution: {integrity: sha512-erWu+M2xaRuALqWy9dNaVORgco0TYGCcV6ZoFayJZWJPeMxM+aVK9e1d1F5iuphVRKIL08f6w4QJniUC2OCiYQ==}
     engines: {node: ^12.20.0 || ^14.14.0 || >=16.0.0}
     dependencies:
-      '@netlify/zip-it-and-ship-it': 5.10.2_supports-color@9.2.2
+      '@netlify/zip-it-and-ship-it': 5.11.1_supports-color@9.2.2
       cpy: 8.1.2_supports-color@9.2.2
       path-exists: 5.0.0
     transitivePeerDependencies:
@@ -1272,8 +1272,8 @@ packages:
     resolution: {integrity: sha512-ZJF4nbLPfxsWrVgp2reCb23HMxsWl5+r+K0RtIhxcZ/RxbHVihRA9mwyzIcxPWrT5x9uAAxCr1aKGP7IdsDe+Q==}
     dev: true
 
-  /@netlify/plugins-list/6.28.0:
-    resolution: {integrity: sha512-cx0d9oFg0q94YMuDJBEllbeL0SvGGAndjoOpmJaR9HZRnczzKvMCnK2Rjuf/Pf/bJmRQePFkKeCS7lKTOdoICw==}
+  /@netlify/plugins-list/6.29.0:
+    resolution: {integrity: sha512-H81D32COgftfzJhY+TWNtxd8EXaQS1c/Gkj3WI/v4xhsZvw/6MOzKtDopK7Mq7nYk+aKc2OqxfOuQNR02FpQug==}
     engines: {node: ^12.20.0 || ^14.14.0 || >=16.0.0}
     dev: true
 
@@ -1282,47 +1282,6 @@ packages:
     engines: {node: ^12.20.0 || ^14.14.0 || >=16.0.0}
     dependencies:
       execa: 6.1.0
-    dev: true
-
-  /@netlify/zip-it-and-ship-it/5.10.2_supports-color@9.2.2:
-    resolution: {integrity: sha512-aKKIaCxM0G0aU1YfK/epZ2XN1LOMxFtQ/tsIfYZIM69fAgkTyEJ0FeLS7jeTEjPl+t+k1pdqAZiHTxDFs6gbQA==}
-    engines: {node: ^12.20.0 || ^14.14.0 || >=16.0.0}
-    hasBin: true
-    dependencies:
-      '@babel/parser': 7.16.8
-      '@netlify/esbuild': 0.14.25
-      '@vercel/nft': 0.20.0_supports-color@9.2.2
-      archiver: 5.3.1
-      common-path-prefix: 3.0.0
-      cp-file: 9.1.0
-      del: 6.1.1
-      elf-cam: 0.1.1
-      end-of-stream: 1.4.4
-      es-module-lexer: 0.10.5
-      execa: 5.1.1
-      filter-obj: 2.0.2
-      find-up: 5.0.0
-      glob: 8.0.3
-      is-builtin-module: 3.1.0
-      junk: 3.1.0
-      locate-path: 6.0.0
-      merge-options: 3.0.4
-      minimatch: 5.1.0
-      normalize-path: 3.0.0
-      p-map: 4.0.0
-      path-exists: 4.0.0
-      precinct: 9.0.1_supports-color@9.2.2
-      read-package-json-fast: 2.0.3
-      require-package-name: 2.0.1
-      resolve: 2.0.0-next.4
-      semver: 7.3.7
-      tmp-promise: 3.0.3
-      toml: 3.0.0
-      unixify: 1.0.0
-      yargs: 17.5.1
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
     dev: true
 
   /@netlify/zip-it-and-ship-it/5.11.1:
@@ -1366,6 +1325,47 @@ packages:
       - supports-color
     dev: true
 
+  /@netlify/zip-it-and-ship-it/5.11.1_supports-color@9.2.2:
+    resolution: {integrity: sha512-xjDmbTcrzSvQvyYK/rAsHq7R1UQIDpn4KUjxEgrc0S/cjpvzQ610JtRz3JMrnSvjzOTTnLlBOD3b+aow1Edt9g==}
+    engines: {node: ^12.20.0 || ^14.14.0 || >=16.0.0}
+    hasBin: true
+    dependencies:
+      '@babel/parser': 7.16.8
+      '@netlify/esbuild': 0.14.25
+      '@vercel/nft': 0.20.0_supports-color@9.2.2
+      archiver: 5.3.1
+      common-path-prefix: 3.0.0
+      cp-file: 9.1.0
+      del: 6.1.1
+      elf-cam: 0.1.1
+      end-of-stream: 1.4.4
+      es-module-lexer: 0.10.5
+      execa: 5.1.1
+      filter-obj: 2.0.2
+      find-up: 5.0.0
+      glob: 8.0.3
+      is-builtin-module: 3.1.0
+      junk: 3.1.0
+      locate-path: 6.0.0
+      merge-options: 3.0.4
+      minimatch: 5.1.0
+      normalize-path: 3.0.0
+      p-map: 4.0.0
+      path-exists: 4.0.0
+      precinct: 9.0.1_supports-color@9.2.2
+      read-package-json-fast: 2.0.3
+      require-package-name: 2.0.1
+      resolve: 2.0.0-next.4
+      semver: 7.3.7
+      tmp-promise: 3.0.3
+      toml: 3.0.0
+      unixify: 1.0.0
+      yargs: 17.5.1
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: true
+
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -1395,7 +1395,7 @@ packages:
   /@octokit/auth-token/2.5.0:
     resolution: {integrity: sha512-r5FVUJCOLl19AxiuZD2VRZ/ORjp/4IN98Of6YJoJOkY75CIBuYfmiNHGrDwXr+aLGG55igl9QrxX3hbiXlLb+g==}
     dependencies:
-      '@octokit/types': 6.37.0
+      '@octokit/types': 6.37.1
     dev: true
 
   /@octokit/core/3.6.0:
@@ -1405,7 +1405,7 @@ packages:
       '@octokit/graphql': 4.8.0
       '@octokit/request': 5.6.3
       '@octokit/request-error': 2.1.0
-      '@octokit/types': 6.37.0
+      '@octokit/types': 6.37.1
       before-after-hook: 2.2.2
       universal-user-agent: 6.0.0
     transitivePeerDependencies:
@@ -1415,7 +1415,7 @@ packages:
   /@octokit/endpoint/6.0.12:
     resolution: {integrity: sha512-lF3puPwkQWGfkMClXb4k/eUT/nZKQfxinRWJrdZaJO85Dqwo/G0yOC434Jr2ojwafWJMYqFGFa5ms4jJUgujdA==}
     dependencies:
-      '@octokit/types': 6.37.0
+      '@octokit/types': 6.37.1
       is-plain-object: 5.0.0
       universal-user-agent: 6.0.0
     dev: true
@@ -1424,7 +1424,7 @@ packages:
     resolution: {integrity: sha512-0gv+qLSBLKF0z8TKaSKTsS39scVKF9dbMxJpj3U0vC7wjNWFuIpL/z76Qe2fiuCbDRcJSavkXsVtMS6/dtQQsg==}
     dependencies:
       '@octokit/request': 5.6.3
-      '@octokit/types': 6.37.0
+      '@octokit/types': 6.37.1
       universal-user-agent: 6.0.0
     transitivePeerDependencies:
       - encoding
@@ -1440,7 +1440,7 @@ packages:
       '@octokit/core': '>=2'
     dependencies:
       '@octokit/core': 3.6.0
-      '@octokit/types': 6.37.0
+      '@octokit/types': 6.37.1
     dev: true
 
   /@octokit/plugin-request-log/1.0.4_@octokit+core@3.6.0:
@@ -1457,14 +1457,14 @@ packages:
       '@octokit/core': '>=3'
     dependencies:
       '@octokit/core': 3.6.0
-      '@octokit/types': 6.37.0
+      '@octokit/types': 6.37.1
       deprecation: 2.3.1
     dev: true
 
   /@octokit/request-error/2.1.0:
     resolution: {integrity: sha512-1VIvgXxs9WHSjicsRwq8PlR2LR2x6DwsJAaFgzdi0JfJoGSO8mYI/cHJQ+9FbN21aa+DrgNLnwObmyeSC8Rmpg==}
     dependencies:
-      '@octokit/types': 6.37.0
+      '@octokit/types': 6.37.1
       deprecation: 2.3.1
       once: 1.4.0
     dev: true
@@ -1474,7 +1474,7 @@ packages:
     dependencies:
       '@octokit/endpoint': 6.0.12
       '@octokit/request-error': 2.1.0
-      '@octokit/types': 6.37.0
+      '@octokit/types': 6.37.1
       is-plain-object: 5.0.0
       node-fetch: 2.6.7
       universal-user-agent: 6.0.0
@@ -1493,8 +1493,8 @@ packages:
       - encoding
     dev: true
 
-  /@octokit/types/6.37.0:
-    resolution: {integrity: sha512-BXWQhFKRkjX4dVW5L2oYa0hzWOAqsEsujXsQLSdepPoDZfYdubrD1KDGpyNldGXtR8QM/WezDcxcIN1UKJMGPA==}
+  /@octokit/types/6.37.1:
+    resolution: {integrity: sha512-Q1hXSP2YumHkDdD+V4wFKr7vJ9+8tjocixrTSb75JzJ4GpjSyu5B4kpgrXxO6GOs4nOmVyRwRgS4/RO/Lf9oEA==}
     dependencies:
       '@octokit/openapi-types': 12.4.0
     dev: true
@@ -3679,7 +3679,7 @@ packages:
     resolution: {integrity: sha512-Ol/IPXUARn9CSbkrdV4VJo7uCy1I3VuSiWCaFSg+8BdUOzF9n3jefIpcgAydvUZbTdEBZs2vEiTiS9m61ssiDA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
-      type-fest: 2.13.1
+      type-fest: 2.14.0
     dev: true
 
   /dotenv/10.0.0:
@@ -6304,7 +6304,7 @@ packages:
     dependencies:
       commander: 9.3.0
       dotenv: 16.0.1
-      winston: 3.7.2
+      winston: 3.8.0
     dev: true
 
   /latest-version/5.1.0:
@@ -6351,8 +6351,8 @@ packages:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
     dev: true
 
-  /lint-staged/13.0.2:
-    resolution: {integrity: sha512-qQLfLTh9z34eMzfEHENC+QBskZfxjomrf+snF3xJ4BzilORbD989NLqQ00ughsF/A+PT41e87+WsMFabf9++pQ==}
+  /lint-staged/13.0.3:
+    resolution: {integrity: sha512-9hmrwSCFroTSYLjflGI8Uk+GWAwMB4OlpU4bMJEAT5d/llQwtYKoim4bLOyLCuWFAhWEupE0vkIFqtw/WIsPug==}
     engines: {node: ^14.13.1 || >=16.0.0}
     hasBin: true
     dependencies:
@@ -7122,18 +7122,18 @@ packages:
     resolution: {integrity: sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==}
     dev: true
 
-  /netlify-cli/10.6.1:
-    resolution: {integrity: sha512-0GPFHrAp8da8R7ni7MFSOeKmOUFwU599+u0zxvM0vV0mgUDjXJbr4Jv1jssZlIl2yGtpBU1NxqbIsdPze1jNMA==}
+  /netlify-cli/10.6.2:
+    resolution: {integrity: sha512-AxBwpgLeKMr4aHXnem4xiTac0bweMp9e4Jl7Z5WrCgjsDWjIOfOV2Hh3QVgKfUQ6O44NbhYXfTDg2r4az+MzjA==}
     engines: {node: ^12.20.0 || ^14.14.0 || >=16.0.0}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@netlify/build': 27.2.0
-      '@netlify/config': 18.0.2
+      '@netlify/build': 27.3.1
+      '@netlify/config': 18.1.0
       '@netlify/edge-bundler': 1.4.1
       '@netlify/framework-info': 9.1.0
       '@netlify/local-functions-proxy': 1.1.1
-      '@netlify/plugins-list': 6.28.0
+      '@netlify/plugins-list': 6.29.0
       '@netlify/zip-it-and-ship-it': 5.11.1
       '@octokit/rest': 18.12.0
       '@sindresorhus/slugify': 1.1.2
@@ -7235,7 +7235,7 @@ packages:
       update-notifier: 5.1.0
       uuid: 8.3.2
       wait-port: 0.2.9
-      winston: 3.7.2
+      winston: 3.8.0
       write-file-atomic: 4.0.1
     transitivePeerDependencies:
       - '@swc/core'
@@ -7411,8 +7411,8 @@ packages:
       semver: 7.3.7
     dev: true
 
-  /nodemon/2.0.16:
-    resolution: {integrity: sha512-zsrcaOfTWRuUzBn3P44RDliLlp263Z/76FPoHFr3cFFkOz0lTPAcIw8dCzfdVIx/t3AtDYCZRCDkoCojJqaG3w==}
+  /nodemon/2.0.18:
+    resolution: {integrity: sha512-uAvrKipi2zAz8E7nkSz4qW4F4zd5fs2wNGsTx+xXlP8KXqd9ucE0vY9wankOsPboeDyuUGN9vsXGV1pLn80l/A==}
     engines: {node: '>=8.10.0'}
     hasBin: true
     requiresBuild: true
@@ -8492,7 +8492,7 @@ packages:
     dependencies:
       find-up: 6.3.0
       read-pkg: 7.1.0
-      type-fest: 2.13.1
+      type-fest: 2.14.0
     dev: true
 
   /read-pkg/5.2.0:
@@ -8512,7 +8512,7 @@ packages:
       '@types/normalize-package-data': 2.4.1
       normalize-package-data: 3.0.3
       parse-json: 5.2.0
-      type-fest: 2.13.1
+      type-fest: 2.14.0
     dev: true
 
   /readable-stream/2.3.7:
@@ -9570,8 +9570,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /tinypool/0.1.3:
-    resolution: {integrity: sha512-2IfcQh7CP46XGWGGbdyO4pjcKqsmVqFAPcXfPxcPXmOWt9cYkTP9HcDmGgsfijYoAEc4z9qcpM/BaBz46Y9/CQ==}
+  /tinypool/0.2.1:
+    resolution: {integrity: sha512-HFU5ZYVq3wBfhSaf8qdqGsneaqXm0FgJQpoUlJbVdHpRLzm77IneKAD3RjzJWZvIv0YpPB9S7LUW53f6BE6ZSg==}
     engines: {node: '>=14.0.0'}
     dev: true
 
@@ -9853,8 +9853,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /type-fest/2.13.1:
-    resolution: {integrity: sha512-hXYyrPFwETT2swFLHeoKtJrvSF/ftG/sA15/8nGaLuaDGfVAaq8DYFpu4yOyV4tzp082WqnTEoMsm3flKMI2FQ==}
+  /type-fest/2.14.0:
+    resolution: {integrity: sha512-hQnTQkFjL5ik6HF2fTAM8ycbr94UbQXK364wF930VHb0dfBJ5JBP8qwrR8TaK9zwUEk7meruo2JAUDMwvuxd/w==}
     engines: {node: '>=12.20'}
     dev: true
 
@@ -10072,8 +10072,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitest/0.15.2:
-    resolution: {integrity: sha512-cMabuUqu+nNHafkdN7H8Z20+UZTrrUfqjGwAoLwUwrqFGWBz3gXwxndjbLf6mgSFs9lF/JWjKeNM1CXKwtk26w==}
+  /vitest/0.16.0:
+    resolution: {integrity: sha512-Ntp6jrM8wf2NMtamMBLkRBBdeqHkgAH/WMh5Xryts1j2ft2D8QZQbiSVFkSl4WmEQzcPP0YM069g/Ga1vtnEtg==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
     peerDependencies:
@@ -10097,7 +10097,7 @@ packages:
       chai: 4.3.6
       debug: 4.3.4
       local-pkg: 0.4.1
-      tinypool: 0.1.3
+      tinypool: 0.2.1
       tinyspy: 0.3.3
       vite: 2.9.12
     transitivePeerDependencies:
@@ -10179,7 +10179,7 @@ packages:
   /wide-align/1.1.5:
     resolution: {integrity: sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==}
     dependencies:
-      string-width: 1.0.2
+      string-width: 4.2.3
     dev: true
 
   /widest-line/3.1.0:
@@ -10205,8 +10205,8 @@ packages:
       triple-beam: 1.3.0
     dev: true
 
-  /winston/3.7.2:
-    resolution: {integrity: sha512-QziIqtojHBoyzUOdQvQiar1DH0Xp9nF1A1y7NVy2DGEsz82SBDtOalS0ulTRGVT14xPX3WRWkCsdcJKqNflKng==}
+  /winston/3.8.0:
+    resolution: {integrity: sha512-Iix1w8rIq2kBDkGvclO0db2CVOHYVamCIkVWcUbs567G9i2pdB+gvqLgDgxx4B4HXHYD6U4Zybh6ojepUOqcFQ==}
     engines: {node: '>= 12.0.0'}
     dependencies:
       '@dabh/diagnostics': 2.0.3

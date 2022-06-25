@@ -31,7 +31,14 @@ function finalHandler(context: RequestContext): Response {
   return new Response("Not found", { status: 404 });
 }
 
-export function compose(...handlers: RequestHandlerStack[]): HattipHandler {
+export type PartialHandler = (
+  context: RequestContext,
+) => Response | void | Promise<Response | void>;
+
+export function composePartial(
+  handlers: RequestHandlerStack[],
+  next?: () => Promise<Response>,
+): PartialHandler {
   const flatHandlers = handlers.flat().filter(Boolean) as RequestHandler[];
   flatHandlers.unshift((context) => {
     context.handleError = (error: unknown) => {
@@ -40,13 +47,21 @@ export function compose(...handlers: RequestHandlerStack[]): HattipHandler {
     };
   });
 
-  return flatHandlers.map(wrap).reduceRight((prev, current) => {
-    return async (context: RequestContext) => {
-      context.next = () => prev(context) as any;
-      const result = await current(context);
-      return result || prev(context);
-    };
-  }, finalHandler) as any;
+  return flatHandlers.map(wrap).reduceRight(
+    (prev, current) => {
+      return async (context: RequestContext) => {
+        context.next = () => prev(context) as any;
+        const result = await current(context);
+        return result || prev(context);
+      };
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    next ? (_: RequestContext) => next() : (_: RequestContext) => undefined,
+  );
+}
+
+export function compose(...handlers: RequestHandlerStack[]): HattipHandler {
+  return composePartial([...handlers, finalHandler]) as any;
 }
 
 function wrap(

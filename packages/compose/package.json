@@ -1,5 +1,6 @@
 {
   "name": "@hattip/compose",
+  "description": "Middleware system for HatTip",
   "version": "0.0.5",
   "scripts": {
     "build": "rimraf dist && tsup",
@@ -32,6 +33,6 @@
     "publint": "^0.1.1",
     "tsup": "^6.1.2",
     "typescript": "^4.7.4",
-    "vitest": "^0.15.2"
+    "vitest": "^0.16.0"
   }
 }

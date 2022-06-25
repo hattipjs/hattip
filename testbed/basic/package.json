@@ -26,12 +26,12 @@
     "@types/ps-tree": "^1.1.2",
     "@vercel/ncc": "^0.34.0",
     "miniflare": "^2.5.1",
-    "netlify-cli": "^10.5.1",
+    "netlify-cli": "^10.6.2",
     "node-fetch": "^3.2.6",
-    "nodemon": "^2.0.16",
+    "nodemon": "^2.0.18",
     "ps-tree": "^1.2.0",
     "typescript": "^4.7.4",
-    "vitest": "^0.15.2"
+    "vitest": "^0.16.0"
   },
   "dependencies": {
     "@hattip/adapter-node": "workspace:*",
