@@ -71,27 +71,28 @@ if (process.env.CI === "true") {
         "pnpm build:deno && deno run --allow-read --allow-net dist/deno/index.js",
     },
   ].filter(Boolean) as typeof cases;
-  host = "http://localhost:3000";
+  host = "http://127.0.0.1:3000";
 } else {
   cases = [
     {
       name: "Existing server",
     },
   ];
-  host = process.env.TEST_HOST || "http://localhost:3000";
+  host = process.env.TEST_HOST || "http://127.0.0.1:3000";
 }
+
+let cp: ChildProcess | undefined;
 
 describe.each(cases)(
   "$name",
   ({ name, command, skipStreamingTest, envOverride }) => {
-    if (skipStreamingTest) {
-      console.warn("Skipping streaming test for", name);
-    }
-
     if (command) {
-      let cp: ChildProcess | undefined;
-
       beforeAll(async () => {
+        console.log("Starting", name);
+        if (skipStreamingTest) {
+          console.warn("Skipping streaming test for", name);
+        }
+
         cp = spawn(command, {
           shell: true,
           stdio: "inherit",
@@ -115,10 +116,13 @@ describe.each(cases)(
             }
           });
 
+          let done = false;
+
           const interval = setInterval(() => {
             fetch(host)
               .then(async (r) => {
                 if (r.status === 200) {
+                  done = true;
                   clearInterval(interval);
                   resolve(null);
                 }
@@ -127,23 +131,23 @@ describe.each(cases)(
                 // Ignore error
               });
           }, 250);
+
+          setTimeout(() => {
+            console.log("Timeout", name);
+            if (!done) {
+              clearInterval(interval);
+              killTree(cp, name).finally(() => {
+                cp = undefined;
+                reject(new Error("Timeout"));
+              });
+            }
+          }, 15_000);
         });
       }, 60_000);
 
       afterAll(async () => {
-        if (!cp || cp.exitCode || !cp.pid) {
-          return;
-        }
-
-        const tree = await promisify(psTree)(cp.pid);
-        const pids = [cp.pid, ...tree.map((p) => +p.PID)];
-
-        for (const pid of pids) {
-          kill(+pid, "SIGINT");
-        }
-
-        await new Promise((resolve) => {
-          cp!.on("exit", resolve);
+        await killTree(cp, name).finally(() => {
+          cp = undefined;
         });
       });
     }
@@ -154,20 +158,17 @@ describe.each(cases)(
 
       let ip;
 
-      if (new URL(host).hostname === "localhost") {
-        ip = ["::1", "127.0.0.1"];
+      if (new URL(host).hostname === "127.0.0.1") {
+        ip = "127.0.0.1";
       } else {
-        ip = [await fetch("http://api.ipify.org").then((r) => r.text())];
+        ip = await fetch("http://api.ipify.org").then((r) => r.text());
       }
 
-      const EXPECTED = ip.map(
-        (ip) =>
-          `<h1>Hello from Hattip!</h1><p>URL: <span>${
-            host + "/"
-          }</span></p><p>Your IP address is: <span>${ip}</span></p>`,
-      );
+      const EXPECTED = `<h1>Hello from Hattip!</h1><p>URL: <span>${
+        host + "/"
+      }</span></p><p>Your IP address is: <span>${ip}</span></p>`;
 
-      expect(EXPECTED.some((e) => text.includes(e))).toBe(true);
+      expect(text).toContain(EXPECTED);
       expect(response.headers.get("content-type")).toEqual(
         "text/html; charset=utf-8",
       );
@@ -246,3 +247,37 @@ describe.each(cases)(
     });
   },
 );
+
+async function killTree(cp: ChildProcess | undefined, name: string) {
+  if (!cp || cp.exitCode || !cp.pid) {
+    return;
+  }
+
+  const tree = await promisify(psTree)(cp.pid);
+  const pids = [cp.pid, ...tree.map((p) => +p.PID)];
+
+  console.log("Stopping", name);
+  for (const pid of pids) {
+    kill(+pid, "SIGINT");
+  }
+
+  const timeout = setTimeout(() => {
+    console.warn("Trying to force kill", name);
+    for (const pid of pids) {
+      try {
+        kill(+pid, "SIGKILL");
+      } catch {
+        // Ignore error
+      }
+    }
+  }, 5_000);
+
+  await new Promise<void>((resolve) => {
+    cp!.on("exit", () => {
+      clearTimeout(timeout);
+      resolve();
+    });
+  });
+
+  console.log("Stopped", name);
+}
