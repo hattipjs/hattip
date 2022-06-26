@@ -21,7 +21,7 @@ importers:
       rimraf: 3.0.2
       vitest: 0.16.0
 
-  packages/adapter-cloudflare-workers:
+  packages/adapter/adapter-cloudflare-workers:
     specifiers:
       '@cloudflare/kv-asset-handler': ^0.2.0
       '@cloudflare/workers-types': ^3.13.0
@@ -32,18 +32,19 @@ importers:
       publint: ^0.1.1
       tsup: ^6.1.2
       typescript: ^4.7.4
+    dependencies:
+      '@hattip/core': link:../../base/core
     devDependencies:
       '@cloudflare/kv-asset-handler': 0.2.0
       '@cloudflare/workers-types': 3.13.0
       '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
-      '@hattip/core': link:../core
       '@types/node': 18.0.0
       eslint: 8.18.0
       publint: 0.1.1
       tsup: 6.1.2_typescript@4.7.4
       typescript: 4.7.4
 
-  packages/adapter-deno:
+  packages/adapter/adapter-deno:
     specifiers:
       '@cyco130/eslint-config': ^2.0.0
       '@hattip/core': workspace:*
@@ -52,16 +53,17 @@ importers:
       publint: ^0.1.1
       tsup: ^6.1.2
       typescript: ^4.7.4
+    dependencies:
+      '@hattip/core': link:../../base/core
     devDependencies:
       '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
-      '@hattip/core': link:../core
       '@types/node': 18.0.0
       eslint: 8.18.0
       publint: 0.1.1
       tsup: 6.1.2_typescript@4.7.4
       typescript: 4.7.4
 
-  packages/adapter-netlify-edge:
+  packages/adapter/adapter-netlify-edge:
     specifiers:
       '@cyco130/eslint-config': ^2.0.0
       '@hattip/core': workspace:*
@@ -70,16 +72,17 @@ importers:
       publint: ^0.1.1
       tsup: ^6.1.2
       typescript: ^4.7.4
+    dependencies:
+      '@hattip/core': link:../../base/core
     devDependencies:
       '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
-      '@hattip/core': link:../core
       '@types/node': 18.0.0
       eslint: 8.18.0
       publint: 0.1.1
       tsup: 6.1.2_typescript@4.7.4
       typescript: 4.7.4
 
-  packages/adapter-netlify-functions:
+  packages/adapter/adapter-netlify-functions:
     specifiers:
       '@cyco130/eslint-config': ^2.0.0
       '@hattip/adapter-node': workspace:*
@@ -93,8 +96,8 @@ importers:
       typescript: ^4.7.4
     dependencies:
       '@hattip/adapter-node': link:../adapter-node
-      '@hattip/core': link:../core
-      '@hattip/polyfills': link:../polyfills
+      '@hattip/core': link:../../base/core
+      '@hattip/polyfills': link:../../base/polyfills
       netlify-lambda-types: 1.0.0
     devDependencies:
       '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
@@ -104,7 +107,7 @@ importers:
       tsup: 6.1.2_typescript@4.7.4
       typescript: 4.7.4
 
-  packages/adapter-node:
+  packages/adapter/adapter-node:
     specifiers:
       '@cyco130/eslint-config': ^2.0.0
       '@hattip/core': workspace:*
@@ -115,8 +118,8 @@ importers:
       tsup: ^6.1.2
       typescript: ^4.7.4
     dependencies:
-      '@hattip/core': link:../core
-      '@hattip/polyfills': link:../polyfills
+      '@hattip/core': link:../../base/core
+      '@hattip/polyfills': link:../../base/polyfills
     devDependencies:
       '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
       '@types/node': 18.0.0
@@ -125,7 +128,7 @@ importers:
       tsup: 6.1.2_typescript@4.7.4
       typescript: 4.7.4
 
-  packages/adapter-vercel-edge:
+  packages/adapter/adapter-vercel-edge:
     specifiers:
       '@cyco130/eslint-config': ^2.0.0
       '@hattip/core': workspace:*
@@ -133,111 +136,16 @@ importers:
       publint: ^0.1.1
       tsup: ^6.1.2
       typescript: ^4.7.4
-    devDependencies:
-      '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
-      '@hattip/core': link:../core
-      eslint: 8.18.0
-      publint: 0.1.1
-      tsup: 6.1.2_typescript@4.7.4
-      typescript: 4.7.4
-
-  packages/bundler-cloudflare-workers:
-    specifiers:
-      '@cyco130/eslint-config': ^2.0.0
-      '@types/node': ^18.0.0
-      cac: ^6.7.12
-      esbuild: ^0.14.47
-      eslint: ^8.18.0
-      publint: ^0.1.1
-      tsup: ^6.1.2
-      typescript: ^4.7.4
     dependencies:
-      cac: 6.7.12
-      esbuild: 0.14.47
+      '@hattip/core': link:../../base/core
     devDependencies:
       '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
-      '@types/node': 18.0.0
       eslint: 8.18.0
       publint: 0.1.1
       tsup: 6.1.2_typescript@4.7.4
       typescript: 4.7.4
 
-  packages/bundler-deno:
-    specifiers:
-      '@cyco130/eslint-config': ^2.0.0
-      '@types/fs-extra': ^9.0.13
-      '@types/node': ^18.0.0
-      cac: ^6.7.12
-      esbuild: ^0.14.47
-      eslint: ^8.18.0
-      fs-extra: ^10.1.0
-      publint: ^0.1.1
-      tsup: ^6.1.2
-      typescript: ^4.7.4
-    dependencies:
-      cac: 6.7.12
-      esbuild: 0.14.47
-      fs-extra: 10.1.0
-    devDependencies:
-      '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
-      '@types/fs-extra': 9.0.13
-      '@types/node': 18.0.0
-      eslint: 8.18.0
-      publint: 0.1.1
-      tsup: 6.1.2_typescript@4.7.4
-      typescript: 4.7.4
-
-  packages/bundler-netlify:
-    specifiers:
-      '@cyco130/eslint-config': ^2.0.0
-      '@types/fs-extra': ^9.0.13
-      '@types/node': ^18.0.0
-      cac: ^6.7.12
-      esbuild: ^0.14.47
-      eslint: ^8.18.0
-      fs-extra: ^10.1.0
-      publint: ^0.1.1
-      tsup: ^6.1.2
-      typescript: ^4.7.4
-    dependencies:
-      cac: 6.7.12
-      esbuild: 0.14.47
-    devDependencies:
-      '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
-      '@types/fs-extra': 9.0.13
-      '@types/node': 18.0.0
-      eslint: 8.18.0
-      fs-extra: 10.1.0
-      publint: 0.1.1
-      tsup: 6.1.2_typescript@4.7.4
-      typescript: 4.7.4
-
-  packages/bundler-vercel:
-    specifiers:
-      '@cyco130/eslint-config': ^2.0.0
-      '@types/fs-extra': ^9.0.13
-      '@types/node': ^18.0.0
-      cac: ^6.7.12
-      esbuild: ^0.14.47
-      eslint: ^8.18.0
-      fs-extra: ^10.1.0
-      publint: ^0.1.1
-      tsup: ^6.1.2
-      typescript: ^4.7.4
-    dependencies:
-      cac: 6.7.12
-      esbuild: 0.14.47
-    devDependencies:
-      '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
-      '@types/fs-extra': 9.0.13
-      '@types/node': 18.0.0
-      eslint: 8.18.0
-      fs-extra: 10.1.0
-      publint: 0.1.1
-      tsup: 6.1.2_typescript@4.7.4
-      typescript: 4.7.4
-
-  packages/compose:
+  packages/base/compose:
     specifiers:
       '@cyco130/eslint-config': ^2.0.0
       '@hattip/core': workspace:*
@@ -247,9 +155,10 @@ importers:
       tsup: ^6.1.2
       typescript: ^4.7.4
       vitest: ^0.16.0
+    dependencies:
+      '@hattip/core': link:../core
     devDependencies:
       '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
-      '@hattip/core': link:../core
       eslint: 8.18.0
       node-fetch: 3.2.6
       publint: 0.1.1
@@ -257,7 +166,7 @@ importers:
       typescript: 4.7.4
       vitest: 0.16.0
 
-  packages/core:
+  packages/base/core:
     specifiers:
       '@cyco130/eslint-config': ^2.0.0
       eslint: ^8.18.0
@@ -269,10 +178,7 @@ importers:
       publint: 0.1.1
       typescript: 4.7.4
 
-  packages/hattip:
-    specifiers: {}
-
-  packages/polyfills:
+  packages/base/polyfills:
     specifiers:
       '@cyco130/eslint-config': ^2.0.0
       '@hattip/core': workspace:*
@@ -295,7 +201,7 @@ importers:
       typescript: 4.7.4
       vitest: 0.16.0
 
-  packages/router:
+  packages/base/router:
     specifiers:
       '@cyco130/eslint-config': ^2.0.0
       '@hattip/compose': workspace:*
@@ -315,6 +221,105 @@ importers:
       tsup: 6.1.2_typescript@4.7.4
       typescript: 4.7.4
       vitest: 0.16.0
+
+  packages/bundler/bundler-cloudflare-workers:
+    specifiers:
+      '@cyco130/eslint-config': ^2.0.0
+      '@types/node': ^18.0.0
+      cac: ^6.7.12
+      esbuild: ^0.14.47
+      eslint: ^8.18.0
+      publint: ^0.1.1
+      tsup: ^6.1.2
+      typescript: ^4.7.4
+    dependencies:
+      cac: 6.7.12
+      esbuild: 0.14.47
+    devDependencies:
+      '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
+      '@types/node': 18.0.0
+      eslint: 8.18.0
+      publint: 0.1.1
+      tsup: 6.1.2_typescript@4.7.4
+      typescript: 4.7.4
+
+  packages/bundler/bundler-deno:
+    specifiers:
+      '@cyco130/eslint-config': ^2.0.0
+      '@types/fs-extra': ^9.0.13
+      '@types/node': ^18.0.0
+      cac: ^6.7.12
+      esbuild: ^0.14.47
+      eslint: ^8.18.0
+      fs-extra: ^10.1.0
+      publint: ^0.1.1
+      tsup: ^6.1.2
+      typescript: ^4.7.4
+    dependencies:
+      cac: 6.7.12
+      esbuild: 0.14.47
+      fs-extra: 10.1.0
+    devDependencies:
+      '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
+      '@types/fs-extra': 9.0.13
+      '@types/node': 18.0.0
+      eslint: 8.18.0
+      publint: 0.1.1
+      tsup: 6.1.2_typescript@4.7.4
+      typescript: 4.7.4
+
+  packages/bundler/bundler-netlify:
+    specifiers:
+      '@cyco130/eslint-config': ^2.0.0
+      '@types/fs-extra': ^9.0.13
+      '@types/node': ^18.0.0
+      cac: ^6.7.12
+      esbuild: ^0.14.47
+      eslint: ^8.18.0
+      fs-extra: ^10.1.0
+      publint: ^0.1.1
+      tsup: ^6.1.2
+      typescript: ^4.7.4
+    dependencies:
+      cac: 6.7.12
+      esbuild: 0.14.47
+    devDependencies:
+      '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
+      '@types/fs-extra': 9.0.13
+      '@types/node': 18.0.0
+      eslint: 8.18.0
+      fs-extra: 10.1.0
+      publint: 0.1.1
+      tsup: 6.1.2_typescript@4.7.4
+      typescript: 4.7.4
+
+  packages/bundler/bundler-vercel:
+    specifiers:
+      '@cyco130/eslint-config': ^2.0.0
+      '@types/fs-extra': ^9.0.13
+      '@types/node': ^18.0.0
+      cac: ^6.7.12
+      esbuild: ^0.14.47
+      eslint: ^8.18.0
+      fs-extra: ^10.1.0
+      publint: ^0.1.1
+      tsup: ^6.1.2
+      typescript: ^4.7.4
+    dependencies:
+      cac: 6.7.12
+      esbuild: 0.14.47
+    devDependencies:
+      '@cyco130/eslint-config': 2.0.0_b5e7v2qnwxfo6hmiq56u52mz3e
+      '@types/fs-extra': 9.0.13
+      '@types/node': 18.0.0
+      eslint: 8.18.0
+      fs-extra: 10.1.0
+      publint: 0.1.1
+      tsup: 6.1.2_typescript@4.7.4
+      typescript: 4.7.4
+
+  packages/cli/hattip:
+    specifiers: {}
 
   testbed/basic:
     specifiers:
@@ -344,22 +349,22 @@ importers:
       typescript: ^4.7.4
       vitest: ^0.16.0
     dependencies:
-      '@hattip/adapter-node': link:../../packages/adapter-node
-      '@hattip/compose': link:../../packages/compose
-      '@hattip/router': link:../../packages/router
+      '@hattip/adapter-node': link:../../packages/adapter/adapter-node
+      '@hattip/compose': link:../../packages/base/compose
+      '@hattip/router': link:../../packages/base/router
       connect: 3.7.0
       express: 4.18.1
       sirv: 2.0.2
     devDependencies:
-      '@hattip/adapter-cloudflare-workers': link:../../packages/adapter-cloudflare-workers
-      '@hattip/adapter-deno': link:../../packages/adapter-deno
-      '@hattip/adapter-netlify-edge': link:../../packages/adapter-netlify-edge
-      '@hattip/adapter-netlify-functions': link:../../packages/adapter-netlify-functions
-      '@hattip/adapter-vercel-edge': link:../../packages/adapter-vercel-edge
-      '@hattip/bundler-cloudflare-workers': link:../../packages/bundler-cloudflare-workers
-      '@hattip/bundler-deno': link:../../packages/bundler-deno
-      '@hattip/bundler-netlify': link:../../packages/bundler-netlify
-      '@hattip/bundler-vercel': link:../../packages/bundler-vercel
+      '@hattip/adapter-cloudflare-workers': link:../../packages/adapter/adapter-cloudflare-workers
+      '@hattip/adapter-deno': link:../../packages/adapter/adapter-deno
+      '@hattip/adapter-netlify-edge': link:../../packages/adapter/adapter-netlify-edge
+      '@hattip/adapter-netlify-functions': link:../../packages/adapter/adapter-netlify-functions
+      '@hattip/adapter-vercel-edge': link:../../packages/adapter/adapter-vercel-edge
+      '@hattip/bundler-cloudflare-workers': link:../../packages/bundler/bundler-cloudflare-workers
+      '@hattip/bundler-deno': link:../../packages/bundler/bundler-deno
+      '@hattip/bundler-netlify': link:../../packages/bundler/bundler-netlify
+      '@hattip/bundler-vercel': link:../../packages/bundler/bundler-vercel
       '@types/node': 18.0.0
       '@types/ps-tree': 1.1.2
       '@vercel/ncc': 0.34.0
