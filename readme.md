@@ -61,7 +61,7 @@ createServer(handler).listen(3000, "localhost", () => {
 });
 ```
 
-..and on Cloudflare Workers:
+...and on Cloudflare Workers:
 
 ```js
 // entry-cfw.js
@@ -153,18 +153,18 @@ HatTip is extremely modular so you can use as little or as much as you need:
 
 - [`core`](./packages/core): A type-only package that defines the interface between your application and platform adapters
 - **Adapters:** Enable HatTip to run on any platform:
-  - [`adapter-node`](./packages/adapter-node): Node.js, either as a standalone server or as a middleware function that can be used with Express and similar frameworks. Also works for Vercel Edge Functions.
+  - [`adapter-node`](./packages/adapter-node): Node.js, either as a standalone server or as a middleware function that can be used with Express and similar frameworks. Also works for Vercel Serverless Functions.
   - [`adapter-cloudflare-workers`](./packages/adapter-cloudflare-workers): Cloudflare Workers
   - [`adapter-vercel-edge`](./packages/adapter-vercel-edge): Vercel Edge Functions
   - [`adapter-netlify-functions`](./packages/adapter-netlify-functions): Netlify Functions
   - [`adapter-netlify-edge`](./packages/adapter-netlify-edge): Netlify Edge Functions
   - [`adapter-deno`](./packages/adapter-deno): Deno
 - **Bundlers:** Worker and serverless platforms usually require your code to be in bundled form. These packages provide bundlers fine-tuned for their respective platforms:
-  - [`bundler-cloudflare-workers`](./packages/bundler-cloudflare-workers): Bundler for Cloudflare Workers
-  - [`bundler-vercel`](./packages/bundler-vercel): Bundler for Vercel edge and serverless functions
-  - [`bundler-netlify`](./packages/bundler-netlify): Bundler for Netlify edge and Netlify functions
-  - [`bundler-deno`](./packages/bundler-deno): Bundler for Deno
-- [`polyfills](./packages/polyfills): A collection of polyfills used by adapters for compatibility across platforms
+  - [`bundler-cloudflare-workers`](./packages/bundler-cloudflare-workers): Cloudflare Workers
+  - [`bundler-vercel`](./packages/bundler-vercel): Vercel edge and serverless functions
+  - [`bundler-netlify`](./packages/bundler-netlify): Netlify edge and Netlify functions
+  - [`bundler-deno`](./packages/bundler-deno): Deno
+- [`polyfills`](./packages/polyfills): A collection of polyfills used by adapters for compatibility across platforms
 - [`compose`](./packages/compose): A middleware system for combining multiple handlers into a single one
 - [`router`](./packages/router): Express-style imperative router
 
