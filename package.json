@@ -18,7 +18,7 @@
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
-    "vitest": "^0.16.0"
+    "vitest": "^0.17.0"
   },
   "dependencies": {
     "typescript": "^4.7.4"
