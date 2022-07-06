@@ -34,31 +34,32 @@ router.get("/bin-stream", (context) => {
     "This is rendered as binary stream with non-ASCII chars 😊",
   );
 
-  const { readable, writable } = new TransformStream();
+  let i = 0;
 
-  async function pump(body) {
-    const writer = writable.getWriter();
-    for await (const chunk of body) {
-      writer.write(chunk);
-    }
+  let resolveStreamPromise;
+  const streamPromise = new Promise(
+    (resolve) => (resolveStreamPromise = resolve),
+  );
 
-    writer.close();
-  }
-
-  async function* stream() {
-    for (const byte of output) {
+  const stream = new ReadableStream({
+    async pull(controller) {
       if (delay) {
         await new Promise((resolve) => setTimeout(resolve, delay));
       }
-      yield new Uint8Array([byte]);
-    }
-  }
 
-  const promise = pump(stream());
+      if (i < output.length) {
+        controller.enqueue(new Uint8Array([output[i]]));
+        i++;
+      } else {
+        controller.close();
+        resolveStreamPromise;
+      }
+    },
+  });
 
-  context.waitUntil(promise);
+  context.waitUntil(streamPromise);
 
-  return new Response(readable);
+  return new Response(stream);
 });
 
 router.post(
