@@ -1,11 +1,13 @@
 // eslint-disable-next-line import/no-unresolved
-import { TransformStream } from "stream/web";
+import * as webStream from "stream/web";
 import installGetSetCookie from "@hattip/polyfills/get-set-cookie";
 
 installGetSetCookie();
 
-if (!global.TransformStream) {
-  global.TransformStream = TransformStream as any;
+for (const key of Object.keys(webStream)) {
+  if (!(key in global)) {
+    (global as any)[key] = (webStream as any)[key];
+  }
 }
 
 export type {

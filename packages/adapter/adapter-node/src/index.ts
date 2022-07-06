@@ -32,32 +32,4 @@ export interface NodePlatformInfo {
   response: ServerResponse;
 }
 
-/**
- * Creates a request handler to be passed to http.createServer().
- * It can also be used as a middleware in Express or other
- * Connect-compatible frameworks).
- */
-export function createMiddleware(
-  handler: HattipHandler,
-  options: NodeAdapterOptions = {},
-): NodeMiddleware {
-  const nodeAdapterHandler = createNodeMiddleware(handler, options);
-
-  return async (req, res, next) => {
-    nodeAdapterHandler(req, res, next);
-  };
-}
-
-/**
- * Create an HTTP server
- */
-export function createServer(
-  handler: HattipHandler,
-  adapterOptions?: NodeAdapterOptions,
-  serverOptions?: ServerOptions,
-): HttpServer {
-  const listener = createMiddleware(handler, adapterOptions);
-  return serverOptions
-    ? createHttpServer(serverOptions, listener)
-    : createHttpServer(listener);
-}
+export { createMiddleware, createServer } from "./common";
