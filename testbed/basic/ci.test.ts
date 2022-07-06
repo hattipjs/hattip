@@ -78,7 +78,7 @@ if (process.env.CI === "true") {
       name: "Existing server",
     },
   ];
-  host = process.env.TEST_HOST || "http://127.0.0.1:3000";
+  host = process.env.TEST_HOST || "http://localhost:3000";
 }
 
 let cp: ChildProcess | undefined;
@@ -158,7 +158,7 @@ describe.each(cases)(
 
       let ip;
 
-      if (new URL(host).hostname === "127.0.0.1") {
+      if (["127.0.0.1", "localhost"].includes(new URL(host).hostname)) {
         ip = "127.0.0.1";
       } else {
         ip = await fetch("http://api.ipify.org").then((r) => r.text());
