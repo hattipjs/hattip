@@ -4,7 +4,7 @@ HatTip adapter for [Deno](https://deno.land).
 
 ## Usage
 
-Assuming you have your HatTip handler defined in `handler.js`, create an entry file like the following and use [`@hattip/bundler-deno`](../bundler-deno) or your favorite bundler to bundle it:
+Assuming you have your HatTip handler defined in `handler.js`, create an entry file like the following and use [`@hattip/bundler-deno`](../../bundler/bundler-deno) or your favorite bundler to bundle it:
 
 ```js
 import { serve, createRequestHandler } from "@hattip/adapter-deno";

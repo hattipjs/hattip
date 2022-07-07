@@ -26,8 +26,7 @@ import express from "express";
 
 const app = express();
 
-// You can also use express.static instead of `staticAssetsDir` if you wish
-const middleware = createMiddleware(handler, { staticAssetsDir: "public" });
+const middleware = createMiddleware(handler);
 app.use(middleware);
 
 app.listen(3000, "localhost", () => {
@@ -84,7 +83,7 @@ interface NodeAdapterOptions {
 
 ## Using native `fetch`
 
-This adapter uses [`node-fetch`](https://github.com/node-fetch/node-fetch) as its `fetch` implementation. Node versions since 16.15 and 17.5 have a native implementation behind the `--experimental-fetch` flag. You can opt in for the native implementation by importing your adapter from `@hattip/adapter-node/native-fetch`.
+This adapter uses [`node-fetch`](https://github.com/node-fetch/node-fetch) as its `fetch` implementation. Node versions since 16.15, 17.5, and 18 have a native implementation behind the `--experimental-fetch` flag. You can opt in for the native implementation by importing your adapter from `@hattip/adapter-node/native-fetch`.
 
 ## `context.passThrough` behavior
 

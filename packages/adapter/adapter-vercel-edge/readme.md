@@ -4,7 +4,7 @@ HatTip adapter for [Vercel Edge Functions](https://vercel.com/features/edge-func
 
 ## Usage
 
-Assuming you have your HatTip handler defined in `handler.js`, create an entry file like the following and use [`@hattip/bundler-vercel`](../bundler-vercel) or your favorite bundler to bundle it:
+Assuming you have your HatTip handler defined in `handler.js`, create an entry file like the following and use [`@hattip/bundler-vercel`](../../bundler/bundler-vercel) or your favorite bundler to bundle it:
 
 ```js
 import vercelEdgeAdapter from "@hattip/adapter-vercel-edge";

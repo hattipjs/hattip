@@ -5,7 +5,7 @@
 Follow: [Twitter > @cyco130](https://twitter.com/cyco130) & [Twitter > @brillout](https://twitter.com/brillout)  
 Chat: <a href="https://discord.com/invite/vTvXzBMySh">Discord > Cubes<img src="./graphics/hash.svg" height="17" width="23" valign="text-bottom" alt="hash"/>HatTip</a>
 
-HatTip is a JavaScript framework for handling HTTP requests.
+HatTip is a set of JavaScript packages for building HTTP server applications.
 
 - &#x2728; Modern: Based on current and future web standards (Fetch API & WinterCG).
 - &#x1F30D; Universal: Runs anywhere (Node.js, the Edge, Deno, ...).
@@ -47,6 +47,7 @@ We believe in a diverse but interoperable future for the JavaScript ecosystem an
 - ✅ Netlify Functions
 - ✅ Netlify Edge Functions
 - ✅ Deno (including Deno Deploy)
+- 🚧 [Bun](https://github.com/hattipjs/hattip/pull/17)
 - 🚧 Service Workers
 
 Adapters let you run HatTip on any platform. Here's how you can use HatTip with Node.js:
@@ -115,7 +116,7 @@ const poweredBy = async (ctx) => {
   return response;
 };
 
-// HatTip does have a router but this illustrates the very basics
+// HatTip does have a router, this is to illustrate the basics
 const homeHandler = (ctx) => {
   if (ctx.url.pathname === "/") {
     return new Response("Home");
@@ -151,21 +152,21 @@ A handler can return or throw a `Response` or anything with a `toResponse` metho
 
 HatTip is extremely modular so you can use as little or as much as you need:
 
-- [`core`](./packages/core): A type-only package that defines the interface between your application and platform adapters
+- [`core`](./packages/base/core): A type-only package that defines the interface between your application and platform adapters
 - **Adapters:** Enable HatTip to run on any platform:
-  - [`adapter-node`](./packages/adapter-node): Node.js, either as a standalone server or as a middleware function that can be used with Express and similar frameworks. Also works for Vercel Serverless Functions.
-  - [`adapter-cloudflare-workers`](./packages/adapter-cloudflare-workers): Cloudflare Workers
-  - [`adapter-vercel-edge`](./packages/adapter-vercel-edge): Vercel Edge Functions
-  - [`adapter-netlify-functions`](./packages/adapter-netlify-functions): Netlify Functions
-  - [`adapter-netlify-edge`](./packages/adapter-netlify-edge): Netlify Edge Functions
-  - [`adapter-deno`](./packages/adapter-deno): Deno
+  - [`adapter-node`](./packages/adapter/adapter-node): Node.js, either as a standalone server or as a middleware function that can be used with Express and similar frameworks. Also works for Vercel Serverless Functions.
+  - [`adapter-cloudflare-workers`](./packages/adapter/adapter-cloudflare-workers): Cloudflare Workers
+  - [`adapter-vercel-edge`](./packages/adapter/adapter-vercel-edge): Vercel Edge Functions
+  - [`adapter-netlify-functions`](./packages/adapter/adapter-netlify-functions): Netlify Functions
+  - [`adapter-netlify-edge`](./packages/adapter/adapter-netlify-edge): Netlify Edge Functions
+  - [`adapter-deno`](./packages/adapter/adapter-deno): Deno
 - **Bundlers:** Worker and serverless platforms usually require your code to be in bundled form. These packages provide bundlers fine-tuned for their respective platforms:
-  - [`bundler-cloudflare-workers`](./packages/bundler-cloudflare-workers): Cloudflare Workers
-  - [`bundler-vercel`](./packages/bundler-vercel): Vercel edge and serverless functions
-  - [`bundler-netlify`](./packages/bundler-netlify): Netlify edge and Netlify functions
-  - [`bundler-deno`](./packages/bundler-deno): Deno
-- [`polyfills`](./packages/polyfills): A collection of polyfills used by adapters for compatibility across platforms
-- [`compose`](./packages/compose): A middleware system for combining multiple handlers into a single one
-- [`router`](./packages/router): Express-style imperative router
+  - [`bundler-cloudflare-workers`](./packages/bundler/bundler-cloudflare-workers): Cloudflare Workers
+  - [`bundler-vercel`](./packages/bundler/bundler-vercel): Vercel edge and serverless functions
+  - [`bundler-netlify`](./packages/bundler/bundler-netlify): Netlify edge and Netlify functions
+  - [`bundler-deno`](./packages/bundler/bundler-deno): Deno
+- [`polyfills`](./packages/base/polyfills): A collection of polyfills used by adapters for compatibility across platforms
+- [`compose`](./packages/base/compose): A middleware system for combining multiple handlers into a single one
+- [`router`](./packages/base/router): Express-style imperative router
 
 A zero-config development environment based on [Vite](https://vitejs.dev) is also in the works
