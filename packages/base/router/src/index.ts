@@ -1,4 +1,4 @@
-/// reference types="../ambient.d.ts" />
+/// <reference types="../ambient" />
 
 import {
   RequestHandler,
