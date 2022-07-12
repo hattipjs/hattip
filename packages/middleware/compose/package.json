@@ -1,7 +1,7 @@
 {
   "name": "@hattip/compose",
   "description": "Middleware system for HatTip",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "scripts": {
     "build": "rimraf dist && tsup",
     "dev": "tsup --watch",

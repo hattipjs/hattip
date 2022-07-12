@@ -1,6 +1,6 @@
 {
   "name": "@hattip/adapter-netlify-edge",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Netlify Edge Functions adapter for Hattip",
   "module": "./dist/index.mjs",
   "files": [

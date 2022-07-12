@@ -1,6 +1,6 @@
 {
   "name": "@hattip/router",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Express-style imperative router for Hattip",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

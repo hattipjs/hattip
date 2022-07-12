@@ -1,6 +1,6 @@
 {
   "name": "@hattip/bundler-vercel",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Vercel bundler for Hattip",
   "main": "./dist/index.js",
   "files": [

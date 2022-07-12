@@ -1,6 +1,6 @@
 {
   "name": "@hattip/adapter-cloudflare-workers",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Cloudflare Workers adapter for Hattip",
   "module": "./dist/index.mjs",
   "files": [
