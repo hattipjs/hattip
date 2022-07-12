@@ -26,6 +26,7 @@ importers:
       '@cyco130/eslint-config': ^2.0.0
       '@hattip/core': workspace:*
       '@types/node': ^18.0.0
+      bun-types: ^0.1.3
       eslint: ^8.18.0
       publint: ^0.1.1
       tsup: ^6.1.2
@@ -35,6 +36,7 @@ importers:
     devDependencies:
       '@cyco130/eslint-config': 2.0.0_4x5o4skxv6sl53vpwefgt23khm
       '@types/node': 18.0.3
+      bun-types: 0.1.3
       eslint: 8.19.0
       publint: 0.1.1
       tsup: 6.1.3_typescript@4.7.4
@@ -2603,6 +2605,10 @@ packages:
     resolution: {integrity: sha512-qwVpFEHNfhYJIzNRBvd2C1kyo6jz3ZSMPyyuR47OPdiKWlbYnZNyDWuyR175qDnAJLiCo5fBBqPb3RiXgWlkOQ==}
     dependencies:
       semver: 7.3.7
+    dev: true
+
+  /bun-types/0.1.3:
+    resolution: {integrity: sha512-mbqjiQNw5O0Id0KT5Oar1VgeK5tLoNA7KBLc8KFz1EbjU3jUjdlbQWKz39K4Ea0T68Orsg/B6EWP30W+M+VANw==}
     dev: true
 
   /bundle-require/3.0.4_esbuild@0.14.48:
