@@ -1,6 +1,6 @@
 {
   "name": "@hattip/bundler-cloudflare-workers",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Cloudflare Workers bundler for Hattip",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

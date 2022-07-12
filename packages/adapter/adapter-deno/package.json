@@ -1,6 +1,6 @@
 {
   "name": "@hattip/adapter-deno",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Deno adapter for Hattip",
   "module": "./dist/index.mjs",
   "files": [
