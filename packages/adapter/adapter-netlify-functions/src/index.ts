@@ -33,23 +33,18 @@ export default function netlifyFunctionsAdapter(
     const clientConnectionIp = event.headers["x-nf-client-connection-ip"];
 
     const context: AdapterRequestContext<NetlifyFunctionsPlatformInfo> = {
-      request: new Request(
-        (clientConnectionIp ? "https://" : "http://") +
-          event.headers.host +
-          event.path,
-        {
-          method: event.httpMethod,
+      request: new Request((event as any).rawUrl, {
+        method: event.httpMethod,
 
-          body:
-            event.httpMethod === "GET" || event.httpMethod === "HEAD"
-              ? undefined
-              : event.isBase64Encoded
-              ? Buffer.from(event.body, "base64")
-              : event.body,
+        body:
+          event.httpMethod === "GET" || event.httpMethod === "HEAD"
+            ? undefined
+            : event.isBase64Encoded
+            ? Buffer.from(event.body, "base64")
+            : event.body,
 
-          headers: event.headers,
-        },
-      ),
+        headers: event.headers,
+      }),
 
       ip: clientConnectionIp || event.headers["client-ip"],
 

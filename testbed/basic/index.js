@@ -87,6 +87,10 @@ router.get("/headers", (ctx) => {
   return new Response(JSON.stringify(headers, null, 2));
 });
 
+router.get("/query", (ctx) => {
+  return new Response(JSON.stringify(ctx.url.searchParams.get("foo"), null, 2));
+});
+
 router.get("/pass", (ctx) => new Response("Passed on from an edge middleware"));
 
 export default compose(router.handlers);

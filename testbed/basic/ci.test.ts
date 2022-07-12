@@ -245,6 +245,12 @@ describe.each(cases)(
       const response = await fetch(host + "/not-found");
       expect(response.status).toEqual(404);
     });
+
+    test("searchParams work", async () => {
+      const response = await fetch(host + "/query?foo=bar");
+      const text = await response.text();
+      expect(text).toEqual('"bar"');
+    });
   },
 );
 
