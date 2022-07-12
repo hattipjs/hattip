@@ -1,4 +1,4 @@
-# `@hattip/adapter-cloudflare-workers`
+# `@hattip/adapter-bun`
 
 HatTip adapter for [Bun](https://bun.sh).
 
