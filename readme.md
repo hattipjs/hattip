@@ -166,8 +166,12 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`bundler-vercel`](./packages/bundler/bundler-vercel): Vercel edge and serverless functions
   - [`bundler-netlify`](./packages/bundler/bundler-netlify): Netlify edge and Netlify functions
   - [`bundler-deno`](./packages/bundler/bundler-deno): Deno
-- [`polyfills`](./packages/base/polyfills): A collection of polyfills used by adapters for compatibility across platforms
-- [`compose`](./packages/base/compose): A middleware system for combining multiple handlers into a single one
-- [`router`](./packages/base/router): Express-style imperative router
+- Low-level stuff
+  - [`polyfills`](./packages/base/polyfills): A collection of polyfills used by adapters for compatibility across platforms
+  - [`compose`](./packages/base/compose): A middleware system for combining multiple handlers into a single one
+- Utilities and middleware
+  - [`router`](./packages/base/router): Express-style imperative router
+  - [`response`](./packages/base/response): Utility functions for creating text, JSON, and HTML responses
+  - [`cookie`](./packages/middleware/cookie): Cookie handling middleware
 
 A zero-config development environment based on [Vite](https://vitejs.dev) is also in the works
