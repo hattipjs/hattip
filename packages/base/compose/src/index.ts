@@ -1,9 +1,14 @@
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RequestContextExtensions {}
+
 /**
  * Request context
  */
-export interface RequestContext extends AdapterRequestContext {
+export interface RequestContext
+  extends AdapterRequestContext,
+    RequestContextExtensions {
   /** Call the next handler in the chain */
   next(): Promise<Response>;
   /** Redefine to handle errors by generating a response from an error */

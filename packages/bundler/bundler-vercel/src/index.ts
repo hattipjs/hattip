@@ -1,7 +1,8 @@
 import { build, BuildOptions } from "esbuild";
 import { builtinModules } from "module";
 import fs from "fs";
-import * as fsExtra from "fs-extra";
+import cpr from "cpr";
+import { promisify } from "util";
 
 // TODO: Add callbacks to manipulate config outputs
 export interface VercelBundlerOptions {
@@ -64,7 +65,9 @@ export async function bundle(options: VercelBundlerOptions = {}) {
   await fs.promises.mkdir(outputDir, { recursive: true });
 
   if (staticDir) {
-    await fsExtra.copy(staticDir, outputDir + "/static");
+    await promisify(cpr)(staticDir, outputDir + "/static", {
+      deleteFirst: true,
+    });
   }
 
   if (edgeEntry) {

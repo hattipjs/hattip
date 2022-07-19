@@ -1,18 +1,24 @@
 {
   "name": "@hattip/adapter-cloudflare-workers",
+  "type": "module",
   "version": "0.0.10",
   "description": "Cloudflare Workers adapter for Hattip",
-  "module": "./dist/index.mjs",
   "files": [
-    "dist",
-    "*.d.ts"
+    "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.js"
     },
     "./no-static": {
-      "import": "./dist/no-static.mjs"
+      "import": "./dist/no-static.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*.d.ts"
+      ]
     }
   },
   "author": "Fatih Aygün <cyco130@gmail.com>",
@@ -33,7 +39,7 @@
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
     "@cloudflare/workers-types": "^3.13.0",
-    "@cyco130/eslint-config": "^2.0.0",
+    "@cyco130/eslint-config": "^2.1.0",
     "@types/node": "^18.0.0",
     "eslint": "^8.18.0",
     "publint": "^0.1.1",

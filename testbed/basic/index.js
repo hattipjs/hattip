@@ -36,6 +36,7 @@ router.get("/bin-stream", (context) => {
 
   let i = 0;
 
+  /** @type {(value: any) => void} */
   let resolveStreamPromise;
   const streamPromise = new Promise(
     (resolve) => (resolveStreamPromise = resolve),

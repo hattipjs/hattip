@@ -1,17 +1,13 @@
 {
   "name": "@hattip/adapter-deno",
   "version": "0.0.10",
+  "type": "module",
   "description": "Deno adapter for Hattip",
-  "module": "./dist/index.mjs",
   "files": [
-    "dist",
-    "*.d.ts"
+    "dist"
   ],
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs"
-    }
-  },
+  "exports": "./dist/index.js",
+  "types": "dist/index.d.ts",
   "author": "Fatih Aygün <cyco130@gmail.com>",
   "repository": "https://github.com/cyco130/vavite",
   "license": "MIT",
@@ -28,7 +24,7 @@
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^2.0.0",
+    "@cyco130/eslint-config": "^2.1.0",
     "@types/node": "^18.0.0",
     "eslint": "^8.18.0",
     "publint": "^0.1.1",

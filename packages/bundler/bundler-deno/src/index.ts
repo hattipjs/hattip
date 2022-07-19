@@ -1,7 +1,8 @@
 import { build, BuildOptions } from "esbuild";
 import { builtinModules } from "module";
 import path from "path";
-import * as fsExtra from "fs-extra";
+import cpr from "cpr";
+import { promisify } from "util";
 
 /**
  * Bundling options
@@ -44,6 +45,8 @@ export default async function bundle(
   await build(esbuildOptions);
 
   if (staticDir) {
-    await fsExtra.copy(staticDir, path.dirname(output) + "/static");
+    await promisify(cpr)(staticDir, path.dirname(output) + "/static", {
+      deleteFirst: true,
+    });
   }
 }

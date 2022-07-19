@@ -1,12 +1,13 @@
 {
   "name": "@hattip/bundler-deno",
   "version": "0.0.10",
+  "type": "module",
   "description": "Deno bundler for Hattip",
-  "main": "./dist/index.js",
   "files": [
-    "dist",
-    "*.d.ts"
+    "dist"
   ],
+  "exports": "./dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
     "hattip-deno": "./cli.js"
   },
@@ -23,8 +24,7 @@
     "test:package": "publint"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^2.0.0",
-    "@types/fs-extra": "^9.0.13",
+    "@cyco130/eslint-config": "^2.1.0",
     "@types/node": "^18.0.0",
     "eslint": "^8.18.0",
     "publint": "^0.1.1",
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "cac": "^6.7.12",
-    "esbuild": "^0.14.47",
-    "fs-extra": "^10.1.0"
+    "cpr": "^3.0.1",
+    "esbuild": "^0.14.47"
   }
 }

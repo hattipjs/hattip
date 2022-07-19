@@ -1,5 +1,4 @@
 // TODO: Remove or update this rule!
-/* eslint-disable import/no-unresolved */
 import { ServerResponse } from "http";
 import { DecoratedRequest, NodeAdapterOptions } from "./common";
 import installNodeFetch from "@hattip/polyfills/node-fetch";

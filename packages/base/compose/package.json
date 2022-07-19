@@ -1,7 +1,13 @@
 {
   "name": "@hattip/compose",
-  "description": "Middleware system for HatTip",
   "version": "0.0.10",
+  "type": "module",
+  "description": "Middleware system for HatTip",
+  "files": [
+    "dist"
+  ],
+  "exports": "./dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "rimraf dist && tsup",
     "dev": "tsup --watch",
@@ -12,24 +18,11 @@
     "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
     "test:package": "publint"
   },
-  "files": [
-    "dist",
-    "index.d.ts"
-  ],
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    }
-  },
-  "types": "index.d.ts",
   "dependencies": {
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^2.0.0",
+    "@cyco130/eslint-config": "^2.1.0",
     "eslint": "^8.18.0",
     "node-fetch": "^3.2.6",
     "publint": "^0.1.1",

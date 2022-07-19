@@ -1,21 +1,24 @@
 {
   "name": "@hattip/adapter-node",
   "version": "0.0.10",
+  "type": "module",
   "description": "Node.js adapter for Hattip",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
   "files": [
-    "dist",
-    "*.d.ts"
+    "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     },
     "./native-fetch": {
-      "import": "./dist/native-fetch.mjs",
-      "require": "./dist/native-fetch.js"
+      "import": "./dist/native-fetch.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*.d.ts"
+      ]
     }
   },
   "author": "Fatih Aygün <cyco130@gmail.com>",
@@ -31,7 +34,7 @@
     "test:package": "publint"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^2.0.0",
+    "@cyco130/eslint-config": "file:../../../../cyco130/eslint-config/cyco130-eslint-config-2.0.0.tgz",
     "@types/node": "^18.0.0",
     "eslint": "^8.18.0",
     "publint": "^0.1.1",

@@ -1,14 +1,14 @@
 require("@cyco130/eslint-config/patch");
 
 module.exports = {
-  extends: ["@cyco130/eslint-config/node"],
+  root: true,
+  extends: ["@cyco130/eslint-config/node"], // or react instead of node
   parserOptions: { tsconfigRootDir: __dirname },
-  rules: {
-    "import/no-unresolved": [
-      "error",
-      {
-        ignore: ["@vavite/handler"],
+  settings: {
+    "import/resolver": {
+      typescript: {
+        project: [__dirname + "/tsconfig.json"],
       },
-    ],
+    },
   },
 };

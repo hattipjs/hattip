@@ -1,18 +1,19 @@
 {
   "name": "@hattip/core",
   "version": "0.0.10",
+  "type": "module",
+  "files": [
+    "index.d.ts"
+  ],
+  "types": "index.d.ts",
   "scripts": {
     "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:package",
     "test:typecheck": "tsc -p tsconfig.json --noEmit",
     "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
     "test:package": "publint"
   },
-  "files": [
-    "index.d.ts"
-  ],
-  "types": "index.d.ts",
   "devDependencies": {
-    "@cyco130/eslint-config": "^2.0.0",
+    "@cyco130/eslint-config": "^2.1.0",
     "eslint": "^8.18.0",
     "publint": "^0.1.1",
     "typescript": "^4.7.4"

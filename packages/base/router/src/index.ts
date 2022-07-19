@@ -1,6 +1,12 @@
-/// <reference types="../ambient" />
+declare module "@hattip/compose" {
+  interface RequestContext {
+    url: URL;
+    method: string;
+    params: any;
+  }
+}
 
-import {
+import type {
   RequestHandler,
   RequestContext,
   MaybeAsyncResponse,

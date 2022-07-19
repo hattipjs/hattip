@@ -7,11 +7,4 @@ export default defineConfig([
     platform: "node",
     target: "node14",
   },
-  {
-    entry: ["./src/index.ts"],
-    format: ["cjs"],
-    platform: "node",
-    target: "node14",
-    dts: true,
-  },
 ]);
