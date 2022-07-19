@@ -29,13 +29,13 @@ const homeHandler = (ctx) => {
   }
 };
 
-const fooHandler = (req, ctx) => {
+const fooHandler = (ctx) => {
   if (ctx.url.pathname === "/foo") {
     return new Response("Foo");
   }
 };
 
-const barHandler = (req, ctx) => {
+const barHandler = (ctx) => {
   if (ctx.url.pathname === "/bar") {
     return new Response("Bar");
   }
