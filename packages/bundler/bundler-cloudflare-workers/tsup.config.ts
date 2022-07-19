@@ -6,5 +6,6 @@ export default defineConfig([
     format: ["esm"],
     platform: "node",
     target: "node14",
+    dts: true,
   },
 ]);
