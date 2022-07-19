@@ -34,7 +34,7 @@
     "test:package": "publint"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "file:../../../../cyco130/eslint-config/cyco130-eslint-config-2.0.0.tgz",
+    "@cyco130/eslint-config": "^2.1.0",
     "@types/node": "^18.0.0",
     "eslint": "^8.18.0",
     "publint": "^0.1.1",
