@@ -1,6 +1,7 @@
 // @ts-check
 import { createRouter } from "@hattip/router";
 import { compose } from "@hattip/compose";
+import { cookie } from "@hattip/cookie";
 
 const router = createRouter();
 
@@ -74,11 +75,19 @@ router.post(
     new Response(new Uint8Array(await ctx.request.arrayBuffer()).join(", ")),
 );
 
-router.get("/cookies", () => {
-  const headers = new Headers();
-  headers.append("Set-Cookie", "name1=value1");
-  headers.append("Set-Cookie", "name2=value2");
-  return new Response(null, { headers });
+router.get("/cookie", (ctx) => {
+  return new Response(JSON.stringify(ctx.cookie), {
+    headers: {
+      "content-type": "application/json; charset=utf-8",
+    },
+  });
+});
+
+router.get("/set-cookie", (ctx) => {
+  ctx.setCookie("name1", "value1");
+  ctx.setCookie("name2", "value2");
+
+  return new Response("Cookies set");
 });
 
 router.get("/status", () => new Response(null, { status: 201 }));
@@ -92,6 +101,6 @@ router.get("/query", (ctx) => {
   return new Response(JSON.stringify(ctx.url.searchParams.get("foo"), null, 2));
 });
 
-router.get("/pass", (ctx) => new Response("Passed on from an edge middleware"));
+router.get("/pass", () => new Response("Passed on from an edge middleware"));
 
-export default compose(router.handlers);
+export default compose(cookie(), router.handlers);

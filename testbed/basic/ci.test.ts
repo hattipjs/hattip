@@ -228,8 +228,24 @@ describe.each(cases)(
       expect(text).toEqual("65, 66, 67");
     });
 
+    test("parses cookies", async () => {
+      const response = await fetch(host + "/cookie", {
+        headers: {
+          Cookie: "foo=bar; baz=qux",
+        },
+      });
+
+      const json = await response.json();
+
+      expect(json).toEqual({
+        foo: "bar",
+        baz: "qux",
+      });
+    });
+
     test("sends multiple cookies", async () => {
-      const response = await fetch(host + "/cookies");
+      const response = await fetch(host + "/set-cookie");
+
       expect(response.headers.raw()["set-cookie"]).toMatchObject([
         "name1=value1",
         "name2=value2",

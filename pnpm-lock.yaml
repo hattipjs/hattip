@@ -336,6 +336,31 @@ importers:
   packages/cli/hattip:
     specifiers: {}
 
+  packages/middleware/cookie:
+    specifiers:
+      '@cyco130/eslint-config': ^2.1.0
+      '@hattip/compose': workspace:*
+      '@hattip/core': workspace:*
+      '@types/cookie': ^0.5.1
+      '@types/node': ^18.0.0
+      cookie: ^0.5.0
+      eslint: ^8.18.0
+      publint: ^0.1.1
+      tsup: ^6.1.2
+      typescript: ^4.7.4
+    dependencies:
+      '@hattip/compose': link:../../base/compose
+      '@hattip/core': link:../../base/core
+      '@types/cookie': 0.5.1
+      cookie: 0.5.0
+    devDependencies:
+      '@cyco130/eslint-config': 2.1.0_4x5o4skxv6sl53vpwefgt23khm
+      '@types/node': 18.0.3
+      eslint: 8.19.0
+      publint: 0.1.1
+      tsup: 6.1.3_typescript@4.7.4
+      typescript: 4.7.4
+
   testbed/basic:
     specifiers:
       '@hattip/adapter-bun': workspace:*
@@ -350,7 +375,9 @@ importers:
       '@hattip/bundler-netlify': workspace:*
       '@hattip/bundler-vercel': workspace:*
       '@hattip/compose': workspace:*
+      '@hattip/cookie': workspace:*
       '@hattip/router': workspace:*
+      '@types/connect': ^3.4.35
       '@types/node': ^18.0.0
       '@types/ps-tree': ^1.1.2
       '@vercel/ncc': ^0.34.0
@@ -367,6 +394,7 @@ importers:
     dependencies:
       '@hattip/adapter-node': link:../../packages/adapter/adapter-node
       '@hattip/compose': link:../../packages/base/compose
+      '@hattip/cookie': link:../../packages/middleware/cookie
       '@hattip/router': link:../../packages/base/router
       connect: 3.7.0
       express: 4.18.1
@@ -382,6 +410,7 @@ importers:
       '@hattip/bundler-deno': link:../../packages/bundler/bundler-deno
       '@hattip/bundler-netlify': link:../../packages/bundler/bundler-netlify
       '@hattip/bundler-vercel': link:../../packages/bundler/bundler-vercel
+      '@types/connect': 3.4.35
       '@types/node': 18.0.3
       '@types/ps-tree': 1.1.2
       '@vercel/ncc': 0.34.0
@@ -1664,6 +1693,16 @@ packages:
   /@types/chai/4.3.1:
     resolution: {integrity: sha512-/zPMqDkzSZ8t3VtxOa4KPq7uzzW978M9Tvh+j7GHKuo6k6GTLxPJ4J5gE5cjfJ26pnXst0N5Hax8Sr0T2Mi9zQ==}
     dev: true
+
+  /@types/connect/3.4.35:
+    resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
+    dependencies:
+      '@types/node': 18.0.3
+    dev: true
+
+  /@types/cookie/0.5.1:
+    resolution: {integrity: sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==}
+    dev: false
 
   /@types/decompress/4.2.4:
     resolution: {integrity: sha512-/C8kTMRTNiNuWGl5nEyKbPiMv6HA+0RbEXzFhFBEzASM6+oa4tJro9b8nj7eRlOFfuLdzUU+DS/GPDlvvzMOhA==}
