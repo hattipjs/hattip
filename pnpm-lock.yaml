@@ -222,6 +222,25 @@ importers:
       typescript: 4.7.4
       vitest: 0.17.0
 
+  packages/base/response:
+    specifiers:
+      '@cyco130/eslint-config': ^2.1.0
+      '@hattip/core': workspace:*
+      '@types/node': ^18.0.0
+      eslint: ^8.18.0
+      publint: ^0.1.1
+      tsup: ^6.1.2
+      typescript: ^4.7.4
+    dependencies:
+      '@hattip/core': link:../core
+    devDependencies:
+      '@cyco130/eslint-config': 2.1.0_4x5o4skxv6sl53vpwefgt23khm
+      '@types/node': 18.0.3
+      eslint: 8.19.0
+      publint: 0.1.1
+      tsup: 6.1.3_typescript@4.7.4
+      typescript: 4.7.4
+
   packages/base/router:
     specifiers:
       '@cyco130/eslint-config': ^2.1.0
