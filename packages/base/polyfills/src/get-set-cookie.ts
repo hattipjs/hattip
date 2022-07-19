@@ -79,13 +79,13 @@ export default function install() {
     return originalSet.call(this, name, value);
   };
 
-  const Headers = class extends globalThis.Headers {
+  const Headers = class MyHeaders extends globalThis.Headers {
     constructor(init?: HeadersInit) {
       super(init);
       if (!init) {
         return;
       }
-      if (init instanceof Headers || init instanceof Headers) {
+      if (init instanceof MyHeaders || init instanceof MyHeaders) {
         this[SET_COOKIE] = init[SET_COOKIE];
       } else if (Array.isArray(init)) {
         this[SET_COOKIE] = init
@@ -109,9 +109,14 @@ export default function install() {
   const Response = class extends globalThis.Response {
     constructor(body: any, init?: ResponseInit) {
       super(body, init);
-      if (init && init.headers) {
-        this.headers[SET_COOKIE] = new Headers(init.headers)[SET_COOKIE];
-      }
+
+      const headers = new Headers(init?.headers);
+
+      Object.defineProperty(this, "headers", {
+        get() {
+          return headers;
+        },
+      });
     }
   };
 

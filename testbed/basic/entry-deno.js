@@ -13,7 +13,5 @@ serve(
 
     return handler(request, connInfo);
   },
-  {
-    port: 3000,
-  },
+  { port: 3000 },
 );
