@@ -8,13 +8,9 @@ HatTip adapter for Node.js.
 import { createServer } from "@hattip/adapter-node";
 import handler from "./handler.js";
 
-createServer(handler, { staticAssetsDir: "public" }).listen(
-  3000,
-  "localhost",
-  () => {
-    console.log("Server listening on http://localhost:3000");
-  },
-);
+createServer(handler).listen(3000, "localhost", () => {
+  console.log("Server listening on http://localhost:3000");
+});
 ```
 
 ## Using with Express
