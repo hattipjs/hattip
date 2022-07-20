@@ -7,12 +7,8 @@
     "dist"
   ],
   "exports": {
-    "./node-fetch": {
-      "import": "./dist/node-fetch.js"
-    },
-    "./get-set-cookie": {
-      "import": "./dist/get-set-cookie.js"
-    }
+    "./node-fetch": "./dist/node-fetch.js",
+    "./get-set-cookie": "./dist/get-set-cookie.js"
   },
   "typesVersions": {
     "*": {

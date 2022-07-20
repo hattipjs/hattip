@@ -7,12 +7,8 @@
     "dist"
   ],
   "exports": {
-    ".": {
-      "import": "./dist/index.js"
-    },
-    "./no-static": {
-      "import": "./dist/no-static.js"
-    }
+    ".": "./dist/index.js",
+    "./no-static": "./dist/no-static.js"
   },
   "typesVersions": {
     "*": {
