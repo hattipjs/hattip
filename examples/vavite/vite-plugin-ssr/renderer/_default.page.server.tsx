@@ -12,21 +12,21 @@ export { render };
 export const passToClient = ["pageProps", "urlPathname"];
 
 async function render(pageContext: PageContextBuiltIn & PageContext) {
-	const { Page, pageProps } = pageContext;
-	const pageHtml = ReactDOMServer.renderToString(
-		<PageWrapper pageContext={pageContext}>
-			<Page {...pageProps} />
-		</PageWrapper>,
-	);
+  const { Page, pageProps } = pageContext;
+  const pageHtml = ReactDOMServer.renderToString(
+    <PageWrapper pageContext={pageContext}>
+      <Page {...pageProps} />
+    </PageWrapper>,
+  );
 
-	// See https://vite-plugin-ssr.com/html-head
-	const { documentProps } = pageContext;
-	const title = (documentProps && documentProps.title) || "Vite SSR app";
-	const desc =
-		(documentProps && documentProps.description) ||
-		"App using Vite + vite-plugin-ssr";
+  // See https://vite-plugin-ssr.com/html-head
+  const { documentProps } = pageContext;
+  const title = (documentProps && documentProps.title) || "Vite SSR app";
+  const desc =
+    (documentProps && documentProps.description) ||
+    "App using Vite + vite-plugin-ssr";
 
-	const documentHtml = escapeInject`<!DOCTYPE html>
+  const documentHtml = escapeInject`<!DOCTYPE html>
     <html lang="en">
       <head>
         <meta charset="UTF-8" />
@@ -40,10 +40,10 @@ async function render(pageContext: PageContextBuiltIn & PageContext) {
       </body>
     </html>`;
 
-	return {
-		documentHtml,
-		pageContext: {
-			// We can add some `pageContext` here, which is useful if we want to do page redirection https://vite-plugin-ssr.com/page-redirection
-		},
-	};
+  return {
+    documentHtml,
+    pageContext: {
+      // We can add some `pageContext` here, which is useful if we want to do page redirection https://vite-plugin-ssr.com/page-redirection
+    },
+  };
 }
