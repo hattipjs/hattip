@@ -275,31 +275,36 @@ async function killTree(cp: ChildProcess | undefined, name: string) {
     return;
   }
 
-  const tree = await promisify(psTree)(cp.pid);
-  const pids = [cp.pid, ...tree.map((p) => +p.PID)];
+  try {
+    const tree = await promisify(psTree)(cp.pid);
+    const pids = [cp.pid, ...tree.map((p) => +p.PID)];
 
-  console.log("Stopping", name);
-  for (const pid of pids) {
-    kill(+pid, "SIGINT");
-  }
-
-  const timeout = setTimeout(() => {
-    console.warn("Trying to force kill", name);
+    console.log("Stopping", name);
     for (const pid of pids) {
-      try {
-        kill(+pid, "SIGKILL");
-      } catch {
-        // Ignore error
-      }
+      kill(+pid, "SIGINT");
     }
-  }, 5_000);
 
-  await new Promise<void>((resolve) => {
-    cp!.on("exit", () => {
-      clearTimeout(timeout);
-      resolve();
+    const timeout = setTimeout(() => {
+      console.warn("Trying to force kill", name);
+      for (const pid of pids) {
+        try {
+          kill(+pid, "SIGKILL");
+        } catch {
+          // Ignore error
+        }
+      }
+    }, 5_000);
+
+    await new Promise<void>((resolve) => {
+      cp!.on("exit", () => {
+        clearTimeout(timeout);
+        resolve();
+      });
     });
-  });
 
-  console.log("Stopped", name);
+    console.log("Stopped", name);
+  } catch (error) {
+    console.error("Error stopping", name);
+    console.error(error);
+  }
 }
