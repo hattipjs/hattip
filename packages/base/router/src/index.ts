@@ -5,44 +5,101 @@ declare module "@hattip/compose" {
   }
 }
 
-import type {
+import {
   RequestHandler,
   RequestContext,
   MaybeAsyncResponse,
+  compose,
 } from "@hattip/compose";
+import { AdapterRequestContext } from "@hattip/core";
 
 export interface RouterContext<P = Record<string, string>>
   extends RequestContext {
   params: P;
 }
 
+export type RouteFn =
+  | (<P>(matcher: Matcher, handler: RouteHandler<P>) => void)
+  | (<P>(handler: RouteHandler<P>) => void);
+
 export interface Router {
+  /** Compose route handlers into a single handler */
+  buildHandler(): AdapterRequestContext;
+
+  /** Route handlers */
   handlers: RequestHandler[];
 
-  all: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  checkout: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  copy: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  delete: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  get: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  head: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  lock: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  merge: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  mkactivity: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  mkcol: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  move: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  "m-search": <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  notify: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  options: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  patch: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  post: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  purge: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  put: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  report: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  search: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  subscribe: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  trace: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  unlock: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
-  unsubscribe: <P>(matcher: Matcher, handler: RouteHandler<P>) => void;
+  use<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  use<P>(handler: RouteHandler<P>): void;
+
+  checkout<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  checkout<P>(handler: RouteHandler<P>): void;
+
+  copy<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  copy<P>(handler: RouteHandler<P>): void;
+
+  delete<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  delete<P>(handler: RouteHandler<P>): void;
+
+  get<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  get<P>(handler: RouteHandler<P>): void;
+
+  head<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  head<P>(handler: RouteHandler<P>): void;
+
+  lock<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  lock<P>(handler: RouteHandler<P>): void;
+
+  merge<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  merge<P>(handler: RouteHandler<P>): void;
+
+  mkactivity<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  mkactivity<P>(handler: RouteHandler<P>): void;
+
+  mkcol<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  mkcol<P>(handler: RouteHandler<P>): void;
+
+  move<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  move<P>(handler: RouteHandler<P>): void;
+
+  "m-search"<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  "m-search"<P>(handler: RouteHandler<P>): void;
+
+  notify<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  notify<P>(handler: RouteHandler<P>): void;
+
+  options<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  options<P>(handler: RouteHandler<P>): void;
+
+  patch<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  patch<P>(handler: RouteHandler<P>): void;
+
+  post<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  post<P>(handler: RouteHandler<P>): void;
+
+  purge<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  purge<P>(handler: RouteHandler<P>): void;
+
+  put<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  put<P>(handler: RouteHandler<P>): void;
+
+  report<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  report<P>(handler: RouteHandler<P>): void;
+
+  search<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  search<P>(handler: RouteHandler<P>): void;
+
+  subscribe<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  subscribe<P>(handler: RouteHandler<P>): void;
+
+  trace<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  trace<P>(handler: RouteHandler<P>): void;
+
+  unlock<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  unlock<P>(handler: RouteHandler<P>): void;
+
+  unsubscribe<P>(matcher: Matcher, handler: RouteHandler<P>): void;
+  unsubscribe<P>(handler: RouteHandler<P>): void;
 }
 
 export type Matcher<P = Record<string, string>> =
@@ -57,6 +114,10 @@ export type RouteHandler<P = Record<string, string>> = (
 export function createRouter(): Router {
   const self = {
     handlers: [] as RouteHandler[],
+
+    buildHandler() {
+      return compose(this.handlers);
+    },
   };
 
   return new Proxy(self, {
@@ -66,9 +127,18 @@ export function createRouter(): Router {
       }
 
       return ((target as any)[prop] = function (
-        matcher: Matcher,
-        handler: RouteHandler,
+        matcherOrHandler: Matcher | RouteHandler,
+        handler?: RouteHandler,
       ) {
+        let matcher: Matcher;
+
+        if (handler) {
+          matcher = matcherOrHandler as Matcher;
+        } else {
+          matcher = always;
+          handler = matcherOrHandler as RouteHandler;
+        }
+
         let fn: (context: RequestContext) => null | any | Promise<null | any>;
 
         // Adapted from: https://github.com/kwhitley/itty-router/blob/73148972bf2e205a4969e85672e1c0bfbf249c27/src/itty-router.js#L7
@@ -88,7 +158,7 @@ export function createRouter(): Router {
         } else if (matcher instanceof RegExp) {
           fn = (context) => {
             if (
-              prop === "all" ||
+              prop === "use" ||
               context.method === String(prop).toUpperCase()
             ) {
               const match = context.url.pathname.match(matcher as RegExp);
@@ -106,11 +176,15 @@ export function createRouter(): Router {
             return;
           }
 
-          return handler(context);
+          return handler!(context);
         }
 
         target.handlers.push(route as any);
       });
     },
   }) as any;
+}
+
+function always() {
+  return {};
 }

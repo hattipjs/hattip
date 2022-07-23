@@ -1,11 +1,12 @@
 // @ts-check
 import { createRouter } from "@hattip/router";
-import { compose } from "@hattip/compose";
 import { cookie } from "@hattip/cookie";
 
-const router = createRouter();
+const app = createRouter();
 
-router.get(
+app.use(cookie());
+
+app.get(
   "/",
   (ctx) =>
     new Response(
@@ -18,7 +19,7 @@ router.get(
     ),
 );
 
-router.get(
+app.get(
   "/binary",
   () =>
     new Response(
@@ -28,7 +29,7 @@ router.get(
     ),
 );
 
-router.get("/bin-stream", (context) => {
+app.get("/bin-stream", (context) => {
   const delay = Number(context.url.searchParams.get("delay")) || 0;
 
   const output = new TextEncoder().encode(
@@ -64,18 +65,15 @@ router.get("/bin-stream", (context) => {
   return new Response(stream);
 });
 
-router.post(
-  "/echo-text",
-  async (ctx) => new Response(await ctx.request.text()),
-);
+app.post("/echo-text", async (ctx) => new Response(await ctx.request.text()));
 
-router.post(
+app.post(
   "/echo-bin",
   async (ctx) =>
     new Response(new Uint8Array(await ctx.request.arrayBuffer()).join(", ")),
 );
 
-router.get("/cookie", (ctx) => {
+app.get("/cookie", (ctx) => {
   return new Response(JSON.stringify(ctx.cookie), {
     headers: {
       "content-type": "application/json; charset=utf-8",
@@ -83,24 +81,24 @@ router.get("/cookie", (ctx) => {
   });
 });
 
-router.get("/set-cookie", (ctx) => {
+app.get("/set-cookie", (ctx) => {
   ctx.setCookie("name1", "value1");
   ctx.setCookie("name2", "value2");
 
   return new Response("Cookies set");
 });
 
-router.get("/status", () => new Response(null, { status: 201 }));
+app.get("/status", () => new Response(null, { status: 201 }));
 
-router.get("/headers", (ctx) => {
+app.get("/headers", (ctx) => {
   const headers = Object.fromEntries(ctx.request.headers.entries());
   return new Response(JSON.stringify(headers, null, 2));
 });
 
-router.get("/query", (ctx) => {
+app.get("/query", (ctx) => {
   return new Response(JSON.stringify(ctx.url.searchParams.get("foo"), null, 2));
 });
 
-router.get("/pass", () => new Response("Passed on from an edge middleware"));
+app.get("/pass", () => new Response("Passed on from an edge middleware"));
 
-export default compose(cookie(), router.handlers);
+export default app.buildHandler();

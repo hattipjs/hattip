@@ -43,7 +43,7 @@ test("collects parameters", async () => {
   });
 });
 
-test("returning null works", async () => {
+test("returning undefined calls next", async () => {
   const router = createRouter();
 
   router.get("/", async () => undefined);

@@ -19,12 +19,13 @@ router.delete(
   async (ctx) => new Response(`Deleted book: ${ctx.params.title}`),
 );
 
-export default compose(router.handlers);
+export default router.buildHandler();
 ```
 
 ## API
 
 - `createRouter()`: Creates a new router.
+- `router.<method>(handler)`: Adds a handler for the given method and all paths.
 - `router.<method>(path, handler)`: Adds a handler for the given method and path.
 
   `path` can be a string or a regular expression. If it's a string, parameters can be specified using `:` followed by the parameter name like `/book/:title`. `*` can be used to match any number of characters.
@@ -33,7 +34,8 @@ export default compose(router.handlers);
 
   `handler` is a request handler.
 
-- `router.all(path, handler)`: Adds a handler for all methods and the given path.
+- `router.use(path, handler)`: Adds a handler for all methods and the given path.
+- `router.use(handler)`: Adds a handler for all methods and all paths.
 - `router.handlers`: Returns an array of handlers that can be passed to the `compose` function.
 
 `@hattip/router` extends the `RequestContext` object with a `params` property which contains a map of parameters extracted from a dynamic route.
