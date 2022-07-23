@@ -1,7 +1,6 @@
 declare module "@hattip/compose" {
-  interface RequestContext {
-    url: URL;
-    method: string;
+  interface RequestContextExtensions {
+    /** Dynamic route parameters */
     params: any;
   }
 }
@@ -14,7 +13,6 @@ import type {
 
 export interface RouterContext<P = Record<string, string>>
   extends RequestContext {
-  url: URL;
   params: P;
 }
 
@@ -103,8 +101,6 @@ export function createRouter(): Router {
         }
 
         function route(context: RequestContext) {
-          context.url = new URL(context.request.url);
-          context.method = context.request.method;
           context.params = fn(context);
           if (!context.params) {
             return;

@@ -3,12 +3,22 @@ import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface RequestContextExtensions {}
 
+/** App-local stuff */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface Locals {}
+
 /**
  * Request context
  */
 export interface RequestContext
   extends AdapterRequestContext,
     RequestContextExtensions {
+  /** Parsed request URL */
+  url: URL;
+  /** Request method */
+  method: string;
+  /** App-local stuff */
+  locals: Locals;
   /** Call the next handler in the chain */
   next(): Promise<Response>;
   /** Redefine to handle errors by generating a response from an error */
@@ -46,6 +56,10 @@ export function composePartial(
 ): PartialHandler {
   const flatHandlers = handlers.flat().filter(Boolean) as RequestHandler[];
   flatHandlers.unshift((context) => {
+    context.url = new URL(context.request.url);
+    context.method = context.request.method;
+    context.locals = {};
+
     context.handleError = (error: unknown) => {
       console.error(error);
       return new Response("Internal Server Error", { status: 500 });

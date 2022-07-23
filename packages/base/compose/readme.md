@@ -91,6 +91,12 @@ interface RequestContext {
    * This is a no-op if the platform adapter doesn't need to do anything.
    */
   waitUntil(promise: Promise<any>): void;
+  /** Parsed request URL */
+  url: URL;
+  /** Request method */
+  method: string;
+  /** App-local stuff */
+  locals: Locals;
   /** Call the next handler in the chain */
   next(): Promise<Response>;
   /** Redefine to handle errors by generating a response from an error */

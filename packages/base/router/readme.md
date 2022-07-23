@@ -36,10 +36,4 @@ export default compose(router.handlers);
 - `router.all(path, handler)`: Adds a handler for all methods and the given path.
 - `router.handlers`: Returns an array of handlers that can be passed to the `compose` function.
 
-`@hattip/router` extends the `RequestContext` object with the following properties:
-
-- `url`: A `URL` object representing the current URL. You can access, e.g., query parameters with `url.searchParams`.
-- `method`: The HTTP method of the request (`"GET"`, `"POST"`, etc.).
-- `params`: A map of parameters extracted from the path.
-
-We recommend the use of `context.url` and `context.method` for URL rewriting and method overrides instead of `context.request.url` and `context.request.method` which are immutable.
+`@hattip/router` extends the `RequestContext` object with a `params` property which contains a map of parameters extracted from a dynamic route.
