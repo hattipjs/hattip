@@ -12,7 +12,7 @@ All tests pass.
 
 ### Node.js with native fetch
 
-All tests except "sends multiple cookies" pass which is automatically skipped in the CI. Setting multiple `Set-Cookie` headers is not currently supported by the native fetch implementation.
+All tests pass.
 
 ### Miniflare
 
@@ -87,3 +87,9 @@ Build locally with `pnpm build:netlify-edge`, deploy with `netlify deploy`.
 All tests pass.
 
 Build with `pnpm build:deno`, `cd` into `dist/deno` and deploy with `deployctl deploy --token <TOKEN> --project=<PROJECT> index.js`.
+
+### Bun
+
+All tests except "doesn't fully buffer binary stream" and "sends multiple cookies" pass. Bun doesn't support streaming and setting multiple cookies yet.
+
+Run with `bun entry-bun.js`.

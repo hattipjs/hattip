@@ -5,21 +5,27 @@ Express-style imperative router for HatTip.
 ## Usage
 
 ```js
-import { compose } from "@hattip/compose";
 import { createRouter } from "@hattip/router";
+import { cookie } from "@hattip/cookie";
 
-const router = createRouter();
+const app = createRouter();
 
-router.get("/", () => new Response("Hello, world!"));
+// Add middleware
+app.use(cookie());
 
-router.post("/echo", async (ctx) => new Response(await ctx.request.text()));
+// GET /
+app.get("/", () => new Response("Hello, world!"));
 
-router.delete(
-  "/book/:title",
-  async (ctx) => new Response(`Deleted book: ${ctx.params.title}`),
-);
+// POST /echo
+app.post("/echo", async (ctx) => new Response(await ctx.request.text()));
 
-export default router.buildHandler();
+// DELETE /book/:title where :title is a route parameter
+app.delete("/book/:title", async (ctx) => {
+  // Parameters are available in ctx.params
+  return new Response(`Deleted book: ${ctx.params.title}`);
+});
+
+export default app.buildHandler();
 ```
 
 ## API
@@ -36,6 +42,7 @@ export default router.buildHandler();
 
 - `router.use(path, handler)`: Adds a handler for all methods and the given path.
 - `router.use(handler)`: Adds a handler for all methods and all paths.
-- `router.handlers`: Returns an array of handlers that can be passed to the `compose` function.
+- `router.handlers`: Returns an array of handlers.
+- `router.buildHandler()`: Returns a handler that can be passed to an adapter.
 
 `@hattip/router` extends the `RequestContext` object with a `params` property which contains a map of parameters extracted from a dynamic route.
