@@ -175,3 +175,10 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`cookie`](./packages/middleware/cookie): Cookie handling middleware
 
 A zero-config development environment based on [Vite](https://vitejs.dev) is also in the works
+
+## Credits
+
+[MIT license](./LICENSE)
+
+- Code and concept by [Fatih Aygün](https://github.com/cyco130), [Romuald Brillout](https://github.com/brillout), and [contributors](https://github.com/hattipjs/hattip/graphs/contributors).
+- Logo and branding by [Aydıncan Ataberk](https://github.com/fathership).
