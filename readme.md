@@ -173,6 +173,7 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`router`](./packages/base/router): Express-style imperative router
   - [`response`](./packages/base/response): Utility functions for creating text, JSON, and HTML responses
   - [`cookie`](./packages/middleware/cookie): Cookie handling middleware
+  - [`cors`](./packages/middleware/cors): CORS middleware
 
 A zero-config development environment based on [Vite](https://vitejs.dev) is also in the works
 
@@ -182,3 +183,4 @@ A zero-config development environment based on [Vite](https://vitejs.dev) is als
 
 - Code and concept by [Fatih Aygün](https://github.com/cyco130), [Romuald Brillout](https://github.com/brillout), and [contributors](https://github.com/hattipjs/hattip/graphs/contributors).
 - Logo and branding by [Aydıncan Ataberk](https://github.com/fathership).
+- The [`cors`](./packages/middleware/cors) package is a port of [koajs/cors](https://github.com/koajs/cors) by koajs and contributors under the [MIT License](./packages/middleware/cors/koajs-cors-license.txt). They are not affiliated with HatTip.

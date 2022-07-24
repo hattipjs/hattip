@@ -1,0 +1,42 @@
+{
+  "name": "@hattip/cors",
+  "version": "0.0.12",
+  "type": "module",
+  "description": "CORS middleware for HatTip",
+  "files": [
+    "dist",
+    "koajs-cors-license.txt"
+  ],
+  "exports": "./dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Fatih Aygün <cyco130@gmail.com>",
+  "repository": "https://github.com/hattipjs/hattip",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && tsup",
+    "dev": "tsup --watch",
+    "prepack": "pnpm build",
+    "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:unit && pnpm test:package",
+    "test:typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
+    "test:unit": "vitest run",
+    "test:package": "publint"
+  },
+  "dependencies": {
+    "@hattip/compose": "workspace:*",
+    "@hattip/core": "workspace:*",
+    "@types/cookie": "^0.5.1",
+    "cookie": "^0.5.0"
+  },
+  "devDependencies": {
+    "@cyco130/eslint-config": "^2.1.0",
+    "@hattip/polyfills": "workspace:*",
+    "@hattip/response": "workspace:*",
+    "@types/node": "^18.0.0",
+    "eslint": "^8.18.0",
+    "publint": "^0.1.1",
+    "tsup": "^6.1.2",
+    "typescript": "^4.7.4",
+    "vitest": "^0.17.0"
+  }
+}
