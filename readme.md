@@ -174,6 +174,7 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`response`](./packages/base/response): Utility functions for creating text, JSON, and HTML responses
   - [`cookie`](./packages/middleware/cookie): Cookie handling middleware
   - [`cors`](./packages/middleware/cors): CORS middleware
+  - [`graphql`](./packages/middleware/graphql): Simple GraphQL middleware
 
 A zero-config development environment based on [Vite](https://vitejs.dev) is also in the works
 

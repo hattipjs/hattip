@@ -1,6 +1,6 @@
 {
   "name": "@hattip/cookie",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "type": "module",
   "description": "Cookie management for HatTip",
   "files": [
