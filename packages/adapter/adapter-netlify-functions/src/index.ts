@@ -23,13 +23,6 @@ export default function netlifyFunctionsAdapter(
   handler: HattipHandler,
 ): NetlifyFunction {
   return async (event, netlifyContext) => {
-    if (event.path === "/net") {
-      return {
-        statusCode: 200,
-        body: JSON.stringify(event, null, 2),
-      };
-    }
-
     const clientConnectionIp = event.headers["x-nf-client-connection-ip"];
 
     const context: AdapterRequestContext<NetlifyFunctionsPlatformInfo> = {

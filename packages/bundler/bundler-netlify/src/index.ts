@@ -111,7 +111,7 @@ export async function bundleEdgeFunction(
     external: builtinModules,
   };
 
-  await manipulateEsbuildOptions?.(esbuildOptions, "regular");
+  await manipulateEsbuildOptions?.(esbuildOptions, "edge");
   await build(esbuildOptions);
 }
 
