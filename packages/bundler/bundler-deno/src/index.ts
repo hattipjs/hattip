@@ -3,6 +3,9 @@ import { builtinModules } from "module";
 import path from "path";
 import cpr from "cpr";
 import { promisify } from "util";
+import { fileURLToPath } from "url";
+
+const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /**
  * Bundling options
@@ -39,6 +42,7 @@ export default async function bundle(
     mainFields: ["module", "main", "browser"],
     conditions: ["deno", "worker", "import", "require"],
     external: [...builtinModules, "https:*"],
+    inject: [path.resolve(dirname, "../deno-env-shim.js")],
   };
 
   await manipulateEsbuildOptions?.(esbuildOptions);

@@ -68,7 +68,7 @@ if (process.env.CI === "true") {
     {
       name: "Deno",
       command:
-        "pnpm build:deno && deno run --allow-read --allow-net dist/deno/index.js",
+        "pnpm build:deno && deno run --allow-read --allow-net --allow-env dist/deno/index.js",
     },
   ].filter(Boolean) as typeof cases;
   host = "http://127.0.0.1:3000";
@@ -266,6 +266,28 @@ describe.each(cases)(
       const response = await fetch(host + "/query?foo=bar");
       const text = await response.text();
       expect(text).toEqual('"bar"');
+    });
+
+    test("GraphQL", async () => {
+      function g(query: string) {
+        return fetch(host + "/graphql", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Test": "test",
+          },
+          body: JSON.stringify({ query }),
+        });
+      }
+
+      const r1 = await g("{ hello }").then((r) => r.json());
+      expect(r1).toStrictEqual({ data: { hello: "Hello world!" } });
+
+      const r2 = await g("{ context }").then((r) => r.json());
+      expect(r2).toStrictEqual({ data: { context: "test" } });
+
+      const r3 = await g("{ sum(a: 1, b: 2) }").then((r) => r.json());
+      expect(r3).toStrictEqual({ data: { sum: 3 } });
     });
   },
 );

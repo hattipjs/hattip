@@ -36,7 +36,7 @@ Build locally with `pnpm build:netlify-edge`, test with `netlify dev`.
 
 All tests pass.
 
-Build with `pnpm build:deno`, test with `deno run --allow-read --allow-net dist/deno/index.js`.
+Build with `pnpm build:deno`, test with `deno run --allow-read --allow-net --allow-env dist/deno/index.js`.
 
 ---
 

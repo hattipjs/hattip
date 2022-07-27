@@ -1,6 +1,7 @@
 // @ts-check
 import { createRouter } from "@hattip/router";
 import { cookie } from "@hattip/cookie";
+import { graphqlServer, graphiql } from "@hattip/graphql";
 
 const app = createRouter();
 
@@ -100,5 +101,33 @@ app.get("/query", (ctx) => {
 });
 
 app.get("/pass", () => new Response("Passed on from an edge middleware"));
+
+app.use(
+  "/graphql",
+  graphqlServer({
+    context: (ctx) => ctx.request.headers.get("x-test"),
+
+    schema: {
+      typeDefs: `
+        type Query {
+          hello: String!
+          context: String!
+          sum(a: Int!, b: Int!): Int
+        }
+      `,
+      resolvers: {
+        Query: {
+          hello: () => "Hello world!",
+          context: (_parent, _args, context) => context,
+          sum: (_parent, { a, b }) => a + b,
+        },
+      },
+    },
+  }),
+);
+
+if (process.env.NODE_ENV !== "production") {
+  app.use("/graphiql", graphiql());
+}
 
 export default app.buildHandler();

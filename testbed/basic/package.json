@@ -39,6 +39,7 @@
     "@hattip/adapter-node": "workspace:*",
     "@hattip/compose": "workspace:*",
     "@hattip/cookie": "workspace:*",
+    "@hattip/graphql": "workspace:*",
     "@hattip/router": "workspace:*",
     "connect": "^3.7.0",
     "express": "^4.18.1",
