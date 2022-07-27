@@ -90,6 +90,6 @@ Build with `pnpm build:deno`, `cd` into `dist/deno` and deploy with `deployctl d
 
 ### Bun
 
-All tests except "doesn't fully buffer binary stream" and "sends multiple cookies" pass. Bun doesn't support streaming and setting multiple cookies yet.
+All tests except "doesn't fully buffer binary stream", "sends multiple cookies", and "GraphQL" pass. Bun doesn't support streaming and setting multiple cookies yet but the reason for the failing GraphQL test is not yet known.
 
 Run with `bun entry-bun.js`.
