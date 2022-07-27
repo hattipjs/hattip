@@ -39,31 +39,24 @@ app.get("/bin-stream", (context) => {
 
   let i = 0;
 
-  /** @type {(value: any) => void} */
-  let resolveStreamPromise;
-  const streamPromise = new Promise(
-    (resolve) => (resolveStreamPromise = resolve),
-  );
+  const { readable, writable } = new TransformStream();
 
-  const stream = new ReadableStream({
-    async pull(controller) {
-      if (delay) {
-        await new Promise((resolve) => setTimeout(resolve, delay));
-      }
+  async function stream() {
+    const writer = writable.getWriter();
 
-      if (i < output.length) {
-        controller.enqueue(new Uint8Array([output[i]]));
-        i++;
-      } else {
-        controller.close();
-        resolveStreamPromise;
-      }
-    },
-  });
+    for (let i = 0; i < output.length; i++) {
+      await new Promise((resolve) => {
+        setTimeout(resolve, delay);
+      });
+      writer.write(new Uint8Array([output[i]]));
+    }
 
-  context.waitUntil(streamPromise);
+    writer.close();
+  }
 
-  return new Response(stream);
+  context.waitUntil(stream());
+
+  return new Response(readable);
 });
 
 app.post("/echo-text", async (ctx) => new Response(await ctx.request.text()));

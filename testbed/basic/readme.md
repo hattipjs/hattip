@@ -54,21 +54,13 @@ Publish with `wrangler publish`.
 
 All tests except "doesn't fully buffer binary stream" pass. Vercel Serverless Functions have no streaming support.
 
-Build locally with `hattip-vercel --staticDir public --serverless entry-vercel-serverless.js --outputDir vercel-build/output`.
-
-The `build:vercel` script just copies the files into `.vercel/output` to allow local testing of packages not yet published. The following settings are currently required on the Vercel dashboard:
-
-- Build command: `npm run build:vercel`
-- Output directory: `.vercel/output`
-- Install command: Override and leave blank.
-
-Also the `ENABLE_VC_BUILD` environment variable must be set to `1` on the dashboard.
+Build locally with `pnpm build:vercel` and deploy with `vercel deploy --prebuilt`.
 
 ### Vercel Edge Functions
 
 All tests pass.
 
-Build locally with `hattip-vercel --staticDir public --edge entry-vercel-edge.js --outputDir vercel-build/output`. Check the previous section for set up and deployment instructions.
+Build locally with `pnpm build:vercel-edge` and deploy with `vercel deploy --prebuilt`.
 
 ### Netlify Functions (live)
 

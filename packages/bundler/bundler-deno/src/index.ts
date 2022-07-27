@@ -49,7 +49,7 @@ export default async function bundle(
   await build(esbuildOptions);
 
   if (staticDir) {
-    await promisify(cpr)(staticDir, path.dirname(output) + "/static", {
+    await promisify(cpr)(staticDir, path.dirname(output) + "/public", {
       deleteFirst: true,
     });
   }
