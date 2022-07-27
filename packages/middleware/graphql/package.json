@@ -4,7 +4,9 @@
   "type": "module",
   "description": "GraphQL middleware for HatTip",
   "files": [
-    "dist"
+    "dist",
+    "fetch.shim.js",
+    "graphql-yoga.license.txt"
   ],
   "exports": "./dist/index.js",
   "types": "dist/index.d.ts",
@@ -26,10 +28,18 @@
   "dependencies": {
     "@hattip/compose": "workspace:*",
     "@hattip/core": "workspace:*",
-    "@hattip/response": "workspace:*",
-    "@graphql-tools/schema": "^8.5.0"
+    "@envelop/core": "^2.4.0",
+    "@envelop/parser-cache": "^4.4.0",
+    "@envelop/validation-cache": "^4.4.0",
+    "@graphql-typed-document-node/core": "^3.1.1",
+    "@graphql-tools/schema": "^8.5.0",
+    "@graphql-tools/utils": "^8.8.0",
+    "@graphql-yoga/subscription": "^2.2.2",
+    "dset": "^3.1.1",
+    "tslib": "^2.3.1"
   },
   "devDependencies": {
+    "@graphql-yoga/common": "^2.12.3",
     "@cyco130/eslint-config": "^2.1.0",
     "@hattip/polyfills": "workspace:*",
     "@types/node": "^18.0.0",

@@ -1,22 +1,20 @@
 # `@hattip/graphql`
 
-[GraphQL](https://graphql.org/) middleware for HatTip.
+[GraphQL](https://graphql.org/) middleware for HatTip based on [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga).
 
 ## Usage
 
-Install `@hattip/graphql` and `graphql`, then create and `use` the `graphqlServer` middleware.
+Install `@hattip/graphql` and `graphql`, then create and `use` the `yoga` middleware.
 
 ```js
-import { graphqlServer, graphiql } from "@hattip/graphql";
+import { yoga } from "@hattip/graphql";
 
 // Create and initialize the other parts of your app
 // ...
 
 app.use(
   "/graphql",
-  graphqlServer({
-    // You can customize the resolver context as needed
-    context: (ctx) => ctx.request.headers.get("x-user-id"),
+  yoga({
     schema: {
       typeDefs: `
         type Query {
@@ -29,9 +27,9 @@ app.use(
     },
   }),
 );
-
-// A CDN version of GraphiQL is also included for debugging purposes
-if (process.env.NODE_ENV === "development") {
-  app.use("/graphiql", graphiql());
-}
 ```
+
+## LICENSE
+
+- This package comes bundled with `@graphql-yoga/common` which is part of the [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga) project by Graphcool, Prisma, and The Guild, under the [MIT License](./graphql-yoga.license.txt). They are not affiliated with HatTip.
+- HatTip specific code is also licensed under the [MIT License](./LICENSE).
