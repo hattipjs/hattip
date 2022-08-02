@@ -524,6 +524,7 @@ importers:
       node-fetch: ^3.2.9
       nodemon: ^2.0.18
       ps-tree: ^1.2.0
+      rimraf: ^3.0.2
       sirv: ^2.0.2
       typescript: ^4.7.4
       vitest: ^0.19.1
@@ -558,6 +559,7 @@ importers:
       node-fetch: 3.2.9
       nodemon: 2.0.19
       ps-tree: 1.2.0
+      rimraf: 3.0.2
       typescript: 4.7.4
       vitest: 0.19.1
 

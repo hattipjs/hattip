@@ -55,16 +55,6 @@ export function composePartial(
   next?: () => Promise<Response>,
 ): PartialHandler {
   const flatHandlers = handlers.flat().filter(Boolean) as RequestHandler[];
-  flatHandlers.unshift((context) => {
-    context.url = new URL(context.request.url);
-    context.method = context.request.method;
-    context.locals = {};
-
-    context.handleError = (error: unknown) => {
-      console.error(error);
-      return new Response("Internal Server Error", { status: 500 });
-    };
-  });
 
   return flatHandlers.map(wrap).reduceRight(
     (prev, current) => {
@@ -80,7 +70,20 @@ export function composePartial(
 }
 
 export function compose(...handlers: RequestHandlerStack[]): HattipHandler {
-  return composePartial([...handlers, finalHandler]) as any;
+  return composePartial([
+    (context) => {
+      context.url = new URL(context.request.url);
+      context.method = context.request.method;
+      context.locals = {};
+
+      context.handleError = (error: unknown) => {
+        console.error(error);
+        return new Response("Internal Server Error", { status: 500 });
+      };
+    },
+    ...handlers,
+    finalHandler,
+  ]) as any;
 }
 
 function wrap(

@@ -8,7 +8,7 @@
     "build:cfw": "hattip-cloudflare-workers -e entry-cfw.js dist/cloudflare-workers-bundle/index.js",
     "build:vercel": "hattip-vercel -c --staticDir public --serverless entry-vercel-serverless.js",
     "build:vercel-edge": "hattip-vercel -c --staticDir public --edge entry-vercel-edge.js",
-    "build:netlify-functions": "rm -rf .netlify/edge-functions-dist && hattip-netlify -c --staticDir public --func entry-netlify-function.js",
+    "build:netlify-functions": "rimraf .netlify/edge-functions-dist && hattip-netlify -c --staticDir public --func entry-netlify-function.js",
     "build:netlify-edge": "hattip-netlify -c --staticDir public --edge entry-netlify-edge.js",
     "build:deno": "hattip-deno entry-deno.js dist/deno/index.js --staticDir public",
     "ci": "vitest --reporter=verbose"
@@ -33,6 +33,7 @@
     "node-fetch": "^3.2.9",
     "nodemon": "^2.0.18",
     "ps-tree": "^1.2.0",
+    "rimraf": "^3.0.2",
     "typescript": "^4.7.4",
     "vitest": "^0.19.1"
   },
