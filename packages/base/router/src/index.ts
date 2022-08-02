@@ -11,7 +11,7 @@ import {
   MaybeAsyncResponse,
   compose,
 } from "@hattip/compose";
-import { AdapterRequestContext } from "@hattip/core";
+import { HattipHandler } from "@hattip/core";
 
 export interface RouterContext<P = Record<string, string>>
   extends RequestContext {
@@ -24,7 +24,7 @@ export type RouteFn =
 
 export interface Router {
   /** Compose route handlers into a single handler */
-  buildHandler(): AdapterRequestContext;
+  buildHandler(): HattipHandler;
 
   /** Route handlers */
   handlers: RequestHandler[];
