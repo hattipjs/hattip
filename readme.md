@@ -33,7 +33,7 @@ export default (context) => {
 };
 ```
 
-A HatTip handler is passed a `context` object which represents the request context and contains `context.request` which is a standard [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object. It returns a standard [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) object (or a promise of one). `Response` and `Request` follow the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) standard. So if you're familiar with service workers, Cloudflare Workers, or Deno, you'll feel right a home. If not, learn today the standard that will tomorrow be ubiquitous.
+A HatTip handler is passed a `context` object which represents the request context and contains `context.request` which is a standard [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object. It returns a standard [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) object (or a promise of one). `Response` and `Request` follow the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) standard. So if you're familiar with service workers, Cloudflare Workers, or Deno, you'll feel right at home. If not, learn today the standard that will tomorrow be ubiquitous.
 
 We believe in a diverse but interoperable future for the JavaScript ecosystem and we're closely following the [WinterCG](https://wintercg.org/) which lays the foundation beyond the Fetch API.
 
