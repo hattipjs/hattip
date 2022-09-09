@@ -2,14 +2,11 @@ import { defineConfig } from "tsup";
 
 export default defineConfig([
   {
-    entry: [
-      "./src/node-fetch.ts",
-      "./src/get-set-cookie.ts",
-      "./src/crypto.ts",
-    ],
+    entry: ["./src/index.ts"],
     format: ["esm"],
     platform: "node",
     target: "node14",
+    shims: false,
     dts: true,
   },
 ]);

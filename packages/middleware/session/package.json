@@ -1,20 +1,18 @@
 {
-  "name": "@hattip/polyfills",
-  "version": "0.0.17",
+  "name": "@hattip/session",
+  "version": "0.0.14",
   "type": "module",
-  "description": "Fetch API polyfills",
+  "description": "Session management for HatTip",
   "files": [
     "dist"
   ],
   "exports": {
-    "./node-fetch": "./dist/node-fetch.js",
-    "./get-set-cookie": "./dist/get-set-cookie.js",
-    "./crypto": "./dist/crypto.js"
+    ".": "./dist/index.js"
   },
   "typesVersions": {
     "*": {
       "*": [
-        "dist/*.d.ts"
+        "./dist/*.d.ts"
       ]
     }
   },
@@ -25,23 +23,29 @@
     "build": "rimraf dist && tsup",
     "dev": "tsup --watch",
     "prepack": "pnpm build",
-    "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:unit && pnpm test:package",
-    "test:unit": "vitest run --reporter=verbose",
+    "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:package && pnpm test:unit",
     "test:typecheck": "tsc -p tsconfig.json --noEmit",
     "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
-    "test:package": "publint"
+    "test:package": "publint",
+    "test:unit": "vitest run"
+  },
+  "dependencies": {
+    "@hattip/compose": "workspace:*",
+    "@hattip/cookie": "workspace:*",
+    "@hattip/core": "workspace:*"
   },
   "devDependencies": {
     "@cyco130/eslint-config": "^2.1.0",
+    "@hattip/polyfills": "workspace:*",
+    "@miniflare/kv": "^2.8.1",
+    "@miniflare/storage-memory": "^2.8.1",
     "@types/node": "^18.0.0",
+    "@types/redis-mock": "^0.17.1",
     "eslint": "^8.18.0",
     "publint": "^0.1.1",
+    "redis-mock": "^0.56.3",
     "tsup": "^6.1.2",
     "typescript": "^4.7.4",
-    "vitest": "^0.23.1"
-  },
-  "dependencies": {
-    "@hattip/core": "workspace:*",
-    "node-fetch-native": "^0.1.4"
+    "vite": "^3.0.0"
   }
 }

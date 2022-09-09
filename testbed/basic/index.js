@@ -1,23 +1,18 @@
 // @ts-check
 import { createRouter } from "@hattip/router";
+import { html, json, text } from "@hattip/response";
 import { cookie } from "@hattip/cookie";
 import { yoga } from "@hattip/graphql";
+import { session, EncryptedCookieStore } from "@hattip/session";
 
 const app = createRouter();
 
 app.use(cookie());
 
-app.get(
-  "/",
-  (ctx) =>
-    new Response(
-      `<h1>Hello from Hattip!</h1><p>URL: <span>${ctx.request.url}</span></p><p>Your IP address is: <span>${ctx.ip}</span></p>`,
-      {
-        headers: {
-          "content-type": "text/html; charset=utf-8",
-        },
-      },
-    ),
+app.get("/", (ctx) =>
+  html(
+    `<h1>Hello from Hattip!</h1><p>URL: <span>${ctx.request.url}</span></p><p>Your IP address is: <span>${ctx.ip}</span></p>`,
+  ),
 );
 
 app.get(
@@ -59,7 +54,7 @@ app.get("/bin-stream", (context) => {
   return new Response(readable);
 });
 
-app.post("/echo-text", async (ctx) => new Response(await ctx.request.text()));
+app.post("/echo-text", async (ctx) => text(await ctx.request.text()));
 
 app.post(
   "/echo-bin",
@@ -68,32 +63,28 @@ app.post(
 );
 
 app.get("/cookie", (ctx) => {
-  return new Response(JSON.stringify(ctx.cookie), {
-    headers: {
-      "content-type": "application/json; charset=utf-8",
-    },
-  });
+  return json(ctx.cookie);
 });
 
 app.get("/set-cookie", (ctx) => {
   ctx.setCookie("name1", "value1");
   ctx.setCookie("name2", "value2");
 
-  return new Response("Cookies set");
+  return text("Cookies set");
 });
 
 app.get("/status", () => new Response(null, { status: 201 }));
 
 app.get("/headers", (ctx) => {
   const headers = Object.fromEntries(ctx.request.headers.entries());
-  return new Response(JSON.stringify(headers, null, 2));
+  return json(headers);
 });
 
 app.get("/query", (ctx) => {
-  return new Response(JSON.stringify(ctx.url.searchParams.get("foo"), null, 2));
+  return json(ctx.url.searchParams.get("foo"));
 });
 
-app.get("/pass", () => new Response("Passed on from an edge middleware"));
+app.get("/pass", () => text("Passed on from an edge middleware"));
 
 app.use(
   "/graphql",
@@ -120,5 +111,33 @@ app.use(
     },
   }),
 );
+
+/**
+ * @type {(ctx: import("@hattip/compose").RequestContext) => Promise<Response>}
+ */
+let sessionMiddleware;
+
+// This is so complicated because top level await is not supported on Node 14
+app.use("/session", async (ctx) => {
+  sessionMiddleware =
+    sessionMiddleware ??
+    session({
+      store: new EncryptedCookieStore(
+        await EncryptedCookieStore.generateKeysFromBase64([
+          "cnNwJHcQHlHHB7+/zRYOJP/m0JEXxQpoGskCs8Eg+XI=",
+        ]),
+      ),
+      defaultSessionData: { count: 0 },
+    });
+
+  return sessionMiddleware(ctx);
+});
+
+app.use("/session", (ctx) => {
+  // @ts-ignore
+  ctx.session.data.count++;
+  // @ts-ignore
+  return text(`You have visited this page ${ctx.session.data.count} time(s).`);
+});
 
 export default app.buildHandler();

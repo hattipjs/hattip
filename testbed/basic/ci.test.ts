@@ -20,6 +20,8 @@ const nodeVersions = process.versions.node.split(".");
 const nodeVersionMajor = +nodeVersions[0];
 const nodeVersionMinor = +nodeVersions[1];
 
+const cryptoAvailable = nodeVersionMajor >= 16;
+
 if (process.env.CI === "true") {
   const fetchAvailable =
     nodeVersionMajor >= 18 ||
@@ -289,6 +291,18 @@ describe.each(cases)(
       const r3 = await g("{ sum(a: 1, b: 2) }").then((r) => r.json());
       expect(r3).toStrictEqual({ data: { sum: 3 } });
     });
+
+    if (cryptoAvailable) {
+      test("session", async () => {
+        const response = await fetch(host + "/session");
+        const text = await response.text();
+        expect(text).toEqual("You have visited this page 1 time(s).");
+
+        const response2 = await fetch(host + "/session");
+        const text2 = await response2.text();
+        expect(text2).toEqual("You have visited this page 2 time(s).");
+      });
+    }
   },
 );
 
