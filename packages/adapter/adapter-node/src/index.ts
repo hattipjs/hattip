@@ -3,9 +3,11 @@ import { ServerResponse } from "http";
 import { DecoratedRequest, NodeAdapterOptions } from "./common";
 import installNodeFetch from "@hattip/polyfills/node-fetch";
 import installGetSetCookie from "@hattip/polyfills/get-set-cookie";
+import installCrypto from "@hattip/polyfills/crypto";
 
 installNodeFetch();
 installGetSetCookie();
+installCrypto();
 
 export type { DecoratedRequest, NodeAdapterOptions };
 

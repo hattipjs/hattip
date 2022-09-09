@@ -175,6 +175,7 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`cookie`](./packages/middleware/cookie): Cookie handling middleware
   - [`cors`](./packages/middleware/cors): CORS middleware
   - [`graphql`](./packages/middleware/graphql): GraphQL middleware
+  - [`session`](./packages/middleware/session): Session middleware
 
 A zero-config development environment based on [Vite](https://vitejs.dev) is also in the works
 
