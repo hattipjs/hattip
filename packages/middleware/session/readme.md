@@ -2,7 +2,15 @@
 
 Session middleware for HatTip. It persists data between requests in a cookie or in a custom session store.
 
-**This package requires Node 16 or later** because it relies on the Web Crypto API.
+This middleware uses the [Web Crypto API](https://w3c.github.io/webcrypto/) which is supported by:
+- ✅ [Node 16 or later](https://nodejs.org/api/webcrypto.html)
+- ✅ [Cloudflare Workers](https://developers.cloudflare.com/workers/runtime-apis/web-crypto/)
+- ✅ [Deno](https://github.com/denoland/deno/issues/11690)
+- ✅ Vercel Serverless (since it uses Node.js)
+- ✅ Vercel Edge (since it uses Cloudflare Workers)
+- ✅ Netlify Functions (since it uses Node.js)
+- ✅ Netlify Edge Functions (since it uses Deno)
+- 🚧 [Bun](https://github.com/oven-sh/bun/issues/159)
 
 ## Usage
 
