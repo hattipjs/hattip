@@ -3,6 +3,7 @@
 Session middleware for HatTip. It persists data between requests in a cookie or in a custom session store.
 
 This middleware uses the [Web Crypto API](https://w3c.github.io/webcrypto/) which is supported by:
+
 - ✅ [Node 16 or later](https://nodejs.org/api/webcrypto.html)
 - ✅ [Cloudflare Workers](https://developers.cloudflare.com/workers/runtime-apis/web-crypto/)
 - ✅ [Deno](https://github.com/denoland/deno/issues/11690)
