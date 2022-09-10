@@ -42,8 +42,8 @@ We believe in a diverse but interoperable future for the JavaScript ecosystem an
 - ✅ Node.js
 - ✅ Cloudflare Workers
 - ✅ Express.js (use HatTip handlers/middlewares in your Express.js app)
-- ✅ Vercel Serverless Functions
-- ✅ Vercel Edge Functions
+- ✅ Vercel Serverless
+- ✅ Vercel Edge
 - ✅ Netlify Functions
 - ✅ Netlify Edge Functions
 - ✅ Deno (including Deno Deploy)
