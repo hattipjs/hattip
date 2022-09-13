@@ -1,6 +1,6 @@
 # `@hattip/bundler-deno`
 
-HatTip bundler for [Deno](https://workers.cloudflare.com). It uses [`esbuild`](https://esbuild.github.io) behind the scenes.
+HatTip bundler for [Deno](https://deno.land). It uses [`esbuild`](https://esbuild.github.io) behind the scenes.
 
 ## CLI
 
