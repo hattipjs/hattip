@@ -95,9 +95,16 @@ export function createMiddleware(
       req.socket.remoteAddress ||
       "";
 
+    let headers = req.headers as any;
+    if (headers[":method"]) {
+      headers = Object.fromEntries(
+        Object.entries(headers).filter(([key]) => !key.startsWith(":")),
+      );
+    }
+
     const request = new Request(protocol + "://" + hostname + req.url, {
       method: req.method,
-      headers: req.headers as Record<string, string>,
+      headers,
       body:
         req.method === "GET" || req.method === "HEAD"
           ? undefined
