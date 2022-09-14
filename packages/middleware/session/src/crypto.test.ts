@@ -18,7 +18,7 @@ installCrypto();
 describe("sign and verify", () => {
   test("signs and verifies", async () => {
     const key = await signatureKeyFromSecret("topsecret");
-    const signed = await sign("hello", key);
+    const signed = await sign("hello", key, 1000);
     const verified = await verify(signed, [key]);
     expect(verified).toBe("hello");
   });
@@ -26,15 +26,21 @@ describe("sign and verify", () => {
   test("can use multiple keys", async () => {
     const key1 = await signatureKeyFromSecret("topsecret");
     const key2 = await signatureKeyFromSecret("topsecret2");
-    const signed = await sign("hello", key2);
+    const signed = await sign("hello", key2, 1000);
     const verified = await verify(signed, [key1, key2]);
     expect(verified).toBe("hello");
   });
 
+  test("returns null if tempered with", async () => {
+    const key = await generateSignatureKey();
+    const signed = await sign("hello", key, 1000);
+    const verified = await verify(signed.replace("hello", "hello2"), [key]);
+    expect(verified).toBeNull();
+  });
+
   test("returns null if not valid", async () => {
     const key = await generateSignatureKey();
-    const signed = await sign("hello", key);
-    const verified = await verify(signed.replace("hello", "hello2"), [key]);
+    const verified = await verify("hello", [key]);
     expect(verified).toBeNull();
   });
 
@@ -56,7 +62,7 @@ describe("sign and verify", () => {
 describe("encrypt and decrypt", () => {
   test("it encrypts and decrypts", async () => {
     const key = await generateEncryptionKey();
-    const encrypted = await encrypt("hello", key);
+    const encrypted = await encrypt("hello", key, 1000);
     const decrypted = await decrypt(encrypted, [key]);
     expect(decrypted).toBe("hello");
   });
@@ -64,14 +70,20 @@ describe("encrypt and decrypt", () => {
   test("it can use multiple keys", async () => {
     const key1 = await generateEncryptionKey();
     const key2 = await generateEncryptionKey();
-    const encrypted = await encrypt("hello", key2);
+    const encrypted = await encrypt("hello", key2, 1000);
     const decrypted = await decrypt(encrypted, [key1, key2]);
     expect(decrypted).toBe("hello");
   });
 
   test("it returns null if not valid", async () => {
     const key = await generateEncryptionKey();
-    const encrypted = await encrypt("hello", key);
+    const decrypted = await decrypt("hello", [key]);
+    expect(decrypted).toBeNull();
+  });
+
+  test("it returns null if tempered with", async () => {
+    const key = await generateEncryptionKey();
+    const encrypted = await encrypt("hello", key, 1000);
     const decrypted = await decrypt("x" + encrypted, [key]);
     expect(decrypted).toBeNull();
   });

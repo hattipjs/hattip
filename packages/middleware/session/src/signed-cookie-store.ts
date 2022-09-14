@@ -47,7 +47,7 @@ export class SignedCookieStore extends SimpleCookieStore {
     return data && this._parse(data);
   }
 
-  save(_id: string | null, data: SessionData) {
-    return sign(this._stringify(data), this.#keys[0]);
+  save(_id: string | null, data: SessionData, maxAge: number) {
+    return sign(this._stringify(data), this.#keys[0], maxAge);
   }
 }
