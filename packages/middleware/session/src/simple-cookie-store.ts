@@ -24,7 +24,12 @@ export class SimpleCookieStore implements SessionStore {
     }
   }
 
-  save(_id: string | null, data: SessionData): Awaitable<string> {
+  save(
+    _id: string | null,
+    data: SessionData,
+    _maxAge: number,
+  ): Awaitable<string> {
+    void _maxAge;
     return this._stringify(data);
   }
 

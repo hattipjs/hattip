@@ -21,41 +21,47 @@ const kv = new KVNamespace(new MemoryStorage());
 const stores: Array<{
   name: string;
   store: SessionStore;
-  isExternal?: boolean;
+  supportsMaxAge?: boolean;
+  supportsDestroy?: boolean;
 }> = [
   { name: "SimpleCookieStore", store: new SimpleCookieStore() },
   {
     name: "SignedCookieStore",
     store: new SignedCookieStore([await SignedCookieStore.generateKey()]),
+    supportsMaxAge: true,
   },
   {
     name: "EncryptedCookieStore",
     store: new EncryptedCookieStore([await EncryptedCookieStore.generateKey()]),
+    supportsMaxAge: true,
   },
   {
     name: "UnsafeMemorySessionStore",
     store: new UnsafeMemorySessionStore(),
-    isExternal: true,
+    supportsMaxAge: true,
+    supportsDestroy: true,
   },
   {
     name: "RedisSessionStore",
     store: new RedisSessionStore({
       getClient: () => redisClient,
     }),
-    isExternal: true,
+    supportsMaxAge: true,
+    supportsDestroy: true,
   },
   {
     name: "KvSessionStore",
     store: new KvSessionStore({
       getStore: () => kv,
     }),
-    isExternal: true,
+    supportsMaxAge: true,
+    supportsDestroy: true,
   },
 ];
 
 vi.useFakeTimers();
 
-describe.each(stores)("$name", ({ store, isExternal: supportsMaxAge }) => {
+describe.each(stores)("$name", ({ store, supportsMaxAge, supportsDestroy }) => {
   test("saves and loads", async () => {
     const data = { foo: "bar" };
     const id = await store.save(null, data, 1000, null as any);
@@ -76,7 +82,9 @@ describe.each(stores)("$name", ({ store, isExternal: supportsMaxAge }) => {
       const loaded = await store.load(id, null as any);
       expect(loaded).toBeNull();
     });
+  }
 
+  if (supportsDestroy) {
     test("destroys", async () => {
       const data = { foo: "bar" };
       const id = await store.save(null, data, 1000, null as any);

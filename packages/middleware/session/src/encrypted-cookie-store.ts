@@ -39,7 +39,7 @@ export class EncryptedCookieStore extends SimpleCookieStore {
     return data && this._parse(data);
   }
 
-  save(_id: string | null, data: SessionData) {
-    return encrypt(this._stringify(data), this.#keys[0]);
+  save(_id: string | null, data: SessionData, maxAge: number) {
+    return encrypt(this._stringify(data), this.#keys[0], maxAge);
   }
 }

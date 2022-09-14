@@ -1,13 +1,19 @@
 export function fromBase64(input: string): Uint8Array {
+  input = input.replace(/-/g, "+").replace(/_/g, "/");
   return typeof atob === "function"
     ? Uint8Array.from(atob(input), (c) => c.charCodeAt(0))
     : Buffer.from(input, "base64");
 }
 
 export function toBase64(input: Uint8Array): string {
-  return typeof btoa === "function"
-    ? btoa(String.fromCharCode(...input))
-    : Buffer.from(input).toString("base64");
+  return (
+    typeof btoa === "function"
+      ? btoa(String.fromCharCode(...input))
+      : Buffer.from(input).toString("base64")
+  )
+    .replace(/=/g, "")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_");
 }
 
 export async function signatureKeyFromSecret(
@@ -39,7 +45,9 @@ export async function importSignatureKey(key: string): Promise<CryptoKey> {
   );
 }
 
-export async function sign(data: string, key: CryptoKey) {
+export async function sign(data: string, key: CryptoKey, maxAge: number) {
+  data = dateToBase64(new Date(Date.now() + maxAge)) + "." + data;
+
   const signature = await crypto.subtle.sign(
     { name: "HMAC", hash: "SHA-256" },
     key,
@@ -54,7 +62,7 @@ export async function verify(
   keys: Array<CryptoKey>,
 ): Promise<string | null> {
   try {
-    const [signatureText, dataText = ""] = signed.split(".", 2);
+    const [signatureText, dataText = ""] = split(signed);
 
     const signature = fromBase64(signatureText);
     const data = new TextEncoder().encode(dataText);
@@ -72,7 +80,11 @@ export async function verify(
         );
 
         if (result) {
-          return dataText;
+          const [dateText, data] = split(dataText);
+          const date = base64ToDate(dateText);
+          if (date > new Date()) {
+            return data;
+          }
         }
       } catch {
         // Do nothing
@@ -121,7 +133,8 @@ export async function importEncryptionKey(key: string): Promise<CryptoKey> {
   );
 }
 
-export async function encrypt(data: string, key: CryptoKey) {
+export async function encrypt(data: string, key: CryptoKey, maxAge: number) {
+  data = dateToBase64(new Date(Date.now() + maxAge)) + "." + data;
   const iv = crypto.getRandomValues(new Uint8Array(16));
   const encrypted = await crypto.subtle.encrypt(
     {
@@ -140,7 +153,7 @@ export async function decrypt(
   keys: Array<CryptoKey>,
 ): Promise<string | null> {
   try {
-    const [iv, data] = encrypted.split(".", 2).map(fromBase64);
+    const [iv, data] = split(encrypted).map(fromBase64);
 
     for (const key of keys) {
       try {
@@ -153,7 +166,12 @@ export async function decrypt(
           data,
         );
 
-        return new TextDecoder().decode(result);
+        const combined = new TextDecoder().decode(result);
+        const [dateText, dataText] = split(combined);
+        const date = base64ToDate(dateText);
+        if (date > new Date()) {
+          return dataText;
+        }
       } catch {
         // Do nothing
       }
@@ -167,4 +185,49 @@ export async function decrypt(
 
 export async function randomUUID(): Promise<string> {
   return crypto.randomUUID();
+}
+
+export function dateToBase64(d: Date) {
+  const n = d.getTime();
+  if (isNaN(n) || n < 0) {
+    throw new TypeError("Invalid date");
+  }
+  return toBase64(numberToBytes(n));
+}
+
+export function base64ToDate(s: string) {
+  return bytesToDate(fromBase64(s));
+}
+
+export function bytesToDate(bytes: Uint8Array) {
+  return new Date(bytesToNumber(bytes));
+}
+
+export function numberToBytes(n: number) {
+  const bytes = new Uint8Array(8);
+  let i = 0;
+  while (n) {
+    bytes[i++] = n % 256;
+    n = Math.floor(n / 256);
+  }
+
+  return bytes.slice(0, i);
+}
+
+export function bytesToNumber(bytes: Uint8Array) {
+  let n = 0;
+  for (let i = bytes.length - 1; i >= 0; i--) {
+    n = n * 256 + bytes[i];
+  }
+
+  return n;
+}
+
+function split(s: string): [string, string] {
+  let dotPos = s.indexOf(".");
+  if (dotPos === -1) {
+    dotPos = s.length;
+  }
+
+  return [s.slice(0, dotPos), s.slice(dotPos + 1)];
 }
