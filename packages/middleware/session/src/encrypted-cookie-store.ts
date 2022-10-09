@@ -36,7 +36,7 @@ export class EncryptedCookieStore extends SimpleCookieStore {
 
   async load(id: string) {
     const data = await decrypt(id, this.#keys);
-    return data && this._parse(data);
+    return data ? this._parse(data) : null;
   }
 
   save(_id: string | null, data: SessionData, maxAge: number) {
