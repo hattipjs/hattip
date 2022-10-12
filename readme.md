@@ -184,6 +184,6 @@ A zero-config development environment based on [Vite](https://vitejs.dev) is als
 [MIT license](./LICENSE)
 
 - Code and concept by [Fatih Aygün](https://github.com/cyco130), [Romuald Brillout](https://github.com/brillout), and [contributors](https://github.com/hattipjs/hattip/graphs/contributors).
-- Logo and branding by [Aydıncan Ataberk](https://github.com/fathership).
+- Logo and branding by [Aydıncan Ataberk](https://www.aydincanataberk.com/).
 - The [`cors`](./packages/middleware/cors) package is a port of [koajs/cors](https://github.com/koajs/cors) by koajs and contributors under the [MIT License](./packages/middleware/cors/koajs-cors-license.txt). They are not affiliated with HatTip.
 - The [`graphql`](./packages/middleware/graphql) package comes bundled with `@graphql-yoga/common` which is part of the [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga) project by Graphcool, Prisma, and The Guild, under the [MIT License](./packages/middleware/graphql/graphql-yoga.license.txt). They are not affiliated with HatTip.
