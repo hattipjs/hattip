@@ -65,9 +65,13 @@ export function createMiddleware(
     trustProxy = process.env.TRUST_PROXY === "1",
   } = options;
 
-  let { protocol, hostname } = origin
+  let { protocol, host } = origin
     ? new URL(origin)
     : ({} as Record<string, undefined>);
+
+  if (protocol) {
+    protocol = protocol.slice(0, -1);
+  }
 
   return async (req, res, next) => {
     // TODO: Support the newer `Forwarded` standard header
@@ -84,10 +88,16 @@ export function createMiddleware(
       ((req.socket as any).encrypted && "https") ||
       "http";
 
-    hostname =
-      hostname ||
-      (trustProxy && getForwardedHeader("host")) ||
-      req.headers.host;
+    host =
+      host || (trustProxy && getForwardedHeader("host")) || req.headers.host;
+
+    if (!host) {
+      console.warn(
+        "Could not automatically determine the origin host, using 'localhost'. " +
+          "Use the 'origin' option or the 'ORIGIN' environment variable to set the origin explicitly.",
+      );
+      host = "localhost";
+    }
 
     const ip =
       req.ip ||
@@ -102,7 +112,7 @@ export function createMiddleware(
       );
     }
 
-    const request = new Request(protocol + "://" + hostname + req.url, {
+    const request = new Request(protocol + "://" + host + req.url, {
       method: req.method,
       headers,
       body:
