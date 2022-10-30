@@ -26,7 +26,7 @@
     "graphql": ">= 15.8"
   },
   "dependencies": {
-    "@envelop/core": "^3.0.3",
+    "@envelop/core": "^2.6.0",
     "@envelop/parser-cache": "^5.0.3",
     "@envelop/validation-cache": "^5.0.3",
     "@graphql-tools/schema": "^9.0.5",

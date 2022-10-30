@@ -452,7 +452,7 @@ importers:
   packages/middleware/graphql:
     specifiers:
       '@cyco130/eslint-config': ^2.1.2
-      '@envelop/core': ^3.0.3
+      '@envelop/core': ^2.6.0
       '@envelop/parser-cache': ^5.0.3
       '@envelop/validation-cache': ^5.0.3
       '@graphql-tools/schema': ^9.0.5
@@ -472,9 +472,9 @@ importers:
       tsup: ^6.3.0
       typescript: ^4.8.4
     dependencies:
-      '@envelop/core': 3.0.3
-      '@envelop/parser-cache': 5.0.3_pbptz7adnmiijjca652cpfgxr4
-      '@envelop/validation-cache': 5.0.3_pbptz7adnmiijjca652cpfgxr4
+      '@envelop/core': 2.6.0_graphql@16.6.0
+      '@envelop/parser-cache': 5.0.3_4hr55tbjlvoppd2sokdhrbpreq
+      '@envelop/validation-cache': 5.0.3_4hr55tbjlvoppd2sokdhrbpreq
       '@graphql-tools/schema': 9.0.5_graphql@16.6.0
       '@graphql-tools/utils': 8.13.0_graphql@16.6.0
       '@graphql-typed-document-node/core': 3.1.1_graphql@16.6.0
@@ -988,14 +988,6 @@ packages:
       '@envelop/types': 2.4.0_graphql@16.6.0
       graphql: 16.6.0
       tslib: 2.4.0
-    dev: true
-
-  /@envelop/core/3.0.3:
-    resolution: {integrity: sha512-GXIb7HhsSYerMJR/AhJ6nN9F+w17bYRdUfu7ZXTixJEjS/3SXXK29qvr42iLLEqrnum57nk6cDyA3DBZLnuJ9w==}
-    dependencies:
-      '@envelop/types': 3.0.0
-      tslib: 2.4.0
-    dev: false
 
   /@envelop/parser-cache/4.7.0_4hr55tbjlvoppd2sokdhrbpreq:
     resolution: {integrity: sha512-63NfXDcW/vGn4U6NFxaZ0JbYWAcJb9A6jhTvghsSz1ZS+Dny/ci8bVSgVmM1q+N56hPyGsVPuyI+rIc71mPU5g==}
@@ -1009,13 +1001,13 @@ packages:
       tslib: 2.4.0
     dev: true
 
-  /@envelop/parser-cache/5.0.3_pbptz7adnmiijjca652cpfgxr4:
+  /@envelop/parser-cache/5.0.3_4hr55tbjlvoppd2sokdhrbpreq:
     resolution: {integrity: sha512-3H3PZI//1ConuD0MmkKl3Sm9j7vRQvI/fIgvzXbE0n/OuuVV7D9rmtnSEqTkXufAgxKv674T2DJF4QPQHOy9Ag==}
     peerDependencies:
       '@envelop/core': ^3.0.3
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@envelop/core': 3.0.3
+      '@envelop/core': 2.6.0_graphql@16.6.0
       graphql: 16.6.0
       lru-cache: 6.0.0
       tslib: 2.4.0
@@ -1028,13 +1020,6 @@ packages:
     dependencies:
       graphql: 16.6.0
       tslib: 2.4.0
-    dev: true
-
-  /@envelop/types/3.0.0:
-    resolution: {integrity: sha512-ohcZE+XNvgNqURdCA5RLN0yW3nbvi4Pkq8TA6RpG16PKakl3yDgzXBLit1SR6+9By0/XCBfto/9r48ZH25kmvw==}
-    dependencies:
-      tslib: 2.4.0
-    dev: false
 
   /@envelop/validation-cache/4.7.0_4hr55tbjlvoppd2sokdhrbpreq:
     resolution: {integrity: sha512-PzL+GfWJRT+JjsJqZAIxHKEkvkM3hxkeytS5O0QLXT8kURNBV28r+Kdnn2RCF5+6ILhyGpiDb60vaquBi7g4lw==}
@@ -1048,13 +1033,13 @@ packages:
       tslib: 2.4.0
     dev: true
 
-  /@envelop/validation-cache/5.0.3_pbptz7adnmiijjca652cpfgxr4:
+  /@envelop/validation-cache/5.0.3_4hr55tbjlvoppd2sokdhrbpreq:
     resolution: {integrity: sha512-zJcP8CFCdeUTkIymbBnuRgp3+G/YCubl7Pi+WoM0W2LAsJl7yxvqoaHS5aPbpNJunqUomsnRwBtkcK966EzjsQ==}
     peerDependencies:
       '@envelop/core': ^3.0.3
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@envelop/core': 3.0.3
+      '@envelop/core': 2.6.0_graphql@16.6.0
       graphql: 16.6.0
       lru-cache: 6.0.0
       tslib: 2.4.0

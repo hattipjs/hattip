@@ -14,11 +14,11 @@ export default defineConfig([
     dts: true,
     esbuildPlugins: [
       {
-        name: "mmm",
+        name: "fetch-shim",
         setup(build) {
           build.onResolve(
             {
-              filter: /^cross-undici-fetch$/,
+              filter: /^"@whatwg-node\/fetch"$/,
             },
             async () => ({
               path: path.resolve(dirname, "./fetch.shim.js"),
