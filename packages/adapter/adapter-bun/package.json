@@ -24,12 +24,12 @@
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^2.1.0",
-    "@types/node": "^18.0.0",
-    "bun-types": "^0.1.3",
-    "eslint": "^8.18.0",
+    "@cyco130/eslint-config": "^2.1.2",
+    "@types/node": "^18.11.7",
+    "bun-types": "^0.2.2",
+    "eslint": "^8.26.0",
     "publint": "^0.1.1",
-    "tsup": "^6.1.2",
-    "typescript": "^4.7.4"
+    "tsup": "^6.3.0",
+    "typescript": "^4.8.4"
   }
 }
