@@ -23,9 +23,9 @@ importers:
 
   examples/vavite/vite-plugin-ssr:
     specifiers:
-      '@hattip/adapter-bun': ^0.0.12
-      '@hattip/adapter-node': ^0.0.12
-      '@hattip/compose': ^0.0.12
+      '@hattip/adapter-bun': ^0.0.20
+      '@hattip/adapter-node': ^0.0.20
+      '@hattip/compose': ^0.0.20
       '@types/express': ^4.17.13
       '@types/node': ^18.0.5
       '@types/react': ^18.0.15
@@ -41,9 +41,9 @@ importers:
       vite: ^3.0.0
       vite-plugin-ssr: ^0.4.9
     dependencies:
-      '@hattip/adapter-bun': 0.0.12
-      '@hattip/adapter-node': 0.0.12
-      '@hattip/compose': 0.0.12
+      '@hattip/adapter-bun': link:../../../packages/adapter/adapter-bun
+      '@hattip/adapter-node': link:../../../packages/adapter/adapter-node
+      '@hattip/compose': link:../../../packages/base/compose
       '@types/express': 4.17.13
       '@types/node': 18.0.6
       '@types/react': 18.0.15
@@ -1111,36 +1111,6 @@ packages:
     dependencies:
       '@repeaterjs/repeater': 3.0.4
       tslib: 2.4.0
-
-  /@hattip/adapter-bun/0.0.12:
-    resolution: {integrity: sha512-rJLLsoeaDOoUpYRS1MoK6+K/d+zOjXcsOI0vZvrwoJZ0ooE8G5b7NgAitToszxSiTIyNAqrxWbixepFBZ102nA==}
-    dependencies:
-      '@hattip/core': 0.0.12
-    dev: false
-
-  /@hattip/adapter-node/0.0.12:
-    resolution: {integrity: sha512-TTZwnRsYUfPJmEAPq0rIYLvvFkeVqAE2i7pbWX9ECDG0ba0fG8wR9Iy/twwCrJZrpFxHtN1JopkpZ36hceyr9w==}
-    dependencies:
-      '@hattip/core': 0.0.12
-      '@hattip/polyfills': 0.0.12
-    dev: false
-
-  /@hattip/compose/0.0.12:
-    resolution: {integrity: sha512-PtpWdx7Cd979SMcoMtwFSFV6l4e29WTZ1a6/yWt8c731AKgIgpRUOs9enHNPfEb8kmrtTLH5d6OyIl8f109XkA==}
-    dependencies:
-      '@hattip/core': 0.0.12
-    dev: false
-
-  /@hattip/core/0.0.12:
-    resolution: {integrity: sha512-dJddxZLZwxrp1cBZBesPwyh0pEWxsMnadwkQ1fkvjHkY2qmfD/1N55kqhxbbd8HKKDGR7VDMBHRizOltl2XQnw==}
-    dev: false
-
-  /@hattip/polyfills/0.0.12:
-    resolution: {integrity: sha512-i2kUX6vLYXsY+V0HhGkeXwvXmlb3W3gilzKNOs11PyZ7cXitzNRdSekcHcp5OjhWPZbaNFywShH1OlK+yrDavA==}
-    dependencies:
-      '@hattip/core': 0.0.12
-      node-fetch-native: 0.1.4
-    dev: false
 
   /@humanwhocodes/config-array/0.9.5:
     resolution: {integrity: sha512-ObyMyWxZiCu/yTisA7uzx81s40xR2fD5Cg/2Kq7G02ajkNubJf6BopgDTmDyc3U7sXpNKM8cYOw7s7Tyr+DnCw==}

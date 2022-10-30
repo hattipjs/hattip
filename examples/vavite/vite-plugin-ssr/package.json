@@ -10,9 +10,9 @@
     "start:bun": "bun run-bun.js"
   },
   "dependencies": {
-    "@hattip/adapter-bun": "^0.0.12",
-    "@hattip/adapter-node": "^0.0.12",
-    "@hattip/compose": "^0.0.12",
+    "@hattip/adapter-bun": "^0.0.20",
+    "@hattip/adapter-node": "^0.0.20",
+    "@hattip/compose": "^0.0.20",
     "@types/express": "^4.17.13",
     "@types/node": "^18.0.5",
     "@types/react": "^18.0.15",
