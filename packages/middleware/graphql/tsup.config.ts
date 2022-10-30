@@ -18,7 +18,7 @@ export default defineConfig([
         setup(build) {
           build.onResolve(
             {
-              filter: /^"@whatwg-node\/fetch"$/,
+              filter: /^@whatwg-node\/fetch$/,
             },
             async () => ({
               path: path.resolve(dirname, "./fetch.shim.js"),
