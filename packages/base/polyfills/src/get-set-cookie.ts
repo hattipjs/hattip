@@ -120,6 +120,6 @@ export default function install() {
     }
   };
 
-  globalThis.Headers = Headers;
-  globalThis.Response = Response;
+  Object.defineProperty(globalThis, "Headers", { value: Headers });
+  Object.defineProperty(globalThis, "Response", { value: Response });
 }

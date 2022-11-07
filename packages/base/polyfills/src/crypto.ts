@@ -1,5 +1,11 @@
-import crypto from "crypto";
+import { webcrypto } from "crypto";
 
 export default function install() {
-  globalThis.crypto = globalThis.crypto ?? (crypto.webcrypto as any);
+  if (globalThis.crypto) return;
+
+  Object.defineProperty(globalThis, "crypto", {
+    value: webcrypto,
+    writable: false,
+    configurable: true,
+  });
 }

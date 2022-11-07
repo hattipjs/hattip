@@ -23,9 +23,9 @@ importers:
 
   examples/vavite/vite-plugin-ssr:
     specifiers:
-      '@hattip/adapter-bun': ^0.0.20
-      '@hattip/adapter-node': ^0.0.20
-      '@hattip/compose': ^0.0.20
+      '@hattip/adapter-bun': ^0.0.21
+      '@hattip/adapter-node': ^0.0.21
+      '@hattip/compose': ^0.0.21
       '@types/express': ^4.17.14
       '@types/node': ^18.11.7
       '@types/react': ^18.0.24

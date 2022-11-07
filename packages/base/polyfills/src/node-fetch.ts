@@ -2,14 +2,23 @@ import * as nodeFetch from "node-fetch-native";
 import { Readable } from "stream";
 
 export default function install() {
-  globalThis.fetch = globalThis.fetch ?? nodeFetch.default;
-  globalThis.AbortController =
-    globalThis.AbortController ?? nodeFetch.AbortController;
-  globalThis.Blob = globalThis.Blob ?? nodeFetch.Blob;
-  globalThis.File = globalThis.File ?? nodeFetch.File;
-  globalThis.FormData = globalThis.FormData ?? nodeFetch.FormData;
-  globalThis.Headers = globalThis.Headers ?? nodeFetch.Headers;
-  globalThis.Request = globalThis.Request ?? nodeFetch.Request;
+  function define<S extends keyof typeof globalThis>(name: S) {
+    if (!globalThis[name]) {
+      Object.defineProperty(globalThis, name, {
+        value: (nodeFetch as any)[name],
+        writable: false,
+        configurable: true,
+      });
+    }
+  }
+
+  define("fetch");
+  define("AbortController");
+  define("Blob");
+  define("File");
+  define("FormData");
+  define("Headers");
+  define("Request");
 
   if (globalThis.Response) return;
 
