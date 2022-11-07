@@ -14,13 +14,12 @@ let cases: Array<{
   command?: string;
   envOverride?: Record<string, string>;
   skipStreamingTest?: boolean;
+  skipCryptoTest?: boolean;
 }>;
 
 const nodeVersions = process.versions.node.split(".");
 const nodeVersionMajor = +nodeVersions[0];
 const nodeVersionMinor = +nodeVersions[1];
-
-const cryptoAvailable = nodeVersionMajor >= 16;
 
 if (process.env.CI === "true") {
   const fetchAvailable =
@@ -41,6 +40,7 @@ if (process.env.CI === "true") {
     {
       name: "Node with node-fetch",
       command: "node entry-node.js",
+      skipCryptoTest: nodeVersionMajor < 16,
     },
     fetchAvailable && {
       name: "Node with native fetch",
@@ -55,6 +55,7 @@ if (process.env.CI === "true") {
       name: "Netlify Functions with netlify dev",
       command: "pnpm build:netlify-functions && netlify dev -op 3000",
       skipStreamingTest: true,
+      skipCryptoTest: nodeVersionMajor < 16,
       envOverride: {
         BROWSER: "none",
       },
@@ -87,7 +88,7 @@ let cp: ChildProcess | undefined;
 
 describe.each(cases)(
   "$name",
-  ({ name, command, skipStreamingTest, envOverride }) => {
+  ({ name, command, skipStreamingTest, envOverride, skipCryptoTest }) => {
     if (command) {
       beforeAll(async () => {
         console.log("Starting", name);
@@ -292,7 +293,7 @@ describe.each(cases)(
       expect(r3).toStrictEqual({ data: { sum: 3 } });
     });
 
-    if (cryptoAvailable) {
+    if (!skipCryptoTest) {
       test("session", async () => {
         const response = await fetch(host + "/session");
         const text = await response.text();
