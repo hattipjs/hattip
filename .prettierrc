@@ -1,5 +1,20 @@
 {
-  "trailingComma": "all",
-  "useTabs": false,
-  "tabWidth": 2
+	"trailingComma": "all",
+	"useTabs": true,
+	"overrides": [
+		{
+			"files": "**/*.md",
+			"options": {
+				"tabWidth": 2,
+				"useTabs": false
+			}
+		},
+		{
+			"files": "**/package.json",
+			"options": {
+				"tabWidth": 2,
+				"useTabs": false
+			}
+		}
+	]
 }

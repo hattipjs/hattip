@@ -13,14 +13,14 @@ export type { DecoratedRequest, NodeAdapterOptions };
 
 /** Connect/Express style request listener/middleware */
 export type NodeMiddleware = (
-  req: DecoratedRequest,
-  res: ServerResponse,
-  next?: () => void,
+	req: DecoratedRequest,
+	res: ServerResponse,
+	next?: () => void,
 ) => void;
 
 export interface NodePlatformInfo {
-  request: DecoratedRequest;
-  response: ServerResponse;
+	request: DecoratedRequest;
+	response: ServerResponse;
 }
 
 export { createMiddleware, createServer } from "./common";

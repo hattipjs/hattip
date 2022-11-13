@@ -3,16 +3,16 @@
  * unless explicitly set.
  */
 export function text(text: string, init?: ResponseInit) {
-  const headers = new Headers(init?.headers);
+	const headers = new Headers(init?.headers);
 
-  if (!headers.has("Content-Type")) {
-    headers.set("Content-Type", "text/plain; charset=utf-8");
-  }
+	if (!headers.has("Content-Type")) {
+		headers.set("Content-Type", "text/plain; charset=utf-8");
+	}
 
-  return new Response(text, {
-    ...init,
-    headers,
-  });
+	return new Response(text, {
+		...init,
+		headers,
+	});
 }
 
 /**
@@ -20,16 +20,16 @@ export function text(text: string, init?: ResponseInit) {
  * "application/json; charset=utf-8" unless explicitly set.
  */
 export function json(value: unknown, init?: ResponseInit) {
-  const headers = new Headers(init?.headers);
+	const headers = new Headers(init?.headers);
 
-  if (!headers.has("Content-Type")) {
-    headers.set("Content-Type", "application/json; charset=utf-8");
-  }
+	if (!headers.has("Content-Type")) {
+		headers.set("Content-Type", "application/json; charset=utf-8");
+	}
 
-  return new Response(JSON.stringify(value), {
-    ...init,
-    headers,
-  });
+	return new Response(JSON.stringify(value), {
+		...init,
+		headers,
+	});
 }
 
 /**
@@ -37,14 +37,14 @@ export function json(value: unknown, init?: ResponseInit) {
  * unless explicitly set.
  */
 export function html(html: string, init?: ResponseInit) {
-  const headers = new Headers(init?.headers);
+	const headers = new Headers(init?.headers);
 
-  if (!headers.has("Content-Type")) {
-    headers.set("Content-Type", "text/html; charset=utf-8");
-  }
+	if (!headers.has("Content-Type")) {
+		headers.set("Content-Type", "text/html; charset=utf-8");
+	}
 
-  return new Response(html, {
-    ...init,
-    headers,
-  });
+	return new Response(html, {
+		...init,
+		headers,
+	});
 }

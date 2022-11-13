@@ -11,22 +11,22 @@ export interface Locals {}
  * Request context
  */
 export interface RequestContext
-  extends AdapterRequestContext,
-    RequestContextExtensions {
-  /** Parsed request URL */
-  url: URL;
-  /** Request method */
-  method: string;
-  /** App-local stuff */
-  locals: Locals;
-  /** Call the next handler in the chain */
-  next(): Promise<Response>;
-  /** Redefine to handle errors by generating a response from an error */
-  handleError(error: unknown): Response | Promise<Response>;
+	extends AdapterRequestContext,
+		RequestContextExtensions {
+	/** Parsed request URL */
+	url: URL;
+	/** Request method */
+	method: string;
+	/** App-local stuff */
+	locals: Locals;
+	/** Call the next handler in the chain */
+	next(): Promise<Response>;
+	/** Redefine to handle errors by generating a response from an error */
+	handleError(error: unknown): Response | Promise<Response>;
 }
 
 export interface ResponseConvertible {
-  toResponse(): Response | Promise<Response>;
+	toResponse(): Response | Promise<Response>;
 }
 
 export type ResponseLike = Response | ResponseConvertible;
@@ -42,77 +42,77 @@ export type MaybeRequestHandler = false | null | undefined | RequestHandler;
 export type RequestHandlerStack = MaybeRequestHandler | RequestHandlerStack[];
 
 function finalHandler(context: RequestContext): Response {
-  context.passThrough();
-  return new Response("Not found", { status: 404 });
+	context.passThrough();
+	return new Response("Not found", { status: 404 });
 }
 
 export type PartialHandler = (
-  context: RequestContext,
+	context: RequestContext,
 ) => Response | void | Promise<Response | void>;
 
 export function composePartial(
-  handlers: RequestHandlerStack[],
-  next?: () => Promise<Response>,
+	handlers: RequestHandlerStack[],
+	next?: () => Promise<Response>,
 ): PartialHandler {
-  const flatHandlers = handlers.flat().filter(Boolean) as RequestHandler[];
+	const flatHandlers = handlers.flat().filter(Boolean) as RequestHandler[];
 
-  return flatHandlers.map(wrap).reduceRight(
-    (prev, current) => {
-      return async (context: RequestContext) => {
-        context.next = () => prev(context) as any;
-        const result = await current(context);
-        return result || prev(context);
-      };
-    },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    next ? (_: RequestContext) => next() : (_: RequestContext) => undefined,
-  );
+	return flatHandlers.map(wrap).reduceRight(
+		(prev, current) => {
+			return async (context: RequestContext) => {
+				context.next = () => prev(context) as any;
+				const result = await current(context);
+				return result || prev(context);
+			};
+		},
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		next ? (_: RequestContext) => next() : (_: RequestContext) => undefined,
+	);
 }
 
 export function compose(...handlers: RequestHandlerStack[]): HattipHandler {
-  return composePartial([
-    (context) => {
-      context.url = new URL(context.request.url);
-      context.method = context.request.method;
-      context.locals = {};
+	return composePartial([
+		(context) => {
+			context.url = new URL(context.request.url);
+			context.method = context.request.method;
+			context.locals = {};
 
-      context.handleError = (error: unknown) => {
-        console.error(error);
-        return new Response("Internal Server Error", { status: 500 });
-      };
-    },
-    ...handlers,
-    finalHandler,
-  ]) as any;
+			context.handleError = (error: unknown) => {
+				console.error(error);
+				return new Response("Internal Server Error", { status: 500 });
+			};
+		},
+		...handlers,
+		finalHandler,
+	]) as any;
 }
 
 function wrap(
-  handler: RequestHandler,
+	handler: RequestHandler,
 ): (context: RequestContext) => Response | void | Promise<Response | void> {
-  return async (context: RequestContext) => {
-    let result: Response | ResponseConvertible;
-    try {
-      result = (await (handler(context) || context.next()))!;
-    } catch (error) {
-      if (error instanceof Response) {
-        return error;
-      } else if (isResponseConvertible(error)) {
-        return error.toResponse();
-      } else if (context.handleError) {
-        return context.handleError(error);
-      } else {
-        throw error;
-      }
-    }
+	return async (context: RequestContext) => {
+		let result: Response | ResponseConvertible;
+		try {
+			result = (await (handler(context) || context.next()))!;
+		} catch (error) {
+			if (error instanceof Response) {
+				return error;
+			} else if (isResponseConvertible(error)) {
+				return error.toResponse();
+			} else if (context.handleError) {
+				return context.handleError(error);
+			} else {
+				throw error;
+			}
+		}
 
-    if (isResponseConvertible(result)) {
-      return result.toResponse();
-    }
+		if (isResponseConvertible(result)) {
+			return result.toResponse();
+		}
 
-    return result;
-  };
+		return result;
+	};
 }
 
 function isResponseConvertible(response: any): response is ResponseConvertible {
-  return response && "toResponse" in response;
+	return response && "toResponse" in response;
 }

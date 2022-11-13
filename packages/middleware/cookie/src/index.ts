@@ -3,8 +3,8 @@ import { cookieParser, CookieParserContext } from "./parse";
 import { cookieSerializer, CookieSerializerContext } from "./serialize";
 
 export interface CookieOptions {
-  parserOptions?: CookieParseOptions;
-  serializerOptions?: CookieSerializeOptions;
+	parserOptions?: CookieParseOptions;
+	serializerOptions?: CookieSerializeOptions;
 }
 
 // Only the subset that we actually use for maximum compatibility
@@ -16,10 +16,10 @@ export type CookieContext = CookieParserContext & CookieSerializerContext;
  * @param options Cookie parsing/serialization options
  */
 export function cookie(options: CookieOptions = {}) {
-  return function cookie(ctx: CookieContext) {
-    cookieParser(options.parserOptions)(ctx);
-    return cookieSerializer(options.serializerOptions)(ctx);
-  };
+	return function cookie(ctx: CookieContext) {
+		cookieParser(options.parserOptions)(ctx);
+		return cookieSerializer(options.serializerOptions)(ctx);
+	};
 }
 
 export { cookieParser, cookieSerializer };

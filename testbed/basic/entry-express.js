@@ -11,5 +11,5 @@ app.use(express.static("public"));
 app.use(middleware);
 
 app.listen(3000, "localhost", () => {
-  console.log("Server listening on http://localhost:3000");
+	console.log("Server listening on http://localhost:3000");
 });

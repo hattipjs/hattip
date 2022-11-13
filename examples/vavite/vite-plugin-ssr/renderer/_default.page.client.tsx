@@ -5,13 +5,13 @@ import type { PageContext } from "./types";
 import type { PageContextBuiltInClient } from "vite-plugin-ssr/types";
 
 export async function render(
-  pageContext: PageContextBuiltInClient & PageContext,
+	pageContext: PageContextBuiltInClient & PageContext,
 ) {
-  const { Page, pageProps } = pageContext;
-  ReactDOM.hydrate(
-    <PageWrapper pageContext={pageContext}>
-      <Page {...pageProps} />
-    </PageWrapper>,
-    document.getElementById("page-view"),
-  );
+	const { Page, pageProps } = pageContext;
+	ReactDOM.hydrate(
+		<PageWrapper pageContext={pageContext}>
+			<Page {...pageProps} />
+		</PageWrapper>,
+		document.getElementById("page-view"),
+	);
 }
