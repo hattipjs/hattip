@@ -2,17 +2,18 @@ import * as nodeFetch from "node-fetch-native";
 import { Readable } from "stream";
 
 export default function install() {
-	function define<S extends keyof typeof globalThis>(name: S) {
+	function define<S extends keyof typeof globalThis>(
+		name: S,
+		value: any = (nodeFetch as any)[name],
+	) {
 		if (!globalThis[name]) {
 			Object.defineProperty(globalThis, name, {
-				value: (nodeFetch as any)[name],
-				writable: false,
+				value,
 				configurable: true,
 			});
 		}
 	}
 
-	define("fetch");
 	define("AbortController");
 	define("Blob");
 	define("File");
@@ -34,5 +35,16 @@ export default function install() {
 		}
 	}
 
-	globalThis.Response = Response as any;
+	Object.defineProperty(Response, "name", {
+		value: "Response",
+		writable: false,
+	});
+
+	define("Response", Response);
+	define("fetch", (input: any, init: any) =>
+		nodeFetch.default(input, init).then((r) => {
+			Object.setPrototypeOf(r, Response.prototype);
+			return r;
+		}),
+	);
 }

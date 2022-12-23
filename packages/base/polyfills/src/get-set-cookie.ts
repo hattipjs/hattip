@@ -113,13 +113,30 @@ export default function install() {
 			const headers = new Headers(init?.headers);
 
 			Object.defineProperty(this, "headers", {
-				get() {
-					return headers;
-				},
+				value: headers,
+				writable: false,
 			});
 		}
 	};
 
+	Object.defineProperty(Response, "name", {
+		value: "Response",
+		writable: false,
+	});
+
+	const originalFetch = globalThis.fetch;
 	Object.defineProperty(globalThis, "Headers", { value: Headers });
 	Object.defineProperty(globalThis, "Response", { value: Response });
+	Object.defineProperty(globalThis, "fetch", {
+		value: (input: any, init?: any) =>
+			originalFetch(input, init).then((r) => {
+				Object.setPrototypeOf(r, Response.prototype);
+				const headers = new Headers(r.headers);
+				Object.defineProperty(r, "headers", {
+					value: headers,
+					writable: false,
+				});
+				return r;
+			}),
+	});
 }
