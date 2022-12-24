@@ -346,6 +346,27 @@ importers:
       typescript: 4.9.5
       vitest: 0.28.5
 
+  packages/base/test-client:
+    specifiers:
+      '@cyco130/eslint-config': ^2.1.2
+      '@hattip/core': workspace:*
+      '@hattip/polyfills': workspace:*
+      '@types/set-cookie-parser': ^2.4.2
+      eslint: ^8.26.0
+      set-cookie-parser: ^2.5.1
+      typescript: ^4.8.4
+      vitest: ^0.24.3
+    dependencies:
+      '@hattip/core': link:../core
+      '@hattip/polyfills': link:../polyfills
+      set-cookie-parser: 2.5.1
+    devDependencies:
+      '@cyco130/eslint-config': 2.1.2_wyqvi574yv7oiwfeinomdzmc3m
+      '@types/set-cookie-parser': 2.4.2
+      eslint: 8.26.0
+      typescript: 4.8.4
+      vitest: 0.24.3
+
   packages/bundler/bundler-cloudflare-workers:
     specifiers:
       '@cyco130/eslint-config': ^3.0.1
@@ -3178,6 +3199,12 @@ packages:
       '@types/mime': 3.0.1
       '@types/node': 18.14.0
     dev: false
+
+  /@types/set-cookie-parser/2.4.2:
+    resolution: {integrity: sha512-fBZgytwhYAUkj/jC/FAV4RQ5EerRup1YQsXQCh8rZfiHkc4UahC192oH0smGwsXol3cL3A5oETuAHeQHmhXM4w==}
+    dependencies:
+      '@types/node': 18.11.7
+    dev: true
 
   /@types/stack-trace/0.0.29:
     resolution: {integrity: sha512-TgfOX+mGY/NyNxJLIbDWrO9DjGoVSW9+aB8H2yy1fy32jsvxijhmyJI9fDFgvz3YP4lvJaq9DzdR/M1bOgVc9g==}
@@ -10827,7 +10854,6 @@ packages:
 
   /set-cookie-parser/2.5.1:
     resolution: {integrity: sha512-1jeBGaKNGdEq4FgIrORu/N570dwoPYio8lSoYLWmX7sQ//0JY08Xh9o5pBcgmHQ/MbsYp/aZnOe1s1lIsbLprQ==}
-    dev: true
 
   /set-value/2.0.1:
     resolution: {integrity: sha512-JxHc1weCN68wRY0fhCoXpyK55m/XPHafOmK4UWD7m2CI14GMcFypt4w/0+NV5f/ZMby2F6S2wwA7fgynh9gWSw==}
