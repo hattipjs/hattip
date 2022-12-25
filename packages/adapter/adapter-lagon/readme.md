@@ -1,4 +1,4 @@
-# `@hattip/adapter-bun`
+# `@hattip/adapter-lagon`
 
 HatTip adapter for [Lagon](https://lagon.app/).
 

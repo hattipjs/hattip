@@ -1,6 +1,6 @@
 {
   "name": "@hattip/adapter-lagon",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "type": "module",
   "description": "Lagon adapter for Hattip",
   "files": [

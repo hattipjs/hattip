@@ -1,6 +1,6 @@
 {
   "name": "@hattip/compose",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "type": "module",
   "description": "Middleware system for HatTip",
   "files": [

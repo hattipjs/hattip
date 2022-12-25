@@ -1,6 +1,6 @@
 {
   "name": "@hattip/adapter-netlify-functions",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "type": "module",
   "description": "Netlify Functions adapter for Hattip",
   "files": [
