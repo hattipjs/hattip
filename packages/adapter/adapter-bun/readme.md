@@ -35,4 +35,3 @@ Bun support is preliminary and Bun itself is in early development:
 
 - No way to determine the IP address of the client when `trustProxy` is false.
 - No streaming, everything is cached.
-- No way to set multiple `Set-Cookie` headers.

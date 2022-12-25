@@ -122,6 +122,27 @@ importers:
       tsup: 6.3.0_typescript@4.8.4
       typescript: 4.8.4
 
+  packages/adapter/adapter-lagon:
+    specifiers:
+      '@cyco130/eslint-config': ^2.1.2
+      '@hattip/core': workspace:*
+      '@hattip/polyfills': workspace:*
+      '@types/node': ^18.11.7
+      eslint: ^8.26.0
+      publint: ^0.1.1
+      tsup: ^6.3.0
+      typescript: ^4.8.4
+    dependencies:
+      '@hattip/core': link:../../base/core
+      '@hattip/polyfills': link:../../base/polyfills
+    devDependencies:
+      '@cyco130/eslint-config': 2.1.2_wyqvi574yv7oiwfeinomdzmc3m
+      '@types/node': 18.11.7
+      eslint: 8.26.0
+      publint: 0.1.1
+      tsup: 6.3.0_typescript@4.8.4
+      typescript: 4.8.4
+
   packages/adapter/adapter-netlify-edge:
     specifiers:
       '@cyco130/eslint-config': ^2.1.2
@@ -535,6 +556,7 @@ importers:
       '@hattip/adapter-bun': workspace:*
       '@hattip/adapter-cloudflare-workers': workspace:*
       '@hattip/adapter-deno': workspace:*
+      '@hattip/adapter-lagon': workspace:*
       '@hattip/adapter-netlify-edge': workspace:*
       '@hattip/adapter-netlify-functions': workspace:*
       '@hattip/adapter-node': workspace:*
@@ -564,6 +586,7 @@ importers:
       rimraf: ^3.0.2
       sirv: ^2.0.2
       typescript: ^4.8.4
+      vite: ^3.2.1
       vitest: ^0.24.3
     dependencies:
       '@graphql-tools/schema': 9.0.5_graphql@16.6.0
@@ -582,6 +605,7 @@ importers:
       '@hattip/adapter-bun': link:../../packages/adapter/adapter-bun
       '@hattip/adapter-cloudflare-workers': link:../../packages/adapter/adapter-cloudflare-workers
       '@hattip/adapter-deno': link:../../packages/adapter/adapter-deno
+      '@hattip/adapter-lagon': link:../../packages/adapter/adapter-lagon
       '@hattip/adapter-netlify-edge': link:../../packages/adapter/adapter-netlify-edge
       '@hattip/adapter-netlify-functions': link:../../packages/adapter/adapter-netlify-functions
       '@hattip/adapter-vercel-edge': link:../../packages/adapter/adapter-vercel-edge
@@ -600,6 +624,7 @@ importers:
       ps-tree: 1.2.0
       rimraf: 3.0.2
       typescript: 4.8.4
+      vite: 3.2.1
       vitest: 0.24.3
 
 packages:

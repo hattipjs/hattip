@@ -1,0 +1,35 @@
+{
+  "name": "@hattip/adapter-lagon",
+  "version": "0.0.22",
+  "type": "module",
+  "description": "Lagon adapter for Hattip",
+  "files": [
+    "dist"
+  ],
+  "exports": "./dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Fatih Aygün <cyco130@gmail.com>",
+  "repository": "https://github.com/hattipjs/hattip",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && tsup",
+    "dev": "tsup --watch",
+    "prepack": "pnpm build",
+    "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:package",
+    "test:typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
+    "test:package": "publint"
+  },
+  "dependencies": {
+    "@hattip/core": "workspace:*",
+    "@hattip/polyfills": "workspace:*"
+  },
+  "devDependencies": {
+    "@cyco130/eslint-config": "^2.1.2",
+    "@types/node": "^18.11.7",
+    "eslint": "^8.26.0",
+    "publint": "^0.1.1",
+    "tsup": "^6.3.0",
+    "typescript": "^4.8.4"
+  }
+}
