@@ -7,8 +7,9 @@ Test your HatTip endpoints without running server.
 - [] API design should be further refined, maybe.
   - [] Handling cookies. Should we use 3rd party module?
   - [] Hostname/IP. Currently it is always `localhost` .
+  - [] Request context does not have platform specific properties.
   - [] Should it support external endpoint call like `fetch("http://example.com")`?
 - [] Improve test cases.
 - [] Package name. `@hattip/test-client`, `@hattip/test`, `@hattip/test-handler`, ...
 - [] License. Use MIT like other packages?
-- [] Packaging setup.
+- [] Add packaging config.
