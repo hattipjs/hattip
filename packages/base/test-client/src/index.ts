@@ -5,9 +5,9 @@ type CreateTestClientArgs = {
 	handler: HattipHandler;
 };
 
-type CreateTestClientReturn<T extends string> = {
+type CreateTestClientReturn = {
 	fetch: (
-		input: URL | T | Request | (string & Record<never, never>),
+		input: URL | string | Request,
 		init?: RequestInit,
 	) => Promise<Response>;
 	cookies: {
@@ -17,9 +17,9 @@ type CreateTestClientReturn<T extends string> = {
 	};
 };
 
-export function createTestClient<T extends string = string>({
+export function createTestClient({
 	handler,
-}: CreateTestClientArgs): CreateTestClientReturn<T> {
+}: CreateTestClientArgs): CreateTestClientReturn {
 	const internalFetch = async (
 		path: string,
 		init?: RequestInit,
