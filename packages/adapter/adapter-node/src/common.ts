@@ -6,14 +6,20 @@ import {
 	ServerResponse,
 	ServerOptions,
 } from "http";
+import type { Socket } from "net";
+
+interface PossiblyEncryptedSocket extends Socket {
+	encrypted?: boolean;
+}
 
 /**
  * `IncomingMessage` possibly augmented by Express-specific
  * `ip` and `protocol` properties.
  */
-export interface DecoratedRequest extends IncomingMessage {
+export interface DecoratedRequest extends Omit<IncomingMessage, "socket"> {
 	ip?: string;
 	protocol?: string;
+	socket?: PossiblyEncryptedSocket;
 }
 
 /** Connect/Express style request listener/middleware */
@@ -85,7 +91,7 @@ export function createMiddleware(
 			protocol ||
 			req.protocol ||
 			(trustProxy && getForwardedHeader("proto")) ||
-			((req.socket as any).encrypted && "https") ||
+			(req.socket?.encrypted && "https") ||
 			"http";
 
 		host =
@@ -102,7 +108,7 @@ export function createMiddleware(
 		const ip =
 			req.ip ||
 			(trustProxy && getForwardedHeader("for")) ||
-			req.socket.remoteAddress ||
+			req.socket?.remoteAddress ||
 			"";
 
 		let headers = req.headers as any;
@@ -118,7 +124,16 @@ export function createMiddleware(
 			body:
 				req.method === "GET" || req.method === "HEAD"
 					? undefined
-					: (req as any),
+					: req.socket // Deno has no req.socket and can't convert req to ReadableStream
+					? (req as any)
+					: // Convert to a ReadableStream for Deno
+					  new ReadableStream({
+							start(controller) {
+								req.on("data", (chunk) => controller.enqueue(chunk));
+								req.on("end", () => controller.close());
+								req.on("error", (err) => controller.error(err));
+							},
+					  }),
 		});
 
 		let passThroughCalled = false;
