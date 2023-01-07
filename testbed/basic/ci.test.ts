@@ -73,6 +73,10 @@ if (process.env.CI === "true") {
 			command:
 				"pnpm build:deno && deno run --allow-read --allow-net --allow-env dist/deno/index.js",
 		},
+		{
+			name: "Lagon",
+			command: "lagon dev entry-lagon.js -p public --port 3000",
+		},
 	].filter(Boolean) as typeof cases;
 	host = "http://127.0.0.1:3000";
 } else {
