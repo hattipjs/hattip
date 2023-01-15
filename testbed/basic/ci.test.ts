@@ -52,8 +52,8 @@ if (process.env.CI === "true") {
 				"miniflare --modules --port 3000 dist/cloudflare-workers-bundle/index.js",
 		},
 		{
-			name: "Netlify Functions with netlify dev",
-			command: "pnpm build:netlify-functions && netlify dev -op 3000",
+			name: "Netlify Functions with netlify serve",
+			command: "pnpm build:netlify-functions && netlify serve -op 3000",
 			skipStreamingTest: true,
 			skipCryptoTest: nodeVersionMajor < 16,
 			envOverride: {
@@ -61,8 +61,8 @@ if (process.env.CI === "true") {
 			},
 		},
 		{
-			name: "Netlify Edge Functions with netlify dev",
-			command: "pnpm build:netlify-edge && netlify dev -op 3000",
+			name: "Netlify Edge Functions with netlify serve",
+			command: "pnpm build:netlify-edge && netlify serve -op 3000",
 			skipStreamingTest: true,
 			envOverride: {
 				BROWSER: "none",

@@ -20,17 +20,17 @@ All tests pass.
 
 Launch with `miniflare --modules --port 3000 dist/cloudflare-workers-bundle/index.js`. Miniflare doesn't understand the `main` field in the `wrangler.toml` files yet.
 
-### Netlify Functions with `netlify dev`
+### Netlify Functions with `netlify serve`
 
 All tests except "doesn't fully buffer binary stream" pass which is automatically skipped in the CI. Netlify Functions have no streaming support.
 
-Build locally with `pnpm build:netlify-functions`, test with `netlify dev`.
+Build locally with `pnpm build:netlify-functions`, test with `netlify serve`.
 
-### Netlify Edge Functions with `netlify dev`
+### Netlify Edge Functions with `netlify serve`
 
-All tests except "doesn't fully buffer binary stream" pass which is automatically skipped in the CI. `netlify dev` doesn't seem to support streaming. It works fine when actually deployed, though.
+All tests except "doesn't fully buffer binary stream" pass which is automatically skipped in the CI. `netlify serve` doesn't seem to support streaming. It works fine when actually deployed, though.
 
-Build locally with `pnpm build:netlify-edge`, test with `netlify dev`.
+Build locally with `pnpm build:netlify-edge`, test with `netlify serve`.
 
 ### Deno
 
