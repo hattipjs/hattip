@@ -12,6 +12,7 @@ export default defineConfig([
 		target: "node14",
 		shims: false,
 		dts: true,
+		noExternal: ["graphql-yoga"],
 		esbuildPlugins: [
 			{
 				name: "fetch-shim",

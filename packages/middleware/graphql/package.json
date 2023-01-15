@@ -33,6 +33,7 @@
     "@hattip/compose": "workspace:*",
     "@hattip/core": "workspace:*",
     "dset": "^3.1.1",
+    "graphql-yoga": "^3.3.0",
     "tslib": "^2.4.1",
     "urlpattern-polyfill": "^6.0.2"
   },
@@ -42,7 +43,6 @@
     "@types/node": "^18.11.18",
     "eslint": "^8.32.0",
     "graphql": "^16.6.0",
-    "graphql-yoga": "^3.3.0",
     "publint": "^0.1.8",
     "tsup": "^6.5.0",
     "typescript": "^4.9.4"
