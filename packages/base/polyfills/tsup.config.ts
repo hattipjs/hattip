@@ -6,6 +6,7 @@ export default defineConfig([
 			"./src/node-fetch.ts",
 			"./src/get-set-cookie.ts",
 			"./src/crypto.ts",
+			"./src/half-duplex-request.ts",
 		],
 		format: ["esm"],
 		platform: "node",

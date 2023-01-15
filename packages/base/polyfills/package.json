@@ -9,7 +9,8 @@
   "exports": {
     "./node-fetch": "./dist/node-fetch.js",
     "./get-set-cookie": "./dist/get-set-cookie.js",
-    "./crypto": "./dist/crypto.js"
+    "./crypto": "./dist/crypto.js",
+    "./half-duplex-request": "./dist/half-duplex-request.js"
   },
   "typesVersions": {
     "*": {
