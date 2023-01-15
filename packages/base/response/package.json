@@ -1,6 +1,6 @@
 {
   "name": "@hattip/response",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "type": "module",
   "description": "Response helpers for Hattip",
   "files": [
