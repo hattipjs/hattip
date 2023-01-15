@@ -6,30 +6,21 @@
 
 Install `@hattip/graphql` and `graphql`, then create and `use` the `yoga` middleware.
 
-```js
-import { yoga } from "@hattip/graphql";
+```ts
+import { yoga, createSchema } from "@hattip/graphql";
 
 // Create and initialize the other parts of your app
 // ...
 
-app.use(
-  "/graphql",
-  yoga({
-    schema: {
-      typeDefs: `
-        type Query {
-          hello: String
-        }
-      `,
-      resolvers: {
-        Query: { hello: () => "Hello World!" },
-      },
-    },
-  }),
-);
+const schema = createSchema<{ requestContext: RequestContext }>({
+  // Your GraphQL schema
+  // ...
+});
+
+app.use("/graphql", yoga({ schema }));
 ```
 
 ## LICENSE
 
-- This package comes bundled with `@graphql-yoga/common` which is part of the [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga) project by Graphcool, Prisma, and The Guild, under the [MIT License](./graphql-yoga.license.txt). They are not affiliated with HatTip.
+- This package comes bundled with `graphql-yoga` which is part of the [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga) project by Graphcool, Prisma, and The Guild, under the [MIT License](./graphql-yoga.license.txt). They are not affiliated with HatTip.
 - HatTip specific code is also licensed under the [MIT License](./LICENSE).

@@ -2,7 +2,7 @@
 import { createRouter } from "@hattip/router";
 import { html, json, text } from "@hattip/response";
 import { cookie } from "@hattip/cookie";
-import { yoga } from "@hattip/graphql";
+import { yoga, createSchema } from "@hattip/graphql";
 import { session, EncryptedCookieStore } from "@hattip/session";
 
 const app = createRouter();
@@ -86,29 +86,33 @@ app.get("/query", (ctx) => {
 
 app.get("/pass", () => text("Passed on from an edge middleware"));
 
+/** @type {import("@hattip/graphql").GraphQLSchemaWithContext<{ requestContext: import("@hattip/compose").RequestContext}>} */
+const schema = createSchema({
+	typeDefs: `type Query {
+		hello: String!
+		context: String
+		sum(a: Int!, b: Int!): Int!
+	}`,
+	resolvers: {
+		Query: {
+			hello: () => "Hello world!",
+			context: (_root, _args, ctx) =>
+				ctx.requestContext.request.headers.get("x-test"),
+			sum: (_root, args) => args.a + args.b,
+		},
+	},
+});
+
 app.use(
 	"/graphql",
 	yoga({
-		endpoint: "/graphql",
+		graphqlEndpoint: "/graphql",
 
 		graphiql: {
 			defaultQuery: `query { hello }`,
 		},
 
-		schema: {
-			typeDefs: `type Query {
-        hello: String!
-        context: String
-        sum(a: Int!, b: Int!): Int!
-      }`,
-			resolvers: {
-				Query: {
-					hello: () => "Hello world!",
-					context: (_root, _args, ctx) => ctx.request.headers.get("x-test"),
-					sum: (_root, args) => args.a + args.b,
-				},
-			},
-		},
+		schema,
 	}),
 );
 

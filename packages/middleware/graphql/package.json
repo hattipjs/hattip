@@ -26,27 +26,25 @@
     "graphql": ">= 15.8"
   },
   "dependencies": {
-    "@envelop/core": "^2.6.0",
-    "@envelop/parser-cache": "^5.0.3",
-    "@envelop/validation-cache": "^5.0.3",
-    "@graphql-tools/schema": "^9.0.5",
-    "@graphql-tools/utils": "^8.13.0",
+    "@graphql-tools/schema": "^9.0.13",
+    "@graphql-tools/utils": "^9.1.4",
     "@graphql-typed-document-node/core": "^3.1.1",
-    "@graphql-yoga/subscription": "^2.2.3",
+    "@graphql-yoga/subscription": "^3.0.0",
     "@hattip/compose": "workspace:*",
     "@hattip/core": "workspace:*",
     "dset": "^3.1.1",
-    "tslib": "^2.3.1"
+    "tslib": "^2.4.1",
+    "urlpattern-polyfill": "^6.0.2"
   },
   "devDependencies": {
     "@cyco130/eslint-config": "^2.1.2",
-    "@graphql-yoga/common": "^2.12.12",
     "@hattip/polyfills": "workspace:*",
-    "@types/node": "^18.11.7",
-    "eslint": "^8.26.0",
+    "@types/node": "^18.11.18",
+    "eslint": "^8.32.0",
     "graphql": "^16.6.0",
-    "publint": "^0.1.1",
-    "tsup": "^6.3.0",
-    "typescript": "^4.8.4"
+    "graphql-yoga": "^3.3.0",
+    "publint": "^0.1.8",
+    "tsup": "^6.5.0",
+    "typescript": "^4.9.4"
   }
 }

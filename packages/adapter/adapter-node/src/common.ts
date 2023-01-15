@@ -134,6 +134,8 @@ export function createMiddleware(
 								req.on("error", (err) => controller.error(err));
 							},
 					  }),
+			// @ts-expect-error: This is required by Node's native fetch for some reason
+			duplex: "half",
 		});
 
 		let passThroughCalled = false;

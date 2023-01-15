@@ -32,11 +32,11 @@
     "@cyco130/eslint-config": "^2.1.2",
     "@hattip/polyfills": "workspace:*",
     "@hattip/response": "workspace:*",
-    "@types/node": "^18.11.7",
-    "eslint": "^8.26.0",
-    "publint": "^0.1.1",
-    "tsup": "^6.3.0",
-    "typescript": "^4.8.4",
-    "vitest": "^0.24.3"
+    "@types/node": "^18.11.18",
+    "eslint": "^8.32.0",
+    "publint": "^0.1.8",
+    "tsup": "^6.5.0",
+    "typescript": "^4.9.4",
+    "vitest": "^0.27.1"
   }
 }
