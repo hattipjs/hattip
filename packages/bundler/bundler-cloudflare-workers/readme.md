@@ -26,7 +26,7 @@ export default {
 };
 ```
 
-The output is a Clourflare Workers bundle that can be deployed with `wrangler` or tested with `miniflare --modules`.
+The output is a Clourflare Workers bundle that can be deployed with `wrangler` or tested with `wrangler dev --local`.
 
 ## JavaScript API
 

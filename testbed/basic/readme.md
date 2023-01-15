@@ -14,11 +14,11 @@ All tests pass.
 
 All tests pass.
 
-### Miniflare
+### Cloudflare Workers with `wrangler dev`
 
 All tests pass.
 
-Launch with `miniflare --modules --port 3000 dist/cloudflare-workers-bundle/index.js`. Miniflare doesn't understand the `main` field in the `wrangler.toml` files yet.
+Launch with `wrangler dev --port 3000`.
 
 ### Netlify Functions with `netlify serve`
 

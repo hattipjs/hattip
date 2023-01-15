@@ -30,10 +30,13 @@ if (process.env.CI === "true") {
 		console.warn("Node version < 17.5 or 16.15, will skip native fetch tests");
 	}
 
-	const miniflareAvailable =
-		nodeVersionMajor >= 17 || (nodeVersionMajor >= 16 && nodeVersionMinor >= 7);
-	if (!miniflareAvailable) {
-		console.warn("Node version < 16.7, will skip miniflare tests");
+	const wranglerAvailable =
+		nodeVersionMajor >= 17 ||
+		(nodeVersionMajor >= 16 && nodeVersionMinor >= 13);
+	if (!wranglerAvailable) {
+		console.warn(
+			"Node version < 16.13, will skip wrangler (Cloudflare Workers) tests",
+		);
 	}
 
 	cases = [
@@ -46,10 +49,9 @@ if (process.env.CI === "true") {
 			name: "Node with native fetch",
 			command: "node --experimental-fetch entry-node-native-fetch.js",
 		},
-		miniflareAvailable && {
-			name: "MiniFlare",
-			command:
-				"miniflare --modules --port 3000 dist/cloudflare-workers-bundle/index.js",
+		wranglerAvailable && {
+			name: "Cloudflare Workers",
+			command: "wrangler dev --local --port 3000",
 		},
 		{
 			name: "Netlify Functions with netlify serve",
