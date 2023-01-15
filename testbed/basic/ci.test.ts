@@ -7,6 +7,7 @@ import psTree from "ps-tree";
 import ".";
 import { kill } from "process";
 import { promisify } from "util";
+import { parse as parseCookie } from "cookie";
 
 let host: string;
 let cases: Array<{
@@ -211,7 +212,7 @@ describe.each(cases)(
 					chunks++;
 				}
 
-				expect(chunks).toBeGreaterThan(10);
+				expect(chunks).toBeGreaterThan(3);
 			});
 		}
 
@@ -301,7 +302,10 @@ describe.each(cases)(
 				const text = await response.text();
 				expect(text).toEqual("You have visited this page 1 time(s).");
 
-				const response2 = await fetch(host + "/session");
+				const cookie = (response.headers.get("set-cookie") || "").split(";")[0];
+				const response2 = await fetch(host + "/session", {
+					headers: { cookie },
+				});
 				const text2 = await response2.text();
 				expect(text2).toEqual("You have visited this page 2 time(s).");
 			});

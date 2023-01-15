@@ -568,10 +568,12 @@ importers:
       '@hattip/router': workspace:*
       '@hattip/session': workspace:*
       '@types/connect': ^3.4.35
+      '@types/cookie': ^0.5.1
       '@types/node': ^18.11.18
       '@types/ps-tree': ^1.1.2
       '@vercel/ncc': ^0.36.0
       connect: ^3.7.0
+      cookie: ^0.5.0
       express: ^4.18.2
       graphql: ^16.6.0
       netlify-cli: ^12.7.2
@@ -610,9 +612,11 @@ importers:
       '@hattip/bundler-netlify': link:../../packages/bundler/bundler-netlify
       '@hattip/bundler-vercel': link:../../packages/bundler/bundler-vercel
       '@types/connect': 3.4.35
+      '@types/cookie': 0.5.1
       '@types/node': 18.11.18
       '@types/ps-tree': 1.1.2
       '@vercel/ncc': 0.36.0
+      cookie: 0.5.0
       netlify-cli: 12.7.2_@types+node@18.11.18
       node-fetch: 3.3.0
       nodemon: 2.0.20
@@ -2834,7 +2838,6 @@ packages:
 
   /@types/cookie/0.5.1:
     resolution: {integrity: sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==}
-    dev: false
 
   /@types/decompress/4.2.4:
     resolution: {integrity: sha512-/C8kTMRTNiNuWGl5nEyKbPiMv6HA+0RbEXzFhFBEzASM6+oa4tJro9b8nj7eRlOFfuLdzUU+DS/GPDlvvzMOhA==}
