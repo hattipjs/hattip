@@ -1,4 +1,6 @@
 export default function install() {
+	return;
+
 	// `duplex` is now required in Node's native fetch when body is a stream
 	// See: https://github.com/nodejs/node/issues/46221
 	class Request extends globalThis.Request {

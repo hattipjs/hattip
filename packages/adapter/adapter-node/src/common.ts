@@ -134,6 +134,8 @@ export function createMiddleware(
 								req.on("error", (err) => controller.error(err));
 							},
 					  }),
+			// @ts-expect-error: Node requires this for streams
+			duplex: "half",
 		});
 
 		let passThroughCalled = false;

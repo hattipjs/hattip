@@ -14,6 +14,8 @@ export function yoga<TUserContext extends Record<string, any>>(
 			method: ctx.method,
 			body: ctx.request.body,
 			headers: ctx.request.headers,
+			// @ts-expect-error: Node requires this for streams
+			duplex: "half",
 		});
 
 		return server.handleRequest(clone, { requestContext: ctx });
