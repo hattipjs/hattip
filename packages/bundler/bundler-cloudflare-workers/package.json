@@ -1,6 +1,6 @@
 {
   "name": "@hattip/bundler-cloudflare-workers",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "type": "module",
   "description": "Cloudflare Workers bundler for Hattip",
   "files": [
