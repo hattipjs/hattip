@@ -161,6 +161,7 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`adapter-netlify-edge`](./packages/adapter/adapter-netlify-edge): Netlify Edge Functions
   - [`adapter-deno`](./packages/adapter/adapter-deno): Deno
   - [`adapter-bun`](./packages/adapter/adapter-bun): Bun
+  - [`adapter-lagon`](./packages/adapter/adapter-lagon): Lagon
 - **Bundlers:** Worker and serverless platforms usually require your code to be in bundled form. These packages provide bundlers fine-tuned for their respective platforms:
   - [`bundler-cloudflare-workers`](./packages/bundler/bundler-cloudflare-workers): Cloudflare Workers
   - [`bundler-vercel`](./packages/bundler/bundler-vercel): Vercel edge and serverless functions
