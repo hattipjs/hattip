@@ -1,6 +1,6 @@
 # `@hattip/graphql`
 
-[GraphQL](https://graphql.org/) middleware for HatTip based on [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga).
+[GraphQL](https://graphql.org/) middleware for HatTip. This is a thin wrapper around [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga).
 
 ## Usage
 
