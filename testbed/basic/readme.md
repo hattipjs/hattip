@@ -4,6 +4,8 @@
 
 When the environment variable `CI` equals `true`, `pnpm run ci` will all the automatic tests. When the environment variable `CI` does not equal `true`, `pnpm run ci` will run its tests on an already running server. You can set the server address by setting the environment variable `TEST_HOST` which defaults to `http://127.0.0.1:3000`.
 
+To manually test streaming, run `curl -ND - 'http://127.0.0.1:3000/bin-stream?delay=50'` and observe the typewriter effect.
+
 ## Status
 
 ### Node.js with `node-fetch`

@@ -79,7 +79,7 @@ interface NodeAdapterOptions {
 
 ## Using native `fetch`
 
-This adapter uses [`node-fetch`](https://github.com/node-fetch/node-fetch) as its `fetch` implementation. Node versions since 16.15, 17.5, and 18 have a native implementation behind the `--experimental-fetch` flag. You can opt in for the native implementation by importing your adapter from `@hattip/adapter-node/native-fetch`.
+This adapter uses [`node-fetch`](https://github.com/node-fetch/node-fetch) if the `fetch` global is not available. You can disable this behavior by importing your adapter from `@hattip/adapter-node/native-fetch`, which will throw an error if `fetch` is not available.
 
 ## `context.passThrough` behavior
 

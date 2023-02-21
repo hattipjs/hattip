@@ -1,0 +1,46 @@
+{
+  "name": "@hattip/adapter-uwebsockets",
+  "version": "0.0.28",
+  "type": "module",
+  "description": "uWebSockets.js adapter for Hattip",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./native-fetch": "./dist/native-fetch.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*.d.ts"
+      ]
+    }
+  },
+  "author": "Fatih Aygün <cyco130@gmail.com>",
+  "repository": "https://github.com/hattipjs/hattip",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && tsup",
+    "dev": "tsup --watch",
+    "prepack": "pnpm build",
+    "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:package",
+    "test:typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
+    "test:package": "publint"
+  },
+  "devDependencies": {
+    "@cyco130/eslint-config": "^2.1.3",
+    "@types/node": "^18.14.0",
+    "eslint": "^8.34.0",
+    "publint": "^0.1.9",
+    "tsup": "^6.6.3",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@hattip/core": "workspace:*",
+    "@hattip/polyfills": "workspace:*",
+    "mrmime": "^1.0.1",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.19.0"
+  }
+}
