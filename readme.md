@@ -162,6 +162,7 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`adapter-deno`](./packages/adapter/adapter-deno): Deno
   - [`adapter-bun`](./packages/adapter/adapter-bun): Bun
   - [`adapter-lagon`](./packages/adapter/adapter-lagon): Lagon
+  - [`adapter-uwebsockets`](./packages/adapter/adapter-uwebsockets): uWebSockets.js
 - **Bundlers:** Worker and serverless platforms usually require your code to be in bundled form. These packages provide bundlers fine-tuned for their respective platforms:
   - [`bundler-cloudflare-workers`](./packages/bundler/bundler-cloudflare-workers): Cloudflare Workers
   - [`bundler-vercel`](./packages/bundler/bundler-vercel): Vercel edge and serverless functions

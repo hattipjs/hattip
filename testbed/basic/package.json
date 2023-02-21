@@ -20,6 +20,7 @@
     "@hattip/adapter-lagon": "workspace:*",
     "@hattip/adapter-netlify-edge": "workspace:*",
     "@hattip/adapter-netlify-functions": "workspace:*",
+    "@hattip/adapter-uwebsockets": "workspace:*",
     "@hattip/adapter-vercel-edge": "workspace:*",
     "@hattip/bundler-cloudflare-workers": "workspace:*",
     "@hattip/bundler-deno": "workspace:*",

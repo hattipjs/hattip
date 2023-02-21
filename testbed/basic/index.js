@@ -9,11 +9,11 @@ const app = createRouter();
 
 app.use(cookie());
 
-app.get("/", (ctx) =>
-	html(
+app.get("/", (ctx) => {
+	return html(
 		`<h1>Hello from Hattip!</h1><p>URL: <span>${ctx.request.url}</span></p><p>Your IP address is: <span>${ctx.ip}</span></p>`,
-	),
-);
+	);
+});
 
 app.get(
 	"/binary",

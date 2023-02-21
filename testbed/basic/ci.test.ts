@@ -40,6 +40,13 @@ if (process.env.CI === "true") {
 		);
 	}
 
+	const uwsAvailable = nodeVersionMajor >= 18 && process.platform === "linux";
+	if (!uwsAvailable) {
+		console.warn(
+			"Node version < 18 or not on Linux, will skip uWebSockets.js tests",
+		);
+	}
+
 	cases = [
 		{
 			name: "Node with node-fetch",
@@ -75,6 +82,10 @@ if (process.env.CI === "true") {
 			name: "Deno",
 			command:
 				"pnpm build:deno && deno run --allow-read --allow-net --allow-env dist/deno/index.js",
+		},
+		uwsAvailable && {
+			name: "uWebSockets.js",
+			command: "node entry-uws.js",
 		},
 	].filter(Boolean) as typeof cases;
 	host = "http://127.0.0.1:3000";
