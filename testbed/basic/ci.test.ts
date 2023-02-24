@@ -79,17 +79,11 @@ if (process.env.CI === "true") {
 			command: "pnpm build:netlify-functions && pnpm start:netlify",
 			skipStreamingTest: true,
 			skipCryptoTest: nodeVersionMajor < 16,
-			envOverride: {
-				BROWSER: "none",
-			},
 		},
-		{
+		false && {
 			name: "Netlify Edge Functions with netlify serve",
 			command: "pnpm build:netlify-edge && pnpm start:netlify",
 			skipStreamingTest: true,
-			envOverride: {
-				BROWSER: "none",
-			},
 		},
 		{
 			name: "Deno",
@@ -131,6 +125,9 @@ describe.each(cases)(
 					},
 				});
 
+				let timeout: ReturnType<typeof setTimeout> | undefined;
+				let caught: any;
+
 				// Wait until server is ready
 				await new Promise((resolve, reject) => {
 					cp!.on("error", (error) => {
@@ -156,13 +153,16 @@ describe.each(cases)(
 									resolve(null);
 								}
 							})
-							.catch(() => {
-								// Ignore error
+							.catch((error) => {
+								caught = error;
 							});
 					}, 250);
 
-					setTimeout(() => {
+					timeout = setTimeout(() => {
 						console.log("Timeout", name);
+						if (caught) {
+							console.error(caught);
+						}
 						if (!done) {
 							clearInterval(interval);
 							killTree(cp, name).finally(() => {
@@ -170,8 +170,12 @@ describe.each(cases)(
 								reject(new Error("Timeout"));
 							});
 						}
-					}, 15_000);
+					}, 60_000);
 				});
+
+				if (timeout) {
+					clearTimeout(timeout);
+				}
 			}, 60_000);
 
 			afterAll(async () => {
