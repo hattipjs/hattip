@@ -83,3 +83,23 @@ export type EtagAlgorithm =
 	| "sha-512";
 
 export { serve, serveDir };
+
+function walk(
+	dir: string,
+	root = dir,
+	entries = new Set<string>(),
+): Set<string> {
+	const files = fs.readdirSync(dir);
+
+	for (const file of files) {
+		const filepath = path.join(dir, file);
+		const stat = fs.statSync(filepath);
+		if (stat.isDirectory()) {
+			walk(filepath, root, entries);
+		} else {
+			entries.add("/" + path.relative(root, filepath).replace(/\\/g, "/"));
+		}
+	}
+
+	return entries;
+}

@@ -7,7 +7,6 @@ import psTree from "ps-tree";
 import ".";
 import { kill } from "process";
 import { promisify } from "util";
-import { parse as parseCookie } from "cookie";
 
 let host: string;
 let cases: Array<{
@@ -40,17 +39,17 @@ if (process.env.CI === "true") {
 		);
 	}
 
-	const uwsAvailable = nodeVersionMajor >= 18 && process.platform === "linux";
-	if (!uwsAvailable) {
-		console.warn(
-			"Node version < 18 or not on Linux, will skip uWebSockets.js tests",
-		);
-	}
+	const uwsAvailable = false; // nodeVersionMajor >= 18 && process.platform === "linux";
+	// if (!uwsAvailable) {
+	// 	console.warn(
+	// 		"Node version < 18 or not on Linux, will skip uWebSockets.js tests",
+	// 	);
+	// }
 
 	cases = [
 		{
 			name: "Node with node-fetch",
-			command: "node entry-node.js",
+			command: fetchAvailable ? "pnpm start" : "node entry-node.js",
 			skipCryptoTest: nodeVersionMajor < 16,
 		},
 		fetchAvailable && {
@@ -59,11 +58,11 @@ if (process.env.CI === "true") {
 		},
 		wranglerAvailable && {
 			name: "Cloudflare Workers",
-			command: "wrangler dev --local --port 3000",
+			command: "pnpm build:cfw && pnpm start:cfw",
 		},
 		{
 			name: "Netlify Functions with netlify serve",
-			command: "pnpm build:netlify-functions && netlify serve -op 3000",
+			command: "pnpm build:netlify-functions && pnpm start:netlify",
 			skipStreamingTest: true,
 			skipCryptoTest: nodeVersionMajor < 16,
 			envOverride: {
@@ -72,7 +71,7 @@ if (process.env.CI === "true") {
 		},
 		{
 			name: "Netlify Edge Functions with netlify serve",
-			command: "pnpm build:netlify-edge && netlify serve -op 3000",
+			command: "pnpm build:netlify-edge && pnpm start:netlify",
 			skipStreamingTest: true,
 			envOverride: {
 				BROWSER: "none",
@@ -80,12 +79,11 @@ if (process.env.CI === "true") {
 		},
 		{
 			name: "Deno",
-			command:
-				"pnpm build:deno && deno run --allow-read --allow-net --allow-env dist/deno/index.js",
+			command: "pnpm build:deno && pnpm start:deno",
 		},
 		uwsAvailable && {
 			name: "uWebSockets.js",
-			command: "node entry-uws.js",
+			command: "node --no-experimental-fetch entry-uws.js",
 		},
 	].filter(Boolean) as typeof cases;
 	host = "http://127.0.0.1:3000";

@@ -3,14 +3,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node entry-node.js",
     "dev": "nodemon entry-node.js",
+    "start": "node --no-experimental-fetch entry-node.js",
+    "start:native-fetch": "node --experimental-fetch entry-node-native-fetch.js",
     "build:cfw": "hattip-cloudflare-workers -e entry-cfw.js dist/cloudflare-workers-bundle/index.js",
-    "build:vercel": "hattip-vercel -c --staticDir public --serverless entry-vercel-serverless.js",
-    "build:vercel-edge": "hattip-vercel -c --staticDir public --edge entry-vercel-edge.js",
+    "start:cfw": "wrangler dev --local --port 3000",
     "build:netlify-functions": "rimraf .netlify/edge-functions-dist && hattip-netlify -c --staticDir public --func entry-netlify-function.js",
     "build:netlify-edge": "hattip-netlify -c --staticDir public --edge entry-netlify-edge.js",
-    "build:deno": "hattip-deno entry-deno.js dist/deno/index.js --staticDir public",
+    "start:netlify": "netlify serve -op 3000",
+    "build:vercel": "hattip-vercel -c --staticDir public --serverless entry-vercel-serverless.js",
+    "build:vercel-edge": "hattip-vercel -c --staticDir public --edge entry-vercel-edge.js",
+    "build:deno": "hattip-deno entry-deno.js dist/deno/index.js --staticDir public && echo '{}' > dist/deno/package.json",
+    "start:deno": "deno run --allow-read --allow-net --allow-env dist/deno/index.js",
     "ci": "vitest --reporter=verbose"
   },
   "devDependencies": {
