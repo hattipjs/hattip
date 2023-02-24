@@ -48,6 +48,8 @@ We believe in a diverse but interoperable future for the JavaScript ecosystem an
 - ✅ Netlify Edge Functions
 - ✅ Deno (including Deno Deploy)
 - ✅ Bun
+- ✅ Lagon
+- ✅ uWebSockets.js
 - 🚧 Service Workers
 
 Adapters let you run HatTip on any platform. Here's how you can use HatTip with Node.js:
@@ -179,7 +181,7 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`graphql`](./packages/middleware/graphql): GraphQL middleware
   - [`session`](./packages/middleware/session): Session middleware
 
-A zero-config development environment based on [Vite](https://vitejs.dev) is also in the works
+A zero-config development environment based on [Vite](https://vitejs.dev) is also in the works.
 
 ## Credits
 
