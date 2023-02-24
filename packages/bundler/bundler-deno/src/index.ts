@@ -1,9 +1,9 @@
 import { build, BuildOptions } from "esbuild";
-import { builtinModules } from "module";
-import path from "path";
+import { builtinModules } from "node:module";
+import path from "node:path";
 import cpr from "cpr";
-import { promisify } from "util";
-import { fileURLToPath } from "url";
+import { promisify } from "node:util";
+import { fileURLToPath } from "node:url";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 

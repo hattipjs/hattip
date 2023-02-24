@@ -1,4 +1,4 @@
-import crypto from "crypto";
+import crypto from "node:crypto";
 
 export default function install() {
 	if (globalThis.crypto) return;

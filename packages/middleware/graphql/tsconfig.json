@@ -8,5 +8,5 @@
 		"skipLibCheck": true,
 		"moduleResolution": "Node"
 	},
-	"include": ["src"]
+	"include": ["src", "tsup.config.ts"]
 }

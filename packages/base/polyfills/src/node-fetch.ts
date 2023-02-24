@@ -1,5 +1,5 @@
 import * as nodeFetch from "node-fetch-native";
-import { Readable } from "stream";
+import { Readable } from "node:stream";
 import installHalfDuplexRequest from "./half-duplex-request";
 
 export default function install() {

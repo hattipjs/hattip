@@ -1,5 +1,5 @@
 // @ts-check
-import { createServer } from "http";
+import { createServer } from "node:http";
 import connect from "connect";
 import { createMiddleware } from "@hattip/adapter-node";
 import handler from "./index.js";

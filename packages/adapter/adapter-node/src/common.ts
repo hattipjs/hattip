@@ -5,8 +5,8 @@ import {
 	IncomingMessage,
 	ServerResponse,
 	ServerOptions,
-} from "http";
-import type { Socket } from "net";
+} from "node:http";
+import type { Socket } from "node:net";
 
 interface PossiblyEncryptedSocket extends Socket {
 	encrypted?: boolean;

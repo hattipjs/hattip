@@ -8,7 +8,7 @@ import {
 	TemplatedApp,
 } from "uWebSockets.js";
 import { scanDir } from "./static-server";
-import fs from "fs";
+import fs from "node:fs";
 import { lookup } from "mrmime";
 
 /** Adapter options */

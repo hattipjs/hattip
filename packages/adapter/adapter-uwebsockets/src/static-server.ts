@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "node:fs";
 
 export function scanDir(dir: string, root: string): string[] {
 	const files = fs.readdirSync(dir);

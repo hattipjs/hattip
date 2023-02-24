@@ -1,12 +1,26 @@
 // @ts-check
 
 import { test, expect, describe, beforeAll, afterAll } from "vitest";
-import fetch from "node-fetch";
-import { ChildProcess, spawn } from "child_process";
+import fetchPolyfill from "node-fetch";
+import { ChildProcess, spawn } from "node:child_process";
 import psTree from "ps-tree";
 import ".";
-import { kill } from "process";
-import { promisify } from "util";
+import { kill } from "node:process";
+import { promisify } from "node:util";
+
+// Retrying fetch
+const fetch: typeof fetchPolyfill = async (url, options) => {
+	let lastError;
+	for (let i = 0; i < 5; i++) {
+		try {
+			return await fetchPolyfill(url, options);
+		} catch (error) {
+			lastError = error;
+		}
+	}
+
+	throw lastError;
+};
 
 let host: string;
 let cases: Array<{

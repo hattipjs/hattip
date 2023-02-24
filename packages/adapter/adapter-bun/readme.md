@@ -9,8 +9,8 @@ Assuming you have your HatTip handler defined in `handler.js` and your static as
 ```ts
 import bunAdapter from "@hattip/adapter-bun";
 import handler from "./handler.js";
-import url from "url";
-import path from "path";
+import url from "node:url";
+import path from "node:path";
 
 const dir = path.resolve(
   path.dirname(url.fileURLToPath(new URL(import.meta.url))),
