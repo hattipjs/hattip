@@ -15,10 +15,8 @@ for (const key of Object.keys(webStream)) {
 }
 
 export type {
-	DecoratedRequest,
-	NodeMiddleware,
-	NodeAdapterOptions,
-	NodePlatformInfo,
+	UWebSocketAdapterOptions,
+	UWebSocketPlatformInfo,
 } from "./common";
 
-export { createMiddleware, createServer } from "./common";
+export { createServer } from "./common";

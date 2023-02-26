@@ -1,6 +1,6 @@
 import { build, BuildOptions } from "esbuild";
-import { builtinModules } from "module";
-import path from "path";
+import { builtinModules } from "node:module";
+import path from "node:path";
 
 /**
  * Bundling options

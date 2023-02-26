@@ -48,6 +48,8 @@ We believe in a diverse but interoperable future for the JavaScript ecosystem an
 - ✅ Netlify Edge Functions
 - ✅ Deno (including Deno Deploy)
 - ✅ Bun
+- ✅ Lagon
+- ✅ uWebSockets.js
 - 🚧 Service Workers
 
 Adapters let you run HatTip on any platform. Here's how you can use HatTip with Node.js:
@@ -161,6 +163,8 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`adapter-netlify-edge`](./packages/adapter/adapter-netlify-edge): Netlify Edge Functions
   - [`adapter-deno`](./packages/adapter/adapter-deno): Deno
   - [`adapter-bun`](./packages/adapter/adapter-bun): Bun
+  - [`adapter-lagon`](./packages/adapter/adapter-lagon): Lagon
+  - [`adapter-uwebsockets`](./packages/adapter/adapter-uwebsockets): uWebSockets.js
 - **Bundlers:** Worker and serverless platforms usually require your code to be in bundled form. These packages provide bundlers fine-tuned for their respective platforms:
   - [`bundler-cloudflare-workers`](./packages/bundler/bundler-cloudflare-workers): Cloudflare Workers
   - [`bundler-vercel`](./packages/bundler/bundler-vercel): Vercel edge and serverless functions
@@ -177,7 +181,7 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`graphql`](./packages/middleware/graphql): GraphQL middleware
   - [`session`](./packages/middleware/session): Session middleware
 
-A zero-config development environment based on [Vite](https://vitejs.dev) is also in the works
+A zero-config development environment based on [Vite](https://vitejs.dev) is also in the works.
 
 ## Credits
 
@@ -186,4 +190,4 @@ A zero-config development environment based on [Vite](https://vitejs.dev) is als
 - Code and concept by [Fatih Aygün](https://github.com/cyco130), [Romuald Brillout](https://github.com/brillout), and [contributors](https://github.com/hattipjs/hattip/graphs/contributors).
 - Logo and branding by [Aydıncan Ataberk](https://www.aydincanataberk.com/).
 - The [`cors`](./packages/middleware/cors) package is a port of [koajs/cors](https://github.com/koajs/cors) by koajs and contributors under the [MIT License](./packages/middleware/cors/koajs-cors-license.txt). They are not affiliated with HatTip.
-- The [`graphql`](./packages/middleware/graphql) package comes bundled with `@graphql-yoga/common` which is part of the [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga) project by Graphcool, Prisma, and The Guild, under the [MIT License](./packages/middleware/graphql/graphql-yoga.license.txt). They are not affiliated with HatTip.
+- The [`graphql`](./packages/middleware/graphql) package comes bundled with `graphql-yoga` which is part of the [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga) project by Graphcool, Prisma, and The Guild, under the [MIT License](./packages/middleware/graphql/graphql-yoga.license.txt). They are not affiliated with HatTip.

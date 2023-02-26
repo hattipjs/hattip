@@ -1,8 +1,8 @@
 import { build, BuildOptions } from "esbuild";
-import { builtinModules } from "module";
-import fs from "fs";
+import { builtinModules } from "node:module";
+import fs from "node:fs";
 import cpr from "cpr";
-import { promisify } from "util";
+import { promisify } from "node:util";
 
 // TODO: Add callbacks to manipulate config outputs
 export interface NetlifyBundlerOptions {

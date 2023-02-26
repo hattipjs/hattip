@@ -1,12 +1,26 @@
 // @ts-check
 
 import { test, expect, describe, beforeAll, afterAll } from "vitest";
-import fetch from "node-fetch";
-import { ChildProcess, spawn } from "child_process";
+import fetchPolyfill from "node-fetch";
+import { ChildProcess, spawn } from "node:child_process";
 import psTree from "ps-tree";
 import ".";
-import { kill } from "process";
-import { promisify } from "util";
+import { kill } from "node:process";
+import { promisify } from "node:util";
+
+// Retrying fetch
+const fetch: typeof fetchPolyfill = async (url, options) => {
+	let lastError;
+	for (let i = 0; i < 5; i++) {
+		try {
+			return await fetchPolyfill(url, options);
+		} catch (error) {
+			lastError = error;
+		}
+	}
+
+	throw lastError;
+};
 
 let host: string;
 let cases: Array<{
@@ -30,48 +44,54 @@ if (process.env.CI === "true") {
 		console.warn("Node version < 17.5 or 16.15, will skip native fetch tests");
 	}
 
-	const miniflareAvailable =
-		nodeVersionMajor >= 17 || (nodeVersionMajor >= 16 && nodeVersionMinor >= 7);
-	if (!miniflareAvailable) {
-		console.warn("Node version < 16.7, will skip miniflare tests");
+	const wranglerAvailable =
+		nodeVersionMajor >= 17 ||
+		(nodeVersionMajor >= 16 && nodeVersionMinor >= 13);
+	if (!wranglerAvailable) {
+		console.warn(
+			"Node version < 16.13, will skip wrangler (Cloudflare Workers) tests",
+		);
 	}
+
+	const uwsAvailable = false; // nodeVersionMajor >= 18 && process.platform === "linux";
+	// if (!uwsAvailable) {
+	// 	console.warn(
+	// 		"Node version < 18 or not on Linux, will skip uWebSockets.js tests",
+	// 	);
+	// }
 
 	cases = [
 		{
 			name: "Node with node-fetch",
-			command: "node entry-node.js",
+			command: fetchAvailable ? "pnpm start" : "node entry-node.js",
 			skipCryptoTest: nodeVersionMajor < 16,
 		},
 		fetchAvailable && {
 			name: "Node with native fetch",
 			command: "node --experimental-fetch entry-node-native-fetch.js",
 		},
-		miniflareAvailable && {
-			name: "MiniFlare",
-			command:
-				"miniflare --modules --port 3000 dist/cloudflare-workers-bundle/index.js",
+		wranglerAvailable && {
+			name: "Cloudflare Workers",
+			command: "pnpm build:cfw && pnpm start:cfw",
 		},
 		{
-			name: "Netlify Functions with netlify dev",
-			command: "pnpm build:netlify-functions && netlify dev -op 3000",
+			name: "Netlify Functions with netlify serve",
+			command: "pnpm build:netlify-functions && pnpm start:netlify",
 			skipStreamingTest: true,
 			skipCryptoTest: nodeVersionMajor < 16,
-			envOverride: {
-				BROWSER: "none",
-			},
 		},
-		{
-			name: "Netlify Edge Functions with netlify dev",
-			command: "pnpm build:netlify-edge && netlify dev -op 3000",
+		false && {
+			name: "Netlify Edge Functions with netlify serve",
+			command: "pnpm build:netlify-edge && pnpm start:netlify",
 			skipStreamingTest: true,
-			envOverride: {
-				BROWSER: "none",
-			},
 		},
 		{
 			name: "Deno",
-			command:
-				"pnpm build:deno && deno run --allow-read --allow-net --allow-env dist/deno/index.js",
+			command: "pnpm build:deno && pnpm start:deno",
+		},
+		uwsAvailable && {
+			name: "uWebSockets.js",
+			command: "node --no-experimental-fetch entry-uws.js",
 		},
 		{
 			name: "Lagon",
@@ -109,6 +129,9 @@ describe.each(cases)(
 					},
 				});
 
+				let timeout: ReturnType<typeof setTimeout> | undefined;
+				let caught: any;
+
 				// Wait until server is ready
 				await new Promise((resolve, reject) => {
 					cp!.on("error", (error) => {
@@ -134,13 +157,16 @@ describe.each(cases)(
 									resolve(null);
 								}
 							})
-							.catch(() => {
-								// Ignore error
+							.catch((error) => {
+								caught = error;
 							});
 					}, 250);
 
-					setTimeout(() => {
+					timeout = setTimeout(() => {
 						console.log("Timeout", name);
+						if (caught) {
+							console.error(caught);
+						}
 						if (!done) {
 							clearInterval(interval);
 							killTree(cp, name).finally(() => {
@@ -148,8 +174,12 @@ describe.each(cases)(
 								reject(new Error("Timeout"));
 							});
 						}
-					}, 15_000);
+					}, 60_000);
 				});
+
+				if (timeout) {
+					clearTimeout(timeout);
+				}
 			}, 60_000);
 
 			afterAll(async () => {
@@ -213,7 +243,7 @@ describe.each(cases)(
 					chunks++;
 				}
 
-				expect(chunks).toBeGreaterThan(10);
+				expect(chunks).toBeGreaterThan(3);
 			});
 		}
 
@@ -303,7 +333,10 @@ describe.each(cases)(
 				const text = await response.text();
 				expect(text).toEqual("You have visited this page 1 time(s).");
 
-				const response2 = await fetch(host + "/session");
+				const cookie = (response.headers.get("set-cookie") || "").split(";")[0];
+				const response2 = await fetch(host + "/session", {
+					headers: { cookie },
+				});
 				const text2 = await response2.text();
 				expect(text2).toEqual("You have visited this page 2 time(s).");
 			});

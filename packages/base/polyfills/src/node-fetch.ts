@@ -1,5 +1,6 @@
 import * as nodeFetch from "node-fetch-native";
-import { Readable } from "stream";
+import { Readable } from "node:stream";
+import installHalfDuplexRequest from "./half-duplex-request";
 
 export default function install() {
 	function define<S extends keyof typeof globalThis>(
@@ -19,7 +20,12 @@ export default function install() {
 	define("File");
 	define("FormData");
 	define("Headers");
-	define("Request");
+
+	if (globalThis.Request) {
+		installHalfDuplexRequest();
+	} else {
+		define("Request");
+	}
 
 	if (globalThis.Response) return;
 

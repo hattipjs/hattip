@@ -1,6 +1,6 @@
 import { defineConfig } from "tsup";
-import path from "path";
-import { fileURLToPath } from "url";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -12,6 +12,7 @@ export default defineConfig([
 		target: "node14",
 		shims: false,
 		dts: true,
+		noExternal: ["graphql-yoga"],
 		esbuildPlugins: [
 			{
 				name: "fetch-shim",

@@ -4,6 +4,8 @@
 
 When the environment variable `CI` equals `true`, `pnpm run ci` will all the automatic tests. When the environment variable `CI` does not equal `true`, `pnpm run ci` will run its tests on an already running server. You can set the server address by setting the environment variable `TEST_HOST` which defaults to `http://127.0.0.1:3000`.
 
+To manually test streaming, run `curl -ND - 'http://127.0.0.1:3000/bin-stream?delay=50'` and observe the typewriter effect.
+
 ## Status
 
 ### Node.js with `node-fetch`
@@ -14,23 +16,23 @@ All tests pass.
 
 All tests pass.
 
-### Miniflare
+### Cloudflare Workers with `wrangler dev`
 
 All tests pass.
 
-Launch with `miniflare --modules --port 3000 dist/cloudflare-workers-bundle/index.js`. Miniflare doesn't understand the `main` field in the `wrangler.toml` files yet.
+Launch with `wrangler dev --port 3000`.
 
-### Netlify Functions with `netlify dev`
+### Netlify Functions with `netlify serve`
 
 All tests except "doesn't fully buffer binary stream" pass which is automatically skipped in the CI. Netlify Functions have no streaming support.
 
-Build locally with `pnpm build:netlify-functions`, test with `netlify dev`.
+Build locally with `pnpm build:netlify-functions`, test with `netlify serve`.
 
-### Netlify Edge Functions with `netlify dev`
+### Netlify Edge Functions with `netlify serve`
 
-All tests except "doesn't fully buffer binary stream" pass which is automatically skipped in the CI. `netlify dev` doesn't seem to support streaming. It works fine when actually deployed, though.
+All tests except "doesn't fully buffer binary stream" pass which is automatically skipped in the CI. `netlify serve` doesn't seem to support streaming. It works fine when actually deployed, though.
 
-Build locally with `pnpm build:netlify-edge`, test with `netlify dev`.
+Build locally with `pnpm build:netlify-edge`, test with `netlify serve`.
 
 ### Deno
 

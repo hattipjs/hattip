@@ -1,6 +1,6 @@
 {
   "name": "@hattip/session",
-  "version": "0.0.24",
+  "version": "0.0.29",
   "type": "module",
   "description": "Session management for HatTip",
   "files": [
@@ -35,17 +35,17 @@
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^2.1.2",
+    "@cyco130/eslint-config": "^3.0.1",
     "@hattip/polyfills": "workspace:*",
-    "@miniflare/kv": "^2.11.0",
-    "@miniflare/storage-memory": "^2.11.0",
-    "@types/node": "^18.11.7",
+    "@miniflare/kv": "^2.12.0",
+    "@miniflare/storage-memory": "^2.12.0",
+    "@types/node": "^18.14.0",
     "@types/redis-mock": "^0.17.1",
-    "eslint": "^8.26.0",
-    "publint": "^0.1.1",
+    "eslint": "^8.34.0",
+    "publint": "^0.1.9",
     "redis-mock": "^0.56.3",
-    "tsup": "^6.3.0",
-    "typescript": "^4.8.4",
-    "vite": "^3.2.1"
+    "tsup": "^6.6.3",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.3"
   }
 }
