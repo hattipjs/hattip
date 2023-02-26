@@ -591,6 +591,7 @@ importers:
       '@hattip/response': workspace:*
       '@hattip/router': workspace:*
       '@hattip/session': workspace:*
+      '@lagon/cli': ^0.5.2
       '@types/connect': ^3.4.35
       '@types/cookie': ^0.5.1
       '@types/node': ^18.14.0
@@ -637,6 +638,7 @@ importers:
       '@hattip/bundler-deno': link:../../packages/bundler/bundler-deno
       '@hattip/bundler-netlify': link:../../packages/bundler/bundler-netlify
       '@hattip/bundler-vercel': link:../../packages/bundler/bundler-vercel
+      '@lagon/cli': 0.5.2
       '@types/connect': 3.4.35
       '@types/cookie': 0.5.1
       '@types/node': 18.14.0
@@ -1830,6 +1832,17 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
+
+  /@lagon/cli/0.5.2:
+    resolution: {integrity: sha512-blpAlWSbdrstEsat5608hnMecXvnlztrXspudntuoceXY7ZBg32iiVFGL+XWxHdQlDouGlBemcbNYKaRaU1YHQ==}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      binary-install: 1.0.6
+      update-notifier: 6.0.2
+    transitivePeerDependencies:
+      - debug
+    dev: true
 
   /@lukeed/ms/2.0.1:
     resolution: {integrity: sha512-Xs/4RZltsAL7pkvaNStUQt7netTkyxrS0K+RILcVr3TRMS/ToOg4I6uNfhB9SlGsnWBym4U+EaXq0f0cEMNkHA==}
@@ -3998,6 +4011,14 @@ packages:
       - supports-color
     dev: true
 
+  /axios/0.26.1:
+    resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
+    dependencies:
+      follow-redirects: 1.15.2_debug@4.3.4
+    transitivePeerDependencies:
+      - debug
+    dev: true
+
   /backoff/2.5.0:
     resolution: {integrity: sha512-wC5ihrnUXmR2douXmXLCe5O3zg3GKIyvRi/hi58a/XyRxVI+3/yM0PYueQOZXPXQ9pxBislYkw+sF9b7C/RuMA==}
     engines: {node: '>= 0.6'}
@@ -4053,6 +4074,17 @@ packages:
   /binary-extensions/2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
     engines: {node: '>=8'}
+    dev: true
+
+  /binary-install/1.0.6:
+    resolution: {integrity: sha512-h3K4jaC4jEauK3csXI9GxGBJldkpuJlHCIBv8i+XBNhPuxnlERnD1PWVczQYDqvhJfv0IHUbB3lhDrZUMHvSgw==}
+    engines: {node: '>=10'}
+    dependencies:
+      axios: 0.26.1
+      rimraf: 3.0.2
+      tar: 6.1.13
+    transitivePeerDependencies:
+      - debug
     dev: true
 
   /bindings/1.5.0:

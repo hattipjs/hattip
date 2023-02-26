@@ -30,6 +30,7 @@
     "@hattip/bundler-deno": "workspace:*",
     "@hattip/bundler-netlify": "workspace:*",
     "@hattip/bundler-vercel": "workspace:*",
+    "@lagon/cli": "^0.5.2",
     "@types/connect": "^3.4.35",
     "@types/cookie": "^0.5.1",
     "@types/node": "^18.14.0",
