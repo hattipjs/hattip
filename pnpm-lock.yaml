@@ -126,7 +126,6 @@ importers:
     specifiers:
       '@cyco130/eslint-config': ^2.1.2
       '@hattip/core': workspace:*
-      '@hattip/polyfills': workspace:*
       '@types/node': ^18.11.7
       eslint: ^8.26.0
       publint: ^0.1.1
@@ -134,7 +133,6 @@ importers:
       typescript: ^4.8.4
     dependencies:
       '@hattip/core': link:../../base/core
-      '@hattip/polyfills': link:../../base/polyfills
     devDependencies:
       '@cyco130/eslint-config': 2.1.2_wyqvi574yv7oiwfeinomdzmc3m
       '@types/node': 18.11.7

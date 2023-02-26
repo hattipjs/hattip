@@ -1,7 +1,4 @@
 import type { HattipHandler } from "@hattip/core";
-import installGetSetCookie from "@hattip/polyfills/get-set-cookie";
-
-installGetSetCookie();
 
 export default function lagonAdapter(hattipHandler: HattipHandler) {
 	return function handler(request: Request) {
