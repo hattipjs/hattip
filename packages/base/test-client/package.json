@@ -1,0 +1,24 @@
+{
+  "name": "@hattip/test-client",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Testing utility for HatTip",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test:unit": "vitest run --reporter=verbose"
+  },
+  "dependencies": {
+    "@hattip/core": "workspace:*",
+    "@hattip/polyfills": "workspace:*",
+    "set-cookie-parser": "^2.5.1"
+  },
+  "devDependencies": {
+    "@cyco130/eslint-config": "^2.1.2",
+    "@types/set-cookie-parser": "^2.4.2",
+    "eslint": "^8.26.0",
+    "typescript": "^4.8.4",
+    "vitest": "^0.24.3"
+  }
+}
