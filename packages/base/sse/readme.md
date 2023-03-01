@@ -34,24 +34,3 @@ html("<h1>Hello, world!</h1>");
 // You can customize status and headers
 html("<h1>Bad request</h1>", { status: 400 });
 ```
-
-## `serverSentEvents`
-
-Creates a response that emits server-sent events.
-
-```js
-serverSentEvents({
-  onOpen(sink) {
-    // Use `sink` to send events
-    sink.send({ type: "custom", data: "Hello, world!", id: "1" });
-    // Short hand for sending a message
-    sink.sendMessage("Hello, world!");
-  },
-  onClose() {
-    // You can use this to clean up resources
-    // No more events can be sent after this is called
-  },
-});
-```
-
-`serverSentEvents` is intentionally very low-level. It doesn't handle data serialization (it only accepts strings), or keep track of connections, event IDs, or the `Last-Event-ID` header. But it is very flexible and allows you to implement your own logic for a full pub/sub system.
