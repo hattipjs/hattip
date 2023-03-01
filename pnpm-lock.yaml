@@ -208,6 +208,29 @@ importers:
       tsup: 6.6.3_typescript@4.9.5
       typescript: 4.9.5
 
+  packages/adapter/adapter-test:
+    specifiers:
+      '@cyco130/eslint-config': ^2.1.2
+      '@hattip/core': workspace:*
+      '@hattip/polyfills': workspace:*
+      '@types/set-cookie-parser': ^2.4.2
+      eslint: ^8.26.0
+      publint: ^0.1.9
+      tsup: ^6.6.3
+      typescript: ^4.8.4
+      vitest: ^0.24.3
+    dependencies:
+      '@hattip/core': link:../../base/core
+      '@hattip/polyfills': link:../../base/polyfills
+    devDependencies:
+      '@cyco130/eslint-config': 2.1.3_7kw3g6rralp5ps6mg3uyzz6azm
+      '@types/set-cookie-parser': 2.4.2
+      eslint: 8.34.0
+      publint: 0.1.9
+      tsup: 6.6.3_typescript@4.9.5
+      typescript: 4.9.5
+      vitest: 0.24.5
+
   packages/adapter/adapter-uwebsockets:
     specifiers:
       '@cyco130/eslint-config': ^3.0.1
@@ -345,27 +368,6 @@ importers:
       tsup: 6.6.3_typescript@4.9.5
       typescript: 4.9.5
       vitest: 0.28.5
-
-  packages/base/test-client:
-    specifiers:
-      '@cyco130/eslint-config': ^2.1.2
-      '@hattip/core': workspace:*
-      '@hattip/polyfills': workspace:*
-      '@types/set-cookie-parser': ^2.4.2
-      eslint: ^8.26.0
-      set-cookie-parser: ^2.5.1
-      typescript: ^4.8.4
-      vitest: ^0.24.3
-    dependencies:
-      '@hattip/core': link:../core
-      '@hattip/polyfills': link:../polyfills
-      set-cookie-parser: 2.5.1
-    devDependencies:
-      '@cyco130/eslint-config': 2.1.3_7kw3g6rralp5ps6mg3uyzz6azm
-      '@types/set-cookie-parser': 2.4.2
-      eslint: 8.34.0
-      typescript: 4.9.5
-      vitest: 0.24.5
 
   packages/bundler/bundler-cloudflare-workers:
     specifiers:
@@ -602,6 +604,7 @@ importers:
       '@hattip/adapter-netlify-edge': workspace:*
       '@hattip/adapter-netlify-functions': workspace:*
       '@hattip/adapter-node': workspace:*
+      '@hattip/adapter-test': workspace:*
       '@hattip/adapter-uwebsockets': workspace:*
       '@hattip/adapter-vercel-edge': workspace:*
       '@hattip/bundler-cloudflare-workers': workspace:*
@@ -611,6 +614,7 @@ importers:
       '@hattip/compose': workspace:*
       '@hattip/cookie': workspace:*
       '@hattip/graphql': workspace:*
+      '@hattip/polyfills': workspace:^0.0.29
       '@hattip/response': workspace:*
       '@hattip/router': workspace:*
       '@hattip/session': workspace:*
@@ -640,6 +644,7 @@ importers:
       '@hattip/compose': link:../../packages/base/compose
       '@hattip/cookie': link:../../packages/middleware/cookie
       '@hattip/graphql': link:../../packages/middleware/graphql
+      '@hattip/polyfills': link:../../packages/base/polyfills
       '@hattip/response': link:../../packages/base/response
       '@hattip/router': link:../../packages/base/router
       '@hattip/session': link:../../packages/middleware/session
@@ -654,6 +659,7 @@ importers:
       '@hattip/adapter-lagon': link:../../packages/adapter/adapter-lagon
       '@hattip/adapter-netlify-edge': link:../../packages/adapter/adapter-netlify-edge
       '@hattip/adapter-netlify-functions': link:../../packages/adapter/adapter-netlify-functions
+      '@hattip/adapter-test': link:../../packages/adapter/adapter-test
       '@hattip/adapter-uwebsockets': link:../../packages/adapter/adapter-uwebsockets
       '@hattip/adapter-vercel-edge': link:../../packages/adapter/adapter-vercel-edge
       '@hattip/bundler-cloudflare-workers': link:../../packages/bundler/bundler-cloudflare-workers
@@ -11133,6 +11139,7 @@ packages:
 
   /set-cookie-parser/2.5.1:
     resolution: {integrity: sha512-1jeBGaKNGdEq4FgIrORu/N570dwoPYio8lSoYLWmX7sQ//0JY08Xh9o5pBcgmHQ/MbsYp/aZnOe1s1lIsbLprQ==}
+    dev: true
 
   /set-value/2.0.1:
     resolution: {integrity: sha512-JxHc1weCN68wRY0fhCoXpyK55m/XPHafOmK4UWD7m2CI14GMcFypt4w/0+NV5f/ZMby2F6S2wwA7fgynh9gWSw==}

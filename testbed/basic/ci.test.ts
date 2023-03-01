@@ -1,34 +1,22 @@
-// @ts-check
-
+import "./install-polyfills.js";
 import { test, expect, describe, beforeAll, afterAll } from "vitest";
-import fetchPolyfill from "node-fetch";
 import { ChildProcess, spawn } from "node:child_process";
 import psTree from "ps-tree";
 import ".";
 import { kill } from "node:process";
 import { promisify } from "node:util";
-
-// Retrying fetch
-const fetch: typeof fetchPolyfill = async (url, options) => {
-	let lastError;
-	for (let i = 0; i < 5; i++) {
-		try {
-			return await fetchPolyfill(url, options);
-		} catch (error) {
-			lastError = error;
-		}
-	}
-
-	throw lastError;
-};
+import { testFetch } from "./entry-test";
 
 let host: string;
 let cases: Array<{
 	name: string;
 	command?: string;
 	envOverride?: Record<string, string>;
+	fetch?: typeof fetch;
+	requiresForwardedIp?: boolean;
 	skipStreamingTest?: boolean;
 	skipCryptoTest?: boolean;
+	skipStaticFileTest?: boolean;
 }>;
 
 const nodeVersions = process.versions.node.split(".");
@@ -61,6 +49,12 @@ if (process.env.CI === "true") {
 	// }
 
 	cases = [
+		{
+			name: "Test adapter",
+			fetch: testFetch,
+			requiresForwardedIp: true,
+			skipStaticFileTest: true,
+		},
 		{
 			name: "Node with node-fetch",
 			command: fetchAvailable ? "pnpm start" : "node entry-node.js",
@@ -108,7 +102,32 @@ let cp: ChildProcess | undefined;
 
 describe.each(cases)(
 	"$name",
-	({ name, command, skipStreamingTest, envOverride, skipCryptoTest }) => {
+	({
+		name,
+		command,
+		envOverride,
+		fetch = globalThis.fetch,
+		skipStreamingTest,
+		requiresForwardedIp,
+		skipCryptoTest,
+		skipStaticFileTest,
+	}) => {
+		beforeAll(async () => {
+			const original = fetch;
+			fetch = async (url, options) => {
+				let lastError;
+				for (let i = 0; i < 5; i++) {
+					try {
+						return await original(url, options);
+					} catch (error) {
+						lastError = error;
+					}
+				}
+
+				throw lastError;
+			};
+		});
+
 		if (command) {
 			beforeAll(async () => {
 				console.log("Starting", name);
@@ -186,7 +205,14 @@ describe.each(cases)(
 		}
 
 		test("renders HTML", async () => {
-			const response = await fetch(host);
+			const response = await fetch(
+				host,
+				requiresForwardedIp
+					? {
+							headers: { "x-forwarded-for": "127.0.0.1" },
+					  }
+					: undefined,
+			);
 			const text = await response.text();
 
 			let ip;
@@ -207,7 +233,7 @@ describe.each(cases)(
 			);
 		});
 
-		test("serves static files", async () => {
+		test.skipIf(skipStaticFileTest)("serves static files", async () => {
 			const response = await fetch(host + "/static.txt");
 			const text = await response.text();
 
@@ -230,8 +256,9 @@ describe.each(cases)(
 			);
 		});
 
-		if (!skipStreamingTest) {
-			test("doesn't fully buffer binary stream", async () => {
+		test.skipIf(skipStreamingTest)(
+			"doesn't fully buffer binary stream",
+			async () => {
 				const response = await fetch(host + "/bin-stream?delay=1");
 
 				let chunks = 0;
@@ -240,8 +267,8 @@ describe.each(cases)(
 				}
 
 				expect(chunks).toBeGreaterThan(3);
-			});
-		}
+			},
+		);
 
 		test("echoes text", async () => {
 			const response = await fetch(host + "/echo-text", {
@@ -279,7 +306,7 @@ describe.each(cases)(
 		test("sends multiple cookies", async () => {
 			const response = await fetch(host + "/set-cookie");
 
-			expect(response.headers.raw()["set-cookie"]).toMatchObject([
+			expect(response.headers.getSetCookie()).toMatchObject([
 				"name1=value1",
 				"name2=value2",
 			]);
@@ -323,20 +350,18 @@ describe.each(cases)(
 			expect(r3).toStrictEqual({ data: { sum: 3 } });
 		});
 
-		if (!skipCryptoTest) {
-			test("session", async () => {
-				const response = await fetch(host + "/session");
-				const text = await response.text();
-				expect(text).toEqual("You have visited this page 1 time(s).");
+		test.skipIf(skipCryptoTest)("session", async () => {
+			const response = await fetch(host + "/session");
+			const text = await response.text();
+			expect(text).toEqual("You have visited this page 1 time(s).");
 
-				const cookie = (response.headers.get("set-cookie") || "").split(";")[0];
-				const response2 = await fetch(host + "/session", {
-					headers: { cookie },
-				});
-				const text2 = await response2.text();
-				expect(text2).toEqual("You have visited this page 2 time(s).");
+			const cookie = (response.headers.get("set-cookie") || "").split(";")[0];
+			const response2 = await fetch(host + "/session", {
+				headers: { cookie },
 			});
-		}
+			const text2 = await response2.text();
+			expect(text2).toEqual("You have visited this page 2 time(s).");
+		});
 	},
 );
 
