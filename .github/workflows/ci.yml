@@ -43,6 +43,9 @@ jobs:
           node-version: ${{ matrix.node_version }}
           cache: "pnpm"
 
+      - name: Install ESBuild globally
+        run: pnpm install --global esbuild
+
       - name: Install
         run: pnpm install
 

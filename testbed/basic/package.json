@@ -38,7 +38,6 @@
     "@vercel/ncc": "^0.36.1",
     "cookie": "^0.5.0",
     "cross-env": "^7.0.3",
-    "esbuild": "^0.17.9",
     "netlify-cli": "^13.0.0",
     "node-fetch": "^3.3.0",
     "nodemon": "^2.0.20",
