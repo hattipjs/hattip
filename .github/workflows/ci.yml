@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        node_version: [18]
+        node_version: [18.14.2]
         include:
           - os: ubuntu-latest
             node_version: 16
