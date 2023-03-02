@@ -351,8 +351,10 @@ importers:
   packages/base/router:
     specifiers:
       '@cyco130/eslint-config': ^3.0.1
+      '@hattip/adapter-test': workspace:*
       '@hattip/compose': workspace:*
       '@hattip/core': workspace:*
+      '@hattip/polyfills': workspace:*
       eslint: ^8.34.0
       publint: ^0.1.9
       tsup: ^6.6.3
@@ -363,6 +365,8 @@ importers:
       '@hattip/core': link:../core
     devDependencies:
       '@cyco130/eslint-config': 3.0.1_7kw3g6rralp5ps6mg3uyzz6azm
+      '@hattip/adapter-test': link:../../adapter/adapter-test
+      '@hattip/polyfills': link:../polyfills
       eslint: 8.34.0
       publint: 0.1.9
       tsup: 6.6.3_typescript@4.9.5
@@ -490,6 +494,7 @@ importers:
   packages/middleware/cors:
     specifiers:
       '@cyco130/eslint-config': ^3.0.1
+      '@hattip/adapter-test': workspace:*
       '@hattip/compose': workspace:*
       '@hattip/core': workspace:*
       '@hattip/polyfills': workspace:*
@@ -509,6 +514,7 @@ importers:
       cookie: 0.5.0
     devDependencies:
       '@cyco130/eslint-config': 3.0.1_7kw3g6rralp5ps6mg3uyzz6azm
+      '@hattip/adapter-test': link:../../adapter/adapter-test
       '@hattip/polyfills': link:../../base/polyfills
       '@hattip/response': link:../../base/response
       '@types/node': 18.14.0
