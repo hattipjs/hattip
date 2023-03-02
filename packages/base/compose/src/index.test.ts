@@ -1,11 +1,9 @@
 import { test, expect } from "vitest";
-import * as nodeFetch from "node-fetch";
 import { compose, RequestHandler } from ".";
+import installNodeFetch from "@hattip/polyfills/node-fetch";
+import { createTestClient } from "@hattip/adapter-test";
 
-(globalThis as any).fetch = nodeFetch.default;
-(globalThis as any).Request = nodeFetch.Request;
-(globalThis as any).Headers = nodeFetch.Headers;
-(globalThis as any).Response = nodeFetch.Response;
+installNodeFetch();
 
 test("calls in order", async () => {
 	const h1: RequestHandler = () => new Response("1");
@@ -13,14 +11,12 @@ test("calls in order", async () => {
 
 	const composed = compose(h1, h2);
 
-	const r1 = await (
-		await composed({
-			request: new Request("http://example.com"),
-			passThrough() {
-				/**/
-			},
-		} as any)
-	)?.text();
+	const fetch = createTestClient({
+		handler: composed,
+		baseUrl: "http://example.com",
+	});
+
+	const r1 = await fetch("/").then((r) => r.text());
 
 	expect(r1).toEqual("1");
 });
@@ -47,45 +43,21 @@ test("calls next", async () => {
 		return ctx.next();
 	};
 
-	const composed = compose(h1, h2, h3);
+	const fetch = createTestClient({
+		handler: compose(h1, h2, h3),
+		baseUrl: "http://example.com",
+	});
 
-	const r1 = await (
-		await composed({
-			request: new Request("http://example.com/1"),
-			passThrough() {
-				/**/
-			},
-		} as any)
-	)?.text();
+	const r1 = await fetch("http://example.com/1").then((r) => r.text());
 	expect(r1).toEqual("1");
 
-	const r2 = await (
-		await composed({
-			request: new Request("http://example.com/2"),
-			passThrough() {
-				/**/
-			},
-		} as any)
-	)?.text();
+	const r2 = await fetch("http://example.com/2").then((r) => r.text());
 	expect(r2).toEqual("2");
 
-	const r3 = await (
-		await composed({
-			request: new Request("http://example.com/3"),
-			passThrough() {
-				/**/
-			},
-		} as any)
-	)?.text();
+	const r3 = await fetch("http://example.com/3").then((r) => r.text());
 	expect(r3).toEqual("3");
 
-	const r4 = await await composed({
-		request: new Request("http://example.com/nope"),
-		passThrough() {
-			/**/
-		},
-	} as any);
-
+	const r4 = await fetch("http://example.com/nope");
 	expect(r4?.status).toEqual(404);
 });
 
@@ -108,44 +80,21 @@ test("calls next when nothing is returned", async () => {
 		}
 	};
 
-	const composed = compose(h1, h2, h3);
+	const fetch = createTestClient({
+		handler: compose(h1, h2, h3),
+		baseUrl: "http://example.com",
+	});
 
-	const r1 = await (
-		await composed({
-			request: new Request("http://example.com/1"),
-			passThrough() {
-				/**/
-			},
-		} as any)
-	)?.text();
+	const r1 = await fetch("http://example.com/1").then((r) => r.text());
 	expect(r1).toEqual("1");
 
-	const r2 = await (
-		await composed({
-			request: new Request("http://example.com/2"),
-			passThrough() {
-				/**/
-			},
-		} as any)
-	)?.text();
+	const r2 = await fetch("http://example.com/2").then((r) => r.text());
 	expect(r2).toEqual("2");
 
-	const r3 = await (
-		await composed({
-			request: new Request("http://example.com/3"),
-			passThrough() {
-				/**/
-			},
-		} as any)
-	)?.text();
+	const r3 = await fetch("http://example.com/3").then((r) => r.text());
 	expect(r3).toEqual("3");
 
-	const r4 = await await composed({
-		request: new Request("http://example.com/nope"),
-		passThrough() {
-			/**/
-		},
-	} as any);
+	const r4 = await fetch("http://example.com/nope");
 	expect(r4?.status).toEqual(404);
 });
 
@@ -158,16 +107,13 @@ test("sets headers in middleware", async () => {
 
 	const RequestHandler: RequestHandler = async () => new Response("test");
 
-	const composed = compose(middleware, RequestHandler);
+	const fetch = createTestClient({
+		handler: compose(middleware, RequestHandler),
+		baseUrl: "http://example.com",
+	});
 
-	const response = await composed({
-		request: new Request("http://example.com"),
-		passThrough() {
-			/**/
-		},
-	} as any);
-
-	expect(response?.headers.get("x-test")).toEqual("test");
+	const response = await fetch("http://example.com");
+	expect(response.headers.get("x-test")).toEqual("test");
 });
 
 test("runs initial next", async () => {
@@ -177,15 +123,12 @@ test("runs initial next", async () => {
 		return response;
 	};
 
-	const composed = compose(middleware);
+	const fetch = createTestClient({
+		handler: compose(middleware),
+		baseUrl: "http://example.com",
+	});
 
-	const response = await composed({
-		request: new Request("http://example.com"),
-		passThrough() {
-			/**/
-		},
-	} as any);
-
+	const response = await fetch("http://example.com");
 	expect(response?.headers.get("x-test")).toEqual("test");
 });
 
@@ -193,17 +136,12 @@ test("flattens RequestHandlers", async () => {
 	const h1: RequestHandler = () => undefined;
 	const h2: RequestHandler = () => new Response("1");
 
-	const composed = compose([h1, h2]);
+	const fetch = createTestClient({
+		handler: compose([h1, h2]),
+		baseUrl: "http://example.com",
+	});
 
-	const r1 = await (
-		await composed({
-			request: new Request("http://example.com"),
-			passThrough() {
-				/**/
-			},
-		} as any)
-	)?.text();
-
+	const r1 = await fetch("http://example.com").then((r) => r.text());
 	expect(r1).toEqual("1");
 });
 
@@ -211,12 +149,13 @@ test("installs default error handler", async () => {
 	const h1: RequestHandler = () => {
 		throw new Error("1");
 	};
-	const composed = compose(h1);
 
-	const r = await composed({
-		request: new Request("http://example.com"),
-	} as any);
+	const fetch = createTestClient({
+		handler: compose(h1),
+		baseUrl: "http://example.com",
+	});
 
+	const r = await fetch("http://example.com");
 	expect(r.status).toEqual(500);
 });
 
@@ -227,11 +166,12 @@ test("calls handleError", async () => {
 	const h2: RequestHandler = () => {
 		throw new Error("1");
 	};
-	const composed = compose(h1, h2);
 
-	const r = await composed({
-		request: new Request("http://example.com"),
-	} as any);
+	const fetch = createTestClient({
+		handler: compose(h1, h2),
+		baseUrl: "http://example.com",
+	});
 
-	expect(r.text()).resolves.toEqual("1");
+	const r = await fetch("http://example.com").then((r) => r.text());
+	expect(r).toEqual("1");
 });
