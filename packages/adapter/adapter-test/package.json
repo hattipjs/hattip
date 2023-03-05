@@ -1,16 +1,22 @@
 {
-  "name": "@hattip/router",
+  "name": "@hattip/adapter-test",
   "version": "0.0.29",
+  "private": true,
   "type": "module",
-  "description": "Express-style imperative router for Hattip",
+  "description": "Testing utility for HatTip",
   "files": [
     "dist"
   ],
-  "exports": "./dist/index.js",
-  "types": "dist/index.d.ts",
-  "author": "Fatih Aygün <cyco130@gmail.com>",
-  "repository": "https://github.com/hattipjs/hattip",
-  "license": "MIT",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*.d.ts"
+      ]
+    }
+  },
   "scripts": {
     "build": "rimraf dist && tsup",
     "dev": "tsup --watch",
@@ -22,17 +28,18 @@
     "test:package": "publint"
   },
   "dependencies": {
-    "@hattip/compose": "workspace:*",
-    "@hattip/core": "workspace:*"
+    "@hattip/core": "workspace:*",
+    "@hattip/polyfills": "workspace:*"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.0.1",
-    "@hattip/adapter-test": "workspace:*",
-    "@hattip/polyfills": "workspace:*",
-    "eslint": "^8.34.0",
+    "@cyco130/eslint-config": "^2.1.2",
+    "@types/set-cookie-parser": "^2.4.2",
+    "eslint": "^8.26.0",
     "publint": "^0.1.9",
     "tsup": "^6.6.3",
-    "typescript": "^4.9.5",
-    "vitest": "^0.28.5"
-  }
+    "typescript": "^4.8.4",
+    "vitest": "^0.24.3"
+  },
+  "author": "Tessei Kameyama",
+  "repository": "https://github.com/hattipjs/hattip"
 }

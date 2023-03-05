@@ -3,7 +3,15 @@ name: CI tests
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
   pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: "${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref || github.run_id }}"
+  cancel-in-progress: true
 
 defaults:
   run:
@@ -41,6 +49,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node_version }}
+          check-latest: true
           cache: "pnpm"
 
       - name: Install ESBuild globally

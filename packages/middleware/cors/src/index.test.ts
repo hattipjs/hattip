@@ -3,7 +3,8 @@ import { cors } from ".";
 import { compose } from "@hattip/compose";
 import installNodeFetch from "@hattip/polyfills/node-fetch";
 import { json } from "@hattip/response";
-import { AdapterRequestContext, HattipHandler } from "@hattip/core";
+import { HattipHandler } from "@hattip/core";
+import { createTestClient } from "@hattip/adapter-test";
 
 installNodeFetch();
 
@@ -585,37 +586,23 @@ describe("options.privateNetworkAccess=true", function () {
 	});
 });
 
-function makeRequestContext(
-	url: string,
-	options?: RequestInit,
-): AdapterRequestContext {
-	return {
-		request: new Request(new URL(url, "http://example.com"), options),
-		ip: "127.0.0.1",
-		passThrough() {
-			// No op
-		},
-		waitUntil() {
-			// No op
-		},
-		platform: {},
-	};
-}
+function request(handler: HattipHandler): RequestInterface {
+	const fetch = createTestClient({ handler });
 
-function request(app: HattipHandler): RequestInterface {
 	const result = {
-		_context: null as null | AdapterRequestContext,
-
+		_request: null as unknown as Request,
 		_response: null as null | Promise<Response>,
 
 		request(method: string, url: string) {
-			this._context = makeRequestContext(url, { method });
+			this._request = new Request(new URL(url, "http://example.com"), {
+				method,
+			});
 			return this;
 		},
 
 		expect(arg: any, cb?: ((res: SimpleResponse) => void) | string) {
 			if (!this._response) {
-				this._response = app(this._context!) as any;
+				this._response = fetch(this._request);
 			}
 
 			if (typeof arg === "object") {
@@ -642,7 +629,7 @@ function request(app: HattipHandler): RequestInterface {
 		},
 
 		set(key: string, value: string) {
-			this._context!.request.headers.set(key, value);
+			this._request!.headers.set(key, value);
 			return this;
 		},
 
