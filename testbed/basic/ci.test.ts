@@ -87,6 +87,10 @@ if (process.env.CI === "true") {
 			name: "uWebSockets.js",
 			command: "node --no-experimental-fetch entry-uws.js",
 		},
+		{
+			name: "Lagon",
+			command: "lagon dev entry-lagon.js -p public --port 3000",
+		},
 	].filter(Boolean) as typeof cases;
 	host = "http://127.0.0.1:3000";
 } else {

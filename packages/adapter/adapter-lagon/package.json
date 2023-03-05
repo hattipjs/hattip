@@ -21,8 +21,7 @@
     "test:package": "publint"
   },
   "dependencies": {
-    "@hattip/core": "workspace:*",
-    "@hattip/polyfills": "workspace:*"
+    "@hattip/core": "workspace:*"
   },
   "devDependencies": {
     "@cyco130/eslint-config": "^3.0.1",
