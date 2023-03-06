@@ -213,7 +213,6 @@ importers:
       '@cyco130/eslint-config': ^2.1.2
       '@hattip/core': workspace:*
       '@hattip/polyfills': workspace:*
-      '@types/set-cookie-parser': ^2.4.2
       eslint: ^8.26.0
       publint: ^0.1.9
       tsup: ^6.6.3
@@ -224,7 +223,6 @@ importers:
       '@hattip/polyfills': link:../../base/polyfills
     devDependencies:
       '@cyco130/eslint-config': 2.1.3_7kw3g6rralp5ps6mg3uyzz6azm
-      '@types/set-cookie-parser': 2.4.2
       eslint: 8.34.0
       publint: 0.1.9
       tsup: 6.6.3_typescript@4.9.5
@@ -3258,12 +3256,6 @@ packages:
       '@types/mime': 3.0.1
       '@types/node': 18.14.0
     dev: false
-
-  /@types/set-cookie-parser/2.4.2:
-    resolution: {integrity: sha512-fBZgytwhYAUkj/jC/FAV4RQ5EerRup1YQsXQCh8rZfiHkc4UahC192oH0smGwsXol3cL3A5oETuAHeQHmhXM4w==}
-    dependencies:
-      '@types/node': 18.14.1
-    dev: true
 
   /@types/stack-trace/0.0.29:
     resolution: {integrity: sha512-TgfOX+mGY/NyNxJLIbDWrO9DjGoVSW9+aB8H2yy1fy32jsvxijhmyJI9fDFgvz3YP4lvJaq9DzdR/M1bOgVc9g==}
