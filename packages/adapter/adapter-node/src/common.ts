@@ -7,6 +7,7 @@ import {
 	ServerOptions,
 } from "node:http";
 import type { Socket } from "node:net";
+import { Readable } from "node:stream";
 
 interface PossiblyEncryptedSocket extends Socket {
 	encrypted?: boolean;
@@ -161,6 +162,18 @@ export function createMiddleware(
 		};
 
 		const response = await handler(context);
+		const body: Readable | null =
+			response.body instanceof Readable
+				? response.body
+				: response.body
+				? Readable.from(response.body as any)
+				: null;
+
+		if (body) {
+			res.on("close", () => {
+				body!.destroy();
+			});
+		}
 
 		if (!next || !passThroughCalled) {
 			res.statusCode = response.status;
@@ -174,16 +187,16 @@ export function createMiddleware(
 			}
 
 			const contentLengthSet = response.headers.get("content-length");
-			if (response.body) {
+			if (body) {
 				if (contentLengthSet) {
-					for await (let chunk of response.body as any) {
+					for await (let chunk of body as any) {
 						chunk = Buffer.from(chunk);
 						res.write(chunk);
 					}
 				} else {
-					const reader = (
-						response.body as any as AsyncIterable<Buffer | string>
-					)[Symbol.asyncIterator]();
+					const reader = (body as any as AsyncIterable<Buffer | string>)[
+						Symbol.asyncIterator
+					]();
 
 					const first = await reader.next();
 					if (first.done) {
