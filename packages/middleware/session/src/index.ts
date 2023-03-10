@@ -147,8 +147,9 @@ export function session(options: SessionOptions) {
 		}
 
 		if (
-			(isFresh && typeof defaultSessionData === "function") ||
-			oldHash !== (await hash(ctx.session.data))
+			isFresh &&
+			(typeof defaultSessionData === "function" ||
+				oldHash !== (await hash(ctx.session.data)))
 		) {
 			const newId = await options.store.save(
 				shouldRegenerate ? null : sessionId ?? null,
