@@ -1,6 +1,6 @@
 {
   "name": "@hattip/graphql",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "type": "module",
   "description": "GraphQL middleware for HatTip",
   "files": [
@@ -26,24 +26,24 @@
     "graphql": ">= 15.8"
   },
   "dependencies": {
-    "@graphql-tools/schema": "^9.0.16",
+    "@graphql-tools/schema": "^9.0.17",
     "@graphql-tools/utils": "^9.2.1",
-    "@graphql-typed-document-node/core": "^3.1.1",
+    "@graphql-typed-document-node/core": "^3.1.2",
     "@graphql-yoga/subscription": "^3.1.0",
     "@hattip/compose": "workspace:*",
     "@hattip/core": "workspace:*",
     "dset": "^3.1.1",
-    "graphql-yoga": "^3.7.0",
+    "graphql-yoga": "^3.7.2",
     "tslib": "^2.5.0",
     "urlpattern-polyfill": "^6.0.2"
   },
   "devDependencies": {
     "@cyco130/eslint-config": "^3.0.1",
     "@hattip/polyfills": "workspace:*",
-    "@types/node": "^18.14.0",
-    "eslint": "^8.34.0",
+    "@types/node": "^18.15.1",
+    "eslint": "^8.36.0",
     "graphql": "^16.6.0",
-    "publint": "^0.1.9",
+    "publint": "^0.1.10",
     "tsup": "^6.6.3",
     "typescript": "^4.9.5"
   }

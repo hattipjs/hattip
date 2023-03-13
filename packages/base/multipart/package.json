@@ -1,6 +1,6 @@
 {
   "name": "@hattip/multipart",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "type": "module",
   "description": "Multipart parser for fetch API",
   "files": [
@@ -19,15 +19,15 @@
     "test:package": "publint"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^2.1.0",
+    "@cyco130/eslint-config": "^3.0.1",
     "@hattip/polyfills": "workspace:*",
     "c8": "^7.12.0",
-    "eslint": "^8.18.0",
-    "node-fetch-native": "^0.1.4",
-    "publint": "^0.1.1",
+    "eslint": "^8.36.0",
+    "node-fetch-native": "^1.0.2",
+    "publint": "^0.1.10",
     "tsup": "^6.1.2",
     "typescript": "^4.7.4",
-    "vitest": "^0.17.0"
+    "vitest": "^0.29.2"
   },
   "dependencies": {
     "@hattip/headers": "workspace:*"
