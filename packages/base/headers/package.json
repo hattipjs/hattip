@@ -1,0 +1,35 @@
+{
+  "name": "@hattip/headers",
+  "version": "0.0.30",
+  "type": "module",
+  "description": "Header parsing utilities for Hattip",
+  "files": [
+    "dist"
+  ],
+  "exports": "./dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Fatih Aygün <cyco130@gmail.com>",
+  "repository": "https://github.com/hattipjs/hattip",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && tsup",
+    "dev": "tsup --watch",
+    "prepack": "pnpm build",
+    "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:unit && pnpm test:package",
+    "test:unit": "vitest run --reporter=verbose",
+    "test:typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
+    "test:package": "publint"
+  },
+  "dependencies": {
+    "@hattip/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@cyco130/eslint-config": "^3.0.1",
+    "eslint": "^8.34.0",
+    "publint": "^0.1.9",
+    "tsup": "^6.6.3",
+    "typescript": "^4.9.5",
+    "vitest": "^0.29.2"
+  }
+}
