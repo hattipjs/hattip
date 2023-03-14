@@ -1,5 +1,5 @@
 import { test, expect } from "vitest";
-import { parseHeaderValue } from ".";
+import { parseHeaderValue } from "./parser";
 
 test("parses empty string", () => {
 	const parsed = parseHeaderValue("");
