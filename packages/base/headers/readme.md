@@ -1,8 +1,6 @@
 # `@hattip/headers`
 
-> ⚠️ This package is work in progress. Please don't use in user-facing production code as it may have security issues.
-
-Header parsing utilities for HatTip. Currently, this package exports one function for parsing header values and directives:
+Header parsing and content negotiation utilities for HatTip.
 
 ## `parseHeaderValue`
 
@@ -16,4 +14,36 @@ assert.deepStrictEqual(parsed, [
   { value: "en", directives: { q: "0.9" } },
   { value: "fr", directives: { q: "0.8" } },
 ]);
+```
+
+## `accept`
+
+Performs content negotiation on the `Accept` header:
+
+```ts
+const handler = accept("text/html, application/json", {
+  "text/html": () => html("<h1>Hello world!</h1>"),
+  "application/json": () => json({ message: "Hello world!" }),
+  "*": () => new Response("Unacceptable", { status: 406 }),
+});
+
+const response = handler();
+console.assert(response.headers.get("content-type") === "text/html");
+```
+
+`q` values and subtype and type wildcards requests are supported.
+
+## `acceptLanguage`
+
+Performs content negotiation on the `Accept-Language` header:
+
+```ts
+const handler = acceptLanguage("en-US, fr;q=0.8", {
+  "en-US": () => "Hello!",
+  fr: () => "Bonjour!",
+  "*": () => "Hello!",
+});
+
+const result = handler();
+console.assert(result === "Hello!");
 ```

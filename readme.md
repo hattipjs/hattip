@@ -176,7 +176,7 @@ HatTip is extremely modular so you can use as little or as much as you need:
 - Utilities and middleware
   - [`router`](./packages/base/router): Express-style imperative router
   - [`response`](./packages/base/response): Utility functions for creating text, JSON, HTML, and server-sent event responses
-  - [`headers`](./packages/base/headers): Experimental header value parser
+  - [`headers`](./packages/base/headers): Header value parsing and content negotiation utilities
   - [`multipart`](./packages/base/multipart): Experimental multipart parser (e.g. for form data with file uploads)
   - [`cookie`](./packages/middleware/cookie): Cookie handling middleware
   - [`cors`](./packages/middleware/cors): CORS middleware
