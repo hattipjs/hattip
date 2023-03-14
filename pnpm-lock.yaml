@@ -308,6 +308,7 @@ importers:
     specifiers:
       '@cyco130/eslint-config': ^3.0.1
       '@hattip/core': workspace:*
+      '@vitest/coverage-c8': ^0.29.2
       eslint: ^8.36.0
       publint: ^0.1.10
       tsup: ^6.6.3
@@ -317,6 +318,7 @@ importers:
       '@hattip/core': link:../core
     devDependencies:
       '@cyco130/eslint-config': 3.0.1_vgl77cfdswitgr47lm5swmv43m
+      '@vitest/coverage-c8': 0.29.2_vitest@0.29.2
       eslint: 8.36.0
       publint: 0.1.10
       tsup: 6.6.3_typescript@4.9.5
@@ -3848,6 +3850,17 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: false
+
+  /@vitest/coverage-c8/0.29.2_vitest@0.29.2:
+    resolution: {integrity: sha512-NmD3WirQCeQjjKfHu4iEq18DVOBFbLn9TKVdMpyi5YW2EtnS+K22/WE+9/wRrepOhyeTxuEFgxUVkCAE1GhbnQ==}
+    peerDependencies:
+      vitest: '>=0.29.0 <1'
+    dependencies:
+      c8: 7.13.0
+      picocolors: 1.0.0
+      std-env: 3.3.2
+      vitest: 0.29.2
+    dev: true
 
   /@vitest/expect/0.29.2:
     resolution: {integrity: sha512-wjrdHB2ANTch3XKRhjWZN0UueFocH0cQbi2tR5Jtq60Nb3YOSmakjdAvUa2JFBu/o8Vjhj5cYbcMXkZxn1NzmA==}

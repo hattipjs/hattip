@@ -11,8 +11,6 @@ export function parseHeaderValue(value: string): ParsedHeaderValue[] {
 		parts.push(part);
 
 		eatComment();
-
-		eatWhiteSpace();
 		if (value[index] !== ",") {
 			return parts;
 		}
@@ -26,7 +24,7 @@ export function parseHeaderValue(value: string): ParsedHeaderValue[] {
 			return null;
 		}
 
-		eatWhiteSpace();
+		eatComment();
 		if (value[index] === ";") {
 			index++;
 			return { value: text, directives: parseDirectives() };
@@ -66,22 +64,13 @@ export function parseHeaderValue(value: string): ParsedHeaderValue[] {
 		eatWhiteSpace();
 
 		if (value[index] === '"') {
-			const match = value.slice(index + 1).match(/[^"]*/);
-			if (match) {
-				index += match[0].length + 2;
-				return match[0];
-			}
-
-			index++;
-			return "";
+			const match = value.slice(index + 1).match(/[^"(]*/)!;
+			index += match[0].length + 2;
+			return match[0];
 		} else {
-			const match = value.slice(index).match(/[^=,;]*/);
-			if (match) {
-				index += match[0].length;
-				return match[0];
-			}
-
-			return "";
+			const match = value.slice(index).match(/[^=,;(]*/)!;
+			index += match[0].length;
+			return match[0].trimEnd();
 		}
 	}
 
@@ -98,9 +87,11 @@ export function parseHeaderValue(value: string): ParsedHeaderValue[] {
 		const pos = value.indexOf(")", index);
 		if (pos === -1) {
 			index = value.length;
+			return;
 		}
 
 		index = pos + 1;
+		eatWhiteSpace();
 
 		return;
 	}
