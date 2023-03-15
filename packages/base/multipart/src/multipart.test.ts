@@ -43,6 +43,7 @@ describe.each(examples)(`$name`, ({ content, boundary }) => {
 				stream: true,
 			});
 		}
+		decoder.decode();
 
 		if (parts[parts.length - 1] === "") {
 			parts.pop();
@@ -76,7 +77,7 @@ describe.each(examples)(`$name`, ({ content, boundary }) => {
 			}> = [];
 
 			const reader = parsed.getReader();
-			let decoder: TextDecoder;
+			let decoder: TextDecoder | undefined;
 
 			for (;;) {
 				const { done, value } = await reader.read();
@@ -89,6 +90,7 @@ describe.each(examples)(`$name`, ({ content, boundary }) => {
 						headers: [...value.entries()],
 						body: "",
 					});
+					decoder?.decode();
 					decoder = new TextDecoder();
 
 					continue;
@@ -96,11 +98,10 @@ describe.each(examples)(`$name`, ({ content, boundary }) => {
 
 				assembledParts[assembledParts.length - 1].body += decoder!.decode(
 					value,
-					{
-						stream: true,
-					},
+					{ stream: true },
 				);
 			}
+			decoder?.decode();
 
 			expect(assembledParts).toEqual(EXPECTED);
 		},

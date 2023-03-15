@@ -265,6 +265,8 @@ async function readPartBody(
 		result += decoder.decode(value, { stream: true });
 	}
 
+	decoder.decode();
+
 	return result;
 }
 
