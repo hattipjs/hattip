@@ -1,6 +1,6 @@
 {
   "name": "@hattip/session",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "type": "module",
   "description": "Session management for HatTip",
   "files": [
