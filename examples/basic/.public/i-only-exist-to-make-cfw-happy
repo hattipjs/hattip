@@ -1,0 +1,1 @@
+Cloudflare Workers's wrangler CLI throws an error if wrangler.toml[site].bucket isn't defined

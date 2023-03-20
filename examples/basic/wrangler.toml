@@ -1,0 +1,10 @@
+main="./server/entry-cfw.js"
+name = "hattip-example"
+compatibility_date = "2022-03-19"
+send_metrics = false
+
+[site]
+bucket = "./.public/"
+
+[dev]
+port = 3000
