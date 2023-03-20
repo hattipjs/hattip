@@ -1,0 +1,15 @@
+{
+  "name": "@hattip/example-basic",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start:node": "node ./server/entry-node.js",
+    "start:cfw": "wrangler dev"
+  },
+  "dependencies": {
+    "@hattip/adapter-cloudflare-workers": "workspace:*",
+    "@hattip/adapter-node": "workspace:*",
+    "@types/node": "^18.15.1",
+    "wrangler": "^2.12.2"
+  }
+}
