@@ -25,12 +25,12 @@
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.0.1",
-    "@vitest/coverage-c8": "^0.29.2",
+    "@cyco130/eslint-config": "^3.0.2",
+    "@vitest/coverage-c8": "^0.29.7",
     "eslint": "^8.36.0",
-    "publint": "^0.1.10",
-    "tsup": "^6.6.3",
-    "typescript": "^4.9.5",
-    "vitest": "^0.29.2"
+    "publint": "^0.1.11",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.2",
+    "vitest": "^0.29.7"
   }
 }
