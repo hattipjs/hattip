@@ -12,7 +12,7 @@ export interface CreateTestClientArgs {
 export function createTestClient({
 	handler,
 	baseUrl,
-	platform = {},
+	platform = { name: "test" },
 }: CreateTestClientArgs): typeof fetch {
 	return async function fetch(input, init) {
 		let request: Request;

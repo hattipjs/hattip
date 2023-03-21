@@ -56,7 +56,7 @@ export default function bunAdapter(
 				waitUntil() {
 					// No op
 				},
-				platform: {},
+				platform: { name: "bun" },
 			};
 
 			return handler(context);

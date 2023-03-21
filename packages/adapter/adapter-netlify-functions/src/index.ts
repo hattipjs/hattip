@@ -15,6 +15,7 @@ installGetSetCookie();
 installCrypto();
 
 export interface NetlifyFunctionsPlatformInfo {
+	name: "netlify-functions";
 	event: NetlifyFunctionEvent;
 	context: NetlifyFunctionContext;
 }
@@ -58,6 +59,7 @@ export default function netlifyFunctionsAdapter(
 			},
 
 			platform: {
+				name: "netlify-functions",
 				event,
 				context: netlifyContext,
 			},

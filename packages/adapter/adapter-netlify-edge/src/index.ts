@@ -1,6 +1,7 @@
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
 
 export interface NetlifyEdgePlatformInfo {
+	name: "netlify-edge";
 	ip: string | null;
 	cookies: Cookies;
 	geo: Geo;
@@ -69,7 +70,7 @@ export interface DeleteCookieOptions {
 
 export type NetlifyEdgeFunction = (
 	request: Request,
-	info: NetlifyEdgePlatformInfo,
+	info: Omit<NetlifyEdgePlatformInfo, "name">,
 ) => Response | undefined | Promise<Response | undefined>;
 
 export default function netlifyEdgeAdapter(
@@ -87,7 +88,10 @@ export default function netlifyEdgeAdapter(
 			passThrough() {
 				passThroughCalled = true;
 			},
-			platform: info,
+			platform: {
+				name: "netlify-edge",
+				...info,
+			},
 		};
 
 		const response = await handler(context);

@@ -1,4 +1,5 @@
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
+import { once } from "node:events";
 import {
 	createServer as createHttpServer,
 	Server as HttpServer,
@@ -52,9 +53,15 @@ export interface NodeAdapterOptions {
 	 * is set to `1`, otherwise false.
 	 */
 	trustProxy?: boolean;
+	/**
+	 * Whether to call the next middleware in the chain even if the request
+	 * was handled. @default true
+	 */
+	alwaysCallNext?: boolean;
 }
 
 export interface NodePlatformInfo {
+	name: "node";
 	request: DecoratedRequest;
 	response: ServerResponse;
 }
@@ -70,6 +77,7 @@ export function createMiddleware(
 	const {
 		origin = process.env.ORIGIN,
 		trustProxy = process.env.TRUST_PROXY === "1",
+		alwaysCallNext = true,
 	} = options;
 
 	let { protocol, host } = origin
@@ -156,78 +164,54 @@ export function createMiddleware(
 			},
 
 			platform: {
+				name: "node",
 				request: req,
 				response: res,
 			},
 		};
 
 		const response = await handler(context);
+
+		if (passThroughCalled) {
+			next?.();
+			return;
+		}
+
 		const body: Readable | null =
 			response.body instanceof Readable
 				? response.body
+				: response.body instanceof ReadableStream &&
+				  typeof Readable.fromWeb === "function"
+				? Readable.fromWeb(response.body as any)
 				: response.body
 				? Readable.from(response.body as any)
 				: null;
 
-		if (body) {
-			res.on("close", () => {
-				body!.destroy();
-			});
+		res.statusCode = response.status;
+		for (const [key, value] of response.headers) {
+			if (key === "set-cookie") {
+				const setCookie = response.headers.getSetCookie();
+				res.setHeader("set-cookie", setCookie);
+			} else {
+				res.setHeader(key, value);
+			}
 		}
 
-		if (!next || !passThroughCalled) {
-			res.statusCode = response.status;
-			for (const [key, value] of response.headers) {
-				if (key === "set-cookie") {
-					const setCookie = response.headers.getSetCookie();
-					res.setHeader("set-cookie", setCookie);
-				} else {
-					res.setHeader(key, value);
-				}
-			}
-
-			const contentLengthSet = response.headers.get("content-length");
-			if (body) {
-				if (contentLengthSet) {
-					for await (let chunk of body as any) {
-						chunk = Buffer.from(chunk);
-						res.write(chunk);
-					}
-				} else {
-					const reader = (body as any as AsyncIterable<Buffer | string>)[
-						Symbol.asyncIterator
-					]();
-
-					const first = await reader.next();
-					if (first.done) {
-						res.setHeader("content-length", "0");
-					} else {
-						const secondPromise = reader.next();
-						let second = await Promise.race([
-							secondPromise,
-							Promise.resolve(null),
-						]);
-
-						if (second && second.done) {
-							res.setHeader("content-length", first.value.length);
-							res.write(first.value);
-						} else {
-							res.write(first.value);
-							second = await secondPromise;
-							for (; !second.done; second = await reader.next()) {
-								res.write(Buffer.from(second.value));
-							}
-						}
-					}
-				}
-			} else if (!contentLengthSet) {
-				res.setHeader("content-length", "0");
-			}
-
+		if (body) {
+			body.pipe(res, { end: true });
+			await Promise.race([once(res, "finish"), once(res, "error")]).catch(
+				() => {
+					// Ignore errors
+				},
+			);
+		} else {
+			res.setHeader("content-length", "0");
 			res.end();
 		}
 
-		next?.();
+		if (next && alwaysCallNext) {
+			next();
+		}
 	};
 }
 

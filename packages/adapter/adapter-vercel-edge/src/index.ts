@@ -1,6 +1,7 @@
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
 
 export interface VercelEdgePlatformInfo {
+	name: "vercel-edge";
 	event: FetchEvent;
 }
 
@@ -28,7 +29,10 @@ export default function vercelEdgeAdapter(
 			passThrough() {
 				passThroughCalled = true;
 			},
-			platform: { event },
+			platform: {
+				name: "vercel-edge",
+				event,
+			},
 		};
 
 		const response = await handler(context);

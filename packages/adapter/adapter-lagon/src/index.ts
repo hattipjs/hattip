@@ -11,7 +11,7 @@ export default function lagonAdapter(hattipHandler: HattipHandler) {
 			passThrough() {
 				// No op
 			},
-			platform: {},
+			platform: { name: "lagon" },
 		});
 	};
 }

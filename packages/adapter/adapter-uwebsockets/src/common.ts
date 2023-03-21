@@ -165,6 +165,7 @@ export function createServer(
 				/* Do nothing */
 			},
 			platform: {
+				name: "uwebsockets",
 				request: req,
 				response: res,
 			},

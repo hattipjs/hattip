@@ -208,6 +208,13 @@ describe.each(cases)(
 			});
 		}
 
+		test("platform", async () => {
+			const response = await fetch(host + "/platform");
+			const text = await response.text();
+			expect(response.status).toBe(200);
+			console.log("Platform:", name, text);
+		});
+
 		test("renders HTML", async () => {
 			const response = await fetch(
 				host,
@@ -318,7 +325,7 @@ describe.each(cases)(
 
 		test("sets status", async () => {
 			const response = await fetch(host + "/status");
-			expect(response.status).toEqual(201);
+			expect(response.status).toEqual(403);
 		});
 
 		test("sends 404", async () => {
@@ -378,9 +385,13 @@ async function killTree(cp: ChildProcess | undefined, name: string) {
 		const tree = await promisify(psTree)(cp.pid);
 		const pids = [cp.pid, ...tree.map((p) => +p.PID)];
 
-		console.log("Stopping", name);
+		console.log("Stopping", name, pids.join(", "));
 		for (const pid of pids) {
-			kill(+pid, "SIGINT");
+			try {
+				kill(+pid, "SIGINT");
+			} catch {
+				// Ignore error
+			}
 		}
 
 		const timeout = setTimeout(() => {

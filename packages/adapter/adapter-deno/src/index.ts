@@ -5,6 +5,7 @@ import { serveDir } from "https://deno.land/std@0.144.0/http/file_server.ts";
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
 
 export interface DenoPlatformInfo {
+	name: "deno";
 	connInfo: ConnInfo;
 }
 
@@ -37,7 +38,7 @@ export function createRequestHandler(
 			passThrough() {
 				// No op
 			},
-			platform: { connInfo },
+			platform: { name: "deno", connInfo },
 		};
 
 		return handler(context);

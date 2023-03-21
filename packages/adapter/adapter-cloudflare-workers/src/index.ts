@@ -9,6 +9,7 @@ import manifestText from "__STATIC_CONTENT_MANIFEST";
 const manifest = JSON.parse(manifestText);
 
 export interface CloudflareWorkersPlatformInfo {
+	name: "cloudflare-workers";
 	env: unknown;
 	context: ExecutionContext;
 }
@@ -45,7 +46,11 @@ export default function cloudflareWorkersAdapter(
 				// TODO: Investigate if there is a way to make CFW pass through the
 				// request to the origin server.
 			},
-			platform: { env, context: ctx },
+			platform: {
+				name: "cloudflare-workers",
+				env,
+				context: ctx,
+			},
 		};
 
 		return handler(context);

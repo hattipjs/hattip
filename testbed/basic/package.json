@@ -13,9 +13,9 @@
     "start:netlify": "cross-env BROWSER=none netlify serve -op 3000",
     "build:vercel": "hattip-vercel -c --staticDir public --serverless entry-vercel-serverless.js",
     "build:vercel-edge": "hattip-vercel -c --staticDir public --edge entry-vercel-edge.js",
-    "build:deno": "hattip-deno entry-deno.js dist/deno/index.js --staticDir public && node add-empty-package-json.js",
+    "build:deno": "hattip-deno entry-deno.js dist/deno/index.js --staticDir public",
     "start:deno": "deno run --allow-read --allow-net --allow-env dist/deno/index.js",
-    "ci": "vitest --reporter=verbose"
+    "ci": "vitest --reporter=verbose --no-threads"
   },
   "devDependencies": {
     "@hattip/adapter-bun": "workspace:*",

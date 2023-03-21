@@ -22,6 +22,7 @@ app.get(
 			new TextEncoder().encode(
 				"This is rendered as binary with non-ASCII chars 😊",
 			),
+			{ headers: { "Content-Type": "text/plain; charset=utf-8" } },
 		),
 );
 
@@ -51,7 +52,9 @@ app.get("/bin-stream", (context) => {
 
 	context.waitUntil(stream());
 
-	return new Response(readable);
+	return new Response(readable, {
+		headers: { "Content-Type": "text/plain; charset=utf-8" },
+	});
 });
 
 app.post("/echo-text", async (ctx) => text(await ctx.request.text()));
@@ -73,7 +76,7 @@ app.get("/set-cookie", (ctx) => {
 	return text("Cookies set");
 });
 
-app.get("/status", () => new Response(null, { status: 201 }));
+app.get("/status", () => new Response(null, { status: 403 }));
 
 app.get("/headers", (ctx) => {
 	const headers = Object.fromEntries(ctx.request.headers.entries());
@@ -142,6 +145,11 @@ app.use("/session", (ctx) => {
 	ctx.session.data.count++;
 	// @ts-ignore
 	return text(`You have visited this page ${ctx.session.data.count} time(s).`);
+});
+
+app.get("/platform", (ctx) => {
+	// @ts-expect-error
+	return text(`Platform: ${ctx.platform.name}`);
 });
 
 export default app.buildHandler();

@@ -23,7 +23,7 @@ export function split<T>(
 				if (afterBoundary) {
 					controller.enqueue(boundaryRep);
 				} else {
-					controller.enqueue(boundary.subarray(0, leftovers));
+					controller.enqueue(boundary.slice(0, leftovers));
 				}
 				leftovers = 0;
 			}
@@ -32,18 +32,18 @@ export function split<T>(
 				const index = findPartial(chunk, boundary, afterBoundary);
 				if (index >= 0 && index <= chunk.length - boundary.length) {
 					if (index > 0) {
-						controller.enqueue(chunk.subarray(afterBoundary, index));
+						controller.enqueue(chunk.slice(afterBoundary, index));
 					}
 					controller.enqueue(boundaryRep);
 					afterBoundary = index + boundary.length;
 				} else if (index >= 0) {
 					leftovers = chunk.length - index;
 					controller.enqueue(
-						chunk.subarray(afterBoundary, chunk.length - leftovers),
+						chunk.slice(afterBoundary, chunk.length - leftovers),
 					);
 					break;
 				} else {
-					controller.enqueue(chunk.subarray(afterBoundary));
+					controller.enqueue(chunk.slice(afterBoundary));
 					break;
 				}
 			}
@@ -56,20 +56,20 @@ export function split<T>(
 // TODO: This function needs to be optimized.
 function findPartial(
 	array: Uint8Array,
-	subarray: Uint8Array,
+	slice: Uint8Array,
 	offset: number,
 ): number {
 	let i = offset;
 	outer: for (
-		i = array.indexOf(subarray[0], i);
+		i = array.indexOf(slice[0], i);
 		i >= 0;
-		i = array.indexOf(subarray[0], i + 1)
+		i = array.indexOf(slice[0], i + 1)
 	) {
-		for (let j = 0; j < subarray.length; j++) {
+		for (let j = 0; j < slice.length; j++) {
 			const value = array[i + j];
 			if (value === undefined) {
 				return i;
-			} else if (value !== subarray[j]) {
+			} else if (value !== slice[j]) {
 				continue outer;
 			}
 		}
