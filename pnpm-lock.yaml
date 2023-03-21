@@ -32,14 +32,14 @@ importers:
     dependencies:
       '@hattip/adapter-cloudflare-workers': link:../../packages/adapter/adapter-cloudflare-workers
       '@hattip/adapter-node': link:../../packages/adapter/adapter-node
-      '@types/node': 18.15.1
-      wrangler: 2.12.2
+      '@types/node': 18.15.5
+      wrangler: 2.13.0
 
   examples/vavite/vite-plugin-ssr:
     specifiers:
-      '@hattip/adapter-bun': ^0.0.32
-      '@hattip/adapter-node': ^0.0.32
-      '@hattip/compose': ^0.0.32
+      '@hattip/adapter-bun': ^0.0.33
+      '@hattip/adapter-node': ^0.0.33
+      '@hattip/compose': ^0.0.33
       '@types/express': ^4.17.17
       '@types/node': ^18.15.5
       '@types/react': ^18.0.28
@@ -2922,7 +2922,6 @@ packages:
     resolution: {integrity: sha512-YS64N9SNDT/NAvou3QNdzAu3E2om/W/0dhORimtPGLef+zSK5l1vDzfsWb4xgXOgfhtOI5ZDTRxnvRPb22AIVQ==}
     dependencies:
       '@types/node': 18.15.5
-    dev: true
 
   /@types/body-parser/1.19.2:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
@@ -4010,7 +4009,7 @@ packages:
   /axios/0.26.1:
     resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
     dependencies:
-      follow-redirects: 1.15.2_debug@4.3.4
+      follow-redirects: 1.15.2
     transitivePeerDependencies:
       - debug
     dev: true
@@ -6602,6 +6601,16 @@ packages:
     resolution: {integrity: sha512-VjAQdSLsl6AkpZNyrQJfO7BXLo4chnStqb055bumZMbRUPpVuPN3a4ktsnRCmrFZjtMlYLkyXiR5rAs4WOpC4Q==}
     dependencies:
       from2: 2.3.0
+    dev: true
+
+  /follow-redirects/1.15.2:
+    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
     dev: true
 
   /follow-redirects/1.15.2_debug@4.3.4:
@@ -10850,7 +10859,6 @@ packages:
 
   /set-cookie-parser/2.6.0:
     resolution: {integrity: sha512-RVnVQxTXuerk653XfuliOxBP81Sf0+qfQE73LIYKcyMYHG94AuH0kgrQpRDuTZnSmjpysHmzxJXKNfa6PjFhyQ==}
-    dev: true
 
   /set-value/2.0.1:
     resolution: {integrity: sha512-JxHc1weCN68wRY0fhCoXpyK55m/XPHafOmK4UWD7m2CI14GMcFypt4w/0+NV5f/ZMby2F6S2wwA7fgynh9gWSw==}
