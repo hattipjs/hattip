@@ -34,7 +34,7 @@ interface HattipCliShorthands {
 	C?: string | string[];
 }
 
-const cli = cac("rakkas");
+const cli = cac("hattip");
 
 /**
  * Remove global flags before passing as command specific sub-configs
@@ -102,6 +102,7 @@ cli
 		"--force",
 		`[boolean] force the optimizer to ignore the cache and re-bundle`,
 	)
+	.option("--use-loader", `[boolean] use ESM loader (experimental)`)
 	.action(
 		async (
 			root: string,

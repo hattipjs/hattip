@@ -84,6 +84,10 @@ export async function build(
 		},
 
 		onStartBuildStep(info) {
+			if (info.currentStep.vite === false) {
+				return;
+			}
+
 			if (info.currentStep.name === "server") {
 				serverOutDir = info.currentStep.config?.build?.outDir;
 			}

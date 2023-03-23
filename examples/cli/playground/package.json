@@ -12,6 +12,6 @@
     "@hattip/adapter-node": "0.0.33",
     "@hattip/response": "0.0.33",
     "@hattip/router": "0.0.33",
-    "@types/node": "^18.15.1"
+    "vite": "^4.2.1"
   }
 }

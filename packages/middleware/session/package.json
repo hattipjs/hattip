@@ -37,8 +37,8 @@
   "devDependencies": {
     "@cyco130/eslint-config": "^3.0.2",
     "@hattip/polyfills": "workspace:*",
-    "@miniflare/kv": "^2.12.1",
-    "@miniflare/storage-memory": "^2.12.1",
+    "@miniflare/kv": "^2.12.2",
+    "@miniflare/storage-memory": "^2.12.2",
     "@types/node": "^18.15.5",
     "@types/redis-mock": "^0.17.1",
     "eslint": "^8.36.0",

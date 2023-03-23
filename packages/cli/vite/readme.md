@@ -44,7 +44,7 @@ export default createMiddleware(handler);
 You can customize this entry to integrate with Express or other Connect-compatible Node frameworks:
 
 ```js
-import { createMiddleware } from "rakkasjs/node-adapter";
+import { createMiddleware } from "@hattip/node-adapter";
 import hattipHandler from "<Name of your HatTip entry file>";
 import express from "express";
 
