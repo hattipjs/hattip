@@ -1,0 +1,17 @@
+{
+  "name": "@hattip/example-cli-playground",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "hattip dev",
+    "build": "hattip build",
+    "start": "node dist/server/index.js"
+  },
+  "dependencies": {
+    "@hattip/vite": "0.0.33",
+    "@hattip/adapter-node": "0.0.33",
+    "@hattip/response": "0.0.33",
+    "@hattip/router": "0.0.33",
+    "@types/node": "^18.15.1"
+  }
+}
