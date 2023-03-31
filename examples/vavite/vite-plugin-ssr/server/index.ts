@@ -8,7 +8,8 @@ export default compose(handler);
 async function handler(ctx: RequestContext) {
 	const parsedUrl = new URL(ctx.request.url);
 	const url = parsedUrl.pathname + parsedUrl.search;
-	const pageContext = await renderPage({ url });
+	const pageContextInit = { urlOriginal: url };
+	const pageContext = await renderPage(pageContextInit);
 	const { httpResponse } = pageContext;
 
 	if (httpResponse) {
