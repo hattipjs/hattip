@@ -13,6 +13,25 @@ createServer(handler).listen(3000, "localhost", () => {
 });
 ```
 
+## Using with Node middleware
+
+```js
+import { createServer } from "node:http";
+import sirv from "sirv";
+import { createMiddleware } from "@hattip/adapter-node";
+import hattipHandler from "./entry-hattip.js";
+
+const sirvMiddleware = sirv("public");
+const hattipMiddleware = createMiddleware(hattipHandler);
+
+createServer(
+  // Chain middlewares manually
+  (req, res) => sirvMiddleware(req, res, () => hattipMiddleware(req, res)),
+).listen(3000, () => {
+  console.log(`Server listening on http://localhost:3000`);
+});
+```
+
 ## Using with Express
 
 ```js
