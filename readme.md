@@ -5,6 +5,12 @@
 Follow: [Twitter > @cyco130](https://twitter.com/cyco130) & [Twitter > @brillout](https://twitter.com/brillout)  
 Chat: <a href="https://discord.com/invite/vTvXzBMySh">Discord > Cubes<img src="./graphics/hash.svg" height="17" width="23" valign="text-bottom" alt="hash"/>HatTip</a>
 
+**Why HatTip?**
+
+Instead of writing server code that only works with Express.js, write server code that can be deployed anywhere: AWS, Cloudflare Workers, Vercel, VPS, ...
+
+**What is HatTip?**
+
 HatTip is a set of JavaScript packages for building HTTP server applications.
 
 - &#x2728; Modern: Based on current and future web standards (Fetch API & WinterCG).
