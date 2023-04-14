@@ -7,7 +7,13 @@ Chat: <a href="https://discord.com/invite/vTvXzBMySh">Discord > Cubes<img src=".
 
 **Why HatTip?**
 
-Instead of writing server code that only works with Express.js, write server code that can be deployed anywhere: AWS, Cloudflare Workers, Vercel, VPS, ...
+HatTip enables you to write server code that can be deployed anywhere: Cloudflare Workers, AWS, Vercel, VPS, ...
+
+HatTip prevents vendor locking by abstracting away the underlying platforms. Not happy with Vercel anymore? Switch to Cloudflare Workers. Node is too slow for you? Migrate to Bun. Without changing a single line of application code.
+
+You still keep complete control: you can fully tap into the underlying platform. So that you get the best of both words: start fast by writing agnostic server code and, as the need arises at scale, focus on a deployment platform of your choosing and fully leverage its features that make it special.
+
+In a nutshell: with HatTip, you get a quick agnostic start with the ability to seamlessly change deployment providers, while keeping full freedom down the line.
 
 **What is HatTip?**
 
@@ -183,13 +189,11 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`router`](./packages/base/router): Express-style imperative router
   - [`response`](./packages/base/response): Utility functions for creating text, JSON, HTML, and server-sent event responses
   - [`headers`](./packages/base/headers): Header value parsing and content negotiation utilities
-  - [`multipart`](./packages/base/multipart): Experimental multipart parser (e.g. for form data with file uploads)
+  - [`multipart`](./packages/base/multipart): Multipart parser (e.g. forms and file uploads)
   - [`cookie`](./packages/middleware/cookie): Cookie handling middleware
   - [`cors`](./packages/middleware/cors): CORS middleware
   - [`graphql`](./packages/middleware/graphql): GraphQL middleware
   - [`session`](./packages/middleware/session): Session middleware
-
-A zero-config development environment based on [Vite](https://vitejs.dev) is also in the works.
 
 ## Credits
 

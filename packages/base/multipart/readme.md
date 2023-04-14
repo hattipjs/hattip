@@ -1,6 +1,6 @@
 # `@hattip/multipart`
 
-> ⚠️ This package is work in progress. Please don't use in user-facing production code as it may have security issues.
+> ⚠️ This package is work in progress.
 
 Multipart parser for HatTip. It can be used to parse multipart requests, especially `multipart/form-data` for handling file uploads.
 
