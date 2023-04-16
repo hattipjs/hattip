@@ -7,13 +7,13 @@ Chat: <a href="https://discord.com/invite/vTvXzBMySh">Discord > Cubes<img src=".
 
 **Why HatTip?**
 
-HatTip enables you to write server code that can be deployed anywhere: Cloudflare Workers, AWS, Vercel, VPS, ...
+With HatTip you write server code that can be deployed anywhere: Cloudflare Workers, AWS, Vercel, VPS, ...
 
-HatTip prevents vendor locking by abstracting away the underlying platforms. Not happy with Vercel anymore? Switch to Cloudflare Workers. Node is too slow for you? Migrate to Bun. Without changing a single line of application code.
+HatTip prevents vendor locking by abstracting away the underlying platforms. Vercel is getting too expensive? Switch to Cloudflare Workers. Node is becoming too slow? Migrate to Bun. Without changing a single line of application code.
 
-You still keep complete control: you can fully tap into the underlying platform. So that you get the best of both words: start fast by writing agnostic server code and, as the need arises at scale, focus on a deployment platform of your choosing and fully leverage its features that make it special.
+HatTip is designed so that you can still fully tap into the underlying platform. As the need arises at scale, you can focus on a deployment platform and fully leverage its features that make it special.
 
-In a nutshell: with HatTip, you get a quick agnostic start with the ability to seamlessly change deployment providers, while keeping full freedom down the line.
+With HatTip, you get a quick deployment-agnostic start with the ability to seamlessly change deployment providers, while keeping full control and freedom down the line.
 
 **What is HatTip?**
 
