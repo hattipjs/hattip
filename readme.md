@@ -7,7 +7,7 @@ Chat: <a href="https://discord.com/invite/vTvXzBMySh">Discord > Cubes<img src=".
 
 **Why HatTip?**
 
-With HatTip you write server code that can be deployed anywhere: Cloudflare Workers, AWS, Vercel, VPS, ...
+With HatTip you write server code that can be deployed anywhere: Cloudflare Workers, AWS EC2, AWS Lambda, Vercel, Netlify, Deno Deploy, Lagon, ...
 
 HatTip prevents vendor locking by abstracting away the underlying platforms. Vercel is getting too expensive? Switch to Cloudflare Workers. Node is becoming too slow? Migrate to Bun. Without changing a single line of application code.
 
