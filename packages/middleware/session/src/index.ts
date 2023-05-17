@@ -50,7 +50,10 @@ export interface SessionOptions {
 		id: string | null,
 		maxAge?: number,
 	) => string | undefined;
-	/** Default session data or a function that returns it */
+	/**
+	 * Default session data or a function that returns it. If not a function,
+	 * it is shallow-cloned. If you need a deep copy, use a function.
+	 */
 	defaultSessionData:
 		| SessionData
 		| ((ctx: RequestContext) => Awaitable<SessionData>);
@@ -114,7 +117,7 @@ export function session(options: SessionOptions) {
 			const defaultData: SessionData =
 				typeof defaultSessionData === "function"
 					? await defaultSessionData(ctx)
-					: defaultSessionData;
+					: { ...defaultSessionData };
 			data = defaultData;
 		}
 
@@ -147,9 +150,16 @@ export function session(options: SessionOptions) {
 		}
 
 		if (
-			isFresh &&
-			(typeof defaultSessionData === "function" ||
-				oldHash !== (await hash(ctx.session.data)))
+			// Save if we need to regenerate the session ID
+			shouldRegenerate ||
+			// Normally we don't need to save a fresh session
+			// unless it has changed because we can just return the
+			// default session data next time. But when defaultSessionData
+			// is a function, we can't be sure that it returns the same
+			// value every time so we always save a fresh session.
+			(isFresh && typeof defaultSessionData === "function") ||
+			// Save if the session data has changed
+			oldHash !== (await hash(ctx.session.data))
 		) {
 			const newId = await options.store.save(
 				shouldRegenerate ? null : sessionId ?? null,

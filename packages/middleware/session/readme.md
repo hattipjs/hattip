@@ -1,6 +1,6 @@
 # `@hattip/session`
 
-Session middleware for HatTip. It persists data between requests in a cookie or in a custom session store.
+Session middleware for HatTip. It persists data between requests in a cookie or a custom session store.
 
 This middleware uses the [Web Crypto API](https://w3c.github.io/webcrypto/) which is supported by:
 
@@ -25,8 +25,9 @@ app.use(
     store: new SignedCookieStore(
       await SignedCookieStore.generateKeysFromSecrets(["secret"]),
     ),
-    // Default session data when a new session is created
-    // Can be a function
+    // Default session data when a new session is created.
+    // It can be a function.
+    // It is shallow cloned, if you need a deep clone, use a function.
     defaultSessionData: {},
   }),
 );
@@ -48,13 +49,13 @@ declare module "@hattip/session" {
 
 ## Stores
 
-`@hattip/session` comes bundled with a number of session stores. **Cookie stores** store their data in a cookie and are appropriate for small amounts of data. **External stores** store a key in a cookie and use an external storage to store the data. External stores are appropriate for large amounts of data.
+`@hattip/session` comes bundled with a few ready-to-use session stores. **Cookie stores** store their data in a cookie and are appropriate for small amounts of data. **External stores** store a key in a cookie and use external storage to store the data. External stores are appropriate for large amounts of data.
 
 External stores support a `session.regenerate()` method, which will generate a new session ID and persist the session data to the new ID. You should call it when you want to invalidate the current session, such as when a user logs in or logs out to prevent session fixation attacks.
 
 ### `UnsignedCookieStore`
 
-It stores the session data in an unsigned cookie. The client can read and modify the cookie, so it should only be used for non-sensitive data. Also you should always validate the session data by passing a custom `parse` function to the constructor:
+It stores the session data in an unsigned cookie. The client can read and modify the cookie, so it should only be used for non-sensitive data. Also, you should always validate the session data by passing a custom `parse` function to the constructor:
 
 ```ts
 const store = new SimpleCookieStore({
@@ -68,7 +69,7 @@ const store = new SimpleCookieStore({
 
 ### `SignedCookieStore`
 
-It stores the session data in a signed cookie. The client can read the cookie, but cannot modify it. It requires at leas one secret key to sign the cookie. If you provide multiple keys, all of them will be used to verify the cookie but only the first one will be used to sign it. This allows you to rotate the keys without invalidating existing sessions.
+It stores the session data in a signed cookie. The client can read the cookie, but cannot modify it. It requires at least one secret key to sign the cookie. If you provide multiple keys, all of them will be used to verify the cookie but only the first one will be used to sign it. This allows you to rotate the keys without invalidating existing sessions.
 
 You can generate keys from password-like secrets using `SignedCookieStore.generateKeysFromSecrets` or you can use `SignedCookieStore.generateKey` to generate a secure key. `SignedCookieStore.exportKey` can be used to base64 encode a key for storing, e.g. in an environment variable. `SignedCookieStore.generateKeysFromBase64` can be used to decode a series of keys from base64.
 
@@ -94,7 +95,7 @@ new EncryptedCookieStore(
 
 ### `UnsafeMemoryStore`
 
-It stores the session data in memory. On edge and serverless runtimes, this store will lose its data and on long running servers (Node, Deno, Bun etc.) it will leak memory. It will also lose its data on server restart. For these reasons, it is only useful for development **and should never be used in production**.
+It stores the session data in memory. On edge and serverless runtimes, this store will lose its data. On long-running servers (Node, Deno, Bun, etc.) it will leak memory and lose its data on server restart. For these reasons, it is only useful for development **and should never be used in production**.
 
 ### `RedisSessionStore`
 
@@ -106,7 +107,7 @@ const store = new RedisSessionStore({ getClient: () => redis.createClient() });
 
 ### `KvSessionStore`
 
-It stores the session data in [Cloudflare Workers KV](https://developers.cloudflare.com/workers/runtime-apis/kv/). It requires a KV namespace factory (a function that returns a KV namespace) to be passed to the constructor. For example if your KV namespace is called `SESSIONS`:
+It stores the session data in [Cloudflare Workers KV](https://developers.cloudflare.com/workers/runtime-apis/kv/). It requires a KV namespace factory (a function that returns a KV namespace) to be passed to the constructor. For example, if your KV namespace is called `SESSIONS`:
 
 ```ts
 const store = new KvSessionStore({
