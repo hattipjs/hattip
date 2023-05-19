@@ -7,7 +7,13 @@ Chat: <a href="https://discord.com/invite/vTvXzBMySh">Discord > Cubes<img src=".
 
 **Why HatTip?**
 
-Instead of writing server code that only works with Express.js, write server code that can be deployed anywhere: AWS, Cloudflare Workers, Vercel, VPS, ...
+With HatTip you write server code that can be deployed anywhere: Cloudflare Workers, AWS EC2, AWS Lambda, Vercel, Netlify, Deno Deploy, Lagon, ...
+
+HatTip prevents vendor locking by abstracting away the underlying platforms. Vercel is getting too expensive? Switch to Cloudflare Workers. Node is becoming too slow? Migrate to Bun. Without changing a single line of application code.
+
+HatTip is designed so that you can still fully tap into the underlying platform. As the need arises at scale, you can focus on a deployment platform and fully leverage its features that make it special.
+
+With HatTip, you get a quick deployment-agnostic start with the ability to seamlessly change deployment providers, while keeping full control and freedom down the line.
 
 **What is HatTip?**
 
@@ -183,13 +189,11 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`router`](./packages/base/router): Express-style imperative router
   - [`response`](./packages/base/response): Utility functions for creating text, JSON, HTML, and server-sent event responses
   - [`headers`](./packages/base/headers): Header value parsing and content negotiation utilities
-  - [`multipart`](./packages/base/multipart): Experimental multipart parser (e.g. for form data with file uploads)
+  - [`multipart`](./packages/base/multipart): Multipart parser (e.g. forms and file uploads)
   - [`cookie`](./packages/middleware/cookie): Cookie handling middleware
   - [`cors`](./packages/middleware/cors): CORS middleware
   - [`graphql`](./packages/middleware/graphql): GraphQL middleware
   - [`session`](./packages/middleware/session): Session middleware
-
-A zero-config development environment based on [Vite](https://vitejs.dev) is also in the works.
 
 ## Credits
 
