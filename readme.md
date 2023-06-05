@@ -7,7 +7,7 @@ Chat: <a href="https://discord.com/invite/vTvXzBMySh">Discord > Cubes<img src=".
 
 **Why HatTip?**
 
-Instead of writing server code that only works with Express.js, write server code that can be deployed anywhere: AWS, Cloudflare Workers, Vercel, VPS, ...
+Instead of writing server code that only works with Express.js, write server code that can be deployed anywhere: AWS, Cloudflare Workers, Fastly, Vercel, VPS, ...
 
 **What is HatTip?**
 
@@ -23,7 +23,7 @@ It aims to build an ecosystem of universal middlewares that can be used across t
 ```js
 // handler.js
 
-// This request handler works anywhere, e.g. Node.js or Cloudflare Workers.
+// This request handler works anywhere, e.g. Node.js, Cloudflare Workers, and Fastly.
 
 export default (context) => {
   const { pathname } = new URL(context.request.url);
@@ -31,7 +31,7 @@ export default (context) => {
     return new Response("Hello from HatTip.");
   } else if (pathname === "/about") {
     return new Response(
-      "This HTTP handler works in Node.js and Cloudflare Workers.",
+      "This HTTP handler works in Node.js, Cloudflare Workers, and Fastly.",
     );
   } else {
     return new Response("Not found.", { status: 404 });
@@ -48,6 +48,7 @@ We believe in a diverse but interoperable future for the JavaScript ecosystem an
 - ✅ Node.js
 - ✅ Cloudflare Workers
 - ✅ Express.js (use HatTip handlers/middlewares in your Express.js app)
+- ✅ Fastly
 - ✅ Vercel Serverless
 - ✅ Vercel Edge
 - ✅ Netlify Functions
@@ -164,6 +165,7 @@ HatTip is extremely modular so you can use as little or as much as you need:
 - **Adapters:** Enable HatTip to run on any platform:
   - [`adapter-node`](./packages/adapter/adapter-node): Node.js, either as a standalone server or as a middleware function that can be used with Express and similar frameworks. Also works for Vercel Serverless Functions.
   - [`adapter-cloudflare-workers`](./packages/adapter/adapter-cloudflare-workers): Cloudflare Workers
+  - [`adapter-fastly`](./packages/adapter/adapter-fastly): Fastly
   - [`adapter-vercel-edge`](./packages/adapter/adapter-vercel-edge): Vercel Edge Functions
   - [`adapter-netlify-functions`](./packages/adapter/adapter-netlify-functions): Netlify Functions
   - [`adapter-netlify-edge`](./packages/adapter/adapter-netlify-edge): Netlify Edge Functions

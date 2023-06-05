@@ -135,3 +135,5 @@ vercel-build
 # Local Netlify folder
 .netlify
 testbed/*/netlify
+examples/basic/pkg/basic.tar.gz
+examples/basic/bin/main.wasm
