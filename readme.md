@@ -7,7 +7,7 @@ Chat: <a href="https://discord.com/invite/vTvXzBMySh">Discord > Cubes<img src=".
 
 **Why HatTip?**
 
-Instead of writing server code that only works with Express.js, write server code that can be deployed anywhere: AWS, Cloudflare Workers, Vercel, VPS, ...
+Instead of writing server code that only works with Express.js, write server code that can be deployed anywhere: AWS, Cloudflare Workers, Fastly, Vercel, VPS, ...
 
 **What is HatTip?**
 
@@ -23,7 +23,7 @@ It aims to build an ecosystem of universal middlewares that can be used across t
 ```js
 // handler.js
 
-// This request handler works anywhere, e.g. Node.js or Cloudflare Workers.
+// This request handler works anywhere, e.g. Node.js, Cloudflare Workers, and Fastly.
 
 export default (context) => {
   const { pathname } = new URL(context.request.url);
@@ -31,7 +31,7 @@ export default (context) => {
     return new Response("Hello from HatTip.");
   } else if (pathname === "/about") {
     return new Response(
-      "This HTTP handler works in Node.js and Cloudflare Workers.",
+      "This HTTP handler works in Node.js, Cloudflare Workers, and Fastly.",
     );
   } else {
     return new Response("Not found.", { status: 404 });
@@ -45,17 +45,18 @@ We believe in a diverse but interoperable future for the JavaScript ecosystem an
 
 ## Adapters
 
-- ✅ Node.js
-- ✅ Cloudflare Workers
-- ✅ Express.js (use HatTip handlers/middlewares in your Express.js app)
-- ✅ Vercel Serverless
-- ✅ Vercel Edge
-- ✅ Netlify Functions
-- ✅ Netlify Edge Functions
-- ✅ Deno (including Deno Deploy)
 - ✅ Bun
+- ✅ Cloudflare Workers
+- ✅ Deno (including Deno Deploy)
+- ✅ Express.js (use HatTip handlers/middlewares in your Express.js app)
+- ✅ Fastly
 - ✅ Lagon
+- ✅ Netlify Edge Functions
+- ✅ Netlify Functions
+- ✅ Node.js
 - ✅ uWebSockets.js
+- ✅ Vercel Edge
+- ✅ Vercel Serverless
 - 🚧 Service Workers
 
 Adapters let you run HatTip on any platform. Here's how you can use HatTip with Node.js:
@@ -169,6 +170,7 @@ HatTip is extremely modular so you can use as little or as much as you need:
   - [`adapter-netlify-edge`](./packages/adapter/adapter-netlify-edge): Netlify Edge Functions
   - [`adapter-deno`](./packages/adapter/adapter-deno): Deno
   - [`adapter-bun`](./packages/adapter/adapter-bun): Bun
+  - [`adapter-fastly`](./packages/adapter/adapter-fastly): Fastly
   - [`adapter-lagon`](./packages/adapter/adapter-lagon): Lagon
   - [`adapter-uwebsockets`](./packages/adapter/adapter-uwebsockets): uWebSockets.js
 - **Bundlers:** Worker and serverless platforms usually require your code to be in bundled form. These packages provide bundlers fine-tuned for their respective platforms:

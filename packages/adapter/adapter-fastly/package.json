@@ -1,0 +1,35 @@
+{
+  "name": "@hattip/adapter-fastly",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Fastly adapter for Hattip",
+  "files": [
+    "dist"
+  ],
+  "exports": "./dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Jake Champion <me@jakechampion.name>",
+  "repository": "https://github.com/hattipjs/hattip",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && tsup",
+    "dev": "tsup --watch",
+    "prepack": "pnpm build",
+    "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:package",
+    "test:typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
+    "test:package": "publint"
+  },
+  "dependencies": {
+    "@fastly/js-compute": "^2.1.0",
+    "@hattip/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@cyco130/eslint-config": "^3.0.2",
+    "@types/node": "^18.15.5",
+    "eslint": "^8.36.0",
+    "publint": "^0.1.11",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.2"
+  }
+}

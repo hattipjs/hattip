@@ -12,7 +12,8 @@ export function yoga<TUserContext extends Record<string, any>>(
 	return async function yoga(ctx: RequestContext) {
 		const clone = new Request(ctx.url.href, {
 			method: ctx.method,
-			body: ctx.request.body,
+			// body: ctx.request.body,
+			body: await ctx.request.arrayBuffer(),
 			headers: ctx.request.headers,
 			// @ts-expect-error: Node requires this for streams
 			duplex: "half",

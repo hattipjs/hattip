@@ -9,8 +9,8 @@
     "test": "pnpm run test:prettier && pnpm run test:packages && pnpm run ci",
     "ci": "cross-env CI=true pnpm -r --stream run ci",
     "test:packages": "pnpm -r --stream run test",
-    "test:prettier": "prettier --check --ignore-path .gitignore --ignore-unknown . '!pnpm-lock.yaml'",
-    "format": "prettier --ignore-path .gitignore --ignore-unknown . '!pnpm-lock.yaml' --write"
+    "test:prettier": "prettier --check --ignore-path .gitignore --ignore-unknown . '!pnpm-lock.yaml' '!testbed/basic/fastly'",
+    "format": "prettier --ignore-path .gitignore --ignore-unknown . '!pnpm-lock.yaml'  '!testbed/basic/fastly' --write"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
