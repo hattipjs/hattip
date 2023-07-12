@@ -136,4 +136,9 @@ vercel-build
 .netlify
 testbed/*/netlify
 examples/basic/pkg/basic.tar.gz
-examples/basic/bin/main.wasm
+
+# Fastly output
+main.wasm
+
+# Built packages
+*.tar.gz

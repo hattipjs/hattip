@@ -15,12 +15,16 @@
     "build:vercel-edge": "hattip-vercel -c --staticDir public --edge entry-vercel-edge.js",
     "build:deno": "hattip-deno entry-deno.js dist/deno/index.js --staticDir public",
     "start:deno": "deno run --allow-read --allow-net --allow-env dist/deno/index.js",
+    "start:fastly": "cd fastly && fastly compute serve --addr=\"127.0.0.1:3000\"",
     "ci": "vitest --reporter=verbose --no-threads"
   },
   "devDependencies": {
+    "@fastly/compute-js-static-publish": "^5.1.1",
+    "@fastly/js-compute": "^2.1.0",
     "@hattip/adapter-bun": "workspace:*",
     "@hattip/adapter-cloudflare-workers": "workspace:*",
     "@hattip/adapter-deno": "workspace:*",
+    "@hattip/adapter-fastly": "workspace:*",
     "@hattip/adapter-lagon": "workspace:*",
     "@hattip/adapter-netlify-edge": "workspace:*",
     "@hattip/adapter-netlify-functions": "workspace:*",

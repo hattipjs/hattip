@@ -1,11 +1,10 @@
-/// <reference types='@fastly/js-compute'/>
+/// <reference types="@fastly/js-compute"/>
 
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
 
 export interface FastlyPlatformInfo {
 	name: "fastly-compute";
-	client: ClientInfo
-
+	client: ClientInfo;
 }
 
 export interface Geo {
@@ -20,10 +19,8 @@ export interface Geo {
 	};
 }
 
-export default function fastlyComputeAdapter(
-	handler: HattipHandler,
-) {
-	addEventListener('fetch', event => {
+export default function fastlyComputeAdapter(handler: HattipHandler) {
+	addEventListener("fetch", (event) => {
 		const context: AdapterRequestContext<FastlyPlatformInfo> = {
 			request: event.request,
 			ip: event.client.address,
@@ -32,7 +29,7 @@ export default function fastlyComputeAdapter(
 				name: "fastly-compute",
 				client: event.client,
 			},
-            passThrough() {
+			passThrough() {
 				// empty
 			},
 		};

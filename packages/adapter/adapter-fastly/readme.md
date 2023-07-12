@@ -13,6 +13,31 @@ import handler from "./handler.js";
 export default fastlyAdapter(handler);
 ```
 
+## Static assets
+
+To serve static assets, scaffold a project with [Fastly Static Publisher](https://github.com/fastly/compute-js-static-publish). Put your HatTip handler in `src/handler.js` and replace `src/index.js` with the following:
+
+```js
+import fastlyAdapter from "@hattip/adapter-fastly";
+import handler from "./handler.js";
+import { getServer } from "./statics.js";
+const staticContentServer = getServer();
+
+export default fastlyAdapter(async (ctx) => {
+  const response = await staticContentServer.serveRequest(ctx.request);
+  if (response != null) {
+    return response;
+  }
+
+  return handler(ctx);
+});
+```
+
 ## `context.platform`
 
 This adapter's platform context contains a `client` object, which is [Fastly FetchEvent.client](https://js-compute-reference-docs.edgecompute.app/docs/globals/FetchEvent/#instance-properties).
+
+## Limitations
+
+- Fastly doesn't support constructing a `Request` object with a stream body.
+- Fastly doesn't support the `AES-GCM` crypto algorithm used by `@hattip/session`'s `EncryptedCookieStore`.

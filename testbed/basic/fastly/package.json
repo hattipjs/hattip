@@ -1,0 +1,23 @@
+{
+  "name": "@hattip/testbed-basic",
+  "version": "0.1.0",
+  "description": "Compute@Edge static site",
+  "author": "you@example.com",
+  "type": "module",
+  "devDependencies": {
+    "@fastly/compute-js-static-publish": "^5.1.1"
+  },
+  "dependencies": {
+    "@fastly/js-compute": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "deploy": "fastly compute deploy",
+    "prebuild": "npx @fastly/compute-js-static-publish --build-static",
+    "build": "js-compute-runtime ./src/index.js ./bin/main.wasm"
+  }
+}

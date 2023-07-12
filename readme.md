@@ -45,18 +45,18 @@ We believe in a diverse but interoperable future for the JavaScript ecosystem an
 
 ## Adapters
 
-- ✅ Node.js
+- ✅ Bun
 - ✅ Cloudflare Workers
+- ✅ Deno (including Deno Deploy)
 - ✅ Express.js (use HatTip handlers/middlewares in your Express.js app)
 - ✅ Fastly
-- ✅ Vercel Serverless
-- ✅ Vercel Edge
-- ✅ Netlify Functions
-- ✅ Netlify Edge Functions
-- ✅ Deno (including Deno Deploy)
-- ✅ Bun
 - ✅ Lagon
+- ✅ Netlify Edge Functions
+- ✅ Netlify Functions
+- ✅ Node.js
 - ✅ uWebSockets.js
+- ✅ Vercel Edge
+- ✅ Vercel Serverless
 - 🚧 Service Workers
 
 Adapters let you run HatTip on any platform. Here's how you can use HatTip with Node.js:
@@ -165,12 +165,12 @@ HatTip is extremely modular so you can use as little or as much as you need:
 - **Adapters:** Enable HatTip to run on any platform:
   - [`adapter-node`](./packages/adapter/adapter-node): Node.js, either as a standalone server or as a middleware function that can be used with Express and similar frameworks. Also works for Vercel Serverless Functions.
   - [`adapter-cloudflare-workers`](./packages/adapter/adapter-cloudflare-workers): Cloudflare Workers
-  - [`adapter-fastly`](./packages/adapter/adapter-fastly): Fastly
   - [`adapter-vercel-edge`](./packages/adapter/adapter-vercel-edge): Vercel Edge Functions
   - [`adapter-netlify-functions`](./packages/adapter/adapter-netlify-functions): Netlify Functions
   - [`adapter-netlify-edge`](./packages/adapter/adapter-netlify-edge): Netlify Edge Functions
   - [`adapter-deno`](./packages/adapter/adapter-deno): Deno
   - [`adapter-bun`](./packages/adapter/adapter-bun): Bun
+  - [`adapter-fastly`](./packages/adapter/adapter-fastly): Fastly
   - [`adapter-lagon`](./packages/adapter/adapter-lagon): Lagon
   - [`adapter-uwebsockets`](./packages/adapter/adapter-uwebsockets): uWebSockets.js
 - **Bundlers:** Worker and serverless platforms usually require your code to be in bundled form. These packages provide bundlers fine-tuned for their respective platforms:
