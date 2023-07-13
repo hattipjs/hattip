@@ -12,16 +12,22 @@
     "test:prettier": "prettier --check --ignore-path .gitignore --ignore-unknown . '!pnpm-lock.yaml' '!testbed/basic/fastly'",
     "format": "prettier --ignore-path .gitignore --ignore-unknown . '!pnpm-lock.yaml'  '!testbed/basic/fastly' --write"
   },
+  "pnpm": {
+    "overrides": {
+      "graphql": "$graphql"
+    }
+  },
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "graphql": "^16.7.1",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.0",
-    "prettier": "^2.8.6",
-    "rimraf": "^4.4.1",
-    "vite": "^4.2.1",
-    "vitest": "^0.29.7"
+    "lint-staged": "^13.2.3",
+    "prettier": "^3.0.0",
+    "rimraf": "^5.0.1",
+    "vite": "^4.4.3",
+    "vitest": "^0.33.0"
   },
   "dependencies": {
-    "typescript": "^5.0.2"
+    "typescript": "^5.1.6"
   }
 }

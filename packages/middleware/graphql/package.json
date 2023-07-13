@@ -23,28 +23,28 @@
     "test:package": "publint"
   },
   "peerDependencies": {
-    "graphql": ">= 15.8"
+    "graphql": "16"
   },
   "dependencies": {
-    "@graphql-tools/schema": "^9.0.17",
-    "@graphql-tools/utils": "^9.2.1",
+    "@graphql-tools/schema": "^10.0.0",
+    "@graphql-tools/utils": "^10.0.3",
     "@graphql-typed-document-node/core": "^3.2.0",
-    "@graphql-yoga/subscription": "^3.1.0",
+    "@graphql-yoga/subscription": "^4.0.0",
     "@hattip/compose": "workspace:*",
     "@hattip/core": "workspace:*",
     "dset": "^3.1.1",
-    "graphql-yoga": "^3.7.3",
-    "tslib": "^2.5.0",
-    "urlpattern-polyfill": "^6.0.2"
+    "graphql-yoga": "^4.0.3",
+    "tslib": "^2.6.0",
+    "urlpattern-polyfill": "^9.0.0"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.0.2",
+    "@cyco130/eslint-config": "^3.1.4",
     "@hattip/polyfills": "workspace:*",
-    "@types/node": "^18.15.5",
-    "eslint": "^8.36.0",
-    "graphql": "^16.6.0",
-    "publint": "^0.1.11",
-    "tsup": "^6.7.0",
-    "typescript": "^5.0.2"
+    "@types/node": "^20.4.2",
+    "eslint": "^8.44.0",
+    "graphql": "^16.7.1",
+    "publint": "^0.1.16",
+    "tsup": "^7.1.0",
+    "typescript": "^5.1.6"
   }
 }

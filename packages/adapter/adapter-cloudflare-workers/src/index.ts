@@ -40,11 +40,10 @@ export default function cloudflareWorkersAdapter(
 
 		const context: AdapterRequestContext<CloudflareWorkersPlatformInfo> = {
 			request,
-			ip: request.headers.get("CF-Connecting-IP") || "",
+			ip: request.headers.get("CF-Connecting-IP") || "127.0.0.1", // wrangler no longer sets this header
 			waitUntil: ctx.waitUntil.bind(ctx),
 			passThrough() {
-				// TODO: Investigate if there is a way to make CFW pass through the
-				// request to the origin server.
+				// Do nothing
 			},
 			platform: {
 				name: "cloudflare-workers",

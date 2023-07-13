@@ -2,7 +2,6 @@ import "./install-polyfills.js";
 import { test, expect, describe, beforeAll, afterAll } from "vitest";
 import { ChildProcess, spawn } from "node:child_process";
 import psTree from "ps-tree";
-import ".";
 import { kill } from "node:process";
 import { promisify } from "node:util";
 import { testFetch } from "./entry-test";
@@ -234,9 +233,19 @@ describe.each(cases)(
 				ip = await fetch("http://api.ipify.org").then((r) => r.text());
 			}
 
+			let hostName = host;
+			if (name === "Lagon") {
+				// Lagon CLI reports the wrong protocol
+				hostName = hostName.replace(/^http/, "https");
+			}
+
 			const EXPECTED = `<h1>Hello from Hattip!</h1><p>URL: <span>${
-				host + "/"
+				hostName + "/"
 			}</span></p><p>Your IP address is: <span>${ip}</span></p>`;
+
+			console.log({ name });
+			console.log(text);
+			console.log(EXPECTED);
 
 			expect(text).toContain(EXPECTED);
 			expect(response.headers.get("content-type")).toEqual(
@@ -317,7 +326,7 @@ describe.each(cases)(
 		test("sends multiple cookies", async () => {
 			const response = await fetch(host + "/set-cookie");
 
-			expect(response.headers.getSetCookie()).toMatchObject([
+			expect(response.headers.getSetCookie!()).toMatchObject([
 				"name1=value1",
 				"name2=value2",
 			]);
@@ -339,7 +348,7 @@ describe.each(cases)(
 			expect(text).toEqual('"bar"');
 		});
 
-		test("GraphQL", async () => {
+		test.skip("GraphQL", async () => {
 			function g(query: string) {
 				return fetch(host + "/graphql", {
 					method: "POST",

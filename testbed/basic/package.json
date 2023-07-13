@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@fastly/compute-js-static-publish": "^5.1.1",
-    "@fastly/js-compute": "^2.1.0",
+    "@fastly/js-compute": "^3.1.0",
     "@hattip/adapter-bun": "workspace:*",
     "@hattip/adapter-cloudflare-workers": "workspace:*",
     "@hattip/adapter-deno": "workspace:*",
@@ -35,26 +35,26 @@
     "@hattip/bundler-deno": "workspace:*",
     "@hattip/bundler-netlify": "workspace:*",
     "@hattip/bundler-vercel": "workspace:*",
-    "@lagon/cli": "^0.5.4",
+    "@lagon/cli": "^0.7.8",
     "@types/connect": "^3.4.35",
     "@types/cookie": "^0.5.1",
-    "@types/node": "^18.15.5",
+    "@types/node": "^20.4.2",
     "@types/ps-tree": "^1.1.2",
     "@vercel/ncc": "^0.36.1",
     "cookie": "^0.5.0",
     "cross-env": "^7.0.3",
-    "esbuild": "^0.17.12",
-    "netlify-cli": "^13.2.1",
+    "esbuild": "^0.18.12",
+    "netlify-cli": "^15.9.0",
     "node-fetch": "^3.3.1",
-    "nodemon": "^2.0.22",
+    "nodemon": "^3.0.1",
     "ps-tree": "^1.2.0",
-    "rimraf": "^4.4.1",
-    "typescript": "^5.0.2",
-    "vitest": "^0.29.7",
-    "wrangler": "^2.13.0"
+    "rimraf": "^5.0.1",
+    "typescript": "^5.1.6",
+    "vitest": "^0.33.0",
+    "wrangler": "^3.2.0"
   },
   "dependencies": {
-    "@graphql-tools/schema": "^9.0.17",
+    "@graphql-tools/schema": "^10.0.0",
     "@hattip/adapter-node": "workspace:*",
     "@hattip/compose": "workspace:*",
     "@hattip/cookie": "workspace:*",
@@ -65,7 +65,7 @@
     "@hattip/session": "workspace:*",
     "connect": "^3.7.0",
     "express": "^4.18.2",
-    "graphql": "^16.6.0",
-    "sirv": "^2.0.2"
+    "graphql": "^16.7.1",
+    "sirv": "^2.0.3"
   }
 }
