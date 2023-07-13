@@ -1,0 +1,68 @@
+name: Publish to NPM
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish"
+        required: true
+        type: "string"
+      tag:
+        description: "Tag to publish"
+        required: true
+        type: "string"
+        default: "latest"
+      commit:
+        description: "Should we commit the version bump?"
+        required: false
+        type: "boolean"
+        default: true
+
+defaults:
+  run:
+    working-directory: .
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    name: "Publish to NPM"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Set node version to 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: "https://registry.npmjs.org"
+          cache: "pnpm"
+
+      - name: Install
+        run: pnpm install
+
+      - name: Set up git user
+        run: |
+          git config --global user.name "GitHub Action Bot"
+          git config --global user.email "<>"
+
+      - name: Bump version
+        run: "./version ${{ github.event.inputs.version }}"
+
+      - name: "Publish to NPM"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm -r publish --access public --no-git-checks --tag ${{ github.event.inputs.tag }}
+
+      - name: "Commit version bump"
+        if: ${{ github.event.inputs.commit == 'true' }}
+        run: |
+          git status
+          git commit -am "release: ${{ github.event.inputs.version }}"
+          git push
+          git tag ${{ github.event.inputs.version }}
+          git push --tags
