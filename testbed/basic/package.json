@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@fastly/compute-js-static-publish": "^5.1.1",
-    "@fastly/js-compute": "^3.1.0",
+    "@fastly/js-compute": "^3.1.1",
     "@hattip/adapter-bun": "workspace:*",
     "@hattip/adapter-cloudflare-workers": "workspace:*",
     "@hattip/adapter-deno": "workspace:*",
@@ -43,7 +43,7 @@
     "@vercel/ncc": "^0.36.1",
     "cookie": "^0.5.0",
     "cross-env": "^7.0.3",
-    "esbuild": "^0.18.12",
+    "esbuild": "^0.18.13",
     "netlify-cli": "^15.9.0",
     "node-fetch": "^3.3.1",
     "nodemon": "^3.0.1",

@@ -19,9 +19,9 @@
     "test:package": "publint"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.1.4",
+    "@cyco130/eslint-config": "^3.3.0",
     "@hattip/polyfills": "workspace:*",
-    "eslint": "^8.44.0",
+    "eslint": "^8.45.0",
     "node-fetch-native": "^1.2.0",
     "publint": "^0.1.16",
     "tsup": "^7.1.0",

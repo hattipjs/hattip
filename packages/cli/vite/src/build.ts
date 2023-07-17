@@ -1,5 +1,3 @@
-/// <reference types="@vavite/multibuild/vite-config" />
-
 import { BuildOptions, InlineConfig, ResolvedConfig } from "vite";
 import multibuild from "@vavite/multibuild";
 import { version } from "../package.json";

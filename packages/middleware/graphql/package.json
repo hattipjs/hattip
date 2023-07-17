@@ -38,10 +38,10 @@
     "urlpattern-polyfill": "^9.0.0"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.1.4",
+    "@cyco130/eslint-config": "^3.3.0",
     "@hattip/polyfills": "workspace:*",
     "@types/node": "^20.4.2",
-    "eslint": "^8.44.0",
+    "eslint": "^8.45.0",
     "graphql": "^16.7.1",
     "publint": "^0.1.16",
     "tsup": "^7.1.0",
