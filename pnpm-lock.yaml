@@ -55,6 +55,24 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
 
+  examples/cli/hono:
+    dependencies:
+      '@hattip/adapter-node':
+        specifier: 0.0.34
+        version: link:../../../packages/adapter/adapter-node
+      '@hattip/core':
+        specifier: 0.0.34
+        version: link:../../../packages/base/core
+      '@hattip/vite':
+        specifier: 0.0.34
+        version: link:../../../packages/cli/vite
+      hono:
+        specifier: ^3.3.1
+        version: 3.3.1
+      vite:
+        specifier: ^4.4.4
+        version: 4.4.4(@types/node@20.4.2)
+
   examples/cli/playground:
     dependencies:
       '@hattip/adapter-node':
@@ -8258,6 +8276,11 @@ packages:
       process: 0.10.1
       xtend: 4.0.2
     dev: true
+
+  /hono@3.3.1:
+    resolution: {integrity: sha512-MlpVOp+oDvWjfLZjZNBF5p2d+X6kmpHdHT1BjY7J4Zn3XOscK01lt4so0Gsm9F7pZFImJG7eAMgOKZ8VSzUPDA==}
+    engines: {node: '>=16.0.0'}
+    dev: false
 
   /hosted-git-info@4.1.0:
     resolution: {integrity: sha512-kyCuEOWjJqZuDbRHzL8V93NzQhwIB71oFWSyzVo+KPZI+pnQPPxucdkrOZvkLRnrf5URsQM+IJ09Dw29cRALIA==}
