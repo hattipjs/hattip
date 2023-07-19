@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "^0.3.0",
-    "@cloudflare/workers-types": "^4.20230710.1",
+    "@cloudflare/workers-types": "^4.20230717.0",
     "@cyco130/eslint-config": "^3.3.0",
     "@types/node": "^20.4.2",
     "eslint": "^8.45.0",

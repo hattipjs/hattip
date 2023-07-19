@@ -33,6 +33,6 @@
   },
   "dependencies": {
     "cac": "^6.7.14",
-    "esbuild": "^0.18.13"
+    "esbuild": "^0.18.14"
   }
 }

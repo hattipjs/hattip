@@ -8,10 +8,10 @@
     "@fastly/compute-js-static-publish": "^5.1.1"
   },
   "dependencies": {
-    "@fastly/js-compute": "^3.1.0"
+    "@fastly/js-compute": "^3.1.1"
   },
   "engines": {
-    "node": ">=v18.16.1"
+    "node": ">=v18.17.0"
   },
   "license": "UNLICENSED",
   "private": true,
