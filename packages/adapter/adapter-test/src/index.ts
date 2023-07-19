@@ -7,12 +7,14 @@ export interface CreateTestClientArgs {
 	handler: HattipHandler;
 	baseUrl?: string | URL;
 	platform?: any;
+	env?: Record<string, string>;
 }
 
 export function createTestClient({
 	handler,
 	baseUrl,
 	platform = { name: "test" },
+	env = Object.create(null),
 }: CreateTestClientArgs): typeof fetch {
 	return async function fetch(input, init) {
 		let request: Request;
@@ -34,6 +36,9 @@ export function createTestClient({
 			},
 			waitUntil(promise) {
 				void promise;
+			},
+			env(variable) {
+				return env[variable];
 			},
 		});
 	};

@@ -57,6 +57,9 @@ export default function bunAdapter(
 					// No op
 				},
 				platform: { name: "bun" },
+				env(variable: string) {
+					return process.env[variable];
+				},
 			};
 
 			return handler(context);

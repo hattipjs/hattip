@@ -18,6 +18,10 @@ export default function cloudflareWorkersAdapter(
 				// request to the origin server.
 			},
 			platform: { name: "cloudflare-workers", env, context: ctx },
+			env(variable) {
+				const value = (env as any)[variable];
+				return typeof value === "string" ? value : undefined;
+			},
 		};
 
 		return handler(context);

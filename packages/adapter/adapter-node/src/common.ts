@@ -154,6 +154,10 @@ export function createMiddleware(
 
 			ip,
 
+			env(variable) {
+				return process.env[variable];
+			},
+
 			waitUntil(promise) {
 				// Do nothing
 				void promise;

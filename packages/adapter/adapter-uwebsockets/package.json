@@ -41,6 +41,6 @@
     "@hattip/core": "workspace:*",
     "@hattip/polyfills": "workspace:*",
     "mrmime": "^1.0.1",
-    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.19.0"
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.31.0"
   }
 }
