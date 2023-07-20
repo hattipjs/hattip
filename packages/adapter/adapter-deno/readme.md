@@ -24,17 +24,15 @@ import { serveDir } from "https://deno.land/std/http/file_server.ts";
 
 const handler = createRequestHandler(hattipHandler);
 
-Deno.serve(
-  async (request, connInfo) => {
-    const staticResponse = await serveDir(request, { fsRoot: "./public" });
+Deno.serve(async (request, connInfo) => {
+  const staticResponse = await serveDir(request, { fsRoot: "./public" });
 
-    if (staticResponse.status !== 404) {
-      return staticResponse;
-    }
+  if (staticResponse.status !== 404) {
+    return staticResponse;
+  }
 
-    return handler(request, connInfo);
-  },
-);
+  return handler(request, connInfo);
+});
 ```
 
 ## `context.platform`
