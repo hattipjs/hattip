@@ -8,8 +8,8 @@
     "index.d.ts"
   ],
   "exports": {
-    "types": "./dist/index.d.ts",
-    "import": "./dist/index.js"
+    "types": "./index.d.ts",
+    "import": "./index.js"
   },
   "author": "Fatih Aygün <cyco130@gmail.com>",
   "repository": "https://github.com/hattipjs/hattip",
