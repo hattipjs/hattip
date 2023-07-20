@@ -7,7 +7,13 @@
     "dist"
   ],
   "exports": "./dist/index.js",
-  "types": "dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*.d.ts"
+      ]
+    }
+  },
   "author": "Jake Champion <me@jakechampion.name>",
   "repository": "https://github.com/hattipjs/hattip",
   "license": "MIT",
@@ -18,7 +24,7 @@
     "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:package",
     "test:typecheck": "tsc -p tsconfig.json --noEmit",
     "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
-    "test:package": "publint"
+    "test:package": "publint --strict"
   },
   "dependencies": {
     "@fastly/js-compute": "^3.1.1",

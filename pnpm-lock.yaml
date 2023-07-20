@@ -195,21 +195,12 @@ importers:
       '@cyco130/eslint-config':
         specifier: ^3.3.0
         version: 3.3.0(eslint@8.45.0)(typescript@5.1.6)
-      '@types/node':
-        specifier: ^20.4.2
-        version: 20.4.2
       eslint:
         specifier: ^8.45.0
         version: 8.45.0
       publint:
         specifier: ^0.1.16
         version: 0.1.16
-      tsup:
-        specifier: ^7.1.0
-        version: 7.1.0(typescript@5.1.6)
-      typescript:
-        specifier: ^5.1.6
-        version: 5.1.6
 
   packages/adapter/adapter-fastly:
     dependencies:
@@ -391,8 +382,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
       uWebSockets.js:
-        specifier: github:uNetworking/uWebSockets.js#v20.19.0
-        version: github.com/uNetworking/uWebSockets.js/42c9c0d5d31f46ca4115dc75672b0037ec970f28
+        specifier: github:uNetworking/uWebSockets.js#v20.31.0
+        version: github.com/uNetworking/uWebSockets.js/809b99d2d7d12e2cbf89b7135041e9b41ff84084
     devDependencies:
       '@cyco130/eslint-config':
         specifier: ^3.3.0
@@ -13451,8 +13442,8 @@ packages:
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
 
-  github.com/uNetworking/uWebSockets.js/42c9c0d5d31f46ca4115dc75672b0037ec970f28:
-    resolution: {tarball: https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/42c9c0d5d31f46ca4115dc75672b0037ec970f28}
+  github.com/uNetworking/uWebSockets.js/809b99d2d7d12e2cbf89b7135041e9b41ff84084:
+    resolution: {tarball: https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/809b99d2d7d12e2cbf89b7135041e9b41ff84084}
     name: uWebSockets.js
-    version: 20.19.0
+    version: 20.31.0
     dev: false

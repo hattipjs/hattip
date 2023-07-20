@@ -24,7 +24,7 @@
     "test:unit": "vitest run --reporter=verbose",
     "test:typecheck": "tsc -p tsconfig.json --noEmit",
     "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
-    "test:package": "publint"
+    "test:package": "publint --strict"
   },
   "dependencies": {
     "@hattip/core": "workspace:*",

@@ -169,6 +169,9 @@ export function createServer(
 				request: req,
 				response: res,
 			},
+			env(variable: string) {
+				return process.env[variable];
+			},
 			request: new Request(url, {
 				method,
 				headers,

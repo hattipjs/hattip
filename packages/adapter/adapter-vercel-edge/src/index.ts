@@ -33,6 +33,11 @@ export default function vercelEdgeAdapter(
 				name: "vercel-edge",
 				event,
 			},
+			env(variable) {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-ignore
+				return process.env[variable];
+			},
 		};
 
 		const response = await handler(context);

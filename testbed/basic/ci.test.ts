@@ -243,10 +243,6 @@ describe.each(cases)(
 				hostName + "/"
 			}</span></p><p>Your IP address is: <span>${ip}</span></p>`;
 
-			console.log({ name });
-			console.log(text);
-			console.log(EXPECTED);
-
 			expect(text).toContain(EXPECTED);
 			expect(response.headers.get("content-type")).toEqual(
 				"text/html; charset=utf-8",

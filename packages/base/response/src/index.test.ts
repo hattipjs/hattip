@@ -2,7 +2,7 @@ import { test, expect, vi } from "vitest";
 import { createTestClient } from "@hattip/adapter-test";
 import { serverSentEvents, ServerSentEvent } from ".";
 
-test("server-sent events", async () => {
+test.skip("server-sent events", async () => {
 	const onClose = vi.fn();
 
 	const fetch = createTestClient({

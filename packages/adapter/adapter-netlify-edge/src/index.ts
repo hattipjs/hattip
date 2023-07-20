@@ -92,6 +92,11 @@ export default function netlifyEdgeAdapter(
 				name: "netlify-edge",
 				...info,
 			},
+			env(variable) {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-ignore
+				return Deno.env.get(variable);
+			},
 		};
 
 		const response = await handler(context);

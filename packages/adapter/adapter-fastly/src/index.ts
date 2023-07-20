@@ -1,6 +1,7 @@
 /// <reference types="@fastly/js-compute"/>
 
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
+import { env } from "fastly:env";
 
 export interface FastlyPlatformInfo {
 	name: "fastly-compute";
@@ -32,6 +33,7 @@ export default function fastlyComputeAdapter(handler: HattipHandler) {
 			passThrough() {
 				// empty
 			},
+			env,
 		};
 
 		event.respondWith(handler(context));

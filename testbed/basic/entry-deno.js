@@ -1,6 +1,8 @@
-import { serve, serveDir, createRequestHandler } from "@hattip/adapter-deno";
+import { createServeHandler } from "@hattip/adapter-deno";
 import hattipHandler from "./index.js";
-import { walk } from "https://deno.land/std@0.170.0/fs/walk.ts";
+import { walk } from "https://deno.land/std/fs/walk.ts";
+import { serve } from "https://deno.land/std/http/server.ts";
+import { serveDir } from "https://deno.land/std/http/file_server.ts";
 
 const staticDir = "public";
 const walker = walk(staticDir, { includeDirs: false });
@@ -10,8 +12,9 @@ for await (const entry of walker) {
 	staticFiles.add(entry.path.slice(staticDir.length).replace(/\\/g, "/"));
 }
 
-const handler = createRequestHandler(hattipHandler);
+const handler = createServeHandler(hattipHandler);
 
+// TODO: Deno.serve doesn't stream when using compression. Track here: https://github.com/denoland/deno/issues/19889
 serve(
 	async (request, connInfo) => {
 		const url = new URL(request.url);

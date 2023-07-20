@@ -63,6 +63,10 @@ export default function netlifyFunctionsAdapter(
 				event,
 				context: netlifyContext,
 			},
+
+			env(variable) {
+				return process.env[variable];
+			},
 		};
 
 		const response = await handler(context);

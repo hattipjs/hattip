@@ -12,6 +12,9 @@ export default function lagonAdapter(hattipHandler: HattipHandler) {
 				// No op
 			},
 			platform: { name: "lagon" },
+			env(variable) {
+				return process.env[variable];
+			},
 		});
 	};
 }

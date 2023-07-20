@@ -17,6 +17,15 @@ export interface AdapterRequestContext<P = unknown> {
 	 */
 	platform: P;
 	/**
+	 * Get the value of an environment variable. Check with the platform adapter
+	 * documentation for the specifics of how environment variables are handled.
+	 *
+	 * @param variable The name of the variable to get.
+	 *
+	 * @returns The value of the variable or undefined if it doesn't exist.
+	 */
+	env(variable: string): string | undefined;
+	/**
 	 * Signal that the request hasn't been handled and the returned response is
 	 * a placeholder (usually a 404). In this case the adapter should handle the
 	 * request itself if it has a way to do that. For example, an Express

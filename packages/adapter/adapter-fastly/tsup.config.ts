@@ -8,5 +8,6 @@ export default defineConfig([
 		target: "node14",
 		shims: false,
 		dts: true,
+		external: ["fastly:env"],
 	},
 ]);
