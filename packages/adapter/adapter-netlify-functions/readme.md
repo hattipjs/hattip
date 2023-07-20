@@ -23,4 +23,10 @@ Calling `context.passThrough` has no effect, the placeholder response will be re
 
 ## `context.platform`
 
-This adapter's platform context contains the `event` and `context` properties which have the types `NetlifyFunctionEvent` and `NetlifyFunctionContext` respectively.
+```ts
+export interface NetlifyFunctionsPlatformInfo {
+  name: "netlify-functions";
+  event: NetlifyFunctionEvent;
+  context: NetlifyFunctionContext;
+}
+```

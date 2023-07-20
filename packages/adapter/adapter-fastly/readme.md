@@ -35,7 +35,14 @@ export default fastlyAdapter(async (ctx) => {
 
 ## `context.platform`
 
-This adapter's platform context contains a `client` object, which is [Fastly FetchEvent.client](https://js-compute-reference-docs.edgecompute.app/docs/globals/FetchEvent/#instance-properties).
+```ts
+export interface FastlyPlatformInfo {
+  /** Platform name */
+  name: "fastly-compute";
+  /** Event object */
+  event: FetchEvent;
+}
+```
 
 ## Limitations
 

@@ -23,7 +23,7 @@ export interface NetlifyFunctionsPlatformInfo {
 export type { NetlifyFunctionEvent, NetlifyFunctionContext };
 
 export default function netlifyFunctionsAdapter(
-	handler: HattipHandler,
+	handler: HattipHandler<NetlifyFunctionsPlatformInfo>,
 ): NetlifyFunction {
 	return async (event, netlifyContext) => {
 		const ip =

@@ -48,8 +48,8 @@ export interface AdapterRequestContext<P = unknown> {
  * @returns A response or a promise that resolves to a response.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Response
  */
-export type HattipHandler = (
-	context: AdapterRequestContext,
+export type HattipHandler<P = unknown> = (
+	context: AdapterRequestContext<P>,
 ) => Response | Promise<Response>;
 
 declare global {

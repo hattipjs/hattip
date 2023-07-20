@@ -10,8 +10,8 @@ export interface Locals {}
 /**
  * Request context
  */
-export interface RequestContext
-	extends AdapterRequestContext,
+export interface RequestContext<P = unknown>
+	extends AdapterRequestContext<P>,
 		RequestContextExtensions {
 	/** Parsed request URL */
 	url: URL;
@@ -35,23 +35,31 @@ export type MaybeRespone = ResponseLike | void;
 
 export type MaybeAsyncResponse = MaybeRespone | Promise<MaybeRespone>;
 
-export type RequestHandler = (context: RequestContext) => MaybeAsyncResponse;
+export type RequestHandler<P = unknown> = (
+	context: RequestContext<P>,
+) => MaybeAsyncResponse;
 
-export type MaybeRequestHandler = false | null | undefined | RequestHandler;
+export type MaybeRequestHandler<P = unknown> =
+	| false
+	| null
+	| undefined
+	| RequestHandler<P>;
 
-export type RequestHandlerStack = MaybeRequestHandler | RequestHandlerStack[];
+export type RequestHandlerStack<P = unknown> =
+	| MaybeRequestHandler<P>
+	| MaybeRequestHandler<P>[];
 
 function finalHandler(context: RequestContext): Response {
 	context.passThrough();
 	return new Response("Not found", { status: 404 });
 }
 
-export type PartialHandler = (
-	context: RequestContext,
+export type PartialHandler<P = unknown> = (
+	context: RequestContext<P>,
 ) => Response | void | Promise<Response | void>;
 
-export function composePartial(
-	handlers: RequestHandlerStack[],
+export function composePartial<P = unknown>(
+	handlers: RequestHandlerStack<P>[],
 	next?: () => Promise<Response>,
 ): PartialHandler {
 	const flatHandlers = handlers.flat().filter(Boolean) as RequestHandler[];
@@ -69,8 +77,10 @@ export function composePartial(
 	);
 }
 
-export function compose(...handlers: RequestHandlerStack[]): HattipHandler {
-	return composePartial([
+export function compose<P = unknown>(
+	...handlers: RequestHandlerStack<P>[]
+): HattipHandler<P> {
+	return composePartial<P>([
 		(context) => {
 			context.url = new URL(context.request.url);
 			context.method = context.request.method;

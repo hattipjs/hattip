@@ -9,13 +9,24 @@ import manifestText from "__STATIC_CONTENT_MANIFEST";
 const manifest = JSON.parse(manifestText);
 
 export interface CloudflareWorkersPlatformInfo {
+	/** Platform name */
 	name: "cloudflare-workers";
+	/**
+	 * Bindings for secrets, environment variables, and other resources like
+	 * KV namespaces etc.
+	 * @see https://developers.cloudflare.com/workers/platform/environment-variables
+	 * @see https://developers.cloudflare.com/workers/configuration/bindings
+	 */
 	env: unknown;
+	/**
+	 * Execution context
+	 * @see https://developers.cloudflare.com/workers/runtime-apis/fetch-event/#parameters
+	 */
 	context: ExecutionContext;
 }
 
 export default function cloudflareWorkersAdapter(
-	handler: HattipHandler,
+	handler: HattipHandler<CloudflareWorkersPlatformInfo>,
 ): ExportedHandlerFetchHandler {
 	return async function fetchHandler(request, env, ctx) {
 		if (request.method === "GET" || request.method === "HEAD") {

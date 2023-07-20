@@ -71,7 +71,7 @@ export interface NodePlatformInfo {
  * middleware in Connect-style frameworks like Express.
  */
 export function createMiddleware(
-	handler: HattipHandler,
+	handler: HattipHandler<NodePlatformInfo>,
 	options: NodeAdapterOptions = {},
 ): NodeMiddleware {
 	const {

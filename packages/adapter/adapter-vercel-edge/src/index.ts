@@ -14,7 +14,7 @@ export type VercelEdgeFunction = (
 ) => Response | Promise<Response>;
 
 export default function vercelEdgeAdapter(
-	handler: HattipHandler,
+	handler: HattipHandler<VercelEdgePlatformInfo>,
 ): VercelEdgeFunction {
 	return async function vercelEdgeFunction(request, event) {
 		let passThroughCalled = false;

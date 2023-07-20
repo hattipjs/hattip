@@ -21,8 +21,22 @@ If you don't need to serve static files, you can import the adapter from `@hatti
 
 ## `context.platform`
 
-This adapter's platform context contains `env` and `context` properties as passed to the worker's `fetch` function.
+```ts
+export interface CloudflareWorkersPlatformInfo {
+  /** Platform name */
+  name: "cloudflare-workers";
+  /**
+   * Bindings for secrets, environment variables, and other resources like
+   * KV namespaces etc.
+   */
+  env: unknown;
+  /**
+   * Execution context
+   */
+  context: ExecutionContext;
+}
+```
 
 ## Environment variables
 
-The `ctx.env()` function only returns bindings with a string value. Other bindings like KV or D1 will return `undefined`. You should use `ctx.platform.env` to access them instead.
+The `ctx.env()` function only returns bindings with a string value. Such bindings correspond to [secrets and environment variables](https://developers.cloudflare.com/workers/platform/environment-variables). [Other bindings](https://developers.cloudflare.com/workers/configuration/bindings) like KV or D1 will return `undefined`. You should use `ctx.platform.env` to access them instead.

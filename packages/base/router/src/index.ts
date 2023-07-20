@@ -13,105 +13,161 @@ import {
 } from "@hattip/compose";
 import { HattipHandler } from "@hattip/core";
 
-export interface RouterContext<P = Record<string, string>>
-	extends RequestContext {
-	params: P;
+export interface RouterContext<
+	Params = Record<string, string>,
+	Platform = unknown,
+> extends RequestContext<Platform> {
+	params: Params;
 }
 
-export type RouteFn =
-	| (<P>(matcher: Matcher, handler: RouteHandler<P>) => void)
-	| (<P>(handler: RouteHandler<P>) => void);
+export type RouteFn<Platform = unknown> =
+	| (<Params>(
+			matcher: Matcher<Platform>,
+			handler: RouteHandler<Params, Platform>,
+	  ) => void)
+	| (<Params>(handler: RouteHandler<Params, Platform>) => void);
 
-export interface Router {
+export interface Router<Platform = unknown> {
 	/** Compose route handlers into a single handler */
-	buildHandler(): HattipHandler;
+	buildHandler(): HattipHandler<Platform>;
 
 	/** Route handlers */
-	handlers: RequestHandler[];
+	handlers: RequestHandler<Platform>[];
 
-	use<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	use<P>(handler: RouteHandler<P>): void;
+	use<P>(matcher: Matcher<Platform>, handler: RouteHandler<P, Platform>): void;
+	use<P>(handler: RouteHandler<P, Platform>): void;
 
-	checkout<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	checkout<P>(handler: RouteHandler<P>): void;
+	checkout<P>(
+		matcher: Matcher<Platform>,
+		handler: RouteHandler<P, Platform>,
+	): void;
+	checkout<P>(handler: RouteHandler<P, Platform>): void;
 
-	copy<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	copy<P>(handler: RouteHandler<P>): void;
+	copy<P>(matcher: Matcher<Platform>, handler: RouteHandler<P, Platform>): void;
+	copy<P>(handler: RouteHandler<P, Platform>): void;
 
-	delete<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	delete<P>(handler: RouteHandler<P>): void;
+	delete<P>(
+		matcher: Matcher<Platform>,
+		handler: RouteHandler<P, Platform>,
+	): void;
+	delete<P>(handler: RouteHandler<P, Platform>): void;
 
-	get<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	get<P>(handler: RouteHandler<P>): void;
+	get<P>(matcher: Matcher<Platform>, handler: RouteHandler<P, Platform>): void;
+	get<P>(handler: RouteHandler<P, Platform>): void;
 
-	head<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	head<P>(handler: RouteHandler<P>): void;
+	head<P>(matcher: Matcher<Platform>, handler: RouteHandler<P, Platform>): void;
+	head<P>(handler: RouteHandler<P, Platform>): void;
 
-	lock<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	lock<P>(handler: RouteHandler<P>): void;
+	lock<P>(matcher: Matcher<Platform>, handler: RouteHandler<P, Platform>): void;
+	lock<P>(handler: RouteHandler<P, Platform>): void;
 
-	merge<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	merge<P>(handler: RouteHandler<P>): void;
+	merge<P>(
+		matcher: Matcher<Platform>,
+		handler: RouteHandler<P, Platform>,
+	): void;
+	merge<P>(handler: RouteHandler<P, Platform>): void;
 
-	mkactivity<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	mkactivity<P>(handler: RouteHandler<P>): void;
+	mkactivity<P>(
+		matcher: Matcher<Platform>,
+		handler: RouteHandler<P, Platform>,
+	): void;
+	mkactivity<P>(handler: RouteHandler<P, Platform>): void;
 
-	mkcol<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	mkcol<P>(handler: RouteHandler<P>): void;
+	mkcol<P>(
+		matcher: Matcher<Platform>,
+		handler: RouteHandler<P, Platform>,
+	): void;
+	mkcol<P>(handler: RouteHandler<P, Platform>): void;
 
-	move<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	move<P>(handler: RouteHandler<P>): void;
+	move<P>(matcher: Matcher<Platform>, handler: RouteHandler<P, Platform>): void;
+	move<P>(handler: RouteHandler<P, Platform>): void;
 
-	"m-search"<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	"m-search"<P>(handler: RouteHandler<P>): void;
+	"m-search"<P>(
+		matcher: Matcher<Platform>,
+		handler: RouteHandler<P, Platform>,
+	): void;
+	"m-search"<P>(handler: RouteHandler<P, Platform>): void;
 
-	notify<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	notify<P>(handler: RouteHandler<P>): void;
+	notify<P>(
+		matcher: Matcher<Platform>,
+		handler: RouteHandler<P, Platform>,
+	): void;
+	notify<P>(handler: RouteHandler<P, Platform>): void;
 
-	options<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	options<P>(handler: RouteHandler<P>): void;
+	options<P>(
+		matcher: Matcher<Platform>,
+		handler: RouteHandler<P, Platform>,
+	): void;
+	options<P>(handler: RouteHandler<P, Platform>): void;
 
-	patch<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	patch<P>(handler: RouteHandler<P>): void;
+	patch<P>(
+		matcher: Matcher<Platform>,
+		handler: RouteHandler<P, Platform>,
+	): void;
+	patch<P>(handler: RouteHandler<P, Platform>): void;
 
-	post<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	post<P>(handler: RouteHandler<P>): void;
+	post<P>(matcher: Matcher<Platform>, handler: RouteHandler<P, Platform>): void;
+	post<P>(handler: RouteHandler<P, Platform>): void;
 
-	purge<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	purge<P>(handler: RouteHandler<P>): void;
+	purge<P>(
+		matcher: Matcher<Platform>,
+		handler: RouteHandler<P, Platform>,
+	): void;
+	purge<P>(handler: RouteHandler<P, Platform>): void;
 
-	put<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	put<P>(handler: RouteHandler<P>): void;
+	put<P>(matcher: Matcher<Platform>, handler: RouteHandler<P, Platform>): void;
+	put<P>(handler: RouteHandler<P, Platform>): void;
 
-	report<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	report<P>(handler: RouteHandler<P>): void;
+	report<P>(
+		matcher: Matcher<Platform>,
+		handler: RouteHandler<P, Platform>,
+	): void;
+	report<P>(handler: RouteHandler<P, Platform>): void;
 
-	search<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	search<P>(handler: RouteHandler<P>): void;
+	search<P>(
+		matcher: Matcher<Platform>,
+		handler: RouteHandler<P, Platform>,
+	): void;
+	search<P>(handler: RouteHandler<P, Platform>): void;
 
-	subscribe<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	subscribe<P>(handler: RouteHandler<P>): void;
+	subscribe<P>(
+		matcher: Matcher<Platform>,
+		handler: RouteHandler<P, Platform>,
+	): void;
+	subscribe<P>(handler: RouteHandler<P, Platform>): void;
 
-	trace<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	trace<P>(handler: RouteHandler<P>): void;
+	trace<P>(
+		matcher: Matcher<Platform>,
+		handler: RouteHandler<P, Platform>,
+	): void;
+	trace<P>(handler: RouteHandler<P, Platform>): void;
 
-	unlock<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	unlock<P>(handler: RouteHandler<P>): void;
+	unlock<P>(
+		matcher: Matcher<Platform>,
+		handler: RouteHandler<P, Platform>,
+	): void;
+	unlock<P>(handler: RouteHandler<P, Platform>): void;
 
-	unsubscribe<P>(matcher: Matcher, handler: RouteHandler<P>): void;
-	unsubscribe<P>(handler: RouteHandler<P>): void;
+	unsubscribe<P>(
+		matcher: Matcher<Platform>,
+		handler: RouteHandler<P, Platform>,
+	): void;
+	unsubscribe<P>(handler: RouteHandler<P, Platform>): void;
 }
 
-export type Matcher<P = Record<string, string>> =
+export type Matcher<P = Record<string, string>, Platform = unknown> =
 	| string
 	| RegExp
-	| ((context: RequestContext) => undefined | P | Promise<undefined | P>);
+	| ((
+			context: RequestContext<Platform>,
+	  ) => undefined | P | Promise<undefined | P>);
 
-export type RouteHandler<P = Record<string, string>> = (
-	context: RouterContext<P>,
-) => MaybeAsyncResponse;
+export type RouteHandler<
+	Params = Record<string, string>,
+	Platform = unknown,
+> = (context: RouterContext<Params, Platform>) => MaybeAsyncResponse;
 
-export function createRouter(): Router {
+export function createRouter<Platform = unknown>(): Router<Platform> {
 	const self = {
 		handlers: [] as RouteHandler[],
 

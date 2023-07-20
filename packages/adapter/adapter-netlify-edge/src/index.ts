@@ -1,7 +1,16 @@
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
 
-export interface NetlifyEdgePlatformInfo {
+interface NetlifyEdgePlatformInfo {
+	/** Platform name */
 	name: "netlify-edge";
+	/**
+	 * Netlify-specific context object
+	 * @see https://docs.netlify.com/edge-functions/api/#netlify-specific-context-object
+	 */
+	context: NetlifyContext;
+}
+
+export interface NetlifyContext {
 	ip: string | null;
 	cookies: Cookies;
 	geo: Geo;
@@ -70,18 +79,18 @@ export interface DeleteCookieOptions {
 
 export type NetlifyEdgeFunction = (
 	request: Request,
-	info: Omit<NetlifyEdgePlatformInfo, "name">,
+	nlContext: NetlifyContext,
 ) => Response | undefined | Promise<Response | undefined>;
 
 export default function netlifyEdgeAdapter(
-	handler: HattipHandler,
+	handler: HattipHandler<NetlifyEdgePlatformInfo>,
 ): NetlifyEdgeFunction {
-	return async function fetchHandler(request, info) {
+	return async function fetchHandler(request, nlContext) {
 		let passThroughCalled = false;
 
 		const context: AdapterRequestContext<NetlifyEdgePlatformInfo> = {
 			request,
-			ip: info.ip || "",
+			ip: nlContext.ip || "",
 			waitUntil() {
 				// No op
 			},
@@ -90,7 +99,7 @@ export default function netlifyEdgeAdapter(
 			},
 			platform: {
 				name: "netlify-edge",
-				...info,
+				context: nlContext,
 			},
 			env(variable) {
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
