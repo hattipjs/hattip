@@ -15,4 +15,13 @@ export default netlifyEdgeAdapter(handler);
 
 ## `context.platform`
 
-This adapter passes the [Netlify edge function context object](https://docs.netlify.com/netlify-labs/experimental-features/edge-functions/api/#netlify-specific-context-object) as `context.platform`. The type definitions are currently rudimentary and likely incomplete/inaccurate.
+```ts
+interface NetlifyEdgePlatformInfo {
+  /** Platform name */
+  name: "netlify-edge";
+  /** Netlify-specific context object */
+  context: NetlifyContext;
+}
+```
+
+See [Netlify's documentation](https://docs.netlify.com/functions/build-with-javascript/#synchronous-function-format) for the Netlify-specific context object.

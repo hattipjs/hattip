@@ -2,19 +2,24 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
-import type { Serve as BunServeOptions } from "bun";
+import type { Serve, Server } from "bun";
 
-export type { BunServeOptions };
-
-export type BunAdapterOptions = Omit<BunServeOptions, "fetch" | "error"> & {
+export type BunAdapterOptions = Omit<Serve, "fetch" | "error"> & {
 	staticDir?: string;
 	trustProxy?: boolean;
 };
 
+export interface BunPlatformInfo {
+	/** Platform name */
+	name: "bun";
+	/** Bun server instance */
+	server: Server;
+}
+
 export default function bunAdapter(
-	handler: HattipHandler,
+	handler: HattipHandler<BunPlatformInfo>,
 	options: BunAdapterOptions = {},
-): BunServeOptions {
+): Serve {
 	const { staticDir, trustProxy, ...remaingOptions } = options;
 
 	let staticFiles: Set<string>;
@@ -42,7 +47,7 @@ export default function bunAdapter(
 				}
 			}
 
-			const context: AdapterRequestContext = {
+			const context: AdapterRequestContext<BunPlatformInfo> = {
 				request,
 				// TODO: How to get the IP address when not behind a proxy?
 				ip: trustProxy
@@ -56,7 +61,7 @@ export default function bunAdapter(
 				waitUntil() {
 					// No op
 				},
-				platform: { name: "bun" },
+				platform: { name: "bun", server: this },
 				env(variable: string) {
 					return process.env[variable];
 				},

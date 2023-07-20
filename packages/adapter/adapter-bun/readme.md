@@ -29,6 +29,21 @@ You can leave out the `staticDir` option if you don't want to serve static asset
 
 The remaining options (`port`, `hostname` etc.) are passed to [Bun.serve](https://github.com/oven-sh/bun#bunserve---fast-http-server).
 
+## `context.platform`
+
+```ts
+export interface BunPlatformInfo {
+  /** Platform name */
+  name: "bun";
+  /** Bun server instance */
+  server: Server;
+}
+```
+
+## Environment variables
+
+The `ctx.env()` function is implemented using `process.env`.
+
 ## Limitations
 
 Bun support is preliminary and Bun itself is in early development:

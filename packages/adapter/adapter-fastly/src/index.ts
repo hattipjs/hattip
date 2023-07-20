@@ -4,23 +4,15 @@ import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
 import { env } from "fastly:env";
 
 export interface FastlyPlatformInfo {
+	/** Platform name */
 	name: "fastly-compute";
-	client: ClientInfo;
+	/** Event object */
+	event: FetchEvent;
 }
 
-export interface Geo {
-	city?: string;
-	country?: {
-		code?: string;
-		name?: string;
-	};
-	subdivision?: {
-		code?: string;
-		name?: string;
-	};
-}
-
-export default function fastlyComputeAdapter(handler: HattipHandler) {
+export default function fastlyComputeAdapter(
+	handler: HattipHandler<FastlyPlatformInfo>,
+) {
 	addEventListener("fetch", (event) => {
 		const context: AdapterRequestContext<FastlyPlatformInfo> = {
 			request: event.request,
@@ -28,7 +20,7 @@ export default function fastlyComputeAdapter(handler: HattipHandler) {
 			waitUntil: event.waitUntil.bind(event),
 			platform: {
 				name: "fastly-compute",
-				client: event.client,
+				event,
 			},
 			passThrough() {
 				// empty

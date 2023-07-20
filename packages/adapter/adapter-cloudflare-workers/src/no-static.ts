@@ -6,7 +6,7 @@ import type { CloudflareWorkersPlatformInfo } from ".";
 export type { CloudflareWorkersPlatformInfo };
 
 export default function cloudflareWorkersAdapter(
-	handler: HattipHandler,
+	handler: HattipHandler<CloudflareWorkersPlatformInfo>,
 ): ExportedHandlerFetchHandler {
 	return async function fetchHandler(request, env, ctx) {
 		const context: AdapterRequestContext<CloudflareWorkersPlatformInfo> = {
