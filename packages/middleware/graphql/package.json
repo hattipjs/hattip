@@ -33,20 +33,20 @@
   },
   "dependencies": {
     "@graphql-tools/schema": "^10.0.0",
-    "@graphql-tools/utils": "^10.0.3",
+    "@graphql-tools/utils": "^10.0.4",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@graphql-yoga/subscription": "^4.0.0",
     "@hattip/compose": "workspace:*",
     "@hattip/core": "workspace:*",
     "dset": "^3.1.2",
     "graphql-yoga": "^4.0.3",
-    "tslib": "^2.6.0",
+    "tslib": "^2.6.1",
     "urlpattern-polyfill": "^9.0.0"
   },
   "devDependencies": {
     "@cyco130/eslint-config": "^3.3.0",
     "@hattip/polyfills": "workspace:*",
-    "@types/node": "^20.4.2",
+    "@types/node": "^20.4.4",
     "eslint": "^8.45.0",
     "graphql": "^16.7.1",
     "publint": "^0.1.16",
