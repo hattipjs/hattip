@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@cyco130/eslint-config": "^3.3.0",
-    "@types/node": "^20.4.2",
+    "@types/node": "^20.4.4",
     "eslint": "^8.45.0",
     "publint": "^0.1.16",
     "tsup": "^7.1.0",
@@ -41,6 +41,6 @@
   "dependencies": {
     "cac": "^6.7.14",
     "cpr": "^3.0.1",
-    "esbuild": "^0.18.14"
+    "esbuild": "^0.18.16"
   }
 }

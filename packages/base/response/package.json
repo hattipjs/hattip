@@ -34,7 +34,7 @@
     "@cyco130/eslint-config": "^3.3.0",
     "@hattip/adapter-test": "workspace:*",
     "@types/eventsource": "^1.1.11",
-    "@types/node": "^20.4.2",
+    "@types/node": "^20.4.4",
     "eslint": "^8.45.0",
     "eventsource": "^2.0.2",
     "eventsource-polyfill": "^0.9.6",
