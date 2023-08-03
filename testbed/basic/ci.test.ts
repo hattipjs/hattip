@@ -1,5 +1,11 @@
 import "./install-polyfills.js";
-import { test, expect, describe, beforeAll, afterAll } from "vitest";
+import {
+	test as originalTest,
+	expect,
+	describe,
+	beforeAll,
+	afterAll,
+} from "vitest";
 import { ChildProcess, spawn } from "node:child_process";
 import psTree from "ps-tree";
 import { kill } from "node:process";
@@ -16,6 +22,7 @@ let cases: Array<{
 	skipStreamingTest?: boolean;
 	skipCryptoTest?: boolean;
 	skipStaticFileTest?: boolean;
+	tryStreamingWithoutCompression?: boolean;
 }>;
 
 const nodeVersions = process.versions.node.split(".");
@@ -40,6 +47,8 @@ if (process.env.CI === "true") {
 		);
 	}
 
+	const bunAvailable = process.platform !== "win32";
+
 	const uwsAvailable = false; // nodeVersionMajor >= 18 && process.platform === "linux";
 	// if (!uwsAvailable) {
 	// 	console.warn(
@@ -63,6 +72,38 @@ if (process.env.CI === "true") {
 			name: "Node with native fetch",
 			command: "node --experimental-fetch entry-node-native-fetch.js",
 		},
+		{
+			name: "Deno",
+			command: "pnpm build:deno && pnpm start:deno",
+			requiresForwardedIp: true,
+			skipStreamingTest: true,
+			tryStreamingWithoutCompression: true,
+		},
+		{
+			name: "Deno with std/http",
+			command: "pnpm build:deno-std && pnpm start:deno",
+		},
+		{
+			name: "Deno with node:http",
+			command: "pnpm build:deno-node && pnpm start:deno",
+			requiresForwardedIp: true,
+			skipStreamingTest: true,
+			tryStreamingWithoutCompression: true,
+			envOverride: {
+				TRUST_PROXY: "1",
+			},
+		},
+		bunAvailable && {
+			name: "Bun",
+			command: "bun run entry-bun.js",
+			skipStreamingTest: true,
+		},
+		bunAvailable && {
+			name: "Bun with node:http",
+			command: "bun run entry-node-native-fetch.js",
+			skipStreamingTest: true,
+			skipCryptoTest: true, // https://github.com/oven-sh/bun/issues/4070
+		},
 		wranglerAvailable && {
 			name: "Cloudflare Workers",
 			command: "pnpm build:cfw && pnpm start:cfw",
@@ -78,10 +119,6 @@ if (process.env.CI === "true") {
 			command: "pnpm build:netlify-edge && pnpm start:netlify",
 			skipStreamingTest: true,
 		},
-		{
-			name: "Deno",
-			command: "pnpm build:deno && pnpm start:deno",
-		},
 		uwsAvailable && {
 			name: "uWebSockets.js",
 			command: "node --no-experimental-fetch entry-uws.js",
@@ -89,6 +126,11 @@ if (process.env.CI === "true") {
 		{
 			name: "Lagon",
 			command: "lagon dev entry-lagon.js -p public --port 3000",
+		},
+		{
+			name: "Google Cloud Functions",
+			command: "functions-framework --port=3000",
+			requiresForwardedIp: true,
 		},
 	].filter(Boolean) as typeof cases;
 	host = "http://127.0.0.1:3000";
@@ -98,8 +140,26 @@ if (process.env.CI === "true") {
 			name: "Existing server",
 		},
 	];
-	host = process.env.TEST_HOST || "http://localhost:3000";
+	host = process.env.TEST_HOST || "http://127.0.0.1:3000";
 }
+
+const test = originalTest as typeof originalTest & {
+	failsIf(condition: any): typeof originalTest.fails | typeof originalTest;
+};
+
+test.failsIf = function failsIf(condition) {
+	if (condition) {
+		function fails(name, fn, options) {
+			return originalTest.fails(`[EXPECTED FAIL] ${name}`, fn, options);
+		}
+
+		Object.assign(fails, originalTest);
+
+		return fails as typeof originalTest.fails;
+	}
+
+	return originalTest;
+};
 
 let cp: ChildProcess | undefined;
 
@@ -114,6 +174,7 @@ describe.each(cases)(
 		requiresForwardedIp,
 		skipCryptoTest,
 		skipStaticFileTest,
+		tryStreamingWithoutCompression,
 	}) => {
 		beforeAll(async () => {
 			const original = fetch;
@@ -249,7 +310,7 @@ describe.each(cases)(
 			);
 		});
 
-		test.skipIf(skipStaticFileTest)("serves static files", async () => {
+		test.failsIf(skipStaticFileTest)("serves static files", async () => {
 			const response = await fetch(host + "/static.txt");
 			const text = await response.text();
 
@@ -272,13 +333,29 @@ describe.each(cases)(
 			);
 		});
 
-		test.skipIf(skipStreamingTest)(
+		test.failsIf(skipStreamingTest)(
 			"doesn't fully buffer binary stream",
 			async () => {
 				const response = await fetch(host + "/bin-stream?delay=1");
 
 				let chunks = 0;
-				for await (const chunk of response.body as AsyncIterable<Uint8Array>) {
+				for await (const _chunk of response.body as AsyncIterable<Uint8Array>) {
+					chunks++;
+				}
+
+				expect(chunks).toBeGreaterThan(3);
+			},
+		);
+
+		test.runIf(tryStreamingWithoutCompression)(
+			"doesn't fully buffer binary stream with no compression",
+			async () => {
+				const response = await fetch(host + "/bin-stream?delay=1", {
+					headers: { "Accept-Encoding": "" },
+				});
+
+				let chunks = 0;
+				for await (const _chunk of response.body as AsyncIterable<Uint8Array>) {
 					chunks++;
 				}
 
@@ -366,7 +443,7 @@ describe.each(cases)(
 			expect(r3).toStrictEqual({ data: { sum: 3 } });
 		});
 
-		test.skipIf(skipCryptoTest)("session", async () => {
+		test.failsIf(skipCryptoTest)("session", async () => {
 			const response = await fetch(host + "/session");
 			const text = await response.text();
 			expect(text).toEqual("You have visited this page 1 time(s).");

@@ -40,6 +40,12 @@ jobs:
         with:
           deno-version: v1.x
 
+      - name: Install Bun
+        if: matrix.os != 'windows-latest'
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
