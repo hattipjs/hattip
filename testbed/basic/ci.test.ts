@@ -29,11 +29,14 @@ const nodeVersions = process.versions.node.split(".");
 const nodeVersionMajor = +nodeVersions[0];
 const nodeVersionMinor = +nodeVersions[1];
 
+const fetchAvailableByDefault = nodeVersionMajor >= 18;
+
 if (process.env.CI === "true") {
 	const fetchAvailable =
 		nodeVersionMajor >= 18 ||
 		(nodeVersionMajor >= 17 && nodeVersionMinor >= 5) ||
 		(nodeVersionMajor >= 16 && nodeVersionMinor >= 15);
+
 	if (!fetchAvailable) {
 		console.warn("Node version < 17.5 or 16.15, will skip native fetch tests");
 	}
@@ -333,21 +336,22 @@ describe.each(cases)(
 			);
 		});
 
-		test.failsIf(skipStreamingTest)(
-			"doesn't fully buffer binary stream",
-			async () => {
-				const response = await fetch(host + "/bin-stream?delay=1");
+		test.failsIf(
+			tryStreamingWithoutCompression
+				? fetchAvailableByDefault
+				: skipStreamingTest,
+		)("doesn't fully buffer binary stream", async () => {
+			const response = await fetch(host + "/bin-stream?delay=1");
 
-				let chunks = 0;
-				for await (const _chunk of response.body as AsyncIterable<Uint8Array>) {
-					chunks++;
-				}
+			let chunks = 0;
+			for await (const _chunk of response.body as AsyncIterable<Uint8Array>) {
+				chunks++;
+			}
 
-				expect(chunks).toBeGreaterThan(3);
-			},
-		);
+			expect(chunks).toBeGreaterThan(3);
+		});
 
-		test.runIf(tryStreamingWithoutCompression)(
+		test.runIf(fetchAvailableByDefault && tryStreamingWithoutCompression)(
 			"doesn't fully buffer binary stream with no compression",
 			async () => {
 				const response = await fetch(host + "/bin-stream?delay=1", {
