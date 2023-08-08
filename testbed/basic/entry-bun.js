@@ -1,6 +1,6 @@
 // @ts-check
 import bunAdapter from "@hattip/adapter-bun";
-import handler from ".";
+import handler from "./index.js";
 import url from "node:url";
 import path from "node:path";
 

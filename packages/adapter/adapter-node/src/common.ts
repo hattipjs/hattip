@@ -1,5 +1,4 @@
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
-import { once } from "node:events";
 import {
 	createServer as createHttpServer,
 	Server as HttpServer,
@@ -8,7 +7,8 @@ import {
 	ServerOptions,
 } from "node:http";
 import type { Socket } from "node:net";
-import { Readable } from "node:stream";
+import { NodeRequestAdapterOptions, createRequestAdapter } from "./request";
+import { sendResponse } from "./response";
 
 interface PossiblyEncryptedSocket extends Socket {
 	encrypted?: boolean;
@@ -32,27 +32,7 @@ export type NodeMiddleware = (
 ) => void;
 
 /** Adapter options */
-export interface NodeAdapterOptions {
-	/**
-	 * Set the origin part of the URL to a constant value.
-	 * It defaults to `process.env.ORIGIN`. If neither is set,
-	 * the origin is computed from the protocol and hostname.
-	 * To determine the protocol, `req.protocol` is tried first.
-	 * If `trustProxy` is set, `X-Forwarded-Proto` header is used.
-	 * Otherwise, `req.socket.encrypted` is used.
-	 * To determine the hostname, `X-Forwarded-Host`
-	 * (if `trustProxy` is set) or `Host` header is used.
-	 */
-	origin?: string;
-	/**
-	 * Whether to trust `X-Forwarded-*` headers. `X-Forwarded-Proto`
-	 * and `X-Forwarded-Host` are used to determine the origin when
-	 * `origin` and `process.env.ORIGIN` are not set. `X-Forwarded-For`
-	 * is used to determine the IP address. The leftmost values are used
-	 * if multiple values are set. Defaults to true if `process.env.TRUST_PROXY`
-	 * is set to `1`, otherwise false.
-	 */
-	trustProxy?: boolean;
+export interface NodeAdapterOptions extends NodeRequestAdapterOptions {
 	/**
 	 * Whether to call the next middleware in the chain even if the request
 	 * was handled. @default true
@@ -74,78 +54,12 @@ export function createMiddleware(
 	handler: HattipHandler<NodePlatformInfo>,
 	options: NodeAdapterOptions = {},
 ): NodeMiddleware {
-	const {
-		origin = process.env.ORIGIN,
-		trustProxy = process.env.TRUST_PROXY === "1",
-		alwaysCallNext = true,
-	} = options;
+	const { alwaysCallNext = true, ...requestOptions } = options;
 
-	let { protocol, host } = origin
-		? new URL(origin)
-		: ({} as Record<string, undefined>);
-
-	if (protocol) {
-		protocol = protocol.slice(0, -1);
-	}
+	const requestAdapter = createRequestAdapter(requestOptions);
 
 	return async (req, res, next) => {
-		// TODO: Support the newer `Forwarded` standard header
-		function getForwardedHeader(name: string) {
-			return (String(req.headers["x-forwarded-" + name]) || "")
-				.split(",", 1)[0]
-				.trim();
-		}
-
-		protocol =
-			protocol ||
-			req.protocol ||
-			(trustProxy && getForwardedHeader("proto")) ||
-			(req.socket?.encrypted && "https") ||
-			"http";
-
-		host =
-			host || (trustProxy && getForwardedHeader("host")) || req.headers.host;
-
-		if (!host) {
-			console.warn(
-				"Could not automatically determine the origin host, using 'localhost'. " +
-					"Use the 'origin' option or the 'ORIGIN' environment variable to set the origin explicitly.",
-			);
-			host = "localhost";
-		}
-
-		const ip =
-			req.ip ||
-			(trustProxy && getForwardedHeader("for")) ||
-			req.socket?.remoteAddress ||
-			"";
-
-		let headers = req.headers as any;
-		if (headers[":method"]) {
-			headers = Object.fromEntries(
-				Object.entries(headers).filter(([key]) => !key.startsWith(":")),
-			);
-		}
-
-		const request = new Request(protocol + "://" + host + req.url, {
-			method: req.method,
-			headers,
-			body:
-				req.method === "GET" || req.method === "HEAD"
-					? undefined
-					: req.socket // Deno has no req.socket and can't convert req to ReadableStream
-					? (req as any)
-					: // Convert to a ReadableStream for Deno
-					  new ReadableStream({
-							start(controller) {
-								req.on("data", (chunk) => controller.enqueue(chunk));
-								req.on("end", () => controller.close());
-								req.on("error", (err) => controller.error(err));
-							},
-					  }),
-			// @ts-expect-error: Node requires this for streams
-			duplex: "half",
-		});
+		const [request, ip] = requestAdapter(req);
 
 		let passThroughCalled = false;
 
@@ -176,42 +90,14 @@ export function createMiddleware(
 
 		const response = await handler(context);
 
-		if (passThroughCalled) {
-			next?.();
+		if (passThroughCalled && next) {
+			next();
 			return;
 		}
 
-		const body: Readable | null =
-			response.body instanceof Readable
-				? response.body
-				: response.body instanceof ReadableStream &&
-				  typeof Readable.fromWeb === "function"
-				? Readable.fromWeb(response.body as any)
-				: response.body
-				? Readable.from(response.body as any)
-				: null;
-
-		res.statusCode = response.status;
-		for (const [key, value] of response.headers) {
-			if (key === "set-cookie") {
-				const setCookie = response.headers.getSetCookie();
-				res.setHeader("set-cookie", setCookie);
-			} else {
-				res.setHeader(key, value);
-			}
-		}
-
-		if (body) {
-			body.pipe(res, { end: true });
-			await Promise.race([once(res, "finish"), once(res, "error")]).catch(
-				() => {
-					// Ignore errors
-				},
-			);
-		} else {
-			res.setHeader("content-length", "0");
-			res.end();
-		}
+		await sendResponse(response, res).catch((error) => {
+			console.error(error);
+		});
 
 		if (next && alwaysCallNext) {
 			next();

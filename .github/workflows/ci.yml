@@ -28,7 +28,7 @@ jobs:
           - os: ubuntu-latest
             node_version: 16
           - os: ubuntu-latest
-            node_version: 19
+            node_version: 20
       fail-fast: false
     name: "CI tests on node-${{ matrix.node_version }}, ${{ matrix.os }}"
     steps:
@@ -39,6 +39,12 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
+
+      - name: Install Bun
+        if: matrix.os != 'windows-latest'
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2

@@ -14,10 +14,13 @@
     "build:vercel": "hattip-vercel -c --staticDir public --serverless entry-vercel-serverless.js",
     "build:vercel-edge": "hattip-vercel -c --staticDir public --edge entry-vercel-edge.js",
     "build:deno": "hattip-deno entry-deno.js dist/deno/index.js --staticDir public",
+    "build:deno-std": "hattip-deno entry-deno-std.js dist/deno/index.js --staticDir public",
+    "build:deno-node": "hattip-deno entry-node-native-fetch.js dist/deno/index.js --staticDir public --nodeCompat",
     "start:deno": "deno run --allow-read --allow-net --allow-env dist/deno/index.js",
     "start:fastly": "cd fastly && fastly compute serve --addr=\"127.0.0.1:3000\"",
     "ci": "vitest --reporter=verbose --no-threads"
   },
+  "main": "entry-gcf.js",
   "devDependencies": {
     "@fastly/compute-js-static-publish": "^5.1.1",
     "@fastly/js-compute": "^3.1.1",
@@ -54,6 +57,7 @@
     "wrangler": "^3.3.0"
   },
   "dependencies": {
+    "@google-cloud/functions-framework": "^3.3.0",
     "@graphql-tools/schema": "^10.0.0",
     "@hattip/adapter-node": "workspace:*",
     "@hattip/compose": "workspace:*",

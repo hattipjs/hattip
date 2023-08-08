@@ -21,15 +21,9 @@ export default function install() {
 	define("FormData");
 	define("Headers");
 
-	if (globalThis.Request) {
-		installHalfDuplexRequest();
-	} else {
-		define("Request");
-	}
-
 	if (globalThis.Response) return;
 
-	// node-fetch doesn't allow constructing a Request from ReadableStream
+	// node-fetch doesn't allow constructing a Response or a Request from ReadableStream
 	// see: https://github.com/node-fetch/node-fetch/issues/1096
 	class Response extends nodeFetch.Response {
 		constructor(input: BodyInit, init?: ResponseInit) {
@@ -41,12 +35,42 @@ export default function install() {
 		}
 	}
 
+	class Request extends nodeFetch.Request {
+		constructor(input: RequestInfo | URL, init?: RequestInit) {
+			if (init?.body instanceof ReadableStream) {
+				const body = Readable.from(init.body as any);
+				init = new Proxy(init, {
+					get(target, prop) {
+						if (prop === "body") {
+							return body;
+						}
+
+						return target[prop as keyof RequestInit];
+					},
+				});
+			}
+
+			super(input, init);
+		}
+	}
+
 	Object.defineProperty(Response, "name", {
 		value: "Response",
 		writable: false,
 	});
 
+	Object.defineProperty(Request, "name", {
+		value: "Request",
+		writable: false,
+	});
+
 	define("Response", Response);
+	if (globalThis.Request) {
+		installHalfDuplexRequest();
+	} else {
+		define("Request", Request);
+	}
+
 	define("fetch", (input: any, init: any) =>
 		nodeFetch.default(input, init).then((r) => {
 			Object.setPrototypeOf(r, Response.prototype);
