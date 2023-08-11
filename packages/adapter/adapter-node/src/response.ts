@@ -44,7 +44,7 @@ export async function sendResponse(
 			});
 		}
 	} else if (fetchBody) {
-		Readable.from(fetchBody as any);
+		body = Readable.from(fetchBody as any);
 	}
 
 	nodeResponse.statusCode = fetchResponse.status;
