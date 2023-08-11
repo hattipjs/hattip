@@ -4,6 +4,7 @@ export default defineConfig([
 	{
 		entry: [
 			"./src/node-fetch.ts",
+			"./src/whatwg-node.ts",
 			"./src/get-set-cookie.ts",
 			"./src/crypto.ts",
 			"./src/half-duplex-request.ts",

@@ -551,6 +551,9 @@ importers:
       '@hattip/core':
         specifier: workspace:*
         version: link:../core
+      '@whatwg-node/fetch':
+        specifier: ^0.9.9
+        version: 0.9.9
       node-fetch-native:
         specifier: ^1.2.0
         version: 1.2.0
@@ -4610,6 +4613,25 @@ packages:
     dependencies:
       '@whatwg-node/node-fetch': 0.4.7
       urlpattern-polyfill: 9.0.0
+    dev: false
+
+  /@whatwg-node/fetch@0.9.9:
+    resolution: {integrity: sha512-OTVoDm039CNyAWSRc2WBimMl/N9J4Fk2le21Xzcf+3OiWPNNSIbMnpWKBUyraPh2d9SAEgoBdQxTfVNihXgiUw==}
+    engines: {node: '>=16.0.0'}
+    dependencies:
+      '@whatwg-node/node-fetch': 0.4.13
+      urlpattern-polyfill: 9.0.0
+    dev: false
+
+  /@whatwg-node/node-fetch@0.4.13:
+    resolution: {integrity: sha512-Wijn8jtXq6VBX6EttABXHJIQBcoOP6RRQllXbiaHGORACTDr1xg6g2UnkoggY3dbDkm1VsMjdSe7NVBPc4ukYg==}
+    engines: {node: '>=16.0.0'}
+    dependencies:
+      '@whatwg-node/events': 0.1.1
+      busboy: 1.6.0
+      fast-querystring: 1.1.2
+      fast-url-parser: 1.1.3
+      tslib: 2.6.1
     dev: false
 
   /@whatwg-node/node-fetch@0.4.7:

@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ServerResponse } from "node:http";
-import { Readable } from "node:stream";
+import { Readable, pipeline as pipelineCb } from "node:stream";
+import { promisify } from "node:util";
+
+const pipeline = promisify(pipelineCb);
 
 // @ts-ignore
 const deno = typeof Deno !== "undefined";
@@ -28,7 +31,7 @@ export async function sendResponse(
 	const { body: fetchBody } = fetchResponse;
 
 	let body: Readable | null = null;
-	if (fetchBody instanceof Readable) {
+	if (!deno && fetchBody instanceof Readable) {
 		body = fetchBody;
 	} else if (fetchBody instanceof ReadableStream) {
 		if (!deno && Readable.fromWeb) {
@@ -71,11 +74,7 @@ export async function sendResponse(
 	}
 
 	if (body) {
-		body.pipe(nodeResponse, { end: true });
-		await new Promise<void>((resolve, reject) => {
-			nodeResponse.once("error", reject);
-			nodeResponse.once("finish", resolve);
-		});
+		await pipeline(body, nodeResponse);
 	} else {
 		nodeResponse.setHeader("content-length", "0");
 		nodeResponse.end();

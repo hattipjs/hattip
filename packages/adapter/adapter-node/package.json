@@ -9,6 +9,7 @@
   "exports": {
     ".": "./dist/index.js",
     "./native-fetch": "./dist/native-fetch.js",
+    "./whatwg-node": "./dist/whatwg-node.js",
     "./request": "./dist/request.js",
     "./response": "./dist/response.js"
   },

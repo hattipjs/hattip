@@ -5,6 +5,7 @@ export default defineConfig([
 		entry: [
 			"./src/index.ts",
 			"./src/native-fetch.ts",
+			"./src/whatwg-node.ts",
 			"./src/request.ts",
 			"./src/response.ts",
 		],

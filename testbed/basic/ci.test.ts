@@ -59,6 +59,8 @@ if (process.env.CI === "true") {
 	// 	);
 	// }
 
+	const noFetchFlag = fetchAvailable ? "--no-experimental-fetch" : "";
+
 	cases = [
 		{
 			name: "Test adapter",
@@ -66,14 +68,19 @@ if (process.env.CI === "true") {
 			requiresForwardedIp: true,
 			skipStaticFileTest: true,
 		},
-		{
-			name: "Node with node-fetch",
-			command: fetchAvailable ? "pnpm start" : "node entry-node.js",
-			skipCryptoTest: nodeVersionMajor < 16,
-		},
 		fetchAvailable && {
 			name: "Node with native fetch",
 			command: "node --experimental-fetch entry-node-native-fetch.js",
+		},
+		{
+			name: "Node with node-fetch",
+			command: `node ${noFetchFlag} entry-node.js`,
+			skipCryptoTest: nodeVersionMajor < 16,
+		},
+		{
+			name: "Node with @whatwg-node/fetch",
+			command: `node ${noFetchFlag} entry-node-whatwg.js`,
+			skipCryptoTest: nodeVersionMajor < 16,
 		},
 		{
 			name: "Deno",
@@ -124,7 +131,7 @@ if (process.env.CI === "true") {
 		},
 		uwsAvailable && {
 			name: "uWebSockets.js",
-			command: "node --no-experimental-fetch entry-uws.js",
+			command: `node ${noFetchFlag} entry-uws.js`,
 		},
 		{
 			name: "Lagon",

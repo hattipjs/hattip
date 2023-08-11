@@ -8,6 +8,7 @@
   ],
   "exports": {
     "./node-fetch": "./dist/node-fetch.js",
+    "./whatwg-node": "./dist/whatwg-node.js",
     "./get-set-cookie": "./dist/get-set-cookie.js",
     "./crypto": "./dist/crypto.js",
     "./half-duplex-request": "./dist/half-duplex-request.js"
@@ -43,6 +44,7 @@
   },
   "dependencies": {
     "@hattip/core": "workspace:*",
+    "@whatwg-node/fetch": "^0.9.9",
     "node-fetch-native": "^1.2.0"
   }
 }
