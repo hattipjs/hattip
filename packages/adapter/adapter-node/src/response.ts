@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ServerResponse } from "node:http";
-import { Readable, pipeline as pipelineCb } from "node:stream";
-import { promisify } from "node:util";
-
-const pipeline = promisify(pipelineCb);
+import { Readable } from "node:stream";
 
 // @ts-ignore
 const deno = typeof Deno !== "undefined";
@@ -74,7 +71,12 @@ export async function sendResponse(
 	}
 
 	if (body) {
-		await pipeline(body, nodeResponse);
+		body.pipe(nodeResponse);
+		await new Promise((resolve, reject) => {
+			body!.on("error", reject);
+			nodeResponse.on("finish", resolve);
+			nodeResponse.on("error", reject);
+		});
 	} else {
 		nodeResponse.setHeader("content-length", "0");
 		nodeResponse.end();

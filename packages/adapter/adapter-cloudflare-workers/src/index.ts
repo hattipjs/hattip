@@ -52,10 +52,6 @@ export default function cloudflareWorkersAdapter(
 		const context: AdapterRequestContext<CloudflareWorkersPlatformInfo> = {
 			request,
 			ip: request.headers.get("CF-Connecting-IP") || "127.0.0.1", // wrangler no longer sets this header
-			env(variable) {
-				const value = (env as any)[variable];
-				return typeof value === "string" ? value : undefined;
-			},
 			waitUntil: ctx.waitUntil.bind(ctx),
 			passThrough() {
 				// Do nothing
@@ -64,6 +60,10 @@ export default function cloudflareWorkersAdapter(
 				name: "cloudflare-workers",
 				env,
 				context: ctx,
+			},
+			env(variable) {
+				const value = (env as any)[variable];
+				return typeof value === "string" ? value : undefined;
 			},
 		};
 

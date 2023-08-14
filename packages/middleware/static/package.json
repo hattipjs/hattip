@@ -1,22 +1,26 @@
 {
-  "name": "@hattip/adapter-node",
+  "name": "@hattip/static",
   "version": "0.0.34",
   "type": "module",
-  "description": "Node.js adapter for Hattip",
+  "description": "Static file serving middleware for HatTip",
   "files": [
     "dist"
   ],
   "exports": {
     ".": "./dist/index.js",
-    "./native-fetch": "./dist/native-fetch.js",
-    "./whatwg-node": "./dist/whatwg-node.js",
-    "./request": "./dist/request.js",
-    "./response": "./dist/response.js"
+    "./node": "./dist/node.js",
+    "./fs": {
+      "types": "./dist/fs.d.ts",
+      "workerd": "./dist/fs.workerd.js",
+      "bun": "./dist/fs.bun.js",
+      "deno": "./dist/fs.deno.js",
+      "node": "./dist/fs.node.js"
+    }
   },
   "typesVersions": {
     "*": {
       "*": [
-        "dist/*.d.ts"
+        "./dist/*.d.ts"
       ]
     }
   },
@@ -32,6 +36,9 @@
     "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
     "test:package": "publint --strict"
   },
+  "dependencies": {
+    "@hattip/headers": "workspace:*"
+  },
   "devDependencies": {
     "@cyco130/eslint-config": "^3.3.2",
     "@types/node": "^20.5.0",
@@ -39,10 +46,5 @@
     "publint": "^0.2.0",
     "tsup": "^7.2.0",
     "typescript": "^5.1.6"
-  },
-  "dependencies": {
-    "@hattip/core": "workspace:*",
-    "@hattip/polyfills": "workspace:*",
-    "@hattip/walk": "workspace:*"
   }
 }

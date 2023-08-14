@@ -7,6 +7,6 @@ export default defineConfig([
 		platform: "node",
 		target: "node14",
 		shims: false,
-		dts: { entry: "./src/index.ts" },
+		dts: { entry: ["./src/index.ts"] },
 	},
 ]);

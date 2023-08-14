@@ -22,6 +22,7 @@ let cases: Array<{
 	skipStreamingTest?: boolean;
 	skipCryptoTest?: boolean;
 	skipStaticFileTest?: boolean;
+	skipAdvancedStaticFileTest?: boolean;
 	tryStreamingWithoutCompression?: boolean;
 }>;
 
@@ -117,6 +118,7 @@ if (process.env.CI === "true") {
 		wranglerAvailable && {
 			name: "Cloudflare Workers",
 			command: "pnpm build:cfw && pnpm start:cfw",
+			skipAdvancedStaticFileTest: process.platform === "win32",
 		},
 		{
 			name: "Netlify Functions with netlify serve",
@@ -136,6 +138,7 @@ if (process.env.CI === "true") {
 		{
 			name: "Lagon",
 			command: "lagon dev entry-lagon.js -p public --port 3000",
+			skipAdvancedStaticFileTest: true,
 		},
 		{
 			name: "Google Cloud Functions",
@@ -184,6 +187,7 @@ describe.each(cases)(
 		requiresForwardedIp,
 		skipCryptoTest,
 		skipStaticFileTest,
+		skipAdvancedStaticFileTest,
 		tryStreamingWithoutCompression,
 	}) => {
 		beforeAll(async () => {
@@ -326,6 +330,19 @@ describe.each(cases)(
 
 			expect(text).toContain("This is a static file!");
 		});
+
+		test.failsIf(skipStaticFileTest || skipAdvancedStaticFileTest)(
+			"serves advanced static files",
+			async () => {
+				const response = await fetch(host + "/🙂🙂🙂");
+
+				expect(response.status).toBe(200);
+				expect(response.headers.get("content-type")).toContain("text/html");
+
+				const text = await response.text();
+				expect(text).toContain("🙂🙂🙂");
+			},
+		);
 
 		test("renders binary", async () => {
 			const response = await fetch(host + "/binary");

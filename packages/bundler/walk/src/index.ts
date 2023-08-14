@@ -2,12 +2,24 @@ import { lookup } from "mime-types";
 import fs from "node:fs";
 import path from "node:path";
 import { createHash } from "node:crypto";
-import { pipeline } from "node:stream/promises";
+import { fileURLToPath } from "node:url";
 import { normalizePathSegment } from "./url";
 
-export interface StatOptions {
+export interface WalkOptions {
+	/**
+	 * Whether to calculate the etag for each file.
+	 * @default true
+	 */
 	etag?: boolean;
+	/**
+	 * A list of file and directory names to ignore.
+	 * @default ["node_modules","dist",/^\.(?!well-known$)/]
+	 */
 	prune?: (string | RegExp)[];
+	/**
+	 * A function to get the mime type of a file.
+	 * @default import("mime-types").lookup
+	 */
 	getType?: (name: string) => string | false;
 }
 
@@ -18,10 +30,14 @@ export interface FileInfo {
 	readonly etag?: string;
 }
 
-export async function walk(
-	dir: string,
-	options: StatOptions = {},
-): Promise<Map<string, FileInfo>> {
+export function walk(
+	dir: string | URL,
+	options: WalkOptions = {},
+): Map<string, FileInfo> {
+	if (dir instanceof URL || dir.startsWith("file:")) {
+		dir = fileURLToPath(dir);
+	}
+
 	return doWalk(
 		new Map<string, FileInfo>(),
 		dir,
@@ -36,13 +52,13 @@ export async function walk(
 	);
 }
 
-async function doWalk(
+function doWalk(
 	entries: Map<string, FileInfo>,
 	dir: string,
 	parent: string,
 	normalizedParent: string,
-	options: Required<StatOptions>,
-): Promise<Map<string, FileInfo>> {
+	options: Required<WalkOptions>,
+): Map<string, FileInfo> {
 	const files = fs.readdirSync(dir);
 
 	for (const file of files) {
@@ -71,7 +87,7 @@ async function doWalk(
 		}
 
 		if (stat.isDirectory()) {
-			await doWalk(
+			doWalk(
 				entries,
 				filepath,
 				relativePath,
@@ -82,10 +98,7 @@ async function doWalk(
 			let etag: string | undefined;
 			if (options.etag) {
 				// Get file hash
-				const hash = createHash("sha256");
-				const stream = fs.createReadStream(filepath);
-				await pipeline(stream, hash);
-				etag = hash.digest("hex");
+				etag = hashSync(filepath);
 			}
 
 			entries.set(normalizedParent + "/" + normalizedFile, {
@@ -100,17 +113,17 @@ async function doWalk(
 	return entries;
 }
 
-export async function createFileSet(dir: string, options?: StatOptions) {
+export async function createFileSet(dir: string, options?: WalkOptions) {
 	const files = await walk(dir, options);
 	return new Set(files.keys());
 }
 
-export async function createFileSetModule(dir: string, options?: StatOptions) {
+export async function createFileSetModule(dir: string, options?: WalkOptions) {
 	const files = await createFileSet(dir, options);
 	return `export default new Set(${JSON.stringify([...files])});`;
 }
 
-export async function createFileMap(dir: string, options?: StatOptions) {
+export async function createFileMap(dir: string, options?: WalkOptions) {
 	const files = await walk(dir, options);
 	return new Map(
 		[...files].map(([name, stat]) => [
@@ -120,7 +133,7 @@ export async function createFileMap(dir: string, options?: StatOptions) {
 	);
 }
 
-export async function createFileMapModule(dir: string, options?: StatOptions) {
+export async function createFileMapModule(dir: string, options?: WalkOptions) {
 	const files = await createFileMap(dir, options);
 	const joined = [...files].map(stringifyTuple).join(",");
 	return `export default new Map([${joined}]);`;
@@ -128,7 +141,7 @@ export async function createFileMapModule(dir: string, options?: StatOptions) {
 
 export async function createFileList(
 	dir: string,
-	options?: StatOptions,
+	options?: WalkOptions,
 ): Promise<
 	Array<
 		[
@@ -160,7 +173,7 @@ export async function createFileList(
 	}
 }
 
-export async function createFileListModule(dir: string, options?: StatOptions) {
+export async function createFileListModule(dir: string, options?: WalkOptions) {
 	const files = await createFileList(dir, options);
 	const joined = files.map((file) => stringifyTuple(file)).join(",");
 	return `export default [${joined}];`;
@@ -168,7 +181,7 @@ export async function createFileListModule(dir: string, options?: StatOptions) {
 
 export async function createCompressedFileListModule(
 	dir: string,
-	options?: StatOptions,
+	options?: WalkOptions,
 ) {
 	const files = await createFileList(dir, options);
 	const types = new Map<string, number>();
@@ -207,4 +220,21 @@ function stringifyTuple(tuple: any[]) {
 	return `[${tuple
 		.map((value) => (value === undefined ? "" : JSON.stringify(value)))
 		.join(",")}]`;
+}
+
+function hashSync(filepath: string) {
+	const hash = createHash("md5");
+	const buffer = Buffer.alloc(64 * 1024);
+	const fd = fs.openSync(filepath, "r");
+
+	for (;;) {
+		const bytesRead = fs.readSync(fd, buffer, {});
+		if (bytesRead === 0) {
+			break;
+		}
+
+		hash.update(buffer.subarray(0, bytesRead));
+	}
+
+	return hash.digest("hex");
 }

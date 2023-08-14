@@ -32,3 +32,7 @@ it("encodes backslashes", () => {
 it("doesn't encode forward slashes", () => {
 	expect(normalizePathSegment("%2F")).toBe("%2F");
 });
+
+it("encodes unicode chars that contain surrogate pairs", () => {
+	expect(normalizePathSegment("😊")).toBe("%F0%9F%98%8A");
+});

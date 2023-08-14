@@ -11,13 +11,16 @@ export default function cloudflareWorkersAdapter(
 	return async function fetchHandler(request, env, ctx) {
 		const context: AdapterRequestContext<CloudflareWorkersPlatformInfo> = {
 			request,
-			ip: request.headers.get("CF-Connecting-IP") || "",
+			ip: request.headers.get("CF-Connecting-IP") || "127.0.0.1",
 			waitUntil: ctx.waitUntil.bind(ctx),
 			passThrough() {
-				// TODO: Investigate if there is a way to make CFW pass through the
-				// request to the origin server.
+				// Do nothing
 			},
-			platform: { name: "cloudflare-workers", env, context: ctx },
+			platform: {
+				name: "cloudflare-workers",
+				env,
+				context: ctx,
+			},
 			env(variable) {
 				const value = (env as any)[variable];
 				return typeof value === "string" ? value : undefined;
