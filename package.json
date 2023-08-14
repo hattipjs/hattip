@@ -22,10 +22,10 @@
     "graphql": "^16.7.1",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.0",
-    "prettier": "^3.0.0",
+    "prettier": "^3.0.1",
     "rimraf": "^5.0.1",
-    "vite": "^4.4.7",
-    "vitest": "^0.33.0"
+    "vite": "^4.4.9",
+    "vitest": "^0.34.1"
   },
   "dependencies": {
     "typescript": "^5.1.6"

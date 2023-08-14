@@ -35,17 +35,17 @@
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.3.0",
+    "@cyco130/eslint-config": "^3.3.2",
     "@hattip/polyfills": "workspace:*",
     "@miniflare/kv": "^2.14.0",
     "@miniflare/storage-memory": "^2.14.0",
-    "@types/node": "^20.4.4",
+    "@types/node": "^20.5.0",
     "@types/redis-mock": "^0.17.1",
-    "eslint": "^8.45.0",
-    "publint": "^0.1.16",
+    "eslint": "^8.47.0",
+    "publint": "^0.2.0",
     "redis-mock": "^0.56.3",
-    "tsup": "^7.1.0",
+    "tsup": "^7.2.0",
     "typescript": "^5.1.6",
-    "vitest": "^0.33.0"
+    "vitest": "^0.34.1"
   }
 }
