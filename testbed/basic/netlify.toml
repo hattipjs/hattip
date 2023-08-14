@@ -1,4 +1,6 @@
 [build]
+# This is required by netlify-cli > v16 in monorepos
+base = "testbed/basic"
 publish = "netlify/static"
 
 [[edge_functions]]
