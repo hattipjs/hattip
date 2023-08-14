@@ -136,8 +136,8 @@ importers:
         specifier: ^5.1.6
         version: 5.1.6
       vavite:
-        specifier: 2.0.1
-        version: 2.0.1(vite@4.4.7)
+        specifier: 2.0.2
+        version: 2.0.2(vite@4.4.7)
       vite:
         specifier: ^4.4.7
         version: 4.4.7(@types/node@20.4.4)
@@ -778,14 +778,14 @@ importers:
         specifier: workspace:*
         version: link:../../adapter/adapter-node
       '@vavite/connect':
-        specifier: ^2.0.1
-        version: 2.0.1(vite@4.4.7)
+        specifier: ^2.0.2
+        version: 2.0.2(vite@4.4.7)
       '@vavite/multibuild':
-        specifier: ^2.0.1
-        version: 2.0.1(vite@4.4.7)
+        specifier: ^2.0.2
+        version: 2.0.2(vite@4.4.7)
       '@vavite/node-loader':
-        specifier: ^2.0.1
-        version: 2.0.1(vite@4.4.7)
+        specifier: ^2.0.2
+        version: 2.0.2(vite@4.4.7)
       cac:
         specifier: ^6.7.14
         version: 6.7.14
@@ -4196,6 +4196,10 @@ packages:
   /@types/node@20.4.4:
     resolution: {integrity: sha512-CukZhumInROvLq3+b5gLev+vgpsIqC2D0deQr/yS1WnxvmYLlJXZpaQrQiseMY+6xusl79E04UjWoqyr+t1/Ew==}
 
+  /@types/node@20.5.0:
+    resolution: {integrity: sha512-Mgq7eCtoTjT89FqNoTzzXg2XvCi5VMhRV6+I2aYanc6kQCBImeNaAYRs/DyoVqk1YEUJK5gN9VO7HRIdz4Wo3Q==}
+    dev: false
+
   /@types/normalize-package-data@2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
 
@@ -4458,49 +4462,49 @@ packages:
       eslint-visitor-keys: 3.4.1
     dev: true
 
-  /@vavite/connect@2.0.1(vite@4.4.7):
-    resolution: {integrity: sha512-3sFbuSrngx9VW5MXDIcAY3AxuP/Mm44H0Noz8AugLnDiaquc2dIAYv8o8Yix7sASeK09Fgb75QfMUf21VbN3og==}
+  /@vavite/connect@2.0.2(vite@4.4.7):
+    resolution: {integrity: sha512-GbX7/vVoQnCmZUM+HUnm5XRN6q1qP2ncqpk7f5Modn7zUSqWaTbzPFjvy+triy9L5H06Uo2fq7uRhdvoGwHDNg==}
     peerDependencies:
       vite: ^2.8.1 || 3 || 4
     dependencies:
-      '@types/node': 20.4.4
+      '@types/node': 20.5.0
       vite: 4.4.7(@types/node@20.4.4)
     dev: false
 
-  /@vavite/expose-vite-dev-server@2.0.1(vite@4.4.7):
-    resolution: {integrity: sha512-9mQOAAUEwzflSBfzIdibZDFGd8ymvDbnhUMp+e5pycBElBK/y/xgFBk4x3PiIaqnKVPWOxcT6dKYh70zRwBhDA==}
+  /@vavite/expose-vite-dev-server@2.0.2(vite@4.4.7):
+    resolution: {integrity: sha512-TMIuhHZtRxFiBt6yZKsm0V77ZD4A/zSuP5vwYJzjfOlvTmhUk6CpK25Ptetiz0jDdxy48NpZ3oYNSes2uvrlCw==}
     peerDependencies:
       vite: ^2.8.1 || 3 || 4
     dependencies:
       vite: 4.4.7(@types/node@20.4.4)
     dev: false
 
-  /@vavite/multibuild-cli@2.0.1(vite@4.4.7):
-    resolution: {integrity: sha512-6aeUTUsAp10XppWw4juLPTcEvoVbb75d/4aIcCwW7M/YqHHdxgdUyr3Pepq43zgAa+vvfKIWskgtSccnvEFLFg==}
+  /@vavite/multibuild-cli@2.0.2(vite@4.4.7):
+    resolution: {integrity: sha512-U9im/fdHjAS5tea3dOLZU59eI7znGyg3Tcl5z6HhWxJiFyql4C3dZjadiFOhOFNSXaFCpbn4n6qCokRvsaiN1Q==}
     hasBin: true
     peerDependencies:
       vite: ^2.8.1 || 3 || 4
     dependencies:
-      '@types/node': 20.4.4
-      '@vavite/multibuild': 2.0.1(vite@4.4.7)
+      '@types/node': 20.5.0
+      '@vavite/multibuild': 2.0.2(vite@4.4.7)
       cac: 6.7.14
       picocolors: 1.0.0
       vite: 4.4.7(@types/node@20.4.4)
     dev: false
 
-  /@vavite/multibuild@2.0.1(vite@4.4.7):
-    resolution: {integrity: sha512-GDyXQSJ2JR+6zIOj5CHolMbrdXcIQ2JWkPzApXoRZ9WyQi5HdbCFskQ75Hcfqmajn3hLx++JoMPneSEDOb/1iA==}
+  /@vavite/multibuild@2.0.2(vite@4.4.7):
+    resolution: {integrity: sha512-8/vAEzR7dVseSVJ9EgCQonIKWBnJnKMfOAhgFhLw3K6PV7/Tt6MebGQRsV0do9a2VE2C+aHqYL1NnCZnjRj5Aw==}
     peerDependencies:
       vite: ^2.8.1 || 3 || 4
     dependencies:
-      '@types/node': 20.4.4
+      '@types/node': 20.5.0
       cac: 6.7.14
       picocolors: 1.0.0
       vite: 4.4.7(@types/node@20.4.4)
     dev: false
 
-  /@vavite/node-loader@2.0.1(vite@4.4.7):
-    resolution: {integrity: sha512-zzHGvLru9KMZYplFuKrLmFZZMzJrCeR0MCYljczRzLCJSqWKM0xAPqvuKoDD7S/D0v5qv1noMF2RhNwDYA+8IQ==}
+  /@vavite/node-loader@2.0.2(vite@4.4.7):
+    resolution: {integrity: sha512-yRwEEODQ59rchb65HRVowJu5urOhPvbv8fKCAhTE6XwqAjo/QHwwX86/r2pc4KKfX/BLEtzTj4tq/OSmh56USQ==}
     hasBin: true
     peerDependencies:
       vite: ^2.8.1 || 3 || 4
@@ -4508,8 +4512,8 @@ packages:
       vite: 4.4.7(@types/node@20.4.4)
     dev: false
 
-  /@vavite/reloader@2.0.1(vite@4.4.7):
-    resolution: {integrity: sha512-aT2dBzIZ2iFJSJo6lwGvF4UPI+vV4zYqeN4kba1j3RAQH52mmavqU6LtkvijyK2Rp5WwKExlMMGVLRO7urMJQA==}
+  /@vavite/reloader@2.0.2(vite@4.4.7):
+    resolution: {integrity: sha512-bpNnRbZBccjv02v+m3qATwC6DgABDtK4KdssqtBwV4YeHbCfzemqxLIvmeKMX9ULRCVBJPEMEoqxwrlGSZ0oTA==}
     peerDependencies:
       vite: ^2.8.1 || 3 || 4
     dependencies:
@@ -12837,18 +12841,18 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
 
-  /vavite@2.0.1(vite@4.4.7):
-    resolution: {integrity: sha512-sn5WckJDGJ0/aP4XSpKrXuK6Et4P4XQm039nYZbYMoUpKHidu735l4QldyO8/wYR/0visJ2a1CGXsz7KsGy19Q==}
+  /vavite@2.0.2(vite@4.4.7):
+    resolution: {integrity: sha512-tlFyW8SONmcYhdRMPqRteuurIIAvh+Vi+FB3HQFhAL7zaoniywshdiOmnSIsN2q8wgiFK1xNYyb5/5qC03Wyeg==}
     hasBin: true
     peerDependencies:
       vite: ^2.8.1 || 3 || 4
     dependencies:
-      '@vavite/connect': 2.0.1(vite@4.4.7)
-      '@vavite/expose-vite-dev-server': 2.0.1(vite@4.4.7)
-      '@vavite/multibuild': 2.0.1(vite@4.4.7)
-      '@vavite/multibuild-cli': 2.0.1(vite@4.4.7)
-      '@vavite/node-loader': 2.0.1(vite@4.4.7)
-      '@vavite/reloader': 2.0.1(vite@4.4.7)
+      '@vavite/connect': 2.0.2(vite@4.4.7)
+      '@vavite/expose-vite-dev-server': 2.0.2(vite@4.4.7)
+      '@vavite/multibuild': 2.0.2(vite@4.4.7)
+      '@vavite/multibuild-cli': 2.0.2(vite@4.4.7)
+      '@vavite/node-loader': 2.0.2(vite@4.4.7)
+      '@vavite/reloader': 2.0.2(vite@4.4.7)
       cac: 6.7.14
       picocolors: 1.0.0
       vite: 4.4.7(@types/node@20.4.4)
