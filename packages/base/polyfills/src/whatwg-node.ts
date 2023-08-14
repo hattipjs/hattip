@@ -15,6 +15,10 @@ export default function install() {
 		}
 	}
 
+	define("ReadableStream");
+	define("WritableStream");
+	define("TransformStream");
+
 	define("AbortController");
 	define("Blob");
 	define("File");
