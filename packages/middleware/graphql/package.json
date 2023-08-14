@@ -33,24 +33,24 @@
   },
   "dependencies": {
     "@graphql-tools/schema": "^10.0.0",
-    "@graphql-tools/utils": "^10.0.4",
+    "@graphql-tools/utils": "^10.0.5",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@graphql-yoga/subscription": "^4.0.0",
     "@hattip/compose": "workspace:*",
     "@hattip/core": "workspace:*",
     "dset": "^3.1.2",
-    "graphql-yoga": "^4.0.3",
+    "graphql-yoga": "^4.0.4",
     "tslib": "^2.6.1",
     "urlpattern-polyfill": "^9.0.0"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.3.0",
+    "@cyco130/eslint-config": "^3.3.2",
     "@hattip/polyfills": "workspace:*",
-    "@types/node": "^20.4.4",
-    "eslint": "^8.45.0",
+    "@types/node": "^20.5.0",
+    "eslint": "^8.47.0",
     "graphql": "^16.7.1",
-    "publint": "^0.1.16",
-    "tsup": "^7.1.0",
+    "publint": "^0.2.0",
+    "tsup": "^7.2.0",
     "typescript": "^5.1.6"
   }
 }
