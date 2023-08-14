@@ -77,7 +77,7 @@ if (process.env.CI === "true") {
 			command: `node ${noFetchFlag} entry-node.js`,
 			skipCryptoTest: nodeVersionMajor < 16,
 		},
-		{
+		fetchAvailable && {
 			name: "Node with @whatwg-node/fetch",
 			command: `node ${noFetchFlag} entry-node-whatwg.js`,
 			skipCryptoTest: nodeVersionMajor < 16,
