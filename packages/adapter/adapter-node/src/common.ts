@@ -28,14 +28,14 @@ export interface DecoratedRequest extends Omit<IncomingMessage, "socket"> {
 export type NodeMiddleware = (
 	req: DecoratedRequest,
 	res: ServerResponse,
-	next?: () => void,
+	next?: (err?: unknown) => void,
 ) => void;
 
 /** Adapter options */
 export interface NodeAdapterOptions extends NodeRequestAdapterOptions {
 	/**
 	 * Whether to call the next middleware in the chain even if the request
-	 * was handled. @default true
+	 * was handled.@default true
 	 */
 	alwaysCallNext?: boolean;
 }
@@ -59,48 +59,62 @@ export function createMiddleware(
 	const requestAdapter = createRequestAdapter(requestOptions);
 
 	return async (req, res, next) => {
-		const [request, ip] = requestAdapter(req);
+		try {
+			const [request, ip] = requestAdapter(req);
 
-		let passThroughCalled = false;
+			let passThroughCalled = false;
 
-		const context: AdapterRequestContext<NodePlatformInfo> = {
-			request,
+			const context: AdapterRequestContext<NodePlatformInfo> = {
+				request,
 
-			ip,
+				ip,
 
-			env(variable) {
-				return process.env[variable];
-			},
+				env(variable) {
+					return process.env[variable];
+				},
 
-			waitUntil(promise) {
-				// Do nothing
-				void promise;
-			},
+				waitUntil(promise) {
+					// Do nothing
+					void promise;
+				},
 
-			passThrough() {
-				passThroughCalled = true;
-			},
+				passThrough() {
+					passThroughCalled = true;
+				},
 
-			platform: {
-				name: "node",
-				request: req,
-				response: res,
-			},
-		};
+				platform: {
+					name: "node",
+					request: req,
+					response: res,
+				},
+			};
 
-		const response = await handler(context);
+			const response = await handler(context);
 
-		if (passThroughCalled && next) {
-			next();
-			return;
-		}
+			if (passThroughCalled && next) {
+				next();
+				return;
+			}
 
-		await sendResponse(response, res).catch((error) => {
-			console.error(error);
-		});
+			await sendResponse(response, res);
 
-		if (next && alwaysCallNext) {
-			next();
+			if (next && alwaysCallNext) {
+				next();
+			}
+		} catch (error) {
+			if (next) {
+				next(error);
+			} else {
+				console.error(error);
+
+				if (!res.headersSent) {
+					res.statusCode = 500;
+				}
+
+				if (!res.writableEnded) {
+					res.end();
+				}
+			}
 		}
 	};
 }

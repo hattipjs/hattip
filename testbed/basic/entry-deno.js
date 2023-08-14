@@ -1,30 +1,19 @@
+// @ts-check
 import { createServeHandler } from "@hattip/adapter-deno";
 import hattipHandler from "./index.js";
-import { walk } from "https://deno.land/std/fs/walk.ts";
-import { serveDir } from "https://deno.land/std/http/file_server.ts";
+import { walk } from "@hattip/walk";
+import { createStaticMiddleware } from "@hattip/static";
+import { createFileReader } from "@hattip/static/fs";
 
-const staticDir = "public";
-const walker = walk(staticDir, { includeDirs: false });
-const staticFiles = new Set();
-
-for await (const entry of walker) {
-	staticFiles.add(entry.path.slice(staticDir.length).replace(/\\/g, "/"));
-}
-
-const handler = createServeHandler(hattipHandler);
-
-Deno.serve({ port: 3000 }, async (request, connInfo) => {
-	const url = new URL(request.url);
-	const pathname = url.pathname;
-
-	if (staticFiles.has(pathname)) {
-		return serveDir(request, { fsRoot: staticDir });
-	} else if (staticFiles.has(pathname + "/index.html")) {
-		url.pathname = pathname + "/index.html";
-		return serveDir(new Request(url, request), {
-			fsRoot: staticDir,
-		});
-	}
-
-	return handler(request, connInfo);
+const root = new URL("./public", import.meta.url);
+const files = walk(root);
+const staticMiddleware = createStaticMiddleware(files, createFileReader(root), {
+	gzip: true,
 });
+
+const handler = createServeHandler((ctx) => {
+	return staticMiddleware(ctx) || hattipHandler(ctx);
+});
+
+// @ts-expect-error
+Deno.serve({ port: 3000 }, handler);

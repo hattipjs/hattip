@@ -76,6 +76,7 @@ export function createRequestAdapter(
 		}
 
 		let headers = req.headers as any;
+		// Filter out pseudo-headers
 		if (headers[":method"]) {
 			headers = Object.fromEntries(
 				Object.entries(headers).filter(([key]) => !key.startsWith(":")),
