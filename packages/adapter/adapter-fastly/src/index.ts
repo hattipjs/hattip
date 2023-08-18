@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /// <reference types="@fastly/js-compute"/>
 
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
@@ -13,6 +14,7 @@ export interface FastlyPlatformInfo {
 export default function fastlyComputeAdapter(
 	handler: HattipHandler<FastlyPlatformInfo>,
 ) {
+	// @ts-ignore
 	addEventListener("fetch", (event) => {
 		const context: AdapterRequestContext<FastlyPlatformInfo> = {
 			request: event.request,

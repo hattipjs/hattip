@@ -1,4 +1,4 @@
 {
 	"typescript.tsdk": "node_modules/typescript/lib",
-	"git-blame.gitWebUrl": ""
+	"deno.enablePaths": ["./_deno"]
 }

@@ -9,6 +9,7 @@ import {
 import type { Socket } from "node:net";
 import { NodeRequestAdapterOptions, createRequestAdapter } from "./request";
 import { sendResponse } from "./response";
+import process from "node:process";
 
 interface PossiblyEncryptedSocket extends Socket {
 	encrypted?: boolean;

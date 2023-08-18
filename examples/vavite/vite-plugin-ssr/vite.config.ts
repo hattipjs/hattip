@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import ssr from "vite-plugin-ssr/plugin";
 import vavite from "vavite";
+import process from "node:process";
 
 const BUN = process.env.TARGET === "bun";
 

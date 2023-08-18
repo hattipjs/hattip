@@ -1,6 +1,10 @@
 import { RequestContext } from "@hattip/compose";
-import { Awaitable } from "vitest";
-import { SessionData, SessionSerializationOptions, SessionStore } from ".";
+import {
+	Awaitable,
+	SessionData,
+	SessionSerializationOptions,
+	SessionStore,
+} from ".";
 import { randomUUID } from "./crypto";
 
 export interface RedisClient {

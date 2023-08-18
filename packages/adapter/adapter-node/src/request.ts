@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { IncomingMessage } from "node:http";
 import type { Socket } from "node:net";
+import process from "node:process";
+import { Buffer } from "node:buffer";
 
 // @ts-ignore
 const deno = typeof Deno !== "undefined";

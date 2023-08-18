@@ -56,7 +56,7 @@ export async function sendResponse(
 
 	for (const key of uniqueHeaderNames) {
 		if (key === "set-cookie") {
-			const setCookie = fetchResponse.headers.getSetCookie();
+			const setCookie = fetchResponse.headers.getSetCookie!();
 			if (nodeResponse.appendHeader) {
 				for (const cookie of setCookie) {
 					nodeResponse.appendHeader("set-cookie", cookie);

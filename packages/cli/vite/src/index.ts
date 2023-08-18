@@ -111,7 +111,7 @@ cli
 					useLoader?: boolean;
 				},
 		) => {
-			if (options.useLoader && !global.__vavite_loader__) {
+			if (options.useLoader && !globalThis.__vavite_loader__) {
 				// Rerun the command with the loader options
 				const options =
 					(process.env.NODE_OPTIONS ? process.env.NODE_OPTIONS + " " : "") +

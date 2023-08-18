@@ -1,3 +1,5 @@
+const { Buffer } = globalThis as any;
+
 export function fromBase64(input: string): Uint8Array {
 	input = input.replace(/-/g, "+").replace(/_/g, "/");
 	return typeof atob === "function"

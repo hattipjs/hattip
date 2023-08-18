@@ -1,7 +1,11 @@
 import { RequestContext } from "@hattip/compose";
 import { randomUUID } from "./crypto";
-import { Awaitable } from "vitest";
-import { SessionData, SessionSerializationOptions, SessionStore } from ".";
+import {
+	Awaitable,
+	SessionData,
+	SessionSerializationOptions,
+	SessionStore,
+} from ".";
 
 export interface KVStore {
 	get(key: string): Awaitable<string | null>;

@@ -4,6 +4,7 @@ import path from "node:path";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { normalizePathSegment } from "./url";
+import { Buffer } from "node:buffer";
 
 export interface WalkOptions {
 	/**

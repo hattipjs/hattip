@@ -7,9 +7,6 @@ import {
 	SSLApp,
 	TemplatedApp,
 } from "uWebSockets.js";
-import { scanDir } from "./static-server";
-import fs from "node:fs";
-import { lookup } from "mrmime";
 
 /** Adapter options */
 export interface UWebSocketAdapterOptions {
@@ -62,11 +59,8 @@ export function createServer(
 		origin = process.env.ORIGIN,
 		trustProxy = process.env.TRUST_PROXY === "1",
 		ssl = false,
-		staticDir,
 		configureServer,
 	} = adapterOptions || {};
-
-	const files = staticDir ? new Set(scanDir(staticDir, staticDir)) : undefined;
 
 	let { protocol, host } = origin
 		? new URL(origin)
@@ -90,37 +84,6 @@ export function createServer(
 
 		const method = req.getCaseSensitiveMethod();
 		const path = req.getUrl();
-
-		// TODO: Create a better static file server
-		if (
-			files &&
-			method === "GET" &&
-			(files.has(path) || files.has(path + "/index.html"))
-		) {
-			const fileStream = fs.createReadStream(
-				staticDir + (files.has(path) ? path : path + "/index.html"),
-			);
-
-			res.writeStatus("200 OK");
-			const contentType = lookup(path);
-			if (contentType) {
-				res.writeHeader("Content-Type", contentType);
-			}
-
-			fileStream.on("data", (chunk) => {
-				if (!aborted) {
-					res.write(chunk);
-				}
-			});
-
-			fileStream.on("end", () => {
-				if (!aborted) {
-					res.end();
-				}
-			});
-
-			return;
-		}
 
 		const headers = new Headers();
 		req.forEach((key, value) => headers.append(key, value));

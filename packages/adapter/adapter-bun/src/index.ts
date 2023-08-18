@@ -1,8 +1,8 @@
-/// <reference types="bun-types" />
 import fs from "node:fs";
 import path from "node:path";
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
-import type { Serve, Server } from "bun";
+import type { Serve, Server, BunFile } from "./bun-types";
+import process from "node:process";
 
 export type BunAdapterOptions = Omit<Serve, "fetch" | "error"> & {
 	staticDir?: string;
@@ -95,4 +95,37 @@ function walk(
 	}
 
 	return entries;
+}
+
+declare global {
+	// eslint-disable-next-line no-var
+	var Bun: {
+		/**
+		 * [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) powered by the fastest system calls available for operating on files.
+		 *
+		 * This Blob is lazy. That means it won't do any work until you read from it.
+		 *
+		 * - `size` will not be valid until the contents of the file are read at least once.
+		 * - `type` is auto-set based on the file extension when possible
+		 *
+		 * @example
+		 * ```js
+		 * const file = Bun.file("./hello.json");
+		 * console.log(file.type); // "application/json"
+		 * console.log(await file.json()); // { hello: "world" }
+		 * ```
+		 *
+		 * @example
+		 * ```js
+		 * await Bun.write(
+		 *   Bun.file("./hello.txt"),
+		 *   "Hello, world!"
+		 * );
+		 * ```
+		 * @param path The path to the file (lazily loaded)
+		 *
+		 */
+		// tslint:disable-next-line:unified-signatures
+		file(path: string | URL, options?: BlobPropertyBag): BunFile;
+	};
 }

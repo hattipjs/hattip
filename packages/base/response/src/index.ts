@@ -154,7 +154,7 @@ export function serverSentEvents(options: ServerSentEventsInit): Response {
 	}
 
 	return new Response(
-		new ReadableStream<ArrayBuffer>({
+		new ReadableStream<Uint8Array>({
 			start(controller) {
 				const encoder = new TextEncoder();
 

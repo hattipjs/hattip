@@ -30,11 +30,11 @@
     "test:package": "publint --strict"
   },
   "dependencies": {
+    "@cloudflare/kv-asset-handler": "^0.3.0",
+    "@cloudflare/workers-types": "^4.20230807.0",
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
-    "@cloudflare/kv-asset-handler": "^0.3.0",
-    "@cloudflare/workers-types": "^4.20230807.0",
     "@cyco130/eslint-config": "^3.3.2",
     "@types/node": "^20.5.0",
     "eslint": "^8.47.0",

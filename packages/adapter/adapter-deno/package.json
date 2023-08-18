@@ -4,18 +4,24 @@
   "type": "module",
   "description": "Deno adapter for Hattip",
   "files": [
-    "index.js",
-    "index.d.ts"
+    "dist"
   ],
-  "exports": {
-    "types": "./index.d.ts",
-    "import": "./index.js"
+  "exports": "./dist/index.js",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*.d.ts"
+      ]
+    }
   },
   "author": "Fatih Aygün <cyco130@gmail.com>",
   "repository": "https://github.com/hattipjs/hattip",
   "license": "MIT",
   "scripts": {
-    "test": "pnpm test:lint && pnpm test:package",
+    "build": "rimraf dist && tsup",
+    "dev": "tsup --watch",
+    "prepack": "pnpm build",
+    "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:package",
     "test:typecheck": "tsc -p tsconfig.json --noEmit",
     "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
     "test:package": "publint --strict"
@@ -25,7 +31,10 @@
   },
   "devDependencies": {
     "@cyco130/eslint-config": "^3.3.2",
+    "@types/node": "^20.5.0",
     "eslint": "^8.47.0",
-    "publint": "^0.2.0"
+    "publint": "^0.2.0",
+    "tsup": "^7.2.0",
+    "typescript": "^5.1.6"
   }
 }
