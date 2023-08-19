@@ -106,7 +106,7 @@ app.listen(3000, "localhost", () => {
 
 ## Middleware system
 
-The `compose` function from the [`@hattip/compose`](./packages/compose) package can be used to compose multiple handlers into a single one, creating a simple but powerful middleware system. Each handler is called in sequence until one returns a response. A handler can pass control to the next handler either by not returning anything or calling `ctx.next()`. The latter allows the handler to modify the response before returning:
+The `compose` function from the [`@hattip/compose`](./packages/base/compose) package can be used to compose multiple handlers into a single one, creating a simple but powerful middleware system. Each handler is called in sequence until one returns a response. A handler can pass control to the next handler either by not returning anything or calling `ctx.next()`. The latter allows the handler to modify the response before returning:
 
 ```js
 import { compose } from "@hattip/compose";

@@ -72,10 +72,13 @@ function run() {
 		compile(name, path);
 	}
 
-	copyFileSync(
-		resolve(rootDir, "readme.md"),
-		resolve(rootDir, "_deno/src/readme.md"),
+	let readme = readFileSync(resolve(rootDir, "readme.md"), "utf8");
+	readme = readme.replaceAll(
+		/\.\/packages\/.+\/([a-z-]+)/g,
+		(_, match: string) => `./${match}`,
 	);
+	writeFileSync(resolve(rootDir, "_deno/src/readme.md"), readme);
+
 	copyFileSync(
 		resolve(rootDir, "LICENSE"),
 		resolve(rootDir, "_deno/src/LICENSE"),
