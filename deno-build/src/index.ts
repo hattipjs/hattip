@@ -65,7 +65,7 @@ function run() {
 		}
 	}
 
-	rmSync(resolve(rootDir, "_deno"), { recursive: true, force: true });
+	rmSync(resolve(rootDir, "_deno/src"), { recursive: true, force: true });
 	for (const [name, path] of toBeCompiled) {
 		compile(name, path);
 	}
@@ -75,7 +75,7 @@ function run() {
 	);
 
 	writeFileSync(
-		resolve(rootDir, "_deno/version.ts"),
+		resolve(rootDir, "_deno/src/version.ts"),
 		`export const version = ${JSON.stringify(version)};`,
 	);
 }
@@ -246,7 +246,7 @@ function compile(name: string, path: string) {
 		replaced = `// @deno-types="npm:graphql-yoga@${version}"\n${replaced}`;
 	}
 
-	const outPath = resolve(rootDir, "_deno", name);
+	const outPath = resolve(rootDir, "_deno/src", name);
 	mkdirSync(dirname(outPath), { recursive: true });
 	writeFileSync(outPath, replaced);
 }

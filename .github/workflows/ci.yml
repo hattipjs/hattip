@@ -51,7 +51,7 @@ jobs:
         with:
           version: 8
 
-      - name: Set node version to ${{ matrix.node_version }}
+      - name: Set Node version to ${{ matrix.node_version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node_version }}
