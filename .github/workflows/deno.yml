@@ -67,8 +67,8 @@ jobs:
           git config --global user.name "HatTip Deno Release Bot"
           git config --global user.email "<>"
           git add .
-          git commit -m "sync with hattipjs/hattip ${{ github.sha }}"
-          git tag v${{ github.event.inputs.version }}"
+          git commit -m "sync with hattipjs/hattip ${{ github.sha }}" --allow-empty
+          git tag v${{ github.event.inputs.version }}
           eval "$(ssh-agent -s)"
           ssh-add - <<< "${{ secrets.GIT_PUSH_KEY }}"
           ssh-add -l
