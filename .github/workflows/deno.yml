@@ -39,7 +39,8 @@ jobs:
       - name: Install
         run: pnpm install
 
-      - name: Build
+      - name: Build GraphQL package
+        working-directory: packages/middleware/graphql
         run: pnpm build
 
       - name: Checkout the Deno release repo
