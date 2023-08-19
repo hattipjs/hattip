@@ -67,10 +67,6 @@ jobs:
           git config --global user.name "HatTip Deno Release Bot"
           git config --global user.email "<>"
           git add .
-          if git diff-index --quiet HEAD; then
-            echo "No changes to commit"
-            exit 0
-          fi
           git commit -m "sync with hattipjs/hattip ${{ github.sha }}"
           git tag v${{ github.event.inputs.version }}"
           eval "$(ssh-agent -s)"
