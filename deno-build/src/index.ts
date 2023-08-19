@@ -75,7 +75,7 @@ function run() {
 	let readme = readFileSync(resolve(rootDir, "readme.md"), "utf8");
 	readme = readme.replaceAll(
 		/\.\/packages\/.+\/([a-z-]+)/g,
-		(_, match: string) => `./${match}`,
+		(_, match: string) => `./${match}/readme.md`,
 	);
 	writeFileSync(resolve(rootDir, "_deno/src/readme.md"), readme);
 
