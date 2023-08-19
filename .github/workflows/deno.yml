@@ -66,4 +66,7 @@ jobs:
           # Use the GIT_PUSH_KEY secret deploy key
           eval "$(ssh-agent -s)"
           ssh-add - <<< "${{ secrets.GIT_PUSH_KEY }}"
+          ssh-add -l
+          # Set an SSH remote
+          git remote set-url origin git@github.com:hattipjs/deno-release.git
           git push
