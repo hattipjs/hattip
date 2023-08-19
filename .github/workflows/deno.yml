@@ -2,6 +2,11 @@ name: Publish to deno.land/x
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish"
+        required: true
+        type: "string"
 
 defaults:
   run:
@@ -62,11 +67,15 @@ jobs:
           git config --global user.name "HatTip Deno Release Bot"
           git config --global user.email "<>"
           git add .
-          git diff --quiet && git diff --staged --quiet || git commit -m "sync with hattipjs/hattip ${{ github.sha }}"
-          # Use the GIT_PUSH_KEY secret deploy key
+          if git diff-index --quiet HEAD; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "sync with hattipjs/hattip ${{ github.sha }}"
+          git tag v${{ github.event.inputs.version }}"
           eval "$(ssh-agent -s)"
           ssh-add - <<< "${{ secrets.GIT_PUSH_KEY }}"
           ssh-add -l
-          # Set an SSH remote
           git remote set-url origin git@github.com:hattipjs/deno-release.git
           git push
+          git push --tags

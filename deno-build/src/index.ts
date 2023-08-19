@@ -6,6 +6,7 @@ import {
 	readdirSync,
 	rmSync,
 	writeFileSync,
+	copyFileSync,
 } from "node:fs";
 import { basename, dirname, resolve } from "node:path";
 import { replace } from "./replace.js";
@@ -57,6 +58,8 @@ const toBeCompiled = new Map<string, string>();
 run();
 
 function run() {
+	rmSync(resolve(rootDir, "_deno/src"), { recursive: true, force: true });
+
 	const packagesDir = resolve(rootDir, "packages");
 	const packages = readdirSync(packagesDir, { withFileTypes: true });
 	for (const pkg of packages) {
@@ -65,10 +68,18 @@ function run() {
 		}
 	}
 
-	rmSync(resolve(rootDir, "_deno/src"), { recursive: true, force: true });
 	for (const [name, path] of toBeCompiled) {
 		compile(name, path);
 	}
+
+	copyFileSync(
+		resolve(rootDir, "readme.md"),
+		resolve(rootDir, "_deno/src/readme.md"),
+	);
+	copyFileSync(
+		resolve(rootDir, "LICENSE"),
+		resolve(rootDir, "_deno/src/LICENSE"),
+	);
 
 	const { version } = JSON.parse(
 		readFileSync(resolve(rootDir, "packages/base/core/package.json"), "utf8"),
@@ -111,6 +122,12 @@ function processPackage(dir: string) {
 	if (packageName === "vite" || packageName === "adapter-uwebsockets") {
 		return;
 	}
+
+	mkdirSync(resolve(rootDir, "_deno/src", packageName), { recursive: true });
+	copyFileSync(
+		resolve(dir, "readme.md"),
+		resolve(rootDir, "_deno/src", packageName, "readme.md"),
+	);
 
 	const exports = packageJson.exports;
 	let files: string[];
