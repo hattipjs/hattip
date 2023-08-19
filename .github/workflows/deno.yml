@@ -63,4 +63,7 @@ jobs:
           git config --global user.email "<>"
           git add .
           git diff --quiet && git diff --staged --quiet || git commit -m "sync with hattipjs/hattip ${{ github.sha }}"
+          # Use the GIT_PUSH_KEY secret deploy key
+          eval "$(ssh-agent -s)"
+          ssh-add - <<< "${{ secrets.GIT_PUSH_KEY }}"
           git push
