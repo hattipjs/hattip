@@ -23,7 +23,7 @@ defaults:
     working-directory: .
 
 jobs:
-  publish:
+  publish-npm:
     runs-on: ubuntu-latest
     name: "Publish to NPM"
     steps:
