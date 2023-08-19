@@ -7,11 +7,7 @@
   "repository": "https://github.com/hattipjs/hattip",
   "license": "MIT",
   "scripts": {
-    "start": "tsx src/index.ts",
-    "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:unit",
-    "test:unit": "vitest run --reporter=verbose",
-    "test:typecheck": "tsc -p tsconfig.json --noEmit",
-    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist"
+    "start": "tsx src/index.ts"
   },
   "dependencies": {
     "@babel/core": "^7.22.10",
@@ -23,7 +19,6 @@
     "@types/node": "^20.4.2",
     "eslint": "^8.45.0",
     "tsx": "^3.12.7",
-    "typescript": "^5.1.6",
-    "vitest": "^0.33.0"
+    "typescript": "^5.1.6"
   }
 }
