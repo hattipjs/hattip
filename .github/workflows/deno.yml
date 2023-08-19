@@ -55,3 +55,12 @@ jobs:
       - name: Typecheck
         working-directory: _deno
         run: "deno check `find src -name '*.ts'`"
+
+      - name: "Commit changes if any"
+        working-directory: _deno
+        run: |
+          git config --global user.name "HatTip Deno Release Bot"
+          git config --global user.email "<>"
+          git add .
+          git diff --quiet && git diff --staged --quiet || git commit -m "sync with hattipjs/hattip ${{ github.sha }}"
+          git push
