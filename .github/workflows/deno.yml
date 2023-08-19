@@ -1,4 +1,4 @@
-name: Code quality checks
+name: Publish to deno.land/x
 
 on:
   workflow_dispatch:
@@ -45,5 +45,10 @@ jobs:
           repository: hattipjs/deno-release
           path: _deno
 
-      - name: List files
-        run: ls
+      - name: Build Deno sources
+        working-directory: deno-build
+        run: pnpm start
+
+      - name: Typecheck
+        working-directory: _deno
+        run: "deno check `find src -name '*.ts'`"
