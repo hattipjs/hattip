@@ -1,9 +1,9 @@
-# ![HatTip](graphics/logo.svg)
+# ![HatTip](https://raw.githubusercontent.com/hattipjs/hattip/main/graphics/logo.svg)
 
 > <small>(nothing)</small> Like Express.js.
 
 Follow: [Twitter > @cyco130](https://twitter.com/cyco130) & [Twitter > @brillout](https://twitter.com/brillout)  
-Chat: <a href="https://discord.com/invite/vTvXzBMySh">Discord > Cubes<img src="./graphics/hash.svg" height="17" width="23" valign="text-bottom" alt="hash"/>HatTip</a>
+Chat: <a href="https://discord.com/invite/vTvXzBMySh">Discord > Cubes<img src="https://raw.githubusercontent.com/hattipjs/hattip/main/graphics/hash.svg" height="17" width="23" valign="text-bottom" alt="hash"/>HatTip</a>
 
 **Why HatTip?**
 
