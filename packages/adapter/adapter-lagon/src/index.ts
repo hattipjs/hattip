@@ -1,4 +1,5 @@
 import type { HattipHandler } from "@hattip/core";
+import process from "node:process";
 
 export default function lagonAdapter(hattipHandler: HattipHandler) {
 	return function handler(request: Request) {

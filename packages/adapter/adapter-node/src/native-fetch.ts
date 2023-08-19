@@ -9,8 +9,8 @@ installCrypto();
 installHalfDuplexRequest();
 
 for (const key of Object.keys(webStream)) {
-	if (!(key in global)) {
-		(global as any)[key] = (webStream as any)[key];
+	if (!(key in globalThis)) {
+		(globalThis as any)[key] = (webStream as any)[key];
 	}
 }
 

@@ -49,3 +49,16 @@ export default function vercelEdgeAdapter(
 		return response;
 	};
 }
+
+interface FetchEvent extends ExtendableEvent {
+	readonly clientId: string;
+	readonly handled: Promise<undefined>;
+	readonly preloadResponse: Promise<any>;
+	readonly request: Request;
+	readonly resultingClientId: string;
+	respondWith(r: Response | PromiseLike<Response>): void;
+}
+
+interface ExtendableEvent extends Event {
+	waitUntil(f: Promise<any>): void;
+}

@@ -1,6 +1,7 @@
 import { build, BuildOptions } from "esbuild";
 import { builtinModules } from "node:module";
 import path from "node:path";
+import process from "node:process";
 
 /**
  * Bundling options

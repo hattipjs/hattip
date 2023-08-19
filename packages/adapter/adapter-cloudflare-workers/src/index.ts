@@ -1,9 +1,8 @@
-/// <reference types='@cloudflare/workers-types'/>
+/// <reference types="@cloudflare/workers-types"/>
 /* eslint-disable import/no-unresolved */
 
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
 import { getAssetFromKV, NotFoundError } from "@cloudflare/kv-asset-handler";
-// @ts-expect-error: No typing for this
 import manifestText from "__STATIC_CONTENT_MANIFEST";
 
 const manifest = JSON.parse(manifestText);

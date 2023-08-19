@@ -1,5 +1,3 @@
-/// <reference types='node'/>
-
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
 import type {
 	NetlifyFunction,
@@ -9,6 +7,8 @@ import type {
 import installNodeFetch from "@hattip/polyfills/node-fetch";
 import installGetSetCookie from "@hattip/polyfills/get-set-cookie";
 import installCrypto from "@hattip/polyfills/crypto";
+import process from "node:process";
+import { Buffer } from "node:buffer";
 
 installNodeFetch();
 installGetSetCookie();
@@ -76,7 +76,7 @@ export default function netlifyFunctionsAdapter(
 
 		for (const [key, value] of response.headers) {
 			if (key === "set-cookie") {
-				multiValueHeaders[key] = response.headers.getSetCookie();
+				multiValueHeaders[key] = response.headers.getSetCookie!();
 			} else {
 				headers[key] = value;
 			}

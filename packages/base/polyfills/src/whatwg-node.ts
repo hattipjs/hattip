@@ -1,5 +1,6 @@
 import * as whatwgNodeFetch from "@whatwg-node/fetch";
 import { Readable } from "node:stream";
+import { Buffer } from "node:buffer";
 
 export default function install() {
 	function define<S extends keyof typeof globalThis>(

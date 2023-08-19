@@ -1,8 +1,7 @@
 import { RequestContext } from "@hattip/compose";
-
-import { createYoga, YogaServerOptions } from "graphql-yoga";
-
-export * from "graphql-yoga";
+import { createYoga, YogaServerOptions } from "./yoga";
+// eslint-disable-next-line import/export
+export * from "./yoga";
 
 export function yoga<TUserContext extends Record<string, any>>(
 	options: YogaServerOptions<{ requestContext: RequestContext }, TUserContext>,
@@ -13,7 +12,10 @@ export function yoga<TUserContext extends Record<string, any>>(
 		const clone = new Request(ctx.url.href, {
 			method: ctx.method,
 			// body: ctx.request.body,
-			body: await ctx.request.arrayBuffer(),
+			body:
+				ctx.method === "GET" || ctx.method === "HEAD"
+					? null
+					: await ctx.request.arrayBuffer(),
 			headers: ctx.request.headers,
 			// @ts-expect-error: Node requires this for streams
 			duplex: "half",

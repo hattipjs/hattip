@@ -6,7 +6,7 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig([
 	{
-		entry: ["./src/index.ts"],
+		entry: ["./src/index.ts", "./src/yoga.ts"],
 		format: ["esm"],
 		platform: "node",
 		target: "node14",

@@ -446,3 +446,17 @@ function append(headers: SimpleHeaders, key: string, value: string) {
 
 	headers.set(key, value);
 }
+
+type ReadableStreamReadResult<T> =
+	| ReadableStreamReadValueResult<T>
+	| ReadableStreamReadDoneResult<T>;
+
+interface ReadableStreamReadValueResult<T> {
+	done: false;
+	value: T;
+}
+
+interface ReadableStreamReadDoneResult<T> {
+	done: true;
+	value?: T;
+}

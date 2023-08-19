@@ -7,6 +7,7 @@ import {
 	createFileSetModule,
 } from ".";
 import { writeFile } from "node:fs/promises";
+import process from "node:process";
 
 const cli = cac("hattip-walk");
 

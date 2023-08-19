@@ -2,16 +2,6 @@ name: Code quality checks
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
-concurrency:
-  group: "${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref || github.run_id }}"
-  cancel-in-progress: true
 
 defaults:
   run:
@@ -41,11 +31,19 @@ jobs:
           node-version: ${{ matrix.node_version }}
           cache: "pnpm"
 
+      - name: Install Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
       - name: Install
         run: pnpm install
 
-      - name: Build
-        run: pnpm run build
+      - name: Checkout deno.land repo
+        uses: actions/checkout@v2
+        with:
+          repository: denoland/deno
+          path: _deno
 
-      - name: Run code quality checks and tests
-        run: pnpm run test:prettier && pnpm test:packages
+      - name: List files
+        run: ls

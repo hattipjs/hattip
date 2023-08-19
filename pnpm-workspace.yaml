@@ -3,3 +3,4 @@ packages:
   - "testbed/*"
   - "examples/*/*"
   - "examples/*"
+  - "denoize"

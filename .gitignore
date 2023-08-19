@@ -142,3 +142,6 @@ main.wasm
 
 # Built packages
 *.tar.gz
+
+# Deno build output
+_deno
