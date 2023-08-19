@@ -39,9 +39,8 @@ jobs:
       - name: Install
         run: pnpm install
 
-      - name: Build GraphQL package
-        working-directory: packages/middleware/graphql
-        run: pnpm build
+      - name: Build some packages
+        run: pnpm -r --filter=@hattip/graphql --filter=@hattip/compose build
 
       - name: Checkout the Deno release repo
         uses: actions/checkout@v2
