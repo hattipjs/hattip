@@ -3,4 +3,4 @@ packages:
   - "testbed/*"
   - "examples/*/*"
   - "examples/*"
-  - "denoize"
+  - "deno-build"
