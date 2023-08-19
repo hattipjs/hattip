@@ -39,10 +39,10 @@ jobs:
       - name: Install
         run: pnpm install
 
-      - name: Checkout deno.land repo
+      - name: Checkout the Deno release repo
         uses: actions/checkout@v2
         with:
-          repository: denoland/deno
+          repository: hattipjs/deno-release
           path: _deno
 
       - name: List files
