@@ -107,13 +107,10 @@ if (process.env.CI === "true") {
 		bunAvailable && {
 			name: "Bun",
 			command: "bun run entry-bun.js",
-			skipStreamingTest: true,
 		},
 		bunAvailable && {
 			name: "Bun with node:http",
 			command: "bun run entry-node-native-fetch.js",
-			skipStreamingTest: true,
-			skipCryptoTest: true, // https://github.com/oven-sh/bun/issues/4070
 		},
 		wranglerAvailable && {
 			name: "Cloudflare Workers",
@@ -286,7 +283,7 @@ describe.each(cases)(
 			const response = await fetch(host + "/platform");
 			const text = await response.text();
 			expect(response.status).toBe(200);
-			console.log("Platform:", name, text);
+			console.log(text);
 		});
 
 		test("renders HTML", async () => {
