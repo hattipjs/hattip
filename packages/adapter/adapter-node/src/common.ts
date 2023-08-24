@@ -124,7 +124,7 @@ export function createMiddleware(
  * Create an HTTP server
  */
 export function createServer(
-	handler: HattipHandler,
+	handler: HattipHandler<NodePlatformInfo>,
 	adapterOptions?: NodeAdapterOptions,
 	serverOptions?: ServerOptions,
 ): HttpServer {
