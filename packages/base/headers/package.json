@@ -1,6 +1,6 @@
 {
   "name": "@hattip/headers",
-  "version": "0.0.34",
+  "version": "0.0.35-canary.7",
   "type": "module",
   "description": "Header parsing utilities for Hattip",
   "files": [

@@ -1,6 +1,6 @@
 {
   "name": "@hattip/static",
-  "version": "0.0.34",
+  "version": "0.0.35-canary.7",
   "type": "module",
   "description": "Static file serving middleware for HatTip",
   "files": [
