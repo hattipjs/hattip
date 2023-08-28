@@ -11,7 +11,7 @@
     "@hattip/adapter-node": "0.0.34",
     "@hattip/core": "0.0.34",
     "@hattip/vite": "0.0.34",
-    "hono": "^3.4.1",
+    "hono": "^3.5.5",
     "vite": "^4.4.9"
   }
 }
