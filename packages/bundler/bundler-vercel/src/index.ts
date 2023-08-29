@@ -32,6 +32,11 @@ export interface VercelBundlerOptions {
 	 */
 	serverlessEntry?: string;
 	/**
+	 * Allow response streaming in serverless functions.
+	 * @default true
+	 */
+	streaming?: boolean;
+	/**
 	 * Callback for manipulating ESBuild options.
 	 */
 	manipulateEsbuildOptions?: EsbuildOptionsFunction;
@@ -94,17 +99,18 @@ export async function bundle(options: VercelBundlerOptions = {}) {
 	if (serverlessEntry) {
 		await bundleServerlessFunction(
 			serverlessEntry,
-			outputDir + "/functions/index.func",
+			outputDir + "/functions/_serverless.func",
 			manipulateEsbuildOptions,
 		);
 
 		await fs.promises.writeFile(
-			outputDir + "/functions/index.func/.vc-config.json",
+			outputDir + "/functions/_serverless.func/.vc-config.json",
 			JSON.stringify(
 				{
-					runtime: "nodejs16.x",
+					runtime: "nodejs18.x",
 					handler: "index.js",
 					launcherType: "Nodejs",
+					supportsResponseStreaming: options.streaming ?? true,
 				},
 				null,
 				2,
@@ -132,9 +138,9 @@ export async function bundleEdgeFunction(
 		outfile: outputDir + "/index.js",
 		platform: "browser",
 		target: "chrome96",
-		format: "esm",
+		format: "cjs", // Top-level await is not supported in ESM
 		mainFields: ["module", "main", "browser"],
-		conditions: ["worker", "import", "require"],
+		conditions: ["edge-light", "worker", "import", "require"],
 		external: builtinModules,
 	};
 
@@ -154,7 +160,7 @@ export async function bundleServerlessFunction(
 		entryPoints: [entry],
 		outfile: outputDir + "/index.js",
 		platform: "node",
-		target: "node16",
+		target: "node18",
 		format: "cjs",
 		external: builtinModules,
 	};
@@ -192,7 +198,7 @@ async function createConfigFile(
 				},
 			options.serverless && {
 				src: ".*",
-				dest: "/",
+				dest: "_serverless",
 			},
 		].filter(Boolean),
 	};

@@ -145,3 +145,6 @@ main.wasm
 
 # Deno build output
 _deno
+
+# Lagon state
+.lagon

@@ -15,7 +15,7 @@ export default vercelEdgeAdapter(handler);
 
 ## `context.passThrough` behavior
 
-Calling `context.passThrough` will pass the request to the serverless function if there is one.
+The `vercelEdgeAdapter` function takes an optional second argument which is a boolean indicating whether the edge function is supposed to act like a middleware. It defaults to `false`. When `true`, calling `context.passThrough` will pass the request to the serverless function, otherwise, it will be ignored and the response will be returned as is.
 
 ## `context.platform`
 

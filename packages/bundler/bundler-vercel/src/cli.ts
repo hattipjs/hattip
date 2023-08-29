@@ -11,6 +11,10 @@ cli
 	.option("-s, --staticDir <path>", "Static directory to copy to output")
 	.option("-e, --edge <path>", "Edge function entry file")
 	.option("-S, --serverless <path>", "Serverless function entry file")
+	.option(
+		"--no-streaming",
+		"Disable response streaming in serverless functions",
+	)
 	.action(
 		async (options: {
 			outputDir: string;
@@ -18,6 +22,7 @@ cli
 			staticDir: string;
 			edge: string;
 			serverless: string;
+			streaming: boolean;
 		}) => {
 			await bundle({
 				outputDir: options.outputDir,
@@ -25,6 +30,7 @@ cli
 				staticDir: options.staticDir,
 				edgeEntry: options.edge,
 				serverlessEntry: options.serverless,
+				streaming: options.streaming,
 			});
 		},
 	);

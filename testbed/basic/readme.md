@@ -54,7 +54,7 @@ Publish with `wrangler publish`.
 
 ### Vercel Serverless Functions
 
-All tests except "doesn't fully buffer binary stream" pass. Vercel Serverless Functions have no streaming support.
+All tests pass.
 
 Build locally with `pnpm build:vercel` and deploy with `vercel deploy --prebuilt`.
 
@@ -84,15 +84,10 @@ Build with `pnpm build:deno`, `cd` into `dist/deno` and deploy with `deployctl d
 
 ### Bun
 
-All tests except "doesn't fully buffer binary stream" pass. Bun doesn't support streaming yet.
+All tests pass.
 
 Run with `bun entry-bun.js`.
 
 ### Lagon
 
-All tests except the following pass:
-
-- renders binary stream (`TextEncoder` problem)
-- doesn't fully buffer binary stream
-- sends multiple cookies
-- session
+All tests except non-ASCII static file serving pass.

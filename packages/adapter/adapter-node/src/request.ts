@@ -46,10 +46,6 @@ export interface NodeRequestAdapterOptions {
 	 * is set to `1`, otherwise false.
 	 */
 	trustProxy?: boolean;
-	/**
-	 * Can the Request constructor accept a ReadableStream?
-	 */
-	// canUseReadableStream: boolean;
 }
 
 /** Create a function that converts a Node HTTP request into a fetch API `Request` object */
@@ -61,12 +57,13 @@ export function createRequestAdapter(
 		trustProxy = process.env.TRUST_PROXY === "1",
 	} = options;
 
-	let { protocol, host } = origin
+	// eslint-disable-next-line prefer-const
+	let { protocol: protocolOverride, host: hostOverride } = origin
 		? new URL(origin)
 		: ({} as Record<string, undefined>);
 
-	if (protocol) {
-		protocol = protocol.slice(0, -1);
+	if (protocolOverride) {
+		protocolOverride = protocolOverride.slice(0, -1);
 	}
 
 	let warned = false;
@@ -91,14 +88,17 @@ export function createRequestAdapter(
 			req.socket?.remoteAddress ||
 			"";
 
-		protocol =
-			protocol ||
+		const protocol =
+			protocolOverride ||
 			req.protocol ||
 			(trustProxy && parseForwardedHeader("proto")) ||
 			(req.socket?.encrypted && "https") ||
 			"http";
 
-		host = host || (trustProxy && parseForwardedHeader("host")) || headers.host;
+		let host =
+			hostOverride ||
+			(trustProxy && parseForwardedHeader("host")) ||
+			headers.host;
 
 		if (!host && !warned) {
 			console.warn(

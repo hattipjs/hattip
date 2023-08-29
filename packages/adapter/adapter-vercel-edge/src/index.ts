@@ -5,16 +5,14 @@ export interface VercelEdgePlatformInfo {
 	event: FetchEvent;
 }
 
-type FetchEventCopy = FetchEvent;
-export type { FetchEventCopy as FetchEvent };
-
 export type VercelEdgeFunction = (
 	request: Request,
 	event: FetchEvent,
-) => Response | Promise<Response>;
+) => undefined | Response | Promise<undefined | Response>;
 
 export default function vercelEdgeAdapter(
 	handler: HattipHandler<VercelEdgePlatformInfo>,
+	isMiddleware = false,
 ): VercelEdgeFunction {
 	return async function vercelEdgeFunction(request, event) {
 		let passThroughCalled = false;
@@ -42,15 +40,15 @@ export default function vercelEdgeAdapter(
 
 		const response = await handler(context);
 
-		if (passThroughCalled) {
-			response.headers.set("x-middleware-next", "1");
+		if (isMiddleware && passThroughCalled) {
+			return;
 		}
 
 		return response;
 	};
 }
 
-interface FetchEvent extends ExtendableEvent {
+export interface FetchEvent extends ExtendableEvent {
 	readonly clientId: string;
 	readonly handled: Promise<undefined>;
 	readonly preloadResponse: Promise<any>;
