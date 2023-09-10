@@ -16,8 +16,14 @@ This middleware uses the [Web Crypto API](https://w3c.github.io/webcrypto/) whic
 ## Usage
 
 ```ts
+import { cookie } from "@hattip/cookie";
 import { session, SignedCookieStore } from "@hattip/session";
 import { json } from "@hattip/response";
+
+// session() requires cookie() or
+// getSessionId option to be set to read
+// the session ID from somewhere else
+app.use(cookie());
 
 app.use(
   session({
