@@ -8,6 +8,7 @@ export default defineConfig([
 			"./src/whatwg-node.ts",
 			"./src/request.ts",
 			"./src/response.ts",
+			"./src/fast-fetch.ts",
 		],
 		format: ["esm"],
 		platform: "node",

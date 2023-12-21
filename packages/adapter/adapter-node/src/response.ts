@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ServerResponse } from "node:http";
 import { Readable } from "node:stream";
+import { rawBodySymbol } from "./raw-body-symbol";
 
 // @ts-ignore
 const deno = typeof Deno !== "undefined";
@@ -25,6 +26,12 @@ export async function sendResponse(
 	fetchResponse: Response,
 	nodeResponse: ServerResponse,
 ): Promise<void> {
+	if ((fetchResponse as any)[rawBodySymbol]) {
+		writeHead(fetchResponse, nodeResponse);
+		nodeResponse.end((fetchResponse as any)[rawBodySymbol]);
+		return;
+	}
+
 	const { body: fetchBody } = fetchResponse;
 
 	let body: Readable | null = null;
@@ -47,6 +54,22 @@ export async function sendResponse(
 		body = Readable.from(fetchBody as any);
 	}
 
+	writeHead(fetchResponse, nodeResponse);
+
+	if (body) {
+		body.pipe(nodeResponse);
+		await new Promise((resolve, reject) => {
+			body!.on("error", reject);
+			nodeResponse.on("finish", resolve);
+			nodeResponse.on("error", reject);
+		});
+	} else {
+		nodeResponse.setHeader("content-length", "0");
+		nodeResponse.end();
+	}
+}
+
+function writeHead(fetchResponse: Response, nodeResponse: ServerResponse) {
 	nodeResponse.statusCode = fetchResponse.status;
 	if (fetchResponse.statusText) {
 		nodeResponse.statusMessage = fetchResponse.statusText;
@@ -68,17 +91,5 @@ export async function sendResponse(
 		} else {
 			nodeResponse.setHeader(key, fetchResponse.headers.get(key)!);
 		}
-	}
-
-	if (body) {
-		body.pipe(nodeResponse);
-		await new Promise((resolve, reject) => {
-			body!.on("error", reject);
-			nodeResponse.on("finish", resolve);
-			nodeResponse.on("error", reject);
-		});
-	} else {
-		nodeResponse.setHeader("content-length", "0");
-		nodeResponse.end();
 	}
 }
