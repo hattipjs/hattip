@@ -27,7 +27,7 @@
     "test:package": "publint --strict"
   },
   "dependencies": {
-    "bun-types": "^0.8.1",
+    "bun-types": "^1.0.20",
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
