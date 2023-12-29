@@ -85,7 +85,7 @@ export interface ServerSentEventSink {
 	 *
 	 * Note that the frame contents are not validated.
 	 */
-	sendRaw(data: string): void;
+	sendRaw(text: string): void;
 	/**
 	 * Send a ping to the client.
 	 *
@@ -159,8 +159,8 @@ export function serverSentEvents(options: ServerSentEventsInit): Response {
 				const encoder = new TextEncoder();
 
 				sink = {
-					sendRaw(data: string) {
-						controller.enqueue(encoder.encode(data));
+					sendRaw(text: string) {
+						controller.enqueue(encoder.encode(text));
 					},
 
 					send(event) {
@@ -170,20 +170,29 @@ export function serverSentEvents(options: ServerSentEventsInit): Response {
 							throw new Error("Event name cannot contain newlines");
 						}
 
-						const retry =
-							event.retry === undefined ? "" : `retry: ${event.retry}\n`;
+						const lines: string[] = [];
 
-						const ev = event.event ? `event: ${event.event}\n` : "";
-
-						let data = "";
-						if (event.data) {
-							const lines = event.data.split("\n");
-							data = lines.map((line) => `data: ${line}`).join("\n") + "\n";
+						if (event.event !== undefined) {
+							lines.push(`event: ${event.event}`);
 						}
 
-						const id = event.id ? `id: ${event.id}\n` : "";
+						const dataLines = (event.data ?? "").split("\n");
+						lines.push(...dataLines.map((line) => `data: ${line}`));
 
-						this.sendRaw(retry + ev + data + id + "\n");
+						if (event.id !== undefined) {
+							lines.push(`id: ${event.id}`);
+						}
+
+						if (event.retry !== undefined) {
+							lines.push(`retry: ${event.retry}`);
+						}
+
+						let text = lines.join("\n");
+						if (lines.length > 0) {
+							text += "\n";
+						}
+
+						this.sendRaw(text);
 					},
 
 					sendMessage(message) {
@@ -191,8 +200,7 @@ export function serverSentEvents(options: ServerSentEventsInit): Response {
 					},
 
 					ping() {
-						const data = encoder.encode(": ping");
-						controller.enqueue(data);
+						this.sendRaw(":ping");
 					},
 
 					close() {
