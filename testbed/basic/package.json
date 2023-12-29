@@ -47,7 +47,7 @@
     "cookie": "^0.5.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.19.2",
-    "netlify-cli": "^16.1.0",
+    "netlify-cli": "^17.10.2",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.0.1",
     "ps-tree": "^1.2.0",
