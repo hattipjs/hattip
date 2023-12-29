@@ -160,7 +160,7 @@ export function serverSentEvents(options: ServerSentEventsInit): Response {
 
 				sink = {
 					sendRaw(text: string) {
-						controller.enqueue(encoder.encode(text));
+						controller.enqueue(encoder.encode(text + "\n"));
 					},
 
 					send(event) {
