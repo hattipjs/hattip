@@ -100,7 +100,7 @@ importers:
         specifier: workspace:*
         version: link:../../../packages/cli/vite
       hono:
-        specifier: ^3.5.5
+        specifier: ^3.11.11
         version: 3.11.11
       vite:
         specifier: ^5.0.10
