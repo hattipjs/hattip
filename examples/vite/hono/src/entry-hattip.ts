@@ -10,7 +10,7 @@ app.get("/", async (c) => {
 	if (!devServer) {
 		const manifest: { default: Manifest } = await import(
 			// @ts-ignore: manifest.json is only available at build time
-			"../dist/client/manifest.json"
+			"../dist/client/.vite/manifest.json"
 		);
 		clientScript = manifest.default[clientScript.slice(1)].file;
 	}
