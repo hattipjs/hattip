@@ -1,6 +1,6 @@
 import { PluginOption, UserConfig } from "vite";
 import { injectConfig } from "./vite-plugins/inject-config";
-import vaviteConnect from "@vavite/connect";
+import { vaviteConnect } from "@vavite/connect";
 import { defaultNodeEntry } from "./vite-plugins/default-node-entry";
 import { exposeDevServer } from "./expose-dev-server";
 

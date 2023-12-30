@@ -142,7 +142,7 @@ export async function findServerEntry(
 				"index",
 				"index.hattip",
 				"index.server",
-		  ];
+			];
 	const extensions = [".ts", ".tsx", ".mts", ".mjs", ".js", ".jsx"];
 
 	for (const dir of dirs) {

@@ -1,5 +1,5 @@
 import { BuildOptions, InlineConfig, ResolvedConfig } from "vite";
-import multibuild from "@vavite/multibuild";
+import { multibuild } from "@vavite/multibuild";
 import { version } from "../package.json";
 import pico from "picocolors";
 import { cleanOptions, GlobalCLIOptions, HattipCliOptions, startTime } from ".";

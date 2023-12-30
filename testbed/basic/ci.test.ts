@@ -115,7 +115,6 @@ if (process.env.CI === "true") {
 		wranglerAvailable && {
 			name: "Cloudflare Workers",
 			command: "pnpm build:cfw && pnpm start:cfw",
-			skipAdvancedStaticFileTest: process.platform === "win32",
 		},
 		{
 			name: "Netlify Functions with netlify serve",
@@ -292,7 +291,7 @@ describe.each(cases)(
 				requiresForwardedIp
 					? {
 							headers: { "x-forwarded-for": "127.0.0.1" },
-					  }
+						}
 					: undefined,
 			);
 			const text = await response.text();

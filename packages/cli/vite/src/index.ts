@@ -109,6 +109,7 @@ cli
 			options: ServerOptions &
 				GlobalCLIOptions & {
 					useLoader?: boolean;
+					force?: boolean;
 				},
 		) => {
 			if (options.useLoader && !globalThis.__vavite_loader__) {
