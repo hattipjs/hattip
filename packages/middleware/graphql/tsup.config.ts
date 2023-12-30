@@ -12,6 +12,10 @@ export default defineConfig([
 		target: "node14",
 		shims: false,
 		dts: true,
+		// We wan't to bundle graphql-yoga so that we can use the
+		// global fetch instead of @whatwg-node/fetch. But we still
+		// want graphql-yoga in the dependencies to be able to resolve
+		// the types.
 		noExternal: ["graphql-yoga"],
 		esbuildPlugins: [
 			{
