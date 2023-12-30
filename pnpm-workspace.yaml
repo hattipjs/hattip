@@ -1,5 +1,5 @@
 packages:
   - "packages/*/*"
   - "testbed/*"
-  - "examples/*"
+  - "examples/*/*"
   - "deno-build"
