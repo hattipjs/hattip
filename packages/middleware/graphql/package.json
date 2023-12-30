@@ -41,7 +41,7 @@
     "@hattip/compose": "workspace:*",
     "@hattip/core": "workspace:*",
     "dset": "^3.1.2",
-    "graphql-yoga": "^4.0.4",
+    "graphql-yoga": "^5.1.0",
     "tslib": "^2.6.2",
     "urlpattern-polyfill": "^9.0.0"
   },
