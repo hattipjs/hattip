@@ -19,7 +19,7 @@ jobs:
         id: comment-branch
 
       - name: Checkout ${{ steps.comment-branch.outputs.head_ref }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ steps.comment-branch.outputs.head_ref }}
           fetch-depth: 0
@@ -29,10 +29,10 @@ jobs:
         with:
           version: 8
 
-      - name: Set Node version to 18
-        uses: actions/setup-node@v3
+      - name: Set Node version to 20
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           registry-url: "https://registry.npmjs.org"
           cache: "pnpm"
 

@@ -9,7 +9,7 @@ export default defineConfig([
 		entry: ["./src/index.ts", "./src/yoga.ts"],
 		format: ["esm"],
 		platform: "node",
-		target: "node14",
+		target: "node18",
 		shims: false,
 		dts: true,
 		// We wan't to bundle graphql-yoga so that we can use the

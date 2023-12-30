@@ -1,5 +1,5 @@
 {
-  "name": "@hattip/example-basic",
+  "name": "@hattip/example-basic-node",
   "type": "module",
   "private": true,
   "scripts": {
@@ -9,7 +9,7 @@
   "dependencies": {
     "@hattip/adapter-cloudflare-workers": "workspace:*",
     "@hattip/adapter-node": "workspace:*",
-    "@types/node": "^20.5.7",
-    "wrangler": "^3.6.0"
+    "@types/node": "^20.10.6",
+    "wrangler": "^3.22.1"
   }
 }

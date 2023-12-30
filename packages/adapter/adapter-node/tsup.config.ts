@@ -11,7 +11,7 @@ export default defineConfig([
 		],
 		format: ["esm"],
 		platform: "node",
-		target: "node14",
+		target: "node18",
 		dts: true,
 	},
 ]);

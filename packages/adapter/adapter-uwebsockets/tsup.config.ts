@@ -5,7 +5,7 @@ export default defineConfig([
 		entry: ["./src/index.ts", "./src/native-fetch.ts"],
 		format: ["esm"],
 		platform: "node",
-		target: "node14",
+		target: "node18",
 		dts: true,
 	},
 ]);
