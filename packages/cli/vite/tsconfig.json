@@ -8,6 +8,5 @@
 		"skipLibCheck": true,
 		"moduleResolution": "Node",
 		"resolveJsonModule": true
-	},
-	"include": ["src/**/*", "vite-dev-server.ts"]
+	}
 }

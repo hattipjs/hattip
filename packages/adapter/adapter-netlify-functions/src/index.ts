@@ -41,8 +41,8 @@ export default function netlifyFunctionsAdapter(
 					event.httpMethod === "HEAD"
 						? undefined
 						: event.isBase64Encoded
-						? Buffer.from(event.body, "base64")
-						: event.body,
+							? Buffer.from(event.body, "base64")
+							: event.body,
 
 				headers: event.headers,
 			}),

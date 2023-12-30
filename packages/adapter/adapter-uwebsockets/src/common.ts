@@ -119,46 +119,59 @@ export function createServer(
 		const query = req.getQuery();
 		const url = protocol + "://" + host + path + (query ? "?" + query : "");
 
-		const responseOrPromise = handler({
-			ip,
-			passThrough() {
-				/* Do nothing */
-			},
-			waitUntil() {
-				/* Do nothing */
-			},
-			platform: {
-				name: "uwebsockets",
-				request: req,
-				response: res,
-			},
-			env(variable: string) {
-				return process.env[variable];
-			},
-			request: new Request(url, {
-				method,
-				headers,
-				body:
-					method === "GET" || method === "HEAD"
-						? undefined
-						: new ReadableStream({
-								start(controller) {
-									res.onData((chunk, isLast) => {
-										const buffer = Buffer.from(chunk);
-										controller.enqueue(buffer);
-										if (isLast) controller.close();
-									});
-								},
-						  }),
-				// @ts-expect-error: Node requires this for streams
-				duplex: "half",
-			}),
-		});
+		function handleError(error: unknown) {
+			if (aborted) return;
 
-		if (responseOrPromise instanceof Promise) {
-			responseOrPromise.then(finish);
-		} else {
-			finish(responseOrPromise);
+			console.error(error);
+
+			res.writeStatus("500 Internal Server Error");
+			res.end();
+		}
+
+		try {
+			const responseOrPromise = handler({
+				ip,
+				passThrough() {
+					/* Do nothing */
+				},
+				waitUntil() {
+					/* Do nothing */
+				},
+				platform: {
+					name: "uwebsockets",
+					request: req,
+					response: res,
+				},
+				env(variable: string) {
+					return process.env[variable];
+				},
+				request: new Request(url, {
+					method,
+					headers,
+					body:
+						method === "GET" || method === "HEAD"
+							? undefined
+							: new ReadableStream({
+									start(controller) {
+										res.onData((chunk, isLast) => {
+											const buffer = Buffer.from(chunk);
+											controller.enqueue(buffer);
+											if (isLast) controller.close();
+										});
+									},
+								}),
+					// @ts-expect-error: Node requires this for streams
+					duplex: "half",
+				}),
+			});
+
+			if (responseOrPromise instanceof Promise) {
+				responseOrPromise.then(finish).catch(handleError);
+			} else {
+				finish(responseOrPromise).catch(handleError);
+			}
+		} catch (error) {
+			handleError(error);
 		}
 
 		async function finish(response: Response) {

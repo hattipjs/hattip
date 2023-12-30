@@ -12,7 +12,9 @@ import { hattip } from "./vite-plugin";
 
 export async function serve(
 	hattipEntry: string | undefined,
-	serveOptions: ServerOptions & GlobalCLIOptions & HattipCliOptions,
+	serveOptions: ServerOptions &
+		GlobalCLIOptions &
+		HattipCliOptions & { force?: boolean },
 ) {
 	const {
 		root,
@@ -80,7 +82,7 @@ export async function serve(
 					`(ready in ${pico.white(
 						pico.bold(Math.ceil(performance.now() - startTime)),
 					)} ms)`,
-			  )
+				)
 			: "";
 
 		info(

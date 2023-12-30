@@ -2,8 +2,9 @@ require("@cyco130/eslint-config/patch");
 
 module.exports = {
 	root: true,
-	extends: ["@cyco130/eslint-config/node"], // or react instead of node
-	parserOptions: { tsconfigRootDir: __dirname },
+	extends: ["@cyco130/eslint-config/node"],
+	ignorePatterns: ["node_modules", "dist", "**/*.cjs", "**/*.js"],
+	parserOptions: { project: [__dirname + "/tsconfig.json"] },
 	settings: {
 		"import/resolver": {
 			typescript: {

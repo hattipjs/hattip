@@ -25,7 +25,7 @@ export default defineConfig({
 						handlerEntry: "/server/entry-node.ts",
 						serveClientAssetsInDev: true,
 						clientAssetsDir: "dist/client",
-				  },
+					},
 		),
 		react(),
 		ssr({ disableAutoFullBuild: true }),

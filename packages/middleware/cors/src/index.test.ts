@@ -606,6 +606,7 @@ function request(handler: HattipHandler): RequestInterface {
 			}
 
 			if (typeof arg === "object") {
+				// eslint-disable-next-line @typescript-eslint/no-floating-promises
 				expect(this._response!.then((r) => r.json())).resolves.toStrictEqual(
 					arg,
 				);
@@ -620,6 +621,7 @@ function request(handler: HattipHandler): RequestInterface {
 					}
 				});
 			} else if (typeof arg === "string") {
+				// eslint-disable-next-line @typescript-eslint/no-floating-promises
 				expect(this._response!.then((r) => r.headers.get(arg))).resolves.toBe(
 					cb,
 				);
