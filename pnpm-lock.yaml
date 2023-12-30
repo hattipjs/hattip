@@ -82,10 +82,10 @@ importers:
         specifier: workspace:*
         version: link:../../../packages/adapter/adapter-node
       '@types/node':
-        specifier: ^20.5.7
+        specifier: ^20.10.6
         version: 20.10.6
       wrangler:
-        specifier: ^3.6.0
+        specifier: ^3.22.1
         version: 3.22.1
 
   examples/vite/hono:
