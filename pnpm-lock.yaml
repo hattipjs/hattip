@@ -806,14 +806,14 @@ importers:
         specifier: workspace:*
         version: link:../../adapter/adapter-node
       '@vavite/connect':
-        specifier: ^3.0.0
-        version: 3.0.0(vite@5.0.10)
+        specifier: ^4.0.0
+        version: 4.0.0(vite@5.0.10)
       '@vavite/multibuild':
-        specifier: ^3.0.0
-        version: 3.0.0(vite@5.0.10)
+        specifier: ^4.0.0
+        version: 4.0.0(vite@5.0.10)
       '@vavite/node-loader':
-        specifier: ^3.0.0
-        version: 3.0.0(vite@5.0.10)
+        specifier: ^4.0.0
+        version: 4.0.0(vite@5.0.10)
       cac:
         specifier: ^6.7.14
         version: 6.7.14
@@ -5010,19 +5010,19 @@ packages:
   /@ungap/structured-clone@1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
-  /@vavite/connect@3.0.0(vite@5.0.10):
-    resolution: {integrity: sha512-qTbxzuXlHiCHdeIa5PUaq3Xcj6mDAONZBzRCHY4NlHh0+9etG0Lb5yU2dwLdUvumqQaGKNljWMl5WCJ0pkOGEw==}
+  /@vavite/connect@4.0.0(vite@5.0.10):
+    resolution: {integrity: sha512-7boeZ2IIzjnMnscRZ73akF/EPPwj1odk0s4Y1g8Yg2UQFBC+F/TXfkjL4KGV2eWTQjS3a46YPxvQbQoinV9gPA==}
     peerDependencies:
-      vite: ^2.8.1 || 3 || 4
+      vite: ^2.8.1 || 3 || 4 || 5
     dependencies:
       '@types/node': 20.10.6
       vite: 5.0.10(@types/node@20.10.6)
     dev: false
 
-  /@vavite/multibuild@3.0.0(vite@5.0.10):
-    resolution: {integrity: sha512-RHNOP0j6Zka9fhZ5B9Y8+IWHA17CCCoGf2/p8sSew0tMCM1RdOBpR2vsL8s5gcSB96COi4Qkn4s9YwF4LhZHjg==}
+  /@vavite/multibuild@4.0.0(vite@5.0.10):
+    resolution: {integrity: sha512-/zRwJKgrYHSTtGzmaUNIMuJsmvZgfiMBtXKhFOkh3IrpU2Uc7H7tnVqHi88HHJYGY5rICl2qDOLqYoG2Jt7wGQ==}
     peerDependencies:
-      vite: ^2.8.1 || 3 || 4
+      vite: ^2.8.1 || 3 || 4 || 5
     dependencies:
       '@types/node': 20.10.6
       cac: 6.7.14
@@ -5030,11 +5030,11 @@ packages:
       vite: 5.0.10(@types/node@20.10.6)
     dev: false
 
-  /@vavite/node-loader@3.0.0(vite@5.0.10):
-    resolution: {integrity: sha512-E14P6wP/u24TVxQGLyApOwhXamyYt9hX5EsqM0Vjd6tyE7Jiyt0XONNaotyt0DjXUJrLfFcbBfVyhr5aVEc73w==}
+  /@vavite/node-loader@4.0.0(vite@5.0.10):
+    resolution: {integrity: sha512-JKxCl5XaCtpmJ6T0sigqwoKzusi7xbz6Gbuqgz6JopINMZj76J15y/Crw1ZTfXy8Hnr3YBhfxl4jCcmdfktBrg==}
     hasBin: true
     peerDependencies:
-      vite: ^2.8.1 || 3 || 4
+      vite: ^2.8.1 || 3 || 4 || 5
     dependencies:
       vite: 5.0.10(@types/node@20.10.6)
     dev: false
