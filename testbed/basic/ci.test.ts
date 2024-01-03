@@ -83,6 +83,11 @@ if (process.env.CI === "true") {
 			command: `node ${noFetchFlag} entry-node-whatwg.js`,
 			skipCryptoTest: nodeVersionMajor < 16,
 		},
+		fetchAvailable && {
+			name: "Node with fast-fetch patch",
+			command: `node entry-node-fast-fetch.js`,
+			skipCryptoTest: nodeVersionMajor < 16,
+		},
 		{
 			name: "Deno",
 			command: "pnpm build:deno && pnpm start:deno",
@@ -364,7 +369,7 @@ describe.each(cases)(
 			const response = await fetch(host + "/bin-stream?delay=1");
 
 			let chunks = 0;
-			for await (const _chunk of response.body as AsyncIterable<Uint8Array>) {
+			for await (const _chunk of response.body as any as AsyncIterable<Uint8Array>) {
 				chunks++;
 			}
 
@@ -379,7 +384,7 @@ describe.each(cases)(
 				});
 
 				let chunks = 0;
-				for await (const _chunk of response.body as AsyncIterable<Uint8Array>) {
+				for await (const _chunk of response.body as any as AsyncIterable<Uint8Array>) {
 					chunks++;
 				}
 
