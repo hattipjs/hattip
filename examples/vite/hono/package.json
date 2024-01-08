@@ -11,7 +11,7 @@
     "@hattip/adapter-node": "*",
     "@hattip/core": "*",
     "@hattip/vite": "*",
-    "hono": "^3.11.11",
-    "vite": "^5.0.10"
+    "hono": "^3.12.0",
+    "vite": "^5.0.11"
   }
 }
