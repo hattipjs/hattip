@@ -30,7 +30,7 @@
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.5.0",
+    "@cyco130/eslint-config": "^3.6.0",
     "eslint": "^8.56.0",
     "publint": "^0.2.7",
     "tsup": "^8.0.1",
