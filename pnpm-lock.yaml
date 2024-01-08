@@ -1081,6 +1081,9 @@ importers:
       '@hattip/graphql':
         specifier: workspace:*
         version: link:../../packages/middleware/graphql
+      '@hattip/multipart':
+        specifier: workspace:*
+        version: link:../../packages/base/multipart
       '@hattip/polyfills':
         specifier: workspace:*
         version: link:../../packages/base/polyfills

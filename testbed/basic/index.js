@@ -4,6 +4,7 @@ import { html, json, text } from "@hattip/response";
 import { cookie } from "@hattip/cookie";
 import { yoga, createSchema } from "@hattip/graphql";
 import { session, EncryptedCookieStore } from "@hattip/session";
+import { parseMultipartFormData } from "@hattip/multipart";
 
 const app = createRouter();
 
@@ -115,6 +116,8 @@ app.use(
 			defaultQuery: `query { hello }`,
 		},
 
+		// TODO: Understand why this is needed
+		// @ts-expect-error
 		schema,
 	}),
 );
@@ -140,11 +143,62 @@ app.use("/session", async (ctx) => {
 	return sessionMiddleware(ctx);
 });
 
-app.use("/session", (ctx) => {
+app.get("/session", (ctx) => {
 	// @ts-ignore
 	ctx.session.data.count++;
 	// @ts-ignore
 	return text(`You have visited this page ${ctx.session.data.count} time(s).`);
+});
+
+/** @type {(stream: ReadableStream<Uint8Array>) => Promise<Uint8Array>} */
+async function readAll(stream) {
+	const reader = stream.getReader();
+	/** @type {Uint8Array[]} */
+	const chunks = [];
+	let totalLength = 0;
+
+	while (true) {
+		const { done, value } = await reader.read();
+		if (done) {
+			break;
+		}
+		chunks.push(value);
+		totalLength += value.length;
+	}
+
+	const result = new Uint8Array(totalLength);
+	let offset = 0;
+	for (const chunk of chunks) {
+		result.set(chunk, offset);
+		offset += chunk.length;
+	}
+
+	return result;
+}
+
+/** @type {(data: ArrayBuffer) => string} */
+function toBase64(data) {
+	if (typeof Buffer !== "undefined") {
+		return Buffer.from(data).toString("base64");
+	}
+
+	return btoa(String.fromCharCode(...new Uint8Array(data)));
+}
+
+app.post("/form", async (ctx) => {
+	const fd = await parseMultipartFormData(ctx.request, {
+		handleFile: async (fileInfo) => ({
+			...fileInfo,
+			body: toBase64(await readAll(fileInfo.body)),
+		}),
+		createTypeError: () => text("Unsupported media type", { status: 415 }),
+		createContentDispositionError: () =>
+			text("Invalid content disposition", { status: 400 }),
+		createLimitError: (name, value, limit) =>
+			text(`Field ${name} is too long (max ${limit} bytes)`, { status: 400 }),
+	});
+
+	return json(Object.fromEntries(fd));
 });
 
 app.get("/platform", (ctx) => {

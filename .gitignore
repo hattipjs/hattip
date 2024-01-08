@@ -137,6 +137,9 @@ vercel-build
 testbed/*/netlify
 examples/basic/pkg/basic.tar.gz
 
+# Local Wrangler folder
+.wrangler
+
 # Fastly output
 main.wasm
 
