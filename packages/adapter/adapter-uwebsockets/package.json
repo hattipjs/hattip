@@ -40,7 +40,6 @@
   "dependencies": {
     "@hattip/core": "workspace:*",
     "@hattip/polyfills": "workspace:*",
-    "mrmime": "^2.0.0",
-    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.31.0"
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.38.0"
   }
 }

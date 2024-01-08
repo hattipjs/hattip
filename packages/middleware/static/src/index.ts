@@ -107,8 +107,6 @@ export function createStaticMiddleware<C extends MinimalRequestContext>(
 				return new Response(null, { status: 304 });
 			}
 
-			headers.set("content-length", file.size.toString());
-
 			if (file.etag) {
 				headers.set("etag", file.etag);
 			}

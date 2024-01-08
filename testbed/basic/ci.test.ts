@@ -54,7 +54,7 @@ if (process.env.CI === "true") {
 
 	const bunAvailable = process.platform !== "win32";
 
-	const uwsAvailable = false; // nodeVersionMajor >= 18 && process.platform === "linux";
+	const uwsAvailable = true; // nodeVersionMajor >= 18 && process.platform === "linux";
 	// if (!uwsAvailable) {
 	// 	console.warn(
 	// 		"Node version < 18 or not on Linux, will skip uWebSockets.js tests",
@@ -136,7 +136,7 @@ if (process.env.CI === "true") {
 		},
 		uwsAvailable && {
 			name: "uWebSockets.js",
-			command: `node ${noFetchFlag} entry-uws.js`,
+			command: `node entry-uws.js`,
 		},
 		{
 			name: "Lagon",
@@ -305,12 +305,17 @@ describe.each(cases)(
 			);
 			const text = await response.text();
 
-			let ip;
+			let ip: string;
+			let ip6: string;
 
 			if (["127.0.0.1", "localhost"].includes(new URL(host).hostname)) {
 				ip = "127.0.0.1";
+				ip6 = "::1";
 			} else {
-				ip = await fetch("http://api.ipify.org").then((r) => r.text());
+				[ip, ip6] = await Promise.all([
+					fetch("http://api.ipify.org").then((r) => r.text()),
+					fetch("http://api64.ipify.org").then((r) => r.text()),
+				]);
 			}
 
 			let hostName = host;
@@ -323,7 +328,12 @@ describe.each(cases)(
 				hostName + "/"
 			}</span></p><p>Your IP address is: <span>${ip}</span></p>`;
 
-			expect(text).toContain(EXPECTED);
+			const EXPECTED_6 = `<h1>Hello from Hattip!</h1><p>URL: <span>${
+				hostName + "/"
+			}</span></p><p>Your IP address is: <span>${ip6}</span></p>`;
+
+			expect([EXPECTED, EXPECTED_6]).toContain(text);
+
 			expect(response.headers.get("content-type")).toEqual(
 				"text/html; charset=utf-8",
 			);
