@@ -384,12 +384,9 @@ importers:
       '@hattip/polyfills':
         specifier: workspace:*
         version: link:../../base/polyfills
-      mrmime:
-        specifier: ^2.0.0
-        version: 2.0.0
       uWebSockets.js:
-        specifier: github:uNetworking/uWebSockets.js#v20.31.0
-        version: github.com/uNetworking/uWebSockets.js/809b99d2d7d12e2cbf89b7135041e9b41ff84084
+        specifier: github:uNetworking/uWebSockets.js#v20.38.0
+        version: github.com/uNetworking/uWebSockets.js/560035d4ad6caeda563deee1d3d68143462a305b
     devDependencies:
       '@cyco130/eslint-config':
         specifier: ^3.6.0
@@ -14101,8 +14098,8 @@ packages:
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
 
-  github.com/uNetworking/uWebSockets.js/809b99d2d7d12e2cbf89b7135041e9b41ff84084:
-    resolution: {tarball: https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/809b99d2d7d12e2cbf89b7135041e9b41ff84084}
+  github.com/uNetworking/uWebSockets.js/560035d4ad6caeda563deee1d3d68143462a305b:
+    resolution: {tarball: https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/560035d4ad6caeda563deee1d3d68143462a305b}
     name: uWebSockets.js
-    version: 20.31.0
+    version: 20.38.0
     dev: false

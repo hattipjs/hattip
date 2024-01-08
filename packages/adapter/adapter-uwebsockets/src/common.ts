@@ -32,8 +32,6 @@ export interface UWebSocketAdapterOptions {
 	trustProxy?: boolean;
 	/** Use SSL (https) */
 	ssl?: boolean;
-	/** Static file directory */
-	staticDir?: string;
 	/**
 	 * Callback to configure the uWebSockets.js app.
 	 * Useful for adding WebSocket or HTTP routes before the HatTip handler
@@ -154,8 +152,7 @@ export function createServer(
 							: new ReadableStream({
 									start(controller) {
 										res.onData((chunk, isLast) => {
-											const buffer = Buffer.from(chunk);
-											controller.enqueue(buffer);
+											controller.enqueue(new Uint8Array(chunk));
 											if (isLast) controller.close();
 										});
 									},
@@ -177,51 +174,41 @@ export function createServer(
 		async function finish(response: Response) {
 			if (aborted) return;
 
-			res.writeStatus(
-				`${response.status}${
-					response.statusText ? " " + response.statusText : ""
-				}`,
-			);
+			res.cork(() => {
+				res.writeStatus(
+					`${response.status}${
+						response.statusText ? " " + response.statusText : ""
+					}`,
+				);
 
-			response.headers.forEach((value, key) => {
-				if (key === "set-cookie") {
-					const values = response.headers.getSetCookie();
-					for (const value of values) {
-						res.writeHeader(key, value);
+				const uniqueHeaderNames = new Set(response.headers.keys());
+				for (const name of uniqueHeaderNames) {
+					if (name === "set-cookie") {
+						for (const value of response.headers.getSetCookie()) {
+							res.writeHeader(name, value);
+						}
+					} else {
+						res.writeHeader(name, response.headers.get(name)!);
 					}
-				} else {
-					res.writeHeader(key, value);
+				}
+
+				if (!response.body) {
+					res.end();
 				}
 			});
 
 			if (response.body) {
-				const reader = (response.body as any as AsyncIterable<Buffer | string>)[
-					Symbol.asyncIterator
-				]();
-
-				const first = await reader.next();
-				if (first.done) {
-					res.end();
-				} else {
-					const secondPromise = reader.next();
-					let second = await Promise.race([
-						secondPromise,
-						Promise.resolve(null),
-					]);
-
-					if (second && second.done) {
-						res.end(first.value);
-					} else {
-						res.write(first.value);
-						second = await secondPromise;
-						for (; !second.done; second = await reader.next()) {
-							res.write(Buffer.from(second.value));
-						}
-						res.end();
+				let lastChunk: Uint8Array | undefined;
+				for await (const chunk of response.body as any as AsyncIterable<Uint8Array>) {
+					if (lastChunk) {
+						res.cork(() => res.write(lastChunk!));
 					}
+					lastChunk = chunk;
 				}
-			} else {
-				res.end();
+
+				if (lastChunk) {
+					res.cork(() => res.end(lastChunk!));
+				}
 			}
 		}
 	});
