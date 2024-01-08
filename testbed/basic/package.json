@@ -63,6 +63,7 @@
     "@hattip/compose": "workspace:*",
     "@hattip/cookie": "workspace:*",
     "@hattip/graphql": "workspace:*",
+    "@hattip/multipart": "workspace:*",
     "@hattip/polyfills": "workspace:*",
     "@hattip/response": "workspace:*",
     "@hattip/router": "workspace:*",

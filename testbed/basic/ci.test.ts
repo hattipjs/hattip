@@ -450,7 +450,7 @@ describe.each(cases)(
 			expect(text).toEqual('"bar"');
 		});
 
-		test.skip("GraphQL", async () => {
+		test("GraphQL", async () => {
 			function g(query: string) {
 				return fetch(host + "/graphql", {
 					method: "POST",
