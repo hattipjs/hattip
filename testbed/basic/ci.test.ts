@@ -23,6 +23,7 @@ let cases: Array<{
 	skipCryptoTest?: boolean;
 	skipStaticFileTest?: boolean;
 	skipAdvancedStaticFileTest?: boolean;
+	skipMultipartTest?: boolean;
 	tryStreamingWithoutCompression?: boolean;
 }>;
 
@@ -77,6 +78,7 @@ if (process.env.CI === "true") {
 			name: "Node with node-fetch",
 			command: `node ${noFetchFlag} entry-node.js`,
 			skipCryptoTest: nodeVersionMajor < 16,
+			skipMultipartTest: true, // node-fetch doesn't support streaming
 		},
 		fetchAvailable && {
 			name: "Node with @whatwg-node/fetch",
@@ -140,6 +142,7 @@ if (process.env.CI === "true") {
 			name: "Lagon",
 			command: "lagon dev entry-lagon.js -p public --port 3000",
 			skipAdvancedStaticFileTest: true,
+			skipMultipartTest: true, // Seems like a btoa bug in Lagon
 		},
 		{
 			name: "Google Cloud Functions",
@@ -184,12 +187,13 @@ describe.each(cases)(
 		command,
 		envOverride,
 		fetch = globalThis.fetch,
-		skipStreamingTest,
 		requiresForwardedIp,
+		tryStreamingWithoutCompression,
+		skipStreamingTest,
 		skipCryptoTest,
 		skipStaticFileTest,
 		skipAdvancedStaticFileTest,
-		tryStreamingWithoutCompression,
+		skipMultipartTest: skipMultipartTest,
 	}) => {
 		beforeAll(async () => {
 			const original = fetch;
@@ -470,6 +474,31 @@ describe.each(cases)(
 
 			const r3 = await g("{ sum(a: 1, b: 2) }").then((r) => r.json());
 			expect(r3).toStrictEqual({ data: { sum: 3 } });
+		});
+
+		test.failsIf(skipMultipartTest)("multipart form data works", async () => {
+			const fd = new FormData();
+			const data = Uint8Array.from(
+				new Array(300).fill(0).map((_, i) => i & 0xff),
+			);
+			fd.append("file", new File([data], "hello.txt", { type: "text/plain" }));
+			fd.append("text", "Hello world! 😊");
+
+			const r = await fetch(host + "/form", {
+				method: "POST",
+				body: fd,
+			}).then((r) => r.json());
+
+			expect(r).toEqual({
+				text: "Hello world! 😊",
+				file: {
+					name: "file",
+					filename: "hello.txt",
+					unsanitizedFilename: "hello.txt",
+					contentType: "text/plain",
+					body: Buffer.from(data).toString("base64"),
+				},
+			});
 		});
 
 		test.failsIf(skipCryptoTest)("session", async () => {

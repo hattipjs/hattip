@@ -1,5 +1,5 @@
 
-compatibility_date = "2021-11-01"
+compatibility_date = "2024-01-01"
 main = "dist/cloudflare-workers-bundle/index.js"
 name = "hattip-basic"
 usage_model = 'bundled'

@@ -21,16 +21,16 @@ export interface FormDataParserOptions<F> {
 	 */
 	handleFile: FileHandler<F>;
 	/** Create the error to throw when a limit is exceeded */
-	createLimitError?(name: string, value: number, limit: number): Error;
+	createLimitError?(name: string, value: number, limit: number): any;
 	/**
 	 * Create the error to throw when the Content-Type header is not multipart
 	 * form-data with a boundary.
 	 */
-	createTypeError?(): Error;
+	createTypeError?(): any;
 	/**
 	 * Create the error to throw when the Content-Disposition header is
 	 * invalid. */
-	createContentDispositionError?(): Error;
+	createContentDispositionError?(): any;
 	/** The maximum number of headers @default 16 */
 	maxHeaderCount?: number;
 	/** The maximum size of a header in bytes @default 1024 */

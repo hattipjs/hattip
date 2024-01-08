@@ -1,7 +1,5 @@
 # `@hattip/multipart`
 
-> ⚠️ This package is work in progress. Please don't use in user-facing production code as it may have security issues.
-
 Multipart parser for HatTip. It can be used to parse multipart requests, especially `multipart/form-data` for handling file uploads.
 
 The web standards offer [`Request.prototype.formData`](https://developer.mozilla.org/en-US/docs/Web/API/Request/formData) for parsing `multipart/form-data` requests, but it offers no way of enforcing size limits or controlling where the files are stored. Most implementations simply store the files in memory, which is not ideal for large files.

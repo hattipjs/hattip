@@ -7,7 +7,8 @@
 		"strict": true,
 		"skipLibCheck": true,
 		"moduleResolution": "Node",
-		"checkJs": true
+		"checkJs": true,
+		"noEmit": true
 	},
 	"include": ["index.js"]
 }
