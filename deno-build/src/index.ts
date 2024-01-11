@@ -262,7 +262,7 @@ function compile(name: string, path: string) {
 				"utf8",
 			),
 		);
-		const version = pkg.devDependencies["graphql-yoga"].slice(1);
+		const version = pkg.dependencies["graphql-yoga"].slice(1);
 		replaced = `// @deno-types="npm:graphql-yoga@${version}"\n${replaced}`;
 	}
 
