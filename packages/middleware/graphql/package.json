@@ -32,7 +32,7 @@
     "test:package": "publint --strict"
   },
   "peerDependencies": {
-    "graphql": "16"
+    "graphql": "^16.8.1"
   },
   "dependencies": {
     "@graphql-tools/schema": "^10.0.2",
@@ -46,10 +46,10 @@
     "urlpattern-polyfill": "^9.0.0"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.6.0",
+    "@cyco130/eslint-config": "^3.6.1",
     "@graphql-yoga/subscription": "^5.0.0",
     "@hattip/polyfills": "workspace:*",
-    "@types/node": "^20.10.7",
+    "@types/node": "^20.11.1",
     "eslint": "^8.56.0",
     "graphql": "^16.8.1",
     "publint": "^0.2.7",

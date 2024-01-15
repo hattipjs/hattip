@@ -1,4 +1,4 @@
-import { PluginOption, UserConfig } from "vite";
+import { Plugin, UserConfig } from "vite";
 import { injectConfig } from "./vite-plugins/inject-config";
 import { vaviteConnect } from "@vavite/connect";
 import { defaultNodeEntry } from "./vite-plugins/default-node-entry";
@@ -14,7 +14,7 @@ interface HattipOptions {
 	bundler?: string | { name: string; default(): Promise<void> };
 }
 
-export function hattip(options: HattipOptions = {}): PluginOption {
+export function hattip(options: HattipOptions = {}): Plugin[] {
 	const cliOptions = (globalThis as any).__hattip_cli_options__;
 
 	options.hattipEntry = options.hattipEntry ?? cliOptions?.hattipEntry;
@@ -28,7 +28,7 @@ export function hattip(options: HattipOptions = {}): PluginOption {
 		exposeDevServer(),
 		injectConfig(options),
 		defaultNodeEntry({ hattipEntry: options.hattipEntry }),
-		vaviteConnect({
+		...vaviteConnect({
 			handlerEntry: options.nodeEntry || "virtual:hattip:default-node-entry",
 			serveClientAssetsInDev: hasClient,
 			clientAssetsDir: hasClient ? "dist/client" : undefined,
