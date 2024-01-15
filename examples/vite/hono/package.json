@@ -8,9 +8,9 @@
     "start": "node dist/server/index.js"
   },
   "dependencies": {
-    "@hattip/adapter-node": "*",
-    "@hattip/core": "*",
-    "@hattip/vite": "*",
+    "@hattip/adapter-node": "^0.0.39",
+    "@hattip/core": "^0.0.39",
+    "@hattip/vite": "^0.0.39",
     "hono": "^3.12.4",
     "vite": "^5.0.11"
   }

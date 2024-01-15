@@ -76,10 +76,10 @@ importers:
   examples/basic/node:
     dependencies:
       '@hattip/adapter-cloudflare-workers':
-        specifier: '*'
+        specifier: ^0.0.39
         version: link:../../../packages/adapter/adapter-cloudflare-workers
       '@hattip/adapter-node':
-        specifier: '*'
+        specifier: ^0.0.39
         version: link:../../../packages/adapter/adapter-node
       '@types/node':
         specifier: ^20.11.1
@@ -91,13 +91,13 @@ importers:
   examples/vite/hono:
     dependencies:
       '@hattip/adapter-node':
-        specifier: '*'
+        specifier: ^0.0.39
         version: link:../../../packages/adapter/adapter-node
       '@hattip/core':
-        specifier: '*'
+        specifier: ^0.0.39
         version: link:../../../packages/base/core
       '@hattip/vite':
-        specifier: '*'
+        specifier: ^0.0.39
         version: link:../../../packages/cli/vite
       hono:
         specifier: ^3.12.4
@@ -109,20 +109,20 @@ importers:
   examples/vite/playground:
     dependencies:
       '@hattip/adapter-node':
-        specifier: '*'
+        specifier: ^0.0.39
         version: link:../../../packages/adapter/adapter-node
       '@hattip/response':
-        specifier: '*'
+        specifier: ^0.0.39
         version: link:../../../packages/base/response
       '@hattip/router':
-        specifier: '*'
+        specifier: ^0.0.39
         version: link:../../../packages/base/router
       '@hattip/vite':
-        specifier: '*'
+        specifier: ^0.0.39
         version: link:../../../packages/cli/vite
       vite:
         specifier: ^5.0.11
-        version: 5.0.11(@types/node@20.10.7)
+        version: 5.0.11
 
   packages/adapter/adapter-bun:
     dependencies:
@@ -4172,12 +4172,6 @@ packages:
 
   /@types/node@14.18.63:
     resolution: {integrity: sha512-fAtCfv4jJg+ExtXhvCkCqUKZ+4ok/JQk01qDKhL5BDDoS3AxKXhV5/MAVUZyQnSEd2GT92fkgZl0pz0Q0AzcIQ==}
-    dev: false
-
-  /@types/node@20.10.7:
-    resolution: {integrity: sha512-fRbIKb8C/Y2lXxB5eVMj4IU7xpdox0Lh8bUPEdtLysaylsml1hOOx1+STloRs/B9nf7C6kPRmmg/V7aQW7usNg==}
-    dependencies:
-      undici-types: 5.26.5
     dev: false
 
   /@types/node@20.11.1:
@@ -13080,42 +13074,6 @@ packages:
       rollup: 4.9.2
     optionalDependencies:
       fsevents: 2.3.3
-
-  /vite@5.0.11(@types/node@20.10.7):
-    resolution: {integrity: sha512-XBMnDjZcNAw/G1gEiskiM1v6yzM4GE5aMGvhWTlHAYYhxb7S3/V1s3m2LDHa8Vh6yIWYYB0iJwsEaS523c4oYA==}
-    engines: {node: ^18.0.0 || >=20.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': ^18.0.0 || >=20.0.0
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      '@types/node': 20.10.7
-      esbuild: 0.19.11
-      postcss: 8.4.32
-      rollup: 4.9.2
-    optionalDependencies:
-      fsevents: 2.3.3
-    dev: false
 
   /vite@5.0.11(@types/node@20.11.1):
     resolution: {integrity: sha512-XBMnDjZcNAw/G1gEiskiM1v6yzM4GE5aMGvhWTlHAYYhxb7S3/V1s3m2LDHa8Vh6yIWYYB0iJwsEaS523c4oYA==}
