@@ -9,7 +9,7 @@
   "dependencies": {
     "@hattip/adapter-cloudflare-workers": "*",
     "@hattip/adapter-node": "*",
-    "@types/node": "^20.10.7",
-    "wrangler": "^3.22.3"
+    "@types/node": "^20.11.1",
+    "wrangler": "^3.22.4"
   }
 }

@@ -112,8 +112,6 @@ export function createStaticMiddleware(
 				return true;
 			}
 
-			res.setHeader("content-length", file.size.toString());
-
 			if (file.etag) {
 				res.setHeader("etag", file.etag);
 			}
