@@ -114,18 +114,18 @@ function doWalk(
 	return entries;
 }
 
-export async function createFileSet(dir: string, options?: WalkOptions) {
-	const files = await walk(dir, options);
+export function createFileSet(dir: string, options?: WalkOptions) {
+	const files = walk(dir, options);
 	return new Set(files.keys());
 }
 
-export async function createFileSetModule(dir: string, options?: WalkOptions) {
-	const files = await createFileSet(dir, options);
+export function createFileSetModule(dir: string, options?: WalkOptions) {
+	const files = createFileSet(dir, options);
 	return `export default new Set(${JSON.stringify([...files])});`;
 }
 
-export async function createFileMap(dir: string, options?: WalkOptions) {
-	const files = await walk(dir, options);
+export function createFileMap(dir: string, options?: WalkOptions) {
+	const files = walk(dir, options);
 	return new Map(
 		[...files].map(([name, stat]) => [
 			name,
@@ -134,27 +134,25 @@ export async function createFileMap(dir: string, options?: WalkOptions) {
 	);
 }
 
-export async function createFileMapModule(dir: string, options?: WalkOptions) {
-	const files = await createFileMap(dir, options);
+export function createFileMapModule(dir: string, options?: WalkOptions) {
+	const files = createFileMap(dir, options);
 	const joined = [...files].map(stringifyTuple).join(",");
 	return `export default new Map([${joined}]);`;
 }
 
-export async function createFileList(
+export function createFileList(
 	dir: string,
 	options?: WalkOptions,
-): Promise<
-	Array<
-		[
-			name: string,
-			path: string | undefined,
-			type: string,
-			size: number,
-			etag?: string,
-		]
-	>
+): Array<
+	[
+		name: string,
+		path: string | undefined,
+		type: string,
+		size: number,
+		etag?: string,
+	]
 > {
-	const files = await walk(dir, options);
+	const files = walk(dir, options);
 
 	if (options?.etag === false) {
 		return [...files].map(([name, stat]) => [
@@ -174,17 +172,17 @@ export async function createFileList(
 	}
 }
 
-export async function createFileListModule(dir: string, options?: WalkOptions) {
-	const files = await createFileList(dir, options);
+export function createFileListModule(dir: string, options?: WalkOptions) {
+	const files = createFileList(dir, options);
 	const joined = files.map((file) => stringifyTuple(file)).join(",");
 	return `export default [${joined}];`;
 }
 
-export async function createCompressedFileListModule(
+export function createCompressedFileListModule(
 	dir: string,
 	options?: WalkOptions,
 ) {
-	const files = await createFileList(dir, options);
+	const files = createFileList(dir, options);
 	const types = new Map<string, number>();
 	const output: Array<
 		[
