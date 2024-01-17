@@ -6,7 +6,7 @@ import {
 	createFileMapModule,
 	createFileSetModule,
 } from ".";
-import { writeFile } from "node:fs/promises";
+import { writeFileSync } from "node:fs";
 import process from "node:process";
 
 const cli = cac("hattip-walk");
@@ -31,7 +31,7 @@ cli
 	)
 	.option("-c, --compress", "Output a 'compressed' manifest")
 	.action(
-		async (
+		(
 			dir: string = process.cwd(),
 			output: string | undefined,
 			{
@@ -63,17 +63,17 @@ cli
 			const options = { prune, etag };
 
 			if (set) {
-				result = await createFileSetModule(dir, options);
+				result = createFileSetModule(dir, options);
 			} else if (map) {
-				result = await createFileMapModule(dir, options);
+				result = createFileMapModule(dir, options);
 			} else if (compress) {
-				result = await createCompressedFileListModule(dir, options);
+				result = createCompressedFileListModule(dir, options);
 			} else {
-				result = await createFileListModule(dir, options);
+				result = createFileListModule(dir, options);
 			}
 
 			if (output) {
-				await writeFile(output, result);
+				writeFileSync(output, result);
 			} else {
 				// eslint-disable-next-line no-console
 				console.log(result);
