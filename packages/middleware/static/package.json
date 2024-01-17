@@ -1,6 +1,6 @@
 {
   "name": "@hattip/static",
-  "version": "0.0.39",
+  "version": "0.0.40",
   "type": "module",
   "description": "Static file serving middleware for HatTip",
   "files": [

@@ -1,6 +1,6 @@
 {
   "name": "@hattip/router",
-  "version": "0.0.39",
+  "version": "0.0.40",
   "type": "module",
   "description": "Express-style imperative router for Hattip",
   "files": [
