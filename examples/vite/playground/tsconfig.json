@@ -7,6 +7,6 @@
 		"strict": true,
 		"skipLibCheck": true,
 		"moduleResolution": "Node",
-		"types": ["vite/client", "@hattip/vite/vite-dev-server"]
-	}
+		"types": ["vite/client", "@hattip/vite/vite-dev-server"],
+	},
 }

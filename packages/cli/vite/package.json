@@ -41,19 +41,19 @@
     "vite": "4 | 5"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.6.1",
+    "@cyco130/eslint-config": "^3.6.2",
     "eslint": "^8.56.0",
     "publint": "^0.2.7",
     "rimraf": "^5.0.5",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
-    "vite": "^5.0.11"
+    "vite": "^5.0.12"
   },
   "dependencies": {
     "@hattip/adapter-node": "workspace:*",
-    "@vavite/connect": "^4.0.1",
-    "@vavite/multibuild": "^4.0.1",
-    "@vavite/node-loader": "^4.0.1",
+    "@vavite/connect": "^4.0.2",
+    "@vavite/multibuild": "^4.0.2",
+    "@vavite/node-loader": "^4.0.2",
     "cac": "^6.7.14",
     "import-meta-resolve": "^4.0.0",
     "picocolors": "^1.0.0",
