@@ -44,4 +44,4 @@ jobs:
         run: pnpm run build
 
       - name: Run code quality checks and tests
-        run: pnpm run test:prettier && pnpm test:packages
+        run: pnpm run cq
