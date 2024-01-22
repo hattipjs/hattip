@@ -26,16 +26,19 @@ const externalModules: Record<string, string | undefined> = {
 
 	esbuild: `https://deno.land/x/esbuild@v${esbuildVersion}/mod.js`,
 
-	bun: "npm",
-	"bun-types": "npm",
 	"@cloudflare/kv-asset-handler": "npm",
 	"@cloudflare/workers-types": "npm",
 	"@fastly/js-compute": "npm",
-	"netlify-lambda-types": "npm",
-	"node-fetch-native": "npm",
 	"@whatwg-node/fetch": "npm",
+	archiver: "npm",
+	"aws-lambda": "npm",
+	bun: "npm",
+	"bun-types": "npm",
 	cpr: "npm",
 	cac: "npm",
+	"lambda-stream": "npm",
+	"netlify-lambda-types": "npm",
+	"node-fetch-native": "npm",
 	vite: "npm",
 
 	"mime-types": "esm",
