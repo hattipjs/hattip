@@ -8,10 +8,10 @@
     "start": "node dist/server/index.js"
   },
   "dependencies": {
-    "@hattip/adapter-node": "^0.0.40",
-    "@hattip/response": "^0.0.40",
-    "@hattip/router": "^0.0.40",
-    "@hattip/vite": "^0.0.40",
+    "@hattip/adapter-node": "^0.0.41",
+    "@hattip/response": "^0.0.41",
+    "@hattip/router": "^0.0.41",
+    "@hattip/vite": "^0.0.41",
     "vite": "^5.0.12"
   }
 }

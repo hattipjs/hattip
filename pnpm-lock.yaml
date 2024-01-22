@@ -76,10 +76,10 @@ importers:
   examples/basic/node:
     dependencies:
       '@hattip/adapter-cloudflare-workers':
-        specifier: ^0.0.40
+        specifier: ^0.0.41
         version: link:../../../packages/adapter/adapter-cloudflare-workers
       '@hattip/adapter-node':
-        specifier: ^0.0.40
+        specifier: ^0.0.41
         version: link:../../../packages/adapter/adapter-node
       '@types/node':
         specifier: ^20.11.5
@@ -91,13 +91,13 @@ importers:
   examples/vite/hono:
     dependencies:
       '@hattip/adapter-node':
-        specifier: ^0.0.40
+        specifier: ^0.0.41
         version: link:../../../packages/adapter/adapter-node
       '@hattip/core':
-        specifier: ^0.0.40
+        specifier: ^0.0.41
         version: link:../../../packages/base/core
       '@hattip/vite':
-        specifier: ^0.0.40
+        specifier: ^0.0.41
         version: link:../../../packages/cli/vite
       hono:
         specifier: ^3.12.6
@@ -109,16 +109,16 @@ importers:
   examples/vite/playground:
     dependencies:
       '@hattip/adapter-node':
-        specifier: ^0.0.40
+        specifier: ^0.0.41
         version: link:../../../packages/adapter/adapter-node
       '@hattip/response':
-        specifier: ^0.0.40
+        specifier: ^0.0.41
         version: link:../../../packages/base/response
       '@hattip/router':
-        specifier: ^0.0.40
+        specifier: ^0.0.41
         version: link:../../../packages/base/router
       '@hattip/vite':
-        specifier: ^0.0.40
+        specifier: ^0.0.41
         version: link:../../../packages/cli/vite
       vite:
         specifier: ^5.0.12
@@ -921,7 +921,7 @@ importers:
         version: 5.3.3
       vite:
         specifier: ^5.0.12
-        version: 5.0.12
+        version: 5.0.12(@types/node@20.11.5)
 
   packages/middleware/cookie:
     dependencies:
@@ -3027,7 +3027,7 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
       ajv: 6.12.6
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@5.5.0)
       espree: 9.6.1
       globals: 13.24.0
       ignore: 5.3.0
@@ -3224,7 +3224,7 @@ packages:
     engines: {node: '>=10.10.0'}
     dependencies:
       '@humanwhocodes/object-schema': 2.0.1
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@5.5.0)
       minimatch: 3.1.2
     transitivePeerDependencies:
       - supports-color
@@ -5199,7 +5199,7 @@ packages:
       '@typescript-eslint/type-utils': 6.19.0(eslint@8.56.0)(typescript@5.3.3)
       '@typescript-eslint/utils': 6.19.0(eslint@8.56.0)(typescript@5.3.3)
       '@typescript-eslint/visitor-keys': 6.19.0
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@5.5.0)
       eslint: 8.56.0
       graphemer: 1.4.0
       ignore: 5.3.0
@@ -5224,7 +5224,7 @@ packages:
       '@typescript-eslint/types': 6.19.0
       '@typescript-eslint/typescript-estree': 6.19.0(typescript@5.3.3)
       '@typescript-eslint/visitor-keys': 6.19.0
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@5.5.0)
       eslint: 8.56.0
       typescript: 5.3.3
     transitivePeerDependencies:
@@ -5249,7 +5249,7 @@ packages:
     dependencies:
       '@typescript-eslint/typescript-estree': 6.19.0(typescript@5.3.3)
       '@typescript-eslint/utils': 6.19.0(eslint@8.56.0)(typescript@5.3.3)
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@5.5.0)
       eslint: 8.56.0
       ts-api-utils: 1.0.3(typescript@5.3.3)
       typescript: 5.3.3
@@ -5318,7 +5318,7 @@ packages:
     dependencies:
       '@typescript-eslint/types': 6.19.0
       '@typescript-eslint/visitor-keys': 6.19.0
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@5.5.0)
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.3
@@ -5370,7 +5370,7 @@ packages:
       vite: ^2.8.1 || 3 || 4 || 5
     dependencies:
       '@types/node': 20.11.5
-      vite: 5.0.12
+      vite: 5.0.12(@types/node@20.11.5)
     dev: false
 
   /@vavite/multibuild@4.0.2(vite@5.0.12):
@@ -5381,7 +5381,7 @@ packages:
       '@types/node': 20.11.5
       cac: 6.7.14
       picocolors: 1.0.0
-      vite: 5.0.12
+      vite: 5.0.12(@types/node@20.11.5)
     dev: false
 
   /@vavite/node-loader@4.0.2(vite@5.0.12):
@@ -5390,7 +5390,7 @@ packages:
     peerDependencies:
       vite: ^2.8.1 || 3 || 4 || 5
     dependencies:
-      vite: 5.0.12
+      vite: 5.0.12(@types/node@20.11.5)
     dev: false
 
   /@vercel/ncc@0.38.1:
@@ -7091,17 +7091,6 @@ packages:
     dependencies:
       ms: 2.1.3
 
-  /debug@4.3.4:
-    resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
-    engines: {node: '>=6.0'}
-    peerDependencies:
-      supports-color: '*'
-    peerDependenciesMeta:
-      supports-color:
-        optional: true
-    dependencies:
-      ms: 2.1.2
-
   /debug@4.3.4(supports-color@5.5.0):
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
     engines: {node: '>=6.0'}
@@ -7758,7 +7747,7 @@ packages:
       eslint: '*'
       eslint-plugin-import: '*'
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@5.5.0)
       enhanced-resolve: 5.15.0
       eslint: 8.56.0
       eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.19.0)(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
@@ -7935,7 +7924,7 @@ packages:
       ajv: 6.12.6
       chalk: 4.1.2
       cross-spawn: 7.0.3
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@5.5.0)
       doctrine: 3.0.0
       escape-string-regexp: 4.0.0
       eslint-scope: 7.2.2
@@ -13545,7 +13534,7 @@ packages:
       bundle-require: 4.0.2(esbuild@0.19.11)
       cac: 6.7.14
       chokidar: 3.5.3
-      debug: 4.3.4
+      debug: 4.3.4(supports-color@5.5.0)
       esbuild: 0.19.11
       execa: 5.1.1
       globby: 11.1.0
@@ -14033,40 +14022,6 @@ packages:
       - supports-color
       - terser
     dev: true
-
-  /vite@5.0.12:
-    resolution: {integrity: sha512-4hsnEkG3q0N4Tzf1+t6NdN9dg/L3BM+q8SWgbSPnJvrgH2kgdyzfVJwbR1ic69/4uMJJ/3dqDZZE5/WwqW8U1w==}
-    engines: {node: ^18.0.0 || >=20.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': ^18.0.0 || >=20.0.0
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      esbuild: 0.19.11
-      postcss: 8.4.33
-      rollup: 4.9.6
-    optionalDependencies:
-      fsevents: 2.3.3
 
   /vite@5.0.12(@types/node@20.11.5):
     resolution: {integrity: sha512-4hsnEkG3q0N4Tzf1+t6NdN9dg/L3BM+q8SWgbSPnJvrgH2kgdyzfVJwbR1ic69/4uMJJ/3dqDZZE5/WwqW8U1w==}

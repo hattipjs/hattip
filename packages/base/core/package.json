@@ -1,6 +1,6 @@
 {
   "name": "@hattip/core",
-  "version": "0.0.40",
+  "version": "0.0.41",
   "type": "module",
   "files": [
     "index.d.ts"
