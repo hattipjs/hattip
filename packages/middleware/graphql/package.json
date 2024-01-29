@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@graphql-tools/schema": "^10.0.2",
-    "@graphql-tools/utils": "^10.0.12",
+    "@graphql-tools/utils": "^10.0.13",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@hattip/compose": "workspace:*",
     "@hattip/core": "workspace:*",
@@ -46,10 +46,10 @@
     "urlpattern-polyfill": "^9.0.0"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.6.2",
+    "@cyco130/eslint-config": "^3.6.3",
     "@graphql-yoga/subscription": "^5.0.0",
     "@hattip/polyfills": "workspace:*",
-    "@types/node": "^20.11.5",
+    "@types/node": "^20.11.10",
     "eslint": "^8.56.0",
     "graphql": "^16.8.1",
     "publint": "^0.2.7",
