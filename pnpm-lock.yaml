@@ -1199,8 +1199,8 @@ importers:
         specifier: ^3.501.0
         version: 3.501.0
       '@fastly/compute-js-static-publish':
-        specifier: ^5.2.1
-        version: 5.2.1(@fastly/js-compute@3.8.2)
+        specifier: ^6.0.0
+        version: 6.0.0(@fastly/js-compute@3.8.2)
       '@fastly/js-compute':
         specifier: ^3.8.2
         version: 3.8.2
@@ -3098,8 +3098,8 @@ packages:
       readable-stream: 4.5.2
     dev: true
 
-  /@fastly/compute-js-static-publish@5.2.1(@fastly/js-compute@3.8.2):
-    resolution: {integrity: sha512-nzgU3BdXMPFPEv4W4W3sijeMmpRyVvEBO2Ot4Gn9tSpspioN48b8js0OLGWCIJmcipTeTHRzVCQfvyyDrRHeyg==}
+  /@fastly/compute-js-static-publish@6.0.0(@fastly/js-compute@3.8.2):
+    resolution: {integrity: sha512-Y/BXpnUrJRWHVHZ/PuiTjhm7DTrLcft0wvmmyOKQz1iRLypjwSrxWKPLI5MbezzVHskjRUQsF1CJ6myBnJ39BA==}
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
