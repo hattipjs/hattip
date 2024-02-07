@@ -1,6 +1,6 @@
 {
   "name": "@hattip/adapter-uwebsockets",
-  "version": "0.0.41",
+  "version": "0.0.42",
   "type": "module",
   "description": "uWebSockets.js adapter for Hattip",
   "files": [
