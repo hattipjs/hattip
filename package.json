@@ -21,9 +21,9 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "graphql": "^16.8.1",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.2.0",
-    "prettier": "^3.2.4",
+    "husky": "^9.0.10",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
     "vite": "^5.0.12",
     "vitest": "^1.2.2"
