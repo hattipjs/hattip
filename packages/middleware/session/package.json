@@ -39,7 +39,7 @@
     "@hattip/polyfills": "workspace:*",
     "@miniflare/kv": "^2.14.2",
     "@miniflare/storage-memory": "^2.14.2",
-    "@types/node": "^20.11.10",
+    "@types/node": "^20.11.16",
     "@types/redis-mock": "^0.17.3",
     "eslint": "^8.56.0",
     "publint": "^0.2.7",

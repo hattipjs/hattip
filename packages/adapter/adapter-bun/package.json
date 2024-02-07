@@ -28,11 +28,11 @@
   },
   "dependencies": {
     "@hattip/core": "workspace:*",
-    "bun-types": "^1.0.25"
+    "bun-types": "^1.0.26"
   },
   "devDependencies": {
     "@cyco130/eslint-config": "^3.6.3",
-    "@types/node": "^20.11.10",
+    "@types/node": "^20.11.16",
     "eslint": "^8.56.0",
     "publint": "^0.2.7",
     "tsup": "^8.0.1",
