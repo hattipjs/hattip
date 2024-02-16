@@ -880,14 +880,14 @@ importers:
         specifier: workspace:*
         version: link:../../adapter/adapter-node
       '@vavite/connect':
-        specifier: ^4.0.2
-        version: 4.0.2(vite@5.0.12)
+        specifier: ^4.1.1
+        version: 4.1.1(vite@5.0.12)
       '@vavite/multibuild':
-        specifier: ^4.0.2
-        version: 4.0.2(vite@5.0.12)
+        specifier: ^4.1.1
+        version: 4.1.1(vite@5.0.12)
       '@vavite/node-loader':
-        specifier: ^4.0.2
-        version: 4.0.2(vite@5.0.12)
+        specifier: ^4.1.1
+        version: 4.1.1(vite@5.0.12)
       cac:
         specifier: ^6.7.14
         version: 6.7.14
@@ -5094,6 +5094,12 @@ packages:
     dependencies:
       undici-types: 5.26.5
 
+  /@types/node@20.11.19:
+    resolution: {integrity: sha512-7xMnVEcZFu0DikYjWOlRq7NTPETrm7teqUT2WkQjrTIkEgUyyGdWsj/Zg8bEJt5TNklzbPD1X3fqfsHw3SpapQ==}
+    dependencies:
+      undici-types: 5.26.5
+    dev: false
+
   /@types/normalize-package-data@2.4.4:
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
 
@@ -5416,28 +5422,28 @@ packages:
   /@ungap/structured-clone@1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
-  /@vavite/connect@4.0.2(vite@5.0.12):
-    resolution: {integrity: sha512-wEEjsKXUvmOEzQ5jJm33AAKmX9tNwjuxmTA5CHwHzria4QcjRUxgONo0jjhvIY4S+e9/gkf6e24rREjAGfgcfA==}
+  /@vavite/connect@4.1.1(vite@5.0.12):
+    resolution: {integrity: sha512-UjJEPX9t1fPNJiDbTzzW/ZIorTipCWO9x9aQ0CkNqtH6+dKnaWI/a03gFiNU+7ybhYI1LxdY17ar10ns7DQ08Q==}
     peerDependencies:
       vite: ^2.8.1 || 3 || 4 || 5
     dependencies:
-      '@types/node': 20.11.16
+      '@types/node': 20.11.19
       vite: 5.0.12(@types/node@20.11.16)
     dev: false
 
-  /@vavite/multibuild@4.0.2(vite@5.0.12):
-    resolution: {integrity: sha512-pkaPDiSCFmTGiuF1qIkyjZcK4+tSEzIFJP5Ge4UXhf03X2JDR+/8SCIp0Nkj+n8fRSsQquk2naSkmoA8oGQFvw==}
+  /@vavite/multibuild@4.1.1(vite@5.0.12):
+    resolution: {integrity: sha512-R+UJWT2wH598OsGNA/NHgUgtOGvyh9kqaDsP/twJa/OJSH+RWgzj+ONQPqbkAYqPYu0NgRb8rkQOK4QJwdLx0A==}
     peerDependencies:
       vite: ^2.8.1 || 3 || 4 || 5
     dependencies:
-      '@types/node': 20.11.16
+      '@types/node': 20.11.19
       cac: 6.7.14
       picocolors: 1.0.0
       vite: 5.0.12(@types/node@20.11.16)
     dev: false
 
-  /@vavite/node-loader@4.0.2(vite@5.0.12):
-    resolution: {integrity: sha512-8bPk16xYLThZEMWdFTuyD80WBzZ6pEQrqyylohlUG5WzHe7eJ1oDdqlRDikpMq2V6tKcd4dw148wZkrpFSVVWA==}
+  /@vavite/node-loader@4.1.1(vite@5.0.12):
+    resolution: {integrity: sha512-3vJ3lnO2yJYE+i7DlZuSc7jUT4z+Fe4yVaxlODHWn1lpkVsXjIz2TfTp6zEJGXZJlhY1SnIzZczfQzA3Gs/NZw==}
     hasBin: true
     peerDependencies:
       vite: ^2.8.1 || 3 || 4 || 5
