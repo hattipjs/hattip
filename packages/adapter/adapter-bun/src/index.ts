@@ -60,7 +60,7 @@ export default function bunAdapter(
 				waitUntil() {
 					// No op
 				},
-				platform: { name: "bun", server: this },
+				platform: { name: "bun", server },
 				env(variable: string) {
 					return process.env[variable];
 				},
