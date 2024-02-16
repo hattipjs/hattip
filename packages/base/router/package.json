@@ -32,12 +32,12 @@
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.6.3",
+    "@cyco130/eslint-config": "^3.6.4",
     "@hattip/adapter-test": "workspace:*",
     "@hattip/polyfills": "workspace:*",
     "eslint": "^8.56.0",
     "publint": "^0.2.7",
-    "tsup": "^8.0.1",
+    "tsup": "^8.0.2",
     "typescript": "^5.3.3",
     "vitest": "^1.2.2"
   }
