@@ -100,8 +100,8 @@ importers:
         specifier: ^0.0.42
         version: link:../../../packages/cli/vite
       hono:
-        specifier: ^3.12.11
-        version: 3.12.11
+        specifier: ^4.0.3
+        version: 4.0.3
       vite:
         specifier: ^5.0.12
         version: 5.0.12(@types/node@20.11.16)
@@ -9229,8 +9229,8 @@ packages:
     dependencies:
       function-bind: 1.1.2
 
-  /hono@3.12.11:
-    resolution: {integrity: sha512-LSpxVgIMR3UzyFiXZaPvqBUGqyOKG0LMZqgMn2RXz9f+YAdkHSfFQQX0dtU72fPm5GnEMh5AYXs0ek5NYgMOmA==}
+  /hono@4.0.3:
+    resolution: {integrity: sha512-LLZFvqiksAO6Hf080XCUbsEjRxIrqEoiIN1HUzL0xtYP+BZUxGfeWg8yB5Dvp/sI7T0Lt4XdtGTGLwpIzAsl8w==}
     engines: {node: '>=16.0.0'}
     dev: false
 
