@@ -1,6 +1,6 @@
 # `@hattip/headers`
 
-Header parsing and content negotiation utilities for HatTip.
+Header parsing and content negotiation utilities for Hattip.
 
 ## `parseHeaderValue`
 

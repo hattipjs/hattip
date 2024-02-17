@@ -2,7 +2,7 @@
   "name": "@hattip/static",
   "version": "0.0.42",
   "type": "module",
-  "description": "Static file serving middleware for HatTip",
+  "description": "Static file serving middleware for Hattip",
   "files": [
     "dist"
   ],

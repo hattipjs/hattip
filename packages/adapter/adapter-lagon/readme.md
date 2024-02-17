@@ -1,10 +1,10 @@
 # `@hattip/adapter-lagon`
 
-HatTip adapter for [Lagon](https://lagon.app/).
+Hattip adapter for [Lagon](https://lagon.app/).
 
 ## Usage
 
-Assuming you have your HatTip handler defined in `handler.js`, create an `entry-lagon.js` file like the following and use `lagon dev entry-lagon.js` to run it locally:
+Assuming you have your Hattip handler defined in `handler.js`, create an `entry-lagon.js` file like the following and use `lagon dev entry-lagon.js` to run it locally:
 
 ```ts
 import lagonAdapter from "@hattip/adapter-lagon";

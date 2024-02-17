@@ -86,7 +86,7 @@ export async function serve(
 			: "";
 
 		info(
-			pico.green("\n🎩 HatTip " + version) +
+			pico.green("\n🎩 Hattip " + version) +
 				pico.cyan(` (vite ${viteVersion})`) +
 				pico.white(": Development server is running") +
 				" " +

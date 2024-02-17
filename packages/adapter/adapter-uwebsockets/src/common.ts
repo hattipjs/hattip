@@ -34,7 +34,7 @@ export interface UWebSocketAdapterOptions {
 	ssl?: boolean;
 	/**
 	 * Callback to configure the uWebSockets.js app.
-	 * Useful for adding WebSocket or HTTP routes before the HatTip handler
+	 * Useful for adding WebSocket or HTTP routes before the Hattip handler
 	 * is added.
 	 */
 	configureServer?: (app: TemplatedApp) => void;

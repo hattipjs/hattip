@@ -1,17 +1,17 @@
-# ![HatTip](https://raw.githubusercontent.com/hattipjs/hattip/main/graphics/logo.svg)
+# ![Hattip](https://raw.githubusercontent.com/hattipjs/hattip/main/graphics/logo.svg)
 
 > <small>(nothing)</small> Like Express.js.
 
 Follow: [Twitter > @cyco130](https://twitter.com/cyco130) & [Twitter > @brillout](https://twitter.com/brillout)  
-Chat: <a href="https://discord.com/invite/vTvXzBMySh">Discord > Cubes<img src="https://raw.githubusercontent.com/hattipjs/hattip/main/graphics/hash.svg" height="17" width="23" valign="text-bottom" alt="hash"/>HatTip</a>
+Chat: <a href="https://discord.com/invite/vTvXzBMySh">Discord > Cubes<img src="https://raw.githubusercontent.com/hattipjs/hattip/main/graphics/hash.svg" height="17" width="23" valign="text-bottom" alt="hash"/>Hattip</a>
 
-**Why HatTip?**
+**Why Hattip?**
 
 Instead of writing server code that only works with Express.js, write server code that can be deployed anywhere: AWS, Cloudflare Workers, Fastly, Vercel, VPS, ...
 
-**What is HatTip?**
+**What is Hattip?**
 
-HatTip is a set of JavaScript packages for building HTTP server applications.
+Hattip is a set of JavaScript packages for building HTTP server applications.
 
 - &#x2728; Modern: Based on current and future web standards (Fetch API & WinterCG).
 - &#x1F30D; Universal: Runs anywhere (Node.js, the Edge, Deno, ...).
@@ -28,7 +28,7 @@ It aims to build an ecosystem of universal middlewares that can be used across t
 export default (context) => {
   const { pathname } = new URL(context.request.url);
   if (pathname === "/") {
-    return new Response("Hello from HatTip.");
+    return new Response("Hello from Hattip.");
   }
   if (pathname === "/about") {
     return new Response(
@@ -39,7 +39,7 @@ export default (context) => {
 };
 ```
 
-A HatTip handler is passed a `context` object which represents the request context and contains `context.request` which is a standard [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object. It returns a standard [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) object (or a promise of one). `Response` and `Request` follow the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) standard. So if you're familiar with service workers, Cloudflare Workers, or Deno, you'll feel right at home. If not, learn today the standard that will tomorrow be ubiquitous.
+A Hattip handler is passed a `context` object which represents the request context and contains `context.request` which is a standard [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object. It returns a standard [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) object (or a promise of one). `Response` and `Request` follow the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) standard. So if you're familiar with service workers, Cloudflare Workers, or Deno, you'll feel right at home. If not, learn today the standard that will tomorrow be ubiquitous.
 
 We believe in a diverse but interoperable future for the JavaScript ecosystem and we're closely following the [WinterCG](https://wintercg.org/) which lays the foundation beyond the Fetch API.
 
@@ -48,7 +48,7 @@ We believe in a diverse but interoperable future for the JavaScript ecosystem an
 - ✅ Bun
 - ✅ Cloudflare Workers
 - ✅ Deno (including Deno Deploy)
-- ✅ Express.js (use HatTip handlers/middlewares in your Express.js app)
+- ✅ Express.js (use Hattip handlers/middlewares in your Express.js app)
 - ✅ Fastly
 - ✅ Lagon
 - ✅ Netlify Edge Functions
@@ -59,7 +59,7 @@ We believe in a diverse but interoperable future for the JavaScript ecosystem an
 - ✅ Vercel Serverless
 - 🚧 Service Workers
 
-Adapters let you run HatTip on any platform. Here's how you can use HatTip with Node.js:
+Adapters let you run Hattip on any platform. Here's how you can use Hattip with Node.js:
 
 ```js
 // entry-node.js
@@ -83,7 +83,7 @@ export default {
 };
 ```
 
-You can even use your HatTip application as an Express middleware when you have to use that one Express library that doesn't have a replacement anywhere else:
+You can even use your Hattip application as an Express middleware when you have to use that one Express library that doesn't have a replacement anywhere else:
 
 ```js
 // entry-express.js
@@ -121,11 +121,11 @@ const urlParser = (ctx) => {
 // Middleware to add an X-Powered-By header
 const poweredBy = async (ctx) => {
   const response = await ctx.next();
-  response.headers.set("X-Powered-By", "HatTip");
+  response.headers.set("X-Powered-By", "Hattip");
   return response;
 };
 
-// HatTip does have a router, this is to illustrate the basics
+// Hattip does have a router, this is to illustrate the basics
 const homeHandler = (ctx) => {
   if (ctx.url.pathname === "/") {
     return new Response("Home");
@@ -155,14 +155,14 @@ export default compose(
 
 A handler can return or throw a `Response` or anything with a `toResponse` method when used with the `compose` function. Handlers can also set `context.handleError` to handle uncaught errors.
 
-**That's it**. This is the entirety of the HatTip API. Everything else is middleware functions similar the above that add various features and development tools to make your life easier.
+**That's it**. This is the entirety of the Hattip API. Everything else is middleware functions similar the above that add various features and development tools to make your life easier.
 
 ## Packages
 
-HatTip is extremely modular so you can use as little or as much as you need:
+Hattip is extremely modular so you can use as little or as much as you need:
 
 - [`core`](./packages/base/core): A type-only package that defines the interface between your application and platform adapters
-- **Adapters:** Enable HatTip to run on any platform:
+- **Adapters:** Enable Hattip to run on any platform:
   - [`adapter-node`](./packages/adapter/adapter-node): Node.js, either as a standalone server or as a middleware function that can be used with Express and similar frameworks. Also works for Vercel Serverless Functions.
   - [`adapter-cloudflare-workers`](./packages/adapter/adapter-cloudflare-workers): Cloudflare Workers
   - [`adapter-vercel-edge`](./packages/adapter/adapter-vercel-edge): Vercel Edge Functions
@@ -199,5 +199,5 @@ A zero-config development environment based on [Vite](https://vitejs.dev) is als
 
 - Code and concept by [Fatih Aygün](https://github.com/cyco130), [Romuald Brillout](https://github.com/brillout), and [contributors](https://github.com/hattipjs/hattip/graphs/contributors).
 - Logo and branding by [Aydıncan Ataberk](https://www.aydincanataberk.com/).
-- The [`cors`](./packages/middleware/cors) package is a port of [koajs/cors](https://github.com/koajs/cors) by koajs and contributors under the [MIT License](./packages/middleware/cors/koajs-cors-license.txt). They are not affiliated with HatTip.
-- The [`graphql`](./packages/middleware/graphql) package comes bundled with `graphql-yoga` which is part of the [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga) project by Graphcool, Prisma, and The Guild, under the [MIT License](./packages/middleware/graphql/graphql-yoga.license.txt). They are not affiliated with HatTip.
+- The [`cors`](./packages/middleware/cors) package is a port of [koajs/cors](https://github.com/koajs/cors) by koajs and contributors under the [MIT License](./packages/middleware/cors/koajs-cors-license.txt). They are not affiliated with Hattip.
+- The [`graphql`](./packages/middleware/graphql) package comes bundled with `graphql-yoga` which is part of the [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga) project by Graphcool, Prisma, and The Guild, under the [MIT License](./packages/middleware/graphql/graphql-yoga.license.txt). They are not affiliated with Hattip.

@@ -1,6 +1,6 @@
 # `@hattip/compose`
 
-Middleware system for HatTip.
+Middleware system for Hattip.
 
 ## `compose`
 
@@ -19,7 +19,7 @@ const urlParser = (ctx) => {
 // Middleware to add an X-Powered-By header
 const poweredBy = async (ctx) => {
   const response = await ctx.next();
-  response.headers.set("X-Powered-By", "HatTip");
+  response.headers.set("X-Powered-By", "Hattip");
   return response;
 };
 

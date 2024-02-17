@@ -5,7 +5,7 @@ import { bundle } from ".";
 const cli = cac("hattip-vercel");
 
 cli
-	.command("", "Bundle a HatTip app for Vercel")
+	.command("", "Bundle a Hattip app for Vercel")
 	.option("-o, --outputDir <path>", "Root directory of the app")
 	.option("-c, --clearOutputDir", "Clear the output directory before bundling")
 	.option("-s, --staticDir <path>", "Static directory to copy to output")

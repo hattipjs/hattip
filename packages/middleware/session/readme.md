@@ -1,6 +1,6 @@
 # `@hattip/session`
 
-Session middleware for HatTip. It persists data between requests in a cookie or a custom session store.
+Session middleware for Hattip. It persists data between requests in a cookie or a custom session store.
 
 This middleware uses the [Web Crypto API](https://w3c.github.io/webcrypto/) which is supported by:
 

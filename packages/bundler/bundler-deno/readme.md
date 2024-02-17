@@ -1,13 +1,13 @@
 # `@hattip/bundler-deno`
 
-HatTip bundler for [Deno](https://deno.land). It uses [`esbuild`](https://esbuild.github.io) behind the scenes.
+Hattip bundler for [Deno](https://deno.land). It uses [`esbuild`](https://esbuild.github.io) behind the scenes.
 
 ## CLI
 
 ```
 hattip-deno <input> <output>
 
-Bundle the HatTip app in <input> into <output> as a Deno module.
+Bundle the Hattip app in <input> into <output> as a Deno module.
 
 Options:
   -h, --help     Display this message

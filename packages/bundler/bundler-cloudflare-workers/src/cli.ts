@@ -7,11 +7,11 @@ const cli = cac("hattip-cloudflare-workers");
 cli
 	.command(
 		"<input> <output>",
-		"Bundle the HatTip app in <input> into <output> as a Clourflare Workers module",
+		"Bundle the Hattip app in <input> into <output> as a Clourflare Workers module",
 	)
 	.option(
 		"-e, --entry",
-		"Interpret <input> as a Cloudflare Workers module entry instead of a HatTip handler entry",
+		"Interpret <input> as a Cloudflare Workers module entry instead of a Hattip handler entry",
 	)
 	.option("--no-static", "Do not serve static files")
 	.action(

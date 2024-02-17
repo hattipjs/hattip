@@ -1,6 +1,6 @@
 # `@hattip/router`
 
-Express-style imperative router for HatTip.
+Express-style imperative router for Hattip.
 
 ## Usage
 

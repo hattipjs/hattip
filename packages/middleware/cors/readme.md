@@ -1,6 +1,6 @@
 # `@hattip/cors`
 
-[Cross-Origin Resource Sharing(CORS)](https://developer.mozilla.org/en/docs/Web/HTTP/Access_control_CORS) middleware for HatTip.
+[Cross-Origin Resource Sharing(CORS)](https://developer.mozilla.org/en/docs/Web/HTTP/Access_control_CORS) middleware for Hattip.
 
 ## Options
 
@@ -37,5 +37,5 @@ export interface CorsOptions {
 
 ## License
 
-- This is a port of [koajs/cors](https://github.com/koajs/cors) by koajs and contributors under the [MIT License](./koajs-cors-license.txt). They are not affiliated with HatTip.
-- HatTip port by [Fatih Aygün](https://github.com/cyco130) under the [MIT License](./LICENSE).
+- This is a port of [koajs/cors](https://github.com/koajs/cors) by koajs and contributors under the [MIT License](./koajs-cors-license.txt). They are not affiliated with Hattip.
+- Hattip port by [Fatih Aygün](https://github.com/cyco130) under the [MIT License](./LICENSE).

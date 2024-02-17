@@ -1,6 +1,6 @@
 # `@hattip/cookie`
 
-Cookie parsing and serialization middleware for HatTip. This package exports three middleware functions:
+Cookie parsing and serialization middleware for Hattip. This package exports three middleware functions:
 
 ## `cookie`
 

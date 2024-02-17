@@ -1,10 +1,10 @@
 # `@hattip/adapter-fastly`
 
-HatTip adapter for [Fastly](https://developer.fastly.com/).
+Hattip adapter for [Fastly](https://developer.fastly.com/).
 
 ## Usage
 
-Assuming you have your HatTip handler defined in `handler.js`, create an entry file like the following:
+Assuming you have your Hattip handler defined in `handler.js`, create an entry file like the following:
 
 ```js
 import fastlyAdapter from "@hattip/adapter-fastly";
@@ -15,7 +15,7 @@ export default fastlyAdapter(handler);
 
 ## Static assets
 
-To serve static assets, scaffold a project with [Fastly Static Publisher](https://github.com/fastly/compute-js-static-publish). Put your HatTip handler in `src/handler.js` and replace `src/index.js` with the following:
+To serve static assets, scaffold a project with [Fastly Static Publisher](https://github.com/fastly/compute-js-static-publish). Put your Hattip handler in `src/handler.js` and replace `src/index.js` with the following:
 
 ```js
 import fastlyAdapter from "@hattip/adapter-fastly";
