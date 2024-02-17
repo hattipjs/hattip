@@ -318,6 +318,8 @@ describe.each(cases)(
 				]);
 			}
 
+			const ip6_2 = "::ffff:" + ip;
+
 			let hostName = host;
 			if (name === "Lagon") {
 				// Lagon CLI reports the wrong protocol
@@ -332,7 +334,11 @@ describe.each(cases)(
 				hostName + "/"
 			}</span></p><p>Your IP address is: <span>${ip6}</span></p>`;
 
-			expect([EXPECTED, EXPECTED_6]).toContain(text);
+			const EXPECTED_6_2 = `<h1>Hello from Hattip!</h1><p>URL: <span>${
+				hostName + "/"
+			}</span></p><p>Your IP address is: <span>${ip6_2}</span></p>`;
+
+			expect([EXPECTED, EXPECTED_6, EXPECTED_6_2]).toContain(text);
 
 			expect(response.headers.get("content-type")).toEqual(
 				"text/html; charset=utf-8",
