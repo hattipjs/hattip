@@ -10,6 +10,6 @@
     "@hattip/adapter-cloudflare-workers": "^0.0.42",
     "@hattip/adapter-node": "^0.0.42",
     "@types/node": "^20.11.19",
-    "wrangler": "^3.28.2"
+    "wrangler": "^3.28.3"
   }
 }
