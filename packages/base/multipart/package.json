@@ -1,6 +1,6 @@
 {
   "name": "@hattip/multipart",
-  "version": "0.0.42",
+  "version": "0.0.43",
   "type": "module",
   "description": "Multipart parser for fetch API",
   "files": [
