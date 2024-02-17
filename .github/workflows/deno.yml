@@ -59,7 +59,7 @@ jobs:
       - name: "Commit changes if any"
         working-directory: _deno
         run: |
-          git config --global user.name "HatTip Deno Release Bot"
+          git config --global user.name "Hattip Deno Release Bot"
           git config --global user.email "<>"
           git add .
           git commit -m "sync with hattipjs/hattip ${{ github.sha }}" --allow-empty

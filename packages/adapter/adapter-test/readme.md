@@ -1,6 +1,6 @@
 # `@hattip/adapter-test`
 
-Test your HatTip endpoints without running a server.
+Test your Hattip endpoints without running a server.
 
 # TODO
 

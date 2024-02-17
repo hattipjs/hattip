@@ -7,7 +7,7 @@ const cli = cac("hattip-deno");
 cli
 	.command(
 		"<input> <output>",
-		"Bundle the HatTip app in <input> into <output> as a Deno module",
+		"Bundle the Hattip app in <input> into <output> as a Deno module",
 	)
 	.option(
 		"-s, --staticDir <dir>",

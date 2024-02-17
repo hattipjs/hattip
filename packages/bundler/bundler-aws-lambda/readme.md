@@ -1,6 +1,6 @@
 # `@hattip/bundler-aws-lambda`
 
-HatTip bundler for [AWS Lambda](https://aws.amazon.com/lambda). It uses [`esbuild`](https://esbuild.github.io) behind the scenes.
+Hattip bundler for [AWS Lambda](https://aws.amazon.com/lambda). It uses [`esbuild`](https://esbuild.github.io) behind the scenes.
 
 ## CLI
 

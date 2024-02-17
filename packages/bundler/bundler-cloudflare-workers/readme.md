@@ -1,21 +1,21 @@
 # `@hattip/bundler-cloudflare-workers`
 
-HatTip bundler for [Cloudflare Workers](https://workers.cloudflare.com). It uses [`esbuild`](https://esbuild.github.io) behind the scenes.
+Hattip bundler for [Cloudflare Workers](https://workers.cloudflare.com). It uses [`esbuild`](https://esbuild.github.io) behind the scenes.
 
 ## CLI
 
 ```
 hattip-cloudflare-workers [...options] <input> <output>
 
-Bundle the HatTip app in <input> into <output> as a Clourflare Workers module.
+Bundle the Hattip app in <input> into <output> as a Clourflare Workers module.
 
 Options:
-  -e, --entry    Interpret <input> as a Cloudflare Workers module entry instead of a HatTip handler entry
+  -e, --entry    Interpret <input> as a Cloudflare Workers module entry instead of a Hattip handler entry
   -h, --help     Display this message
   -v, --version  Display version number
 ```
 
-The input can be either a module that default exports a HatTip handler entry or a Cloudflare Workers module similar to the following:
+The input can be either a module that default exports a Hattip handler entry or a Cloudflare Workers module similar to the following:
 
 ```js
 import cloudflareWorkersAdapter from "@hattip/adapter-cloudflare-workers";

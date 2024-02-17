@@ -1,12 +1,12 @@
 # `@hattip/bundler-vercel`
 
-HatTip bundler for [Vercel Serverless Functions](https://vercel.com/docs/concepts/functions#serverless-functions) and [Vercel Edge Functions](https://vercel.com/docs/concepts/functions#serverless-functions). It uses [`esbuild`](https://esbuild.github.io) behind the scenes.
+Hattip bundler for [Vercel Serverless Functions](https://vercel.com/docs/concepts/functions#serverless-functions) and [Vercel Edge Functions](https://vercel.com/docs/concepts/functions#serverless-functions). It uses [`esbuild`](https://esbuild.github.io) behind the scenes.
 
 ## CLI
 
 ```
 hattip-vercel
-    Bundle a HatTip app for Vercel
+    Bundle a Hattip app for Vercel
 
 Options:
   -o, --outputDir <path>   Root directory of the app

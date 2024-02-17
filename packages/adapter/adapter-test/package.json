@@ -2,7 +2,7 @@
   "name": "@hattip/adapter-test",
   "version": "0.0.42",
   "type": "module",
-  "description": "Testing utility for HatTip",
+  "description": "Testing utility for Hattip",
   "files": [
     "dist"
   ],

@@ -1,4 +1,4 @@
-# HatTip Basic Integration Tests
+# Hattip Basic Integration Tests
 
 ## Running
 

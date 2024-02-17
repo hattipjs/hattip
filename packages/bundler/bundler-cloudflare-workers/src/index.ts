@@ -8,7 +8,7 @@ import process from "node:process";
  */
 export interface BundlingOptions {
 	/**
-	 * Module file that default exports a HatTip handler.
+	 * Module file that default exports a Hattip handler.
 	 * You have to provide either this or `cfwEntry`, but
 	 * not both.
 	 */

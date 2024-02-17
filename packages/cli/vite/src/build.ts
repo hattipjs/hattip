@@ -33,7 +33,7 @@ export async function build(
 	function logStep(index: number, name: string) {
 		config.logger.info(
 			"\n" +
-				pico.green("HatTip") +
+				pico.green("Hattip") +
 				" (" +
 				pico.green(`${index}/${total}`) +
 				"): " +
@@ -69,10 +69,10 @@ export async function build(
 			config = resolvedConfig;
 
 			if (!config.plugins.some((p) => p.name === "hattip:inject-config")) {
-				throw new Error("Please add HatTip Vite plugin to your Vite config");
+				throw new Error("Please add Hattip Vite plugin to your Vite config");
 			}
 
-			config.logger.info(pico.green("\n🎩 HatTip ") + pico.magenta(version));
+			config.logger.info(pico.green("\n🎩 Hattip ") + pico.magenta(version));
 
 			total = config.buildSteps?.length || 1;
 

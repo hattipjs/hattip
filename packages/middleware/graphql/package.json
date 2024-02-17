@@ -2,7 +2,7 @@
   "name": "@hattip/graphql",
   "version": "0.0.42",
   "type": "module",
-  "description": "GraphQL middleware for HatTip",
+  "description": "GraphQL middleware for Hattip",
   "files": [
     "dist",
     "fetch.shim.js",

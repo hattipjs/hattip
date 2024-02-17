@@ -5,7 +5,7 @@ import { bundle } from ".";
 const cli = cac("hattip-netlify");
 
 cli
-	.command("", "Bundle a HatTip app for Netlify")
+	.command("", "Bundle a Hattip app for Netlify")
 	.option("-o, --outputDir <path>", "Root directory of the app")
 	.option("-c, --clearOutputDir", "Clear the output directory before bundling")
 	.option("-s, --staticDir <path>", "Static directory to copy to output")

@@ -1,10 +1,10 @@
 # `@hattip/adapter-bun`
 
-HatTip adapter for [Bun](https://bun.sh).
+Hattip adapter for [Bun](https://bun.sh).
 
 ## Usage
 
-Assuming you have your HatTip handler defined in `handler.js` and your static assets are in the `public` directory, create an `entry-bun.js` file like the following and use `bun entry-bun.js` to run it:
+Assuming you have your Hattip handler defined in `handler.js` and your static assets are in the `public` directory, create an `entry-bun.js` file like the following and use `bun entry-bun.js` to run it:
 
 ```ts
 import bunAdapter from "@hattip/adapter-bun";

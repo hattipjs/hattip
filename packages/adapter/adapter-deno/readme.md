@@ -1,10 +1,10 @@
 # `@hattip/adapter-deno`
 
-HatTip adapter for [Deno](https://deno.land). It requires Deno version 1.35.0 or higher.
+Hattip adapter for [Deno](https://deno.land). It requires Deno version 1.35.0 or higher.
 
 ## Usage
 
-Assuming you have your HatTip handler defined in `handler.ts`, create an entry file like the following and run with `deno run -A entry.ts`:
+Assuming you have your Hattip handler defined in `handler.ts`, create an entry file like the following and run with `deno run -A entry.ts`:
 
 ```js
 import { createServeHandler } from "npm:@hattip/adapter-deno";

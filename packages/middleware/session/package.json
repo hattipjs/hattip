@@ -2,7 +2,7 @@
   "name": "@hattip/session",
   "version": "0.0.42",
   "type": "module",
-  "description": "Session management for HatTip",
+  "description": "Session management for Hattip",
   "files": [
     "dist"
   ],

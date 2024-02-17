@@ -1,10 +1,10 @@
 # `@hattip/adapter-cloudflare-workers`
 
-HatTip adapter for [Cloudflare Workers](https://workers.cloudflare.com).
+Hattip adapter for [Cloudflare Workers](https://workers.cloudflare.com).
 
 ## Usage
 
-Assuming you have your HatTip handler defined in `handler.js`, create an entry file like the following and use [`@hattip/bundler-cloudflare-workers`](../../bundler/bundler-cloudflare-workers) or your favorite bundler to bundle it:
+Assuming you have your Hattip handler defined in `handler.js`, create an entry file like the following and use [`@hattip/bundler-cloudflare-workers`](../../bundler/bundler-cloudflare-workers) or your favorite bundler to bundle it:
 
 ```js
 import cloudflareWorkersAdapter from "@hattip/adapter-cloudflare-workers";

@@ -1,6 +1,6 @@
 # `@hattip/graphql`
 
-[GraphQL](https://graphql.org/) middleware for HatTip. This is a thin wrapper around [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga).
+[GraphQL](https://graphql.org/) middleware for Hattip. This is a thin wrapper around [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga).
 
 ## Usage
 
@@ -22,5 +22,5 @@ app.use("/graphql", yoga({ schema }));
 
 ## LICENSE
 
-- This package comes bundled with `graphql-yoga` which is part of the [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga) project by Graphcool, Prisma, and The Guild, under the [MIT License](./graphql-yoga.license.txt). They are not affiliated with HatTip.
-- HatTip specific code is also licensed under the [MIT License](./LICENSE).
+- This package comes bundled with `graphql-yoga` which is part of the [GraphQL Yoga](https://github.com/dotansimha/graphql-yoga) project by Graphcool, Prisma, and The Guild, under the [MIT License](./graphql-yoga.license.txt). They are not affiliated with Hattip.
+- Hattip specific code is also licensed under the [MIT License](./LICENSE).

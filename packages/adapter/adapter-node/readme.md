@@ -1,6 +1,6 @@
 # `@hattip/adapter-node`
 
-HatTip adapter for Node.js.
+Hattip adapter for Node.js.
 
 ## Standalone usage
 

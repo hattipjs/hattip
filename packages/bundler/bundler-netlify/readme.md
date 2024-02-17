@@ -1,12 +1,12 @@
 # `@hattip/bundler-netlify`
 
-HatTip bundler for [Netlify Functions](https://docs.netlify.com/functions/overview) and [Netlify Edge Functions](https://docs.netlify.com/netlify-labs/experimental-features/edge-functions). It uses [`esbuild`](https://esbuild.github.io) behind the scenes.
+Hattip bundler for [Netlify Functions](https://docs.netlify.com/functions/overview) and [Netlify Edge Functions](https://docs.netlify.com/netlify-labs/experimental-features/edge-functions). It uses [`esbuild`](https://esbuild.github.io) behind the scenes.
 
 ## CLI
 
 ```
 hattip-netlify
-    Bundle a HatTip app for Netlify
+    Bundle a Hattip app for Netlify
 
 For more info, run any command with the `--help` flag:
   $ hattip-netlify --help

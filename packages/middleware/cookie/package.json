@@ -2,7 +2,7 @@
   "name": "@hattip/cookie",
   "version": "0.0.42",
   "type": "module",
-  "description": "Cookie management for HatTip",
+  "description": "Cookie management for Hattip",
   "files": [
     "dist"
   ],

@@ -1,6 +1,6 @@
 # `@hattip/response`
 
-Response utilities for HatTip. This package exports three functions for creating several response types:
+Response utilities for Hattip. This package exports three functions for creating several response types:
 
 ## `text`
 
