@@ -169,6 +169,9 @@ importers:
       '@hattip/core':
         specifier: workspace:*
         version: link:../../base/core
+      '@types/bun':
+        specifier: ^1.0.5
+        version: 1.0.5
       bun-types:
         specifier: ^1.0.26
         version: 1.0.26
@@ -5133,6 +5136,12 @@ packages:
     dependencies:
       '@types/connect': 3.4.38
       '@types/node': 20.11.19
+    dev: false
+
+  /@types/bun@1.0.5:
+    resolution: {integrity: sha512-c14fs5QLLanldcZpX/GjIEKeo++NDzOlixUZ7IUWzN7AoBTisYyWxaxdXNhpAP5I1mPcd92Zagq8sdgTnUXWjg==}
+    dependencies:
+      bun-types: 1.0.26
     dev: false
 
   /@types/connect@3.4.38:
