@@ -1,4 +1,4 @@
-# ![Hattip](https://raw.githubusercontent.com/hattipjs/hattip/main/graphics/logo.svg)
+# ![Hattip](https://raw.githubusercontent.com/hattipjs/hattip/main/graphics/logo.svg?v=2)
 
 > <small>(nothing)</small> Like Express.js.
 
