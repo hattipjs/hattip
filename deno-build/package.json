@@ -1,6 +1,5 @@
 {
   "name": "@hattip/deno-build",
-  "version": "0.0.34",
   "type": "module",
   "description": "Create Deno release",
   "author": "Fatih Aygün <cyco130@gmail.com>",
