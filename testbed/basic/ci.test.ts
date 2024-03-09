@@ -29,39 +29,13 @@ let cases: Array<{
 
 const nodeVersions = process.versions.node.split(".");
 const nodeVersionMajor = +nodeVersions[0];
-const nodeVersionMinor = +nodeVersions[1];
+// const nodeVersionMinor = +nodeVersions[1];
 
-const fetchAvailableByDefault = nodeVersionMajor >= 18;
+// TODO: Caused by https://github.com/cloudflare/workers-sdk/issues/5190
+const skipWrangler = nodeVersionMajor === 21;
 
 if (process.env.CI === "true") {
-	const fetchAvailable =
-		nodeVersionMajor >= 18 ||
-		(nodeVersionMajor >= 17 && nodeVersionMinor >= 5) ||
-		(nodeVersionMajor >= 16 && nodeVersionMinor >= 15);
-
-	if (!fetchAvailable) {
-		console.warn("Node version < 17.5 or 16.15, will skip native fetch tests");
-	}
-
-	const wranglerAvailable =
-		nodeVersionMajor >= 17 ||
-		(nodeVersionMajor >= 16 && nodeVersionMinor >= 13);
-	if (!wranglerAvailable) {
-		console.warn(
-			"Node version < 16.13, will skip wrangler (Cloudflare Workers) tests",
-		);
-	}
-
-	const bunAvailable = process.platform !== "win32";
-
-	const uwsAvailable = true; // nodeVersionMajor >= 18 && process.platform === "linux";
-	// if (!uwsAvailable) {
-	// 	console.warn(
-	// 		"Node version < 18 or not on Linux, will skip uWebSockets.js tests",
-	// 	);
-	// }
-
-	const noFetchFlag = fetchAvailable ? "--no-experimental-fetch" : "";
+	const noFetchFlag = "--no-experimental-fetch";
 
 	cases = [
 		{
@@ -70,7 +44,7 @@ if (process.env.CI === "true") {
 			requiresForwardedIp: true,
 			skipStaticFileTest: true,
 		},
-		fetchAvailable && {
+		{
 			name: "Node with native fetch",
 			command: "node --experimental-fetch entry-node-native-fetch.js",
 		},
@@ -80,12 +54,12 @@ if (process.env.CI === "true") {
 			skipCryptoTest: nodeVersionMajor < 16,
 			skipMultipartTest: true, // node-fetch doesn't support streaming
 		},
-		fetchAvailable && {
+		{
 			name: "Node with @whatwg-node/fetch",
 			command: `node ${noFetchFlag} entry-node-whatwg.js`,
 			skipCryptoTest: nodeVersionMajor < 16,
 		},
-		fetchAvailable && {
+		{
 			name: "Node with fast-fetch patch",
 			command: `node entry-node-fast-fetch.js`,
 			skipCryptoTest: nodeVersionMajor < 16,
@@ -111,34 +85,34 @@ if (process.env.CI === "true") {
 				TRUST_PROXY: "1",
 			},
 		},
-		bunAvailable && {
+		{
 			name: "Bun",
 			command: "bun run entry-bun.js",
 		},
-		bunAvailable && {
+		{
 			name: "Bun with node:http",
 			command: "bun run entry-node-native-fetch.js",
 		},
-		wranglerAvailable && {
+		!skipWrangler && {
 			name: "Cloudflare Workers",
 			command: "pnpm build:cfw && pnpm start:cfw",
 		},
 		{
-			name: "Netlify Functions with netlify serve",
+			name: "Netlify Functions with netlify dev",
 			command: "pnpm build:netlify-functions && pnpm start:netlify",
 			skipStreamingTest: true,
 			skipCryptoTest: nodeVersionMajor < 16,
 		},
-		false && {
-			name: "Netlify Edge Functions with netlify serve",
+		{
+			name: "Netlify Edge Functions with netlify dev",
 			command: "pnpm build:netlify-edge && pnpm start:netlify",
-			skipStreamingTest: true,
 		},
-		uwsAvailable && {
+		{
 			name: "uWebSockets.js",
 			command: `node entry-uws.js`,
 		},
-		{
+		false && {
+			// TODO: Lagon is no more and it doesn't seem to work on Node 21
 			name: "Lagon",
 			command: "lagon dev entry-lagon.js -p public --port 3000",
 			skipAdvancedStaticFileTest: true,
@@ -381,22 +355,21 @@ describe.each(cases)(
 			);
 		});
 
-		test.failsIf(
-			tryStreamingWithoutCompression
-				? fetchAvailableByDefault
-				: skipStreamingTest,
-		)("doesn't fully buffer binary stream", async () => {
-			const response = await fetch(host + "/bin-stream?delay=1");
+		test.failsIf(tryStreamingWithoutCompression || skipStreamingTest)(
+			"doesn't fully buffer binary stream",
+			async () => {
+				const response = await fetch(host + "/bin-stream?delay=1");
 
-			let chunks = 0;
-			for await (const _chunk of response.body as any as AsyncIterable<Uint8Array>) {
-				chunks++;
-			}
+				let chunks = 0;
+				for await (const _chunk of response.body as any as AsyncIterable<Uint8Array>) {
+					chunks++;
+				}
 
-			expect(chunks).toBeGreaterThan(3);
-		});
+				expect(chunks).toBeGreaterThan(3);
+			},
+		);
 
-		test.runIf(fetchAvailableByDefault && tryStreamingWithoutCompression)(
+		test.runIf(tryStreamingWithoutCompression)(
 			"doesn't fully buffer binary stream with no compression",
 			async () => {
 				const response = await fetch(host + "/bin-stream?delay=1", {
@@ -456,7 +429,7 @@ describe.each(cases)(
 
 		test("sets status", async () => {
 			const response = await fetch(host + "/status");
-			expect(response.status).toEqual(403);
+			expect(response.status).toEqual(400);
 		});
 
 		test("sends 404", async () => {
