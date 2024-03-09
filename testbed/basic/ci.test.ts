@@ -31,6 +31,8 @@ const nodeVersions = process.versions.node.split(".");
 const nodeVersionMajor = +nodeVersions[0];
 // const nodeVersionMinor = +nodeVersions[1];
 
+const bunAvailable = process.platform !== "win32";
+
 // TODO: Caused by https://github.com/cloudflare/workers-sdk/issues/5190
 const skipWrangler = nodeVersionMajor === 21;
 
@@ -85,11 +87,11 @@ if (process.env.CI === "true") {
 				TRUST_PROXY: "1",
 			},
 		},
-		{
+		bunAvailable && {
 			name: "Bun",
 			command: "bun run entry-bun.js",
 		},
-		{
+		bunAvailable && {
 			name: "Bun with node:http",
 			command: "bun run entry-node-native-fetch.js",
 		},
