@@ -39,13 +39,13 @@
     "mime-types": "^2.1.35"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.6.4",
+    "@cyco130/eslint-config": "^3.7.0",
     "@types/mime-types": "^2.1.4",
-    "@types/node": "^20.11.19",
-    "eslint": "^8.56.0",
+    "@types/node": "^20.11.25",
+    "eslint": "^8.57.0",
     "publint": "^0.2.7",
     "tsup": "^8.0.2",
-    "typescript": "^5.3.3",
-    "vitest": "^1.3.0"
+    "typescript": "^5.4.2",
+    "vitest": "^1.3.1"
   }
 }

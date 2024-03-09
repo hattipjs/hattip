@@ -77,7 +77,7 @@ app.get("/set-cookie", (ctx) => {
 	return text("Cookies set");
 });
 
-app.get("/status", () => new Response(null, { status: 403 }));
+app.get("/status", () => new Response(null, { status: 400 }));
 
 app.get("/headers", (ctx) => {
 	const headers = Object.fromEntries(ctx.request.headers.entries());
