@@ -1,6 +1,6 @@
 {
   "name": "@hattip/bundler-aws-lambda",
-  "version": "0.0.43",
+  "version": "0.0.44",
   "type": "module",
   "description": "AWS Lambda bundler for Hattip",
   "files": [

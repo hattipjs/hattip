@@ -76,10 +76,10 @@ importers:
   examples/basic/node:
     dependencies:
       '@hattip/adapter-cloudflare-workers':
-        specifier: ^0.0.43
+        specifier: ^0.0.44
         version: link:../../../packages/adapter/adapter-cloudflare-workers
       '@hattip/adapter-node':
-        specifier: ^0.0.43
+        specifier: ^0.0.44
         version: link:../../../packages/adapter/adapter-node
       '@types/node':
         specifier: ^20.11.25
@@ -91,13 +91,13 @@ importers:
   examples/vite/hono:
     dependencies:
       '@hattip/adapter-node':
-        specifier: ^0.0.43
+        specifier: ^0.0.44
         version: link:../../../packages/adapter/adapter-node
       '@hattip/core':
-        specifier: ^0.0.43
+        specifier: ^0.0.44
         version: link:../../../packages/base/core
       '@hattip/vite':
-        specifier: ^0.0.43
+        specifier: ^0.0.44
         version: link:../../../packages/cli/vite
       hono:
         specifier: ^4.0.10
@@ -109,16 +109,16 @@ importers:
   examples/vite/playground:
     dependencies:
       '@hattip/adapter-node':
-        specifier: ^0.0.43
+        specifier: ^0.0.44
         version: link:../../../packages/adapter/adapter-node
       '@hattip/response':
-        specifier: ^0.0.43
+        specifier: ^0.0.44
         version: link:../../../packages/base/response
       '@hattip/router':
-        specifier: ^0.0.43
+        specifier: ^0.0.44
         version: link:../../../packages/base/router
       '@hattip/vite':
-        specifier: ^0.0.43
+        specifier: ^0.0.44
         version: link:../../../packages/cli/vite
       vite:
         specifier: ^5.1.5
