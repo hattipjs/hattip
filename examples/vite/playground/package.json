@@ -12,6 +12,6 @@
     "@hattip/response": "^0.0.44",
     "@hattip/router": "^0.0.44",
     "@hattip/vite": "^0.0.44",
-    "vite": "^5.1.5"
+    "vite": "^5.2.6"
   }
 }
