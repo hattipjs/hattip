@@ -1,6 +1,6 @@
 {
   "name": "@hattip/adapter-bun",
-  "version": "0.0.44",
+  "version": "0.0.45",
   "type": "module",
   "description": "Bun adapter for Hattip",
   "files": [

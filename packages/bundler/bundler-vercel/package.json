@@ -1,6 +1,6 @@
 {
   "name": "@hattip/bundler-vercel",
-  "version": "0.0.44",
+  "version": "0.0.45",
   "type": "module",
   "description": "Vercel bundler for Hattip",
   "files": [

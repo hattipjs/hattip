@@ -1,6 +1,6 @@
 {
   "name": "@hattip/graphql",
-  "version": "0.0.44",
+  "version": "0.0.45",
   "type": "module",
   "description": "GraphQL middleware for Hattip",
   "files": [

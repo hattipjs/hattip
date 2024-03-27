@@ -1,6 +1,6 @@
 {
   "name": "@hattip/adapter-vercel-edge",
-  "version": "0.0.44",
+  "version": "0.0.45",
   "type": "module",
   "description": "Vercel Edge Functions adapter for Hattip",
   "files": [
