@@ -41,11 +41,11 @@ export default function bunAdapter(
 				const fullPath = staticDir + path;
 
 				if (staticFiles.has(path)) {
-					return new Response(Bun.file(fullPath));
+					return new Response(Bun.file(fullPath) as any);
 				} else if (staticFiles.has(path + "/index.html")) {
-					return new Response(Bun.file(fullPath + "/index.html"));
+					return new Response(Bun.file(fullPath + "/index.html") as any);
 				} else if (staticFiles.has(path + ".html")) {
-					return new Response(Bun.file(fullPath + ".html"));
+					return new Response(Bun.file(fullPath + ".html") as any);
 				}
 			}
 
