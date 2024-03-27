@@ -33,9 +33,6 @@ const nodeVersionMajor = +nodeVersions[0];
 
 const bunAvailable = process.platform !== "win32";
 
-// TODO: Caused by https://github.com/cloudflare/workers-sdk/issues/5190
-const skipWrangler = nodeVersionMajor === 21;
-
 if (process.env.CI === "true") {
 	const noFetchFlag = "--no-experimental-fetch";
 
@@ -95,7 +92,7 @@ if (process.env.CI === "true") {
 			name: "Bun with node:http",
 			command: "bun run entry-node-native-fetch.js",
 		},
-		!skipWrangler && {
+		{
 			name: "Cloudflare Workers",
 			command: "pnpm build:cfw && pnpm start:cfw",
 		},
@@ -108,6 +105,7 @@ if (process.env.CI === "true") {
 		{
 			name: "Netlify Edge Functions with netlify dev",
 			command: "pnpm build:netlify-edge && pnpm start:netlify",
+			tryStreamingWithoutCompression: true,
 		},
 		{
 			name: "uWebSockets.js",
