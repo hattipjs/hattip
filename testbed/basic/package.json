@@ -59,7 +59,7 @@
     "rimraf": "^5.0.5",
     "typescript": "^5.4.3",
     "vitest": "^1.4.0",
-    "wrangler": "^3.38.0"
+    "wrangler": "^3.39.0"
   },
   "dependencies": {
     "@google-cloud/functions-framework": "^3.3.0",
