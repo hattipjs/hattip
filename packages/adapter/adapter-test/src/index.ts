@@ -21,7 +21,7 @@ export function createTestClient<P = { name: "test" }>({
 		if (input instanceof Request) {
 			request = init ? new Request(input, init) : input;
 		} else {
-			input = new URL(input, baseUrl).href;
+			input = new URL(input as string | URL, baseUrl).href;
 			request = new Request(input, init);
 		}
 

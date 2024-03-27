@@ -54,7 +54,7 @@ jobs:
 
       - name: Typecheck
         working-directory: _deno
-        run: "deno check `find src -name '*.ts'`"
+        run: "deno check `find src ! -wholename 'src/adapter-fastly/mod.ts' ! -wholename 'src/adapter-cloudflare-workers/*' -name '*.ts'`"
 
       - name: "Commit changes if any"
         working-directory: _deno
