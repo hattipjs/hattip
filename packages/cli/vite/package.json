@@ -38,7 +38,7 @@
     "suppress-loader-warnings.cjs"
   ],
   "peerDependencies": {
-    "vite": "4 | 5"
+    "vite": "^4 || ^5"
   },
   "devDependencies": {
     "@cyco130/eslint-config": "^3.7.1",
