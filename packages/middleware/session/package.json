@@ -41,7 +41,7 @@
     "@miniflare/storage-memory": "^2.14.2",
     "@types/node": "^20.11.30",
     "@types/redis-mock": "^0.17.3",
-    "eslint": "^8.57.0",
+    "eslint": "^9.2.0",
     "publint": "^0.2.7",
     "redis-mock": "^0.56.3",
     "tsup": "^8.0.2",
