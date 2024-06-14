@@ -50,7 +50,7 @@
     "@graphql-yoga/subscription": "^5.0.0",
     "@hattip/polyfills": "workspace:*",
     "@types/node": "^20.11.30",
-    "eslint": "^8.57.0",
+    "eslint": "^9.5.0",
     "graphql": "^16.8.1",
     "publint": "^0.2.7",
     "tsup": "^8.0.2",
