@@ -68,7 +68,6 @@ if (process.env.CI === "true") {
 			command: "pnpm build:deno && pnpm start:deno",
 			requiresForwardedIp: true,
 			skipStreamingTest: true,
-			tryStreamingWithoutCompression: true,
 		},
 		{
 			name: "Deno with std/http",
@@ -79,7 +78,6 @@ if (process.env.CI === "true") {
 			command: "pnpm build:deno-node && pnpm start:deno",
 			requiresForwardedIp: true,
 			skipStreamingTest: true,
-			tryStreamingWithoutCompression: true,
 			envOverride: {
 				TRUST_PROXY: "1",
 			},
@@ -105,7 +103,6 @@ if (process.env.CI === "true") {
 		{
 			name: "Netlify Edge Functions with netlify dev",
 			command: "pnpm build:netlify-edge && pnpm start:netlify",
-			tryStreamingWithoutCompression: true,
 		},
 		{
 			name: "uWebSockets.js",
