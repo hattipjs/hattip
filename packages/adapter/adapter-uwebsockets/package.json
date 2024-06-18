@@ -30,16 +30,16 @@
     "test:package": "publint --strict"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.7.1",
-    "@types/node": "^20.11.30",
+    "@cyco130/eslint-config": "^3.9.1",
+    "@types/node": "^20.14.5",
     "eslint": "^8.57.0",
-    "publint": "^0.2.7",
-    "tsup": "^8.0.2",
-    "typescript": "^5.4.3"
+    "publint": "^0.2.8",
+    "tsup": "^8.1.0",
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "@hattip/core": "workspace:*",
     "@hattip/polyfills": "workspace:*",
-    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.42.0"
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.44.0"
   }
 }

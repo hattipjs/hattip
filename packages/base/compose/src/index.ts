@@ -58,7 +58,7 @@ export type PartialHandler<P = unknown> = (
 	context: RequestContext<P>,
 ) => Response | void | Promise<Response | void>;
 
-export function composePartial<P = unknown>(
+export function composePartialOld<P = unknown>(
 	handlers: RequestHandlerStack<P>[],
 	next?: () => Promise<Response>,
 ): PartialHandler {
@@ -94,6 +94,80 @@ export function compose<P = unknown>(
 		...handlers,
 		finalHandler,
 	]) as any;
+}
+
+export function composeOld<P = unknown>(
+	...handlers: RequestHandlerStack<P>[]
+): HattipHandler<P> {
+	return composePartialOld<P>([
+		(context) => {
+			context.url = new URL(context.request.url);
+			context.method = context.request.method;
+			context.locals = {};
+
+			context.handleError = (error: unknown) => {
+				console.error(error);
+				return new Response("Internal Server Error", { status: 500 });
+			};
+		},
+		...handlers,
+		finalHandler,
+	]) as any;
+}
+
+export function composePartial<P = unknown>(
+	handlers: RequestHandlerStack<P>[],
+): PartialHandler<P> {
+	const flatHandlers = handlers.flat().filter(Boolean) as RequestHandler[];
+
+	async function call(ctx: RequestContext<P>, start = 0): Promise<Response> {
+		const next = ctx.next;
+
+		let ref = 0;
+		ctx.next = () => call(ctx, ref + 1);
+
+		for (let i = start; i < flatHandlers.length; i++) {
+			const handler = flatHandlers[i];
+			ref = i;
+
+			try {
+				let response = handler(ctx);
+				if (response instanceof Promise) {
+					response = await response;
+				}
+
+				if (response) {
+					return toResponse(response);
+				}
+			} catch (error) {
+				if (error instanceof Response) {
+					return error;
+				}
+
+				if (isResponseConvertible(error)) {
+					return error.toResponse();
+				}
+
+				if (ctx.handleError) {
+					return ctx.handleError(error);
+				}
+
+				throw error;
+			}
+		}
+
+		return next();
+	}
+
+	return (ctx) => call(ctx);
+}
+
+function toResponse(responseLike: ResponseLike): Response | Promise<Response> {
+	if (responseLike instanceof Response) {
+		return Promise.resolve(responseLike);
+	}
+
+	return responseLike.toResponse();
 }
 
 function wrap(

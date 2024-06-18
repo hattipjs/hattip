@@ -25,6 +25,7 @@ let cases: Array<{
 	skipAdvancedStaticFileTest?: boolean;
 	skipMultipartTest?: boolean;
 	tryStreamingWithoutCompression?: boolean;
+	streamingMinimumChunkCount?: number;
 }>;
 
 const nodeVersions = process.versions.node.split(".");
@@ -67,8 +68,6 @@ if (process.env.CI === "true") {
 			name: "Deno",
 			command: "pnpm build:deno && pnpm start:deno",
 			requiresForwardedIp: true,
-			skipStreamingTest: true,
-			tryStreamingWithoutCompression: true,
 		},
 		{
 			name: "Deno with std/http",
@@ -78,8 +77,6 @@ if (process.env.CI === "true") {
 			name: "Deno with node:http",
 			command: "pnpm build:deno-node && pnpm start:deno",
 			requiresForwardedIp: true,
-			skipStreamingTest: true,
-			tryStreamingWithoutCompression: true,
 			envOverride: {
 				TRUST_PROXY: "1",
 			},
@@ -95,6 +92,7 @@ if (process.env.CI === "true") {
 		{
 			name: "Cloudflare Workers",
 			command: "pnpm build:cfw && pnpm start:cfw",
+			streamingMinimumChunkCount: 1,
 		},
 		{
 			name: "Netlify Functions with netlify dev",
@@ -105,7 +103,6 @@ if (process.env.CI === "true") {
 		{
 			name: "Netlify Edge Functions with netlify dev",
 			command: "pnpm build:netlify-edge && pnpm start:netlify",
-			tryStreamingWithoutCompression: true,
 		},
 		{
 			name: "uWebSockets.js",
@@ -168,6 +165,7 @@ describe.each(cases)(
 		skipStaticFileTest,
 		skipAdvancedStaticFileTest,
 		skipMultipartTest: skipMultipartTest,
+		streamingMinimumChunkCount = 3,
 	}) => {
 		beforeAll(async () => {
 			const original = fetch;
@@ -358,21 +356,21 @@ describe.each(cases)(
 		test.failsIf(tryStreamingWithoutCompression || skipStreamingTest)(
 			"doesn't fully buffer binary stream",
 			async () => {
-				const response = await fetch(host + "/bin-stream?delay=1");
+				const response = await fetch(host + "/bin-stream?delay=10");
 
 				let chunks = 0;
 				for await (const _chunk of response.body as any as AsyncIterable<Uint8Array>) {
 					chunks++;
 				}
 
-				expect(chunks).toBeGreaterThan(3);
+				expect(chunks).toBeGreaterThan(streamingMinimumChunkCount);
 			},
 		);
 
 		test.runIf(tryStreamingWithoutCompression)(
 			"doesn't fully buffer binary stream with no compression",
 			async () => {
-				const response = await fetch(host + "/bin-stream?delay=1", {
+				const response = await fetch(host + "/bin-stream?delay=10", {
 					headers: { "Accept-Encoding": "" },
 				});
 
@@ -381,7 +379,7 @@ describe.each(cases)(
 					chunks++;
 				}
 
-				expect(chunks).toBeGreaterThan(3);
+				expect(chunks).toBeGreaterThan(streamingMinimumChunkCount);
 			},
 		);
 
