@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"noEmit": true,
 		"target": "es2020",
 		"module": "ESNext",
 		"lib": ["es2020", "WebWorker"],

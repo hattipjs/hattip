@@ -65,30 +65,11 @@ export function createMiddleware(
 
 			let passThroughCalled = false;
 
-			const context: AdapterRequestContext<NodePlatformInfo> = {
-				request,
-
-				ip,
-
-				env(variable) {
-					return process.env[variable];
-				},
-
-				waitUntil(promise) {
-					// Do nothing
-					void promise;
-				},
-
-				passThrough() {
-					passThroughCalled = true;
-				},
-
-				platform: {
-					name: "node",
-					request: req,
-					response: res,
-				},
-			};
+			const context = new NodeContext(request, ip, {
+				name: "node",
+				request: req,
+				response: res,
+			});
 
 			const response = await handler(context);
 
@@ -132,4 +113,34 @@ export function createServer(
 	return serverOptions
 		? createHttpServer(serverOptions, listener)
 		: createHttpServer(listener);
+}
+
+class NodeContext implements AdapterRequestContext<NodePlatformInfo> {
+	request: Request;
+
+	ip: string;
+
+	url: null = null;
+
+	method = "";
+
+	env(variable: string): string | undefined {
+		return process.env[variable];
+	}
+
+	waitUntil(promise: Promise<unknown>): void {
+		void promise;
+	}
+
+	passThrough(): void {
+		// Do nothing
+	}
+
+	platform: NodePlatformInfo;
+
+	constructor(request: Request, ip: string, platform: NodePlatformInfo) {
+		this.request = request;
+		this.ip = ip;
+		this.platform = platform;
+	}
 }

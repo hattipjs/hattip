@@ -69,6 +69,8 @@ export function createRequestAdapter(
 	let warned = false;
 
 	return function requestAdapter(req) {
+		return [createRequest("http://localhost:3000" + req.url, req.method!), ""];
+
 		// TODO: Support the newer `Forwarded` standard header
 		function parseForwardedHeader(name: string) {
 			return (headers["x-forwarded-" + name] || "").split(",", 1)[0].trim();
@@ -109,13 +111,22 @@ export function createRequestAdapter(
 			host = "localhost";
 		}
 
-		const request = new Request(protocol + "://" + host + req.url, {
+		// const request = new Request(protocol + "://" + host + req.url, {
+		// 	method: req.method,
+		// 	headers,
+		// 	body: convertBody(req),
+		// 	// @ts-expect-error: Node requires this when the body is a ReadableStream
+		// 	duplex: "half",
+		// });
+
+		const request = {
+			url: protocol + "://" + host + req.url,
 			method: req.method,
 			headers,
-			body: convertBody(req),
-			// @ts-expect-error: Node requires this when the body is a ReadableStream
-			duplex: "half",
-		});
+			get body() {
+				return convertBody(req);
+			},
+		} as Request;
 
 		return [request, ip];
 	};
@@ -144,4 +155,25 @@ function convertBody(req: DecoratedRequest): BodyInit | null | undefined {
 			req.on("error", (err) => controller.error(err));
 		},
 	});
+}
+
+const RequestPrototype = {
+	get url() {
+		return (this as any)._url;
+	},
+
+	get method() {
+		return (this as any)._method;
+	},
+};
+
+Object.setPrototypeOf(RequestPrototype, Request.prototype);
+
+function createRequest(url: string, method: string): Request {
+	const result = Object.create(RequestPrototype);
+
+	result._url = url;
+	result._method = method;
+
+	return result;
 }

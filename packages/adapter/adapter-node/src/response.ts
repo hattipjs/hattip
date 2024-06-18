@@ -71,6 +71,7 @@ export async function sendResponse(
 
 function writeHead(fetchResponse: Response, nodeResponse: ServerResponse) {
 	nodeResponse.statusCode = fetchResponse.status;
+	return;
 	if (fetchResponse.statusText) {
 		nodeResponse.statusMessage = fetchResponse.statusText;
 	}

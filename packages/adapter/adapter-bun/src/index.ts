@@ -33,40 +33,17 @@ export default function bunAdapter(
 		...remaingOptions,
 
 		fetch(request: Request, server: Server) {
-			if (staticFiles) {
-				let path = new URL(request.url).pathname;
-				if (path.endsWith("/")) {
-					path = path.slice(0, -1);
-				}
-				const fullPath = staticDir + path;
+			// const ip = trustProxy
+			// 	? String(request.headers.get("x-forwarded-for") || "")
+			// 			.split(",", 1)[0]
+			// 			.trim()
+			// 	: server.requestIP(request)?.address ?? "127.0.0.1";
 
-				if (staticFiles.has(path)) {
-					return new Response(Bun.file(fullPath) as any);
-				} else if (staticFiles.has(path + "/index.html")) {
-					return new Response(Bun.file(fullPath + "/index.html") as any);
-				} else if (staticFiles.has(path + ".html")) {
-					return new Response(Bun.file(fullPath + ".html") as any);
-				}
-			}
-
-			const context: AdapterRequestContext<BunPlatformInfo> = {
+			const context = new BunContext(
 				request,
-				ip: trustProxy
-					? String(request.headers.get("x-forwarded-for") || "")
-							.split(",", 1)[0]
-							.trim()
-					: server.requestIP(request)?.address ?? "127.0.0.1",
-				passThrough() {
-					// No op
-				},
-				waitUntil() {
-					// No op
-				},
-				platform: { name: "bun", server },
-				env(variable: string) {
-					return process.env[variable];
-				},
-			};
+				"",
+				new BunPlatformInfoImpl(server),
+			);
 
 			return handler(context);
 		},
@@ -96,4 +73,36 @@ function walk(
 	}
 
 	return entries;
+}
+
+class BunContext implements AdapterRequestContext<BunPlatformInfo> {
+	// method = "";
+	// url = null;
+	request: Request;
+	ip: string;
+	platform: BunPlatformInfo;
+	passThrough() {
+		// No op
+	}
+	waitUntil() {
+		// No op
+	}
+	env(variable: string) {
+		return process.env[variable];
+	}
+
+	constructor(request: Request, ip: string, platform: BunPlatformInfo) {
+		this.request = request;
+		this.ip = ip;
+		this.platform = platform;
+	}
+}
+
+class BunPlatformInfoImpl implements BunPlatformInfo {
+	name = "bun" as const;
+	server: Server;
+
+	constructor(server: Server) {
+		this.server = server;
+	}
 }

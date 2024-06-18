@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"noEmit": true,
 		"target": "es2021",
 		"module": "ESNext",
 		"esModuleInterop": true,
