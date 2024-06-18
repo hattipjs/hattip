@@ -67,7 +67,6 @@ if (process.env.CI === "true") {
 			name: "Deno",
 			command: "pnpm build:deno && pnpm start:deno",
 			requiresForwardedIp: true,
-			skipStreamingTest: true,
 		},
 		{
 			name: "Deno with std/http",
@@ -77,7 +76,6 @@ if (process.env.CI === "true") {
 			name: "Deno with node:http",
 			command: "pnpm build:deno-node && pnpm start:deno",
 			requiresForwardedIp: true,
-			skipStreamingTest: true,
 			envOverride: {
 				TRUST_PROXY: "1",
 			},
