@@ -41,11 +41,11 @@ export default function bunAdapter(
 				const fullPath = staticDir + path;
 
 				if (staticFiles.has(path)) {
-					return new Response(Bun.file(fullPath) as any);
+					return new Response(Bun.file(fullPath));
 				} else if (staticFiles.has(path + "/index.html")) {
-					return new Response(Bun.file(fullPath + "/index.html") as any);
+					return new Response(Bun.file(fullPath + "/index.html"));
 				} else if (staticFiles.has(path + ".html")) {
-					return new Response(Bun.file(fullPath + ".html") as any);
+					return new Response(Bun.file(fullPath + ".html"));
 				}
 			}
 
@@ -55,7 +55,7 @@ export default function bunAdapter(
 					? String(request.headers.get("x-forwarded-for") || "")
 							.split(",", 1)[0]
 							.trim()
-					: server.requestIP(request)?.address ?? "127.0.0.1",
+					: (server.requestIP(request)?.address ?? "127.0.0.1"),
 				passThrough() {
 					// No op
 				},

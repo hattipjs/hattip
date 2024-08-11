@@ -1,6 +1,6 @@
 {
   "name": "@hattip/vite",
-  "version": "0.0.45",
+  "version": "0.0.46",
   "type": "module",
   "scripts": {
     "build": "rimraf dist && tsup",
@@ -8,7 +8,7 @@
     "prepack": "pnpm build",
     "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:package",
     "test:typecheck": "tsc -p tsconfig.json --noEmit",
-    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
+    "test:lint": "eslint . --max-warnings 0",
     "test:package": "publint --strict"
   },
   "description": "Vite plugin and CLI wrapper for Hattip",
@@ -41,22 +41,22 @@
     "vite": "^4 || ^5"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.7.1",
+    "@cyco130/eslint-config": "^3.9.4",
     "eslint": "^8.57.0",
-    "publint": "^0.2.7",
-    "rimraf": "^5.0.5",
-    "tsup": "^8.0.2",
-    "typescript": "^5.4.3",
-    "vite": "^5.2.6"
+    "publint": "^0.2.9",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.0"
   },
   "dependencies": {
     "@hattip/adapter-node": "workspace:*",
-    "@vavite/connect": "^4.1.1",
-    "@vavite/multibuild": "^4.1.1",
-    "@vavite/node-loader": "^4.1.1",
+    "@vavite/connect": "^4.1.2",
+    "@vavite/multibuild": "^4.1.2",
+    "@vavite/node-loader": "^4.1.2",
     "cac": "^6.7.14",
-    "import-meta-resolve": "^4.0.0",
-    "picocolors": "^1.0.0",
+    "import-meta-resolve": "^4.1.0",
+    "picocolors": "^1.0.1",
     "resolve.exports": "^2.0.2"
   }
 }

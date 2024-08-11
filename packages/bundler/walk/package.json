@@ -1,6 +1,6 @@
 {
   "name": "@hattip/walk",
-  "version": "0.0.45",
+  "version": "0.0.46",
   "type": "module",
   "description": "Create a file manifest from a directory",
   "files": [
@@ -30,7 +30,7 @@
     "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:unit && pnpm test:package",
     "test:unit": "vitest run --reporter=verbose",
     "test:typecheck": "tsc -p tsconfig.json --noEmit",
-    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
+    "test:lint": "eslint . --max-warnings 0",
     "test:package": "publint --strict"
   },
   "dependencies": {
@@ -39,13 +39,13 @@
     "mime-types": "^2.1.35"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.7.1",
+    "@cyco130/eslint-config": "^3.9.4",
     "@types/mime-types": "^2.1.4",
-    "@types/node": "^20.11.30",
+    "@types/node": "^18.19.44",
     "eslint": "^8.57.0",
-    "publint": "^0.2.7",
-    "tsup": "^8.0.2",
-    "typescript": "^5.4.3",
-    "vitest": "^1.4.0"
+    "publint": "^0.2.9",
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
   }
 }

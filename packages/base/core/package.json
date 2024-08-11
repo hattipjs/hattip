@@ -1,6 +1,6 @@
 {
   "name": "@hattip/core",
-  "version": "0.0.45",
+  "version": "0.0.46",
   "type": "module",
   "files": [
     "index.d.ts"
@@ -9,13 +9,13 @@
   "scripts": {
     "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:package",
     "test:typecheck": "tsc -p tsconfig.json --noEmit",
-    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
+    "test:lint": "eslint . --max-warnings 0",
     "test:package": "publint --strict"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.7.1",
+    "@cyco130/eslint-config": "^3.9.4",
     "eslint": "^8.57.0",
-    "publint": "^0.2.7",
-    "typescript": "^5.4.3"
+    "publint": "^0.2.9",
+    "typescript": "^5.5.4"
   }
 }

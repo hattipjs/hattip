@@ -15,6 +15,14 @@
 			"enabled": false
 		},
 		{
+			"matchPackagePatterns": ["^eslint$"],
+			"allowedVersions": "<9"
+		},
+		{
+			"matchPackagePatterns": ["^@types/node$"],
+			"allowedVersions": "18"
+		},
+		{
 			"groupName": "vavite",
 			"matchPackagePrefixes": ["@vavite/"]
 		},

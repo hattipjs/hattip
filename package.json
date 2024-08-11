@@ -20,15 +20,15 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "graphql": "^16.8.1",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
-    "prettier": "^3.2.5",
-    "rimraf": "^5.0.5",
-    "vite": "^5.2.6",
-    "vitest": "^1.4.0"
+    "graphql": "^16.9.0",
+    "husky": "^9.1.4",
+    "lint-staged": "^15.2.8",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "vite": "^5.4.0",
+    "vitest": "^2.0.5"
   },
   "dependencies": {
-    "typescript": "^5.4.3"
+    "typescript": "^5.5.4"
   }
 }
