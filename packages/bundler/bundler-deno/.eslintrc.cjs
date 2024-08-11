@@ -2,7 +2,15 @@ require("@cyco130/eslint-config/patch");
 
 module.exports = {
 	root: true,
-	extends: ["@cyco130/eslint-config/node"], // or react instead of node
+	ignorePatterns: [
+		"dist",
+		"node_modules",
+		"**/*.cjs",
+		"cli.js",
+		"deno-env-shim.js",
+		"shims/**",
+	],
+	extends: ["@cyco130/eslint-config/node"],
 	parserOptions: { project: [__dirname + "/tsconfig.json"] },
 	settings: {
 		"import/resolver": {

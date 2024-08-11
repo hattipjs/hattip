@@ -25,7 +25,7 @@
     "prepack": "pnpm build",
     "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:package && pnpm test:unit",
     "test:typecheck": "tsc -p tsconfig.json --noEmit",
-    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
+    "test:lint": "eslint . --max-warnings 0",
     "test:package": "publint --strict",
     "test:unit": "vitest run"
   },
@@ -35,17 +35,17 @@
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.9.1",
+    "@cyco130/eslint-config": "^3.9.4",
     "@hattip/polyfills": "workspace:*",
     "@miniflare/kv": "^2.14.2",
     "@miniflare/storage-memory": "^2.14.2",
-    "@types/node": "^20.14.5",
+    "@types/node": "^18.19.44",
     "@types/redis-mock": "^0.17.3",
     "eslint": "^8.57.0",
-    "publint": "^0.2.8",
+    "publint": "^0.2.9",
     "redis-mock": "^0.56.3",
-    "tsup": "^8.1.0",
-    "typescript": "^5.4.5",
-    "vitest": "^1.6.0"
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
   }
 }

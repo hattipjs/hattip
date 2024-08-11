@@ -55,7 +55,7 @@ export default function bunAdapter(
 					? String(request.headers.get("x-forwarded-for") || "")
 							.split(",", 1)[0]
 							.trim()
-					: server.requestIP(request)?.address ?? "127.0.0.1",
+					: (server.requestIP(request)?.address ?? "127.0.0.1"),
 				passThrough() {
 					// No op
 				},

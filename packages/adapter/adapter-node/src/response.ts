@@ -80,14 +80,7 @@ function writeHead(fetchResponse: Response, nodeResponse: ServerResponse) {
 	for (const key of uniqueHeaderNames) {
 		if (key === "set-cookie") {
 			const setCookie = fetchResponse.headers.getSetCookie!();
-			if (nodeResponse.appendHeader) {
-				for (const cookie of setCookie) {
-					nodeResponse.appendHeader("set-cookie", cookie);
-				}
-			} else {
-				// Workaround for https://github.com/denoland/deno/issues/19993
-				nodeResponse.setHeader("set-cookie", setCookie);
-			}
+			nodeResponse.setHeader("set-cookie", setCookie);
 		} else {
 			nodeResponse.setHeader(key, fetchResponse.headers.get(key)!);
 		}

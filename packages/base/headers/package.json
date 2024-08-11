@@ -24,18 +24,18 @@
     "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:unit && pnpm test:package",
     "test:unit": "vitest run --reporter=verbose",
     "test:typecheck": "tsc -p tsconfig.json --noEmit",
-    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
+    "test:lint": "eslint . --max-warnings 0",
     "test:package": "publint --strict"
   },
   "dependencies": {
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.9.1",
+    "@cyco130/eslint-config": "^3.9.4",
     "eslint": "^8.57.0",
-    "publint": "^0.2.8",
-    "tsup": "^8.1.0",
-    "typescript": "^5.4.5",
-    "vitest": "^1.6.0"
+    "publint": "^0.2.9",
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
   }
 }
