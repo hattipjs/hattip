@@ -1,6 +1,6 @@
 {
   "name": "@hattip/adapter-fastly",
-  "version": "0.0.46",
+  "version": "0.0.47",
   "type": "module",
   "description": "Fastly adapter for Hattip",
   "files": [

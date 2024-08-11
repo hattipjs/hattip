@@ -1,6 +1,6 @@
 {
   "name": "@hattip/adapter-deno",
-  "version": "0.0.46",
+  "version": "0.0.47",
   "type": "module",
   "description": "Deno adapter for Hattip",
   "files": [
