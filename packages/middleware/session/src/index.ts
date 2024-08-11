@@ -162,7 +162,7 @@ export function session(options: SessionOptions) {
 			oldHash !== (await hash(ctx.session.data))
 		) {
 			const newId = await options.store.save(
-				shouldRegenerate ? null : sessionId ?? null,
+				shouldRegenerate ? null : (sessionId ?? null),
 				ctx.session.data,
 				maxAge,
 				ctx,

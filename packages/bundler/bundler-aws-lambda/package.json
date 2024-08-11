@@ -26,22 +26,22 @@
     "prepack": "pnpm build",
     "test": "pnpm test:typecheck && pnpm test:lint && pnpm test:package",
     "test:typecheck": "tsc -p tsconfig.json --noEmit",
-    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
+    "test:lint": "eslint . --max-warnings 0",
     "test:package": "publint --strict"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.9.1",
+    "@cyco130/eslint-config": "^3.9.4",
     "@types/archiver": "^6.0.2",
-    "@types/node": "^20.14.5",
+    "@types/node": "^18.19.44",
     "eslint": "^8.57.0",
-    "publint": "^0.2.8",
-    "tsup": "^8.1.0",
-    "typescript": "^5.4.5"
+    "publint": "^0.2.9",
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4"
   },
   "dependencies": {
     "@hattip/walk": "workspace:*",
     "archiver": "^7.0.1",
     "cac": "^6.7.14",
-    "esbuild": "^0.21.5"
+    "esbuild": "^0.23.0"
   }
 }
