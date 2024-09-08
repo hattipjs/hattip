@@ -31,14 +31,14 @@
   },
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.3.4",
-    "@cloudflare/workers-types": "^4.20240806.0",
+    "@cloudflare/workers-types": "^4.20240903.0",
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.9.4",
-    "@types/node": "^18.19.44",
+    "@cyco130/eslint-config": "^3.9.5",
+    "@types/node": "^18.19.50",
     "eslint": "^8.57.0",
-    "publint": "^0.2.9",
+    "publint": "^0.2.10",
     "tsup": "^8.2.4",
     "typescript": "^5.5.4"
   }
