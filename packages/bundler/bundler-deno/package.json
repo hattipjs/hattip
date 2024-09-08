@@ -5,7 +5,8 @@
   "description": "Deno bundler for Hattip",
   "files": [
     "dist",
-    "deno-env-shim.js"
+    "deno-env-shim.js",
+    "shims"
   ],
   "exports": "./dist/index.js",
   "typesVersions": {
