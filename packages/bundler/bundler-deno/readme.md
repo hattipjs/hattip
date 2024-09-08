@@ -17,10 +17,10 @@ Options:
 The input should be a Deno module similar to the following:
 
 ```js
-import { serve, createRequestHandler } from "@hattip/adapter-deno";
+import { createRequestHandler } from "@hattip/adapter-deno";
 import handler from "./handler.js";
 
-serve(createRequestHandler(handler), { port: 3000 });
+Deno.serve(createRequestHandler(handler), { port: 3000 });
 ```
 
 If you want serve static files too, you can use the `serveDir` function. Assuming your static files are in the `public` directory, you can use the following:
