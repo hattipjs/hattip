@@ -1,6 +1,6 @@
 {
   "name": "@hattip/bundler-deno",
-  "version": "0.0.47",
+  "version": "0.0.48",
   "type": "module",
   "description": "Deno bundler for Hattip",
   "files": [

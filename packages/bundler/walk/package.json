@@ -1,6 +1,6 @@
 {
   "name": "@hattip/walk",
-  "version": "0.0.47",
+  "version": "0.0.48",
   "type": "module",
   "description": "Create a file manifest from a directory",
   "files": [
