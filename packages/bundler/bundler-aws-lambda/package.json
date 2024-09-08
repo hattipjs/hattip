@@ -30,11 +30,11 @@
     "test:package": "publint --strict"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.9.4",
+    "@cyco130/eslint-config": "^3.9.5",
     "@types/archiver": "^6.0.2",
-    "@types/node": "^18.19.44",
+    "@types/node": "^18.19.50",
     "eslint": "^8.57.0",
-    "publint": "^0.2.9",
+    "publint": "^0.2.10",
     "tsup": "^8.2.4",
     "typescript": "^5.5.4"
   },
@@ -42,6 +42,6 @@
     "@hattip/walk": "workspace:*",
     "archiver": "^7.0.1",
     "cac": "^6.7.14",
-    "esbuild": "^0.23.0"
+    "esbuild": "^0.23.1"
   }
 }

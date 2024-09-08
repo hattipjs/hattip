@@ -31,9 +31,9 @@
     "@hattip/polyfills": "workspace:*"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.9.4",
+    "@cyco130/eslint-config": "^3.9.5",
     "eslint": "^8.57.0",
-    "publint": "^0.2.9",
+    "publint": "^0.2.10",
     "tsup": "^8.2.4",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
