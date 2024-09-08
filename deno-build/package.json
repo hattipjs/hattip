@@ -3,7 +3,7 @@
   "type": "module",
   "description": "Create Deno release",
   "author": "Fatih Aygün <cyco130@gmail.com>",
-  "repository": "https://github.com/hattipjs/hattip",
+  "repository": "github:hattipjs/hattip",
   "license": "MIT",
   "scripts": {
     "start": "tsx src/index.ts"
