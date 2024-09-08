@@ -3,7 +3,7 @@ import { parse } from "@babel/core";
 import babelTs from "@babel/preset-typescript";
 import babelTraverse from "@babel/traverse";
 
-const traverse = babelTraverse.default;
+const traverse: typeof babelTraverse = (babelTraverse as any).default;
 
 export function replace(code: string, cb: (moduleName: string) => string) {
 	const ast = parse(code, {

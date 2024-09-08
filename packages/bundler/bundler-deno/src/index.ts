@@ -5,7 +5,14 @@ import cpr from "cpr";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 
-const shimsDir = fileURLToPath(new URL("../shims", import.meta.url));
+const shimsDir = fileURLToPath(
+	new URL(
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+		typeof Deno === "undefined" ? "../shims" : "./shims",
+		import.meta.url,
+	),
+);
 
 /**
  * Bundling options
