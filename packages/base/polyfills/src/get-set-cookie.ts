@@ -3,6 +3,8 @@ import type {} from "@hattip/core";
 declare global {
 	interface Headers {
 		raw?(): Record<string, string | string[]>;
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore: Deno isn't happy with this one
 		getAll?(name: string): string[];
 	}
 }
