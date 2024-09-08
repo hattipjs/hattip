@@ -7,6 +7,7 @@ import {
 	rmSync,
 	writeFileSync,
 	copyFileSync,
+	cpSync,
 } from "node:fs";
 import { basename, dirname, resolve } from "node:path";
 import { replace } from "./replace.js";
@@ -134,6 +135,14 @@ function processPackage(dir: string) {
 		resolve(dir, "readme.md"),
 		resolve(rootDir, "_deno/src", packageName, "readme.md"),
 	);
+
+	if (packageName === "bundler-deno") {
+		cpSync(
+			resolve(dir, "shims"),
+			resolve(rootDir, "_deno/src", packageName, "shims"),
+			{ recursive: true },
+		);
+	}
 
 	const exports = packageJson.exports;
 	let files: string[];
