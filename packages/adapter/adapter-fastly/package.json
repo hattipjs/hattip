@@ -15,7 +15,7 @@
     }
   },
   "author": "Jake Champion <me@jakechampion.name>",
-  "repository": "https://github.com/hattipjs/hattip",
+  "repository": "github:hattipjs/hattip",
   "license": "MIT",
   "scripts": {
     "build": "rimraf dist && tsup",

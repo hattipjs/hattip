@@ -39,6 +39,6 @@
     "vitest": "^2.0.5"
   },
   "author": "Tessei Kameyama <tkamenoko@vivaldi.net>",
-  "repository": "https://github.com/hattipjs/hattip",
+  "repository": "github:hattipjs/hattip",
   "license": "MIT"
 }
