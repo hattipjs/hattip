@@ -25,14 +25,14 @@
     "test:package": "publint --strict"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.9.5",
+    "@cyco130/eslint-config": "^3.9.6",
     "@hattip/polyfills": "workspace:*",
     "eslint": "^8.57.0",
     "node-fetch-native": "^1.6.4",
     "publint": "^0.2.10",
     "tsup": "^8.2.4",
-    "typescript": "^5.5.4",
-    "vitest": "^2.0.5"
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.1"
   },
   "dependencies": {
     "@hattip/headers": "workspace:*"

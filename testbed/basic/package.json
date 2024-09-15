@@ -22,11 +22,11 @@
   },
   "main": "entry-gcf.js",
   "devDependencies": {
-    "@aws-sdk/client-cloudwatch-logs": "^3.645.0",
-    "@aws-sdk/client-iam": "^3.645.0",
-    "@aws-sdk/client-lambda": "^3.645.0",
+    "@aws-sdk/client-cloudwatch-logs": "^3.651.1",
+    "@aws-sdk/client-iam": "^3.651.1",
+    "@aws-sdk/client-lambda": "^3.651.1",
     "@fastly/compute-js-static-publish": "^6.1.0",
-    "@fastly/js-compute": "^3.21.4",
+    "@fastly/js-compute": "^3.22.4",
     "@hattip/adapter-aws-lambda": "workspace:*",
     "@hattip/adapter-bun": "workspace:*",
     "@hattip/adapter-cloudflare-workers": "workspace:*",
@@ -52,14 +52,14 @@
     "cookie": "^0.6.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.23.1",
-    "netlify-cli": "^17.35.0",
+    "netlify-cli": "^17.36.0",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.4",
     "ps-tree": "^1.2.0",
     "rimraf": "^6.0.1",
-    "typescript": "^5.5.4",
-    "vitest": "^2.0.5",
-    "wrangler": "^3.75.0"
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.1",
+    "wrangler": "^3.78.2"
   },
   "dependencies": {
     "@google-cloud/functions-framework": "^3.4.2",
@@ -76,7 +76,7 @@
     "@hattip/static": "workspace:*",
     "@hattip/walk": "workspace:*",
     "connect": "^3.7.0",
-    "express": "^4.19.2",
+    "express": "^4.21.0",
     "graphql": "^16.9.0",
     "sirv": "^2.0.4"
   }

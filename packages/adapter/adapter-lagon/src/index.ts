@@ -13,17 +13,8 @@ export default function lagonAdapter(hattipHandler: HattipHandler) {
 			},
 			platform: { name: "lagon" },
 			env(variable) {
-				return process.env[variable];
+				return (globalThis as any).process.env[variable];
 			},
 		});
 	};
-}
-
-declare global {
-	interface Process {
-		env: Record<string, string | undefined>;
-	}
-
-	// eslint-disable-next-line no-var
-	var process: Process;
 }
