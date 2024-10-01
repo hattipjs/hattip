@@ -37,6 +37,10 @@ export default function awsLambdaAdapter(
 			event.rawPath +
 			(event.rawQueryString ? "?" + event.rawQueryString : "");
 
+		if (event.cookies != null && event.cookies.length > 0) {
+			event.headers["cookie"] = event.cookies.join("; ");
+		}
+
 		const ctx: AdapterRequestContext<AwsLambdaPlatformInfo> = {
 			request: new Request(url, {
 				method: event.requestContext?.http?.method || "GET",
