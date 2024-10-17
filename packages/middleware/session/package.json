@@ -37,15 +37,15 @@
   "devDependencies": {
     "@cyco130/eslint-config": "^3.9.6",
     "@hattip/polyfills": "workspace:*",
-    "@miniflare/kv": "^2.14.2",
-    "@miniflare/storage-memory": "^2.14.2",
-    "@types/node": "^18.19.50",
+    "@miniflare/kv": "^2.14.4",
+    "@miniflare/storage-memory": "^2.14.4",
+    "@types/node": "^18.19.56",
     "@types/redis-mock": "^0.17.3",
-    "eslint": "^8.57.0",
-    "publint": "^0.2.10",
+    "eslint": "^8.57.1",
+    "publint": "^0.2.11",
     "redis-mock": "^0.56.3",
-    "tsup": "^8.2.4",
-    "typescript": "^5.6.2",
-    "vitest": "^2.1.1"
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.3"
   }
 }
