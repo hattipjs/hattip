@@ -86,7 +86,7 @@ cli
 	.alias("serve")
 
 	.option("-r, --root", "[string] project root")
-	.option("-n, --node", "[string] Node.js entry")
+	.option("-n, --node <node-entry>", "[string] Node.js entry")
 	.option(
 		"-C, --client [client-entry]",
 		"[string] client entry (can be repeated)",
