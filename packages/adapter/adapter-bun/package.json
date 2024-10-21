@@ -31,7 +31,7 @@
     "bun-types": "^1.1.27"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.9.6",
+    "@cyco130/eslint-config": "^4.0.1",
     "@types/node": "^18.19.50",
     "eslint": "^8.57.0",
     "publint": "^0.2.10",

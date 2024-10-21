@@ -31,7 +31,7 @@
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.9.6",
+    "@cyco130/eslint-config": "^4.0.1",
     "@hattip/adapter-test": "workspace:*",
     "@types/eventsource": "^1.1.15",
     "@types/node": "^18.19.50",
