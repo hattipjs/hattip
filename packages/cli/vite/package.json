@@ -41,7 +41,7 @@
     "vite": "^4 || ^5"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.9.6",
+    "@cyco130/eslint-config": "^4.0.1",
     "eslint": "^8.57.0",
     "publint": "^0.2.10",
     "rimraf": "^6.0.1",

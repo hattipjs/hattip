@@ -12,7 +12,7 @@
     "@babel/core": "^7.25.2",
     "@babel/preset-typescript": "^7.24.7",
     "@babel/traverse": "^7.25.6",
-    "@cyco130/eslint-config": "^3.9.6",
+    "@cyco130/eslint-config": "^4.0.1",
     "@types/babel__core": "^7.20.5",
     "@types/babel__traverse": "^7.20.6",
     "@types/node": "^18.19.50",

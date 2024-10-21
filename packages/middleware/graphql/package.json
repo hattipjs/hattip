@@ -46,7 +46,7 @@
     "urlpattern-polyfill": "^10.0.0"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.9.6",
+    "@cyco130/eslint-config": "^4.0.1",
     "@graphql-yoga/subscription": "^5.0.1",
     "@hattip/polyfills": "workspace:*",
     "@types/node": "^18.19.50",
