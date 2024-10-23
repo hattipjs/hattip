@@ -500,6 +500,33 @@ describe.each(cases)(
 			const text2 = await response2.text();
 			expect(text2).toEqual("You have visited this page 2 time(s).");
 		});
+
+		/* Only run manually
+		test.only("cancels response stream when client disconnects", async () => {
+			const controller = new AbortController();
+			const { signal } = controller;
+
+			const response = await fetch(host + "/abort", { signal });
+			const stream = response.body!;
+
+			for await (const chunk of stream) {
+				expect(chunk.slice(0, 4)).toStrictEqual(new Uint8Array([1, 2, 3, 4]));
+				break;
+			}
+
+			controller.abort();
+
+			await new Promise((resolve) => {
+				setTimeout(resolve, 1000);
+			});
+
+			const result = await fetch(host + "/abort-check").then((r) => r.json());
+			expect(result).toStrictEqual({
+				aborted: true,
+				intervalCleared: true,
+			});
+		});
+		*/
 	},
 );
 

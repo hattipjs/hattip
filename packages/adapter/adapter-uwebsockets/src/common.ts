@@ -77,8 +77,13 @@ export function createServer(
 	configureServer?.(app);
 
 	return app.any("/*", (res, req) => {
-		let aborted = false;
-		res.onAborted(() => (aborted = true));
+		let finished = false;
+		const controller = new AbortController();
+		res.onAborted(() => {
+			if (!finished) {
+				controller.abort();
+			}
+		});
 
 		const method = req.getCaseSensitiveMethod();
 		const path = req.getUrl();
@@ -118,12 +123,20 @@ export function createServer(
 		const url = protocol + "://" + host + path + (query ? "?" + query : "");
 
 		function handleError(error: unknown) {
-			if (aborted) return;
+			if (controller.signal.aborted) return;
 
 			console.error(error);
 
-			res.writeStatus("500 Internal Server Error");
-			res.end();
+			try {
+				if (!controller.signal.aborted) {
+					res.cork(() => {
+						res.writeStatus("500 Internal Server Error");
+						res.endWithoutBody();
+					});
+				}
+			} catch {
+				// Ignore error
+			}
 		}
 
 		try {
@@ -146,6 +159,7 @@ export function createServer(
 				request: new Request(url, {
 					method,
 					headers,
+					signal: controller.signal,
 					body:
 						method === "GET" || method === "HEAD"
 							? undefined
@@ -172,7 +186,11 @@ export function createServer(
 		}
 
 		async function finish(response: Response) {
-			if (aborted) return;
+			const stream = response.body;
+
+			if (controller.signal.aborted) {
+				return;
+			}
 
 			res.cork(() => {
 				res.writeStatus(
@@ -192,24 +210,35 @@ export function createServer(
 					}
 				}
 
-				if (!response.body) {
+				if (!stream) {
 					res.end();
 				}
 			});
 
-			if (response.body) {
-				let lastChunk: Uint8Array | undefined;
-				for await (const chunk of response.body as any as AsyncIterable<Uint8Array>) {
-					if (lastChunk) {
-						res.cork(() => res.write(lastChunk!));
+			if (stream) {
+				const reader = stream.getReader();
+				for (;;) {
+					const chunk = await reader.read();
+					if (controller.signal.aborted) {
+						await reader.cancel();
+						break;
 					}
-					lastChunk = chunk;
+
+					if (chunk.done) {
+						break;
+					}
+
+					res.cork(() => res.write(chunk.value));
 				}
 
-				if (lastChunk) {
-					res.cork(() => res.end(lastChunk!));
+				if (!controller.signal.aborted) {
+					res.cork(() => {
+						res.end();
+					});
 				}
 			}
+
+			finished = true;
 		}
 	});
 }

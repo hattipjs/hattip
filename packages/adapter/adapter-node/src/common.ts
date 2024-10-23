@@ -22,7 +22,7 @@ interface PossiblyEncryptedSocket extends Socket {
 export interface DecoratedRequest extends Omit<IncomingMessage, "socket"> {
 	ip?: string;
 	protocol?: string;
-	socket?: PossiblyEncryptedSocket;
+	socket: PossiblyEncryptedSocket;
 }
 
 /** Connect/Express style request listener/middleware */
@@ -61,7 +61,7 @@ export function createMiddleware(
 
 	return async (req, res, next) => {
 		try {
-			const [request, ip] = requestAdapter(req);
+			const [request, ip] = requestAdapter(req, res);
 
 			let passThroughCalled = false;
 
@@ -97,7 +97,7 @@ export function createMiddleware(
 				return;
 			}
 
-			await sendResponse(response, res);
+			await sendResponse(req, res, response);
 
 			if (next && alwaysCallNext) {
 				next();
