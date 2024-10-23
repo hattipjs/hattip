@@ -2,6 +2,7 @@
 import { ServerResponse } from "node:http";
 import { Readable } from "node:stream";
 import { rawBodySymbol } from "./raw-body-symbol";
+import { DecoratedRequest } from "./common";
 
 // @ts-ignore
 const deno = typeof Deno !== "undefined";
@@ -23,12 +24,13 @@ if (deno) {
  * Send a fetch API Response into a Node.js HTTP response stream.
  */
 export async function sendResponse(
+	req: DecoratedRequest,
+	res: ServerResponse,
 	fetchResponse: Response,
-	nodeResponse: ServerResponse,
 ): Promise<void> {
 	if ((fetchResponse as any)[rawBodySymbol]) {
-		writeHead(fetchResponse, nodeResponse);
-		nodeResponse.end((fetchResponse as any)[rawBodySymbol]);
+		writeHead(fetchResponse, res);
+		res.end((fetchResponse as any)[rawBodySymbol]);
 		return;
 	}
 
@@ -54,18 +56,29 @@ export async function sendResponse(
 		body = Readable.from(fetchBody as any);
 	}
 
-	writeHead(fetchResponse, nodeResponse);
+	writeHead(fetchResponse, res);
 
 	if (body) {
-		body.pipe(nodeResponse);
-		await new Promise((resolve, reject) => {
-			body!.on("error", reject);
-			nodeResponse.on("finish", resolve);
-			nodeResponse.on("error", reject);
+		body.pipe(res);
+		await new Promise<void>((resolve, reject) => {
+			body!.once("error", reject);
+			res.once("finish", resolve);
+			res.once("error", () => {
+				if (!res.writableEnded) {
+					body.destroy();
+				}
+				reject();
+			});
+			req.once("close", () => {
+				if (!res.writableEnded) {
+					body.destroy();
+					resolve();
+				}
+			});
 		});
 	} else {
-		nodeResponse.setHeader("content-length", "0");
-		nodeResponse.end();
+		res.setHeader("content-length", "0");
+		res.end();
 	}
 }
 

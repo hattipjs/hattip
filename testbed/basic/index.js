@@ -206,4 +206,37 @@ app.get("/platform", (ctx) => {
 	return text(`Platform: ${ctx.platform.name}`);
 });
 
+/** @type ReturnType<typeof setInterval> | undefined */
+let interval;
+let aborted = false;
+
+app.get("/abort", (ctx) => {
+	ctx.request.signal.addEventListener("abort", () => {
+		console.log("Aborted");
+		aborted = true;
+	});
+
+	return new Response(
+		new ReadableStream({
+			async start(controller) {
+				interval = setInterval(() => {
+					controller.enqueue(new Uint8Array([1, 2, 3, 4]));
+					console.log("Hey!");
+				}, 1000);
+			},
+			cancel() {
+				clearInterval(interval);
+				interval = undefined;
+			},
+		}),
+	);
+});
+
+app.get("/abort-check", (ctx) => {
+	return json({
+		aborted,
+		intervalCleared: interval === undefined,
+	});
+});
+
 export default app.buildHandler();

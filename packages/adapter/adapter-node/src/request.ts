@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import type { IncomingMessage } from "node:http";
+import type { IncomingMessage, ServerResponse } from "node:http";
 import type { Socket } from "node:net";
 import process from "node:process";
 import { Buffer } from "node:buffer";
@@ -51,7 +51,10 @@ export interface NodeRequestAdapterOptions {
 /** Create a function that converts a Node HTTP request into a fetch API `Request` object */
 export function createRequestAdapter(
 	options: NodeRequestAdapterOptions = {},
-): (req: DecoratedRequest) => [request: Request, ip: string] {
+): (
+	req: DecoratedRequest,
+	res: ServerResponse,
+) => [request: Request, ip: string] {
 	const {
 		origin = process.env.ORIGIN,
 		trustProxy = process.env.TRUST_PROXY === "1",
@@ -68,7 +71,7 @@ export function createRequestAdapter(
 
 	let warned = false;
 
-	return function requestAdapter(req) {
+	return function requestAdapter(req, res) {
 		// TODO: Support the newer `Forwarded` standard header
 		function parseForwardedHeader(name: string) {
 			return (headers["x-forwarded-" + name] || "").split(",", 1)[0].trim();
@@ -109,10 +112,18 @@ export function createRequestAdapter(
 			host = "localhost";
 		}
 
+		const controller = new AbortController();
+		req.once("close", () => {
+			if (!res.writableEnded) {
+				controller.abort();
+			}
+		});
+
 		const request = new Request(protocol + "://" + host + req.url, {
 			method: req.method,
 			headers,
 			body: convertBody(req),
+			signal: controller.signal,
 			// @ts-expect-error: Node requires this when the body is a ReadableStream
 			duplex: "half",
 		});
