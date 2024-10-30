@@ -31,8 +31,8 @@
   "dependencies": {
     "@hattip/compose": "workspace:*",
     "@hattip/core": "workspace:*",
-    "@types/cookie": "^0.6.0",
-    "cookie": "^0.6.0"
+    "@types/cookie": "^1.0.0",
+    "cookie": "^1.0.1"
   },
   "devDependencies": {
     "@cyco130/eslint-config": "^3.9.6",
