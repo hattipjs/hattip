@@ -15,6 +15,7 @@
   "bin": {
     "hattip": "./hattip.js"
   },
+  "license": "MIT",
   "exports": {
     ".": "./dist/index.js",
     "./node-loader": "./node-loader.mjs",

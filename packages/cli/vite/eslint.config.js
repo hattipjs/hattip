@@ -10,7 +10,6 @@ export default [
 		languageOptions: {
 			parserOptions: {
 				projectService: true,
-				// @ts-expect-error: import.meta.dirname comes from Node types
 				tsconfigRootDir: import.meta.dirname,
 			},
 		},
