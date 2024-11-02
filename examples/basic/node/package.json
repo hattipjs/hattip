@@ -7,8 +7,8 @@
     "start:cfw": "wrangler dev"
   },
   "dependencies": {
-    "@hattip/adapter-cloudflare-workers": "^0.0.48",
-    "@hattip/adapter-node": "^0.0.48",
+    "@hattip/adapter-cloudflare-workers": "^0.0.49",
+    "@hattip/adapter-node": "^0.0.49",
     "@types/node": "^18.19.50",
     "wrangler": "^3.84.1"
   }

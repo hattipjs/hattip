@@ -1,6 +1,6 @@
 {
   "name": "@hattip/headers",
-  "version": "0.0.48",
+  "version": "0.0.49",
   "type": "module",
   "description": "Header parsing utilities for Hattip",
   "files": [
