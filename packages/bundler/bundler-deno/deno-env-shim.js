@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Buffer as __nodeBuffer } from "node:buffer";
 import {
 	clearImmediate as __nodeClearImmediate,
@@ -8,8 +7,8 @@ import {
 	setInterval as __nodeSetInterval,
 	setTimeout as __nodeSetTimeout,
 } from "node:timers";
-import { console as __nodeConsole } from "node:console";
-import { process as __nodeProcess } from "node:process";
+import __nodeConsole from "node:console";
+import __nodeProcess from "node:process";
 import { performance as __nodePerformance } from "node:perf_hooks";
 import { createRequire as __nodeCreateRequire } from "node:module";
 

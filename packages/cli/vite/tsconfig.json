@@ -8,6 +8,8 @@
 		"strict": true,
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
-		"moduleResolution": "Bundler"
-	}
+		"moduleResolution": "Bundler",
+		"checkJs": true
+	},
+	"exclude": ["node_modules", "dist", "hattip.js"]
 }

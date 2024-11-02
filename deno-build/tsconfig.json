@@ -9,5 +9,6 @@
 		"skipLibCheck": true,
 		"moduleResolution": "Bundler",
 		"resolveJsonModule": true
-	}
+	},
+	"exclude": ["node_modules", "dist"]
 }

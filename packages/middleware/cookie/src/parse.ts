@@ -1,5 +1,5 @@
 import "@hattip/compose";
-import { parse, CookieParseOptions } from "cookie";
+import { parse, ParseOptions as CookieParseOptions } from "cookie";
 
 export type { CookieParseOptions };
 
