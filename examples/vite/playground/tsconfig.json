@@ -9,5 +9,6 @@
 		"skipLibCheck": true,
 		"moduleResolution": "Node",
 		"types": ["vite/client", "@hattip/vite/vite-dev-server"]
-	}
+	},
+	"exclude": ["node_modules", "dist"]
 }

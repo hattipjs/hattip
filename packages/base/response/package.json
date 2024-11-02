@@ -31,16 +31,16 @@
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^3.9.6",
+    "@cyco130/eslint-config": "^5.0.0",
     "@hattip/adapter-test": "workspace:*",
     "@types/eventsource": "^1.1.15",
     "@types/node": "^18.19.50",
-    "eslint": "^8.57.0",
+    "eslint": "^9.14.0",
     "eventsource": "^2.0.2",
     "eventsource-polyfill": "^0.9.6",
-    "publint": "^0.2.10",
-    "tsup": "^8.2.4",
-    "typescript": "^5.6.2",
-    "vitest": "^2.1.1"
+    "publint": "^0.2.12",
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
   }
 }

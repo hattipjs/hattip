@@ -1,4 +1,3 @@
-/* eslint-disable import/no-named-as-default-member */
 import { parseMultipart } from "./multipart";
 import { parseHeaderValue } from "@hattip/headers";
 import {

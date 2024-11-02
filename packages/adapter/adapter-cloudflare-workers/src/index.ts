@@ -1,5 +1,4 @@
 /// <reference types="@cloudflare/workers-types"/>
-/* eslint-disable import/no-unresolved */
 
 import type { AdapterRequestContext, HattipHandler } from "@hattip/core";
 import { getAssetFromKV, NotFoundError } from "@cloudflare/kv-asset-handler";

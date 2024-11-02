@@ -1,6 +1,5 @@
 import { RequestContext } from "@hattip/compose";
 import { createYoga, YogaServerOptions } from "./yoga";
-// eslint-disable-next-line import/export
 export * from "./yoga";
 
 export function yoga<TUserContext extends Record<string, any>>(

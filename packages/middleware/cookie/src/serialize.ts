@@ -1,6 +1,6 @@
 import "@hattip/compose";
 import type { RequestContext } from "@hattip/compose";
-import { serialize, CookieSerializeOptions } from "cookie";
+import { serialize, SerializeOptions as CookieSerializeOptions } from "cookie";
 
 declare module "@hattip/compose" {
 	interface RequestContextExtensions {

@@ -10,7 +10,6 @@ import installCrypto from "@hattip/polyfills/crypto";
 
 installCrypto();
 
-// eslint-disable-next-line import/default
 import redis from "redis-mock";
 import { KVNamespace } from "@miniflare/kv";
 import { MemoryStorage } from "@miniflare/storage-memory";

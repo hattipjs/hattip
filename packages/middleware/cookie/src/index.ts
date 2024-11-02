@@ -1,4 +1,7 @@
-import { CookieParseOptions, CookieSerializeOptions } from "cookie";
+import {
+	ParseOptions as CookieParseOptions,
+	SerializeOptions as CookieSerializeOptions,
+} from "cookie";
 import { cookieParser, CookieParserContext } from "./parse";
 import { cookieSerializer, CookieSerializerContext } from "./serialize";
 

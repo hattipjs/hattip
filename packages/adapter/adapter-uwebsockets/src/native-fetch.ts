@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 import * as webStream from "node:stream/web";
 import installGetSetCookie from "@hattip/polyfills/get-set-cookie";
 import installCrypto from "@hattip/polyfills/crypto";

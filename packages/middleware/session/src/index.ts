@@ -35,7 +35,6 @@ export interface Session {
 	destroy(): Promise<void>;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SessionData {}
 
 export interface SessionOptions {

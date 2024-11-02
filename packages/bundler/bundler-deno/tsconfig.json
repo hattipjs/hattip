@@ -8,6 +8,8 @@
 		"strict": true,
 		"skipLibCheck": true,
 		"moduleResolution": "Node",
-		"resolveJsonModule": true
-	}
+		"resolveJsonModule": true,
+		"checkJs": true
+	},
+	"exclude": ["node_modules", "dist", "cli.js"]
 }

@@ -1,4 +1,3 @@
-/* eslint-disable no-irregular-whitespace */
 import { parseHeaderValue } from "./parser";
 import { parseQValue } from "./q";
 

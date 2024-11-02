@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 // @ts-expect-error: No typing for this
 import manifestText from "__STATIC_CONTENT_MANIFEST";
 import { ReadOnlyFile } from ".";
