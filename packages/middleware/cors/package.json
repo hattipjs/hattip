@@ -39,7 +39,7 @@
     "@hattip/adapter-test": "workspace:*",
     "@hattip/polyfills": "workspace:*",
     "@hattip/response": "workspace:*",
-    "@types/node": "^18.19.50",
+    "@types/node": "^18.19.64",
     "eslint": "^9.14.0",
     "publint": "^0.2.12",
     "tsup": "^8.3.5",

@@ -46,7 +46,7 @@
     "@lagon/cli": "^0.7.8",
     "@types/connect": "^3.4.38",
     "@types/cookie": "^1.0.0",
-    "@types/node": "^18.19.50",
+    "@types/node": "^18.19.64",
     "@types/ps-tree": "^1.1.6",
     "@vercel/ncc": "^0.38.2",
     "cookie": "^1.0.1",
