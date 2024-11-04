@@ -3,6 +3,7 @@
   "version": "0.0.49",
   "type": "module",
   "description": "Multipart parser for fetch API",
+  "license": "MIT",
   "files": [
     "dist"
   ],
