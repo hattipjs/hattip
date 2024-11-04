@@ -1,5 +1,6 @@
 import "@hattip/compose";
 import type { RequestContext } from "@hattip/compose";
+import { modifyHeaders } from "@hattip/headers";
 import { serialize, SerializeOptions as CookieSerializeOptions } from "cookie";
 
 declare module "@hattip/compose" {
@@ -74,10 +75,12 @@ export function cookieSerializer(defaultOptions?: CookieSerializeOptions) {
 			});
 		};
 
-		const response: Response = await ctx.next();
+		let response: Response = await ctx.next();
 
 		for (const { name, value, options } of ctx.outgoingCookies) {
-			response.headers.append("set-cookie", serialize(name, value, options));
+			response = modifyHeaders(response, (headers) => {
+				headers.append("set-cookie", serialize(name, value, options));
+			});
 		}
 
 		return response;

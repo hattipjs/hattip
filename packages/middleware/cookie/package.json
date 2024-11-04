@@ -33,6 +33,7 @@
   "dependencies": {
     "@hattip/compose": "workspace:*",
     "@hattip/core": "workspace:*",
+    "@hattip/headers": "workspace:*",
     "cookie": "^1.0.1"
   },
   "devDependencies": {
