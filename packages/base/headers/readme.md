@@ -1,6 +1,32 @@
 # `@hattip/headers`
 
-Header parsing and content negotiation utilities for Hattip.
+Header manipulation, parsing, and content negotiation utilities for Hattip.
+
+## `modifyHeaders`
+
+Some `Response` objects have an immutable `headers` property. `Response.redirect()`, for instance, creates such an object. When the headers are immutable, a naive middleware to modify the headers will fail:
+
+```js
+async function naivePoweredBy(ctx) {
+  const response = await ctx.next();
+  // The following line will throw an error if `response.headers` is immutable
+  response.headers.set("X-Powered-By", "Hattip");
+  return response;
+}
+```
+
+The `modifyHeaders` function solves this problem by trying to modify the headers in place, and if that fails, creating a new `Response` object and trying again:
+
+```js
+async function correctPoweredBy(ctx) {
+  let response = await ctx.next();
+  response = modifyHeaders(response, (headers) => {
+    headers.set("X-Powered-By", "Hattip");
+  });
+
+  return response;
+}
+```
 
 ## `parseHeaderValue`
 

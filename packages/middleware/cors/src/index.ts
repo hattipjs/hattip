@@ -1,4 +1,5 @@
 import { RequestContext } from "@hattip/compose";
+import { modifyHeaders } from "@hattip/headers";
 
 /** CORS middleware */
 export function cors(options: CorsOptions = {}) {
@@ -30,8 +31,11 @@ export function cors(options: CorsOptions = {}) {
 		const requestOrigin = ctx.request.headers.get("Origin");
 
 		if (!requestOrigin) {
-			const response = await ctx.next();
-			response.headers.append("Vary", "Origin");
+			let response = await ctx.next();
+			response = modifyHeaders(response, (headers) => {
+				headers.append("Vary", "Origin");
+			});
+
 			return response;
 		}
 
@@ -51,12 +55,16 @@ export function cors(options: CorsOptions = {}) {
 			credentials = !!options.credentials;
 		}
 
-		const response =
+		let response =
 			ctx.method === "OPTIONS"
 				? new Response(null, { status: 204 })
 				: await ctx.next();
 
-		response.headers.append("Vary", "Origin");
+		response = modifyHeaders(response, (headers) => {
+			headers.append("Vary", "Origin");
+		});
+
+		// From here on we can assume that the response has a mutable headers object
 
 		const headersSet: Record<string, string | string[]> = {};
 
