@@ -5,6 +5,7 @@ import {
 	describe,
 	beforeAll,
 	afterAll,
+	TestFunction,
 } from "vitest";
 import { ChildProcess, spawn } from "node:child_process";
 import psTree from "ps-tree";
@@ -15,6 +16,7 @@ import { testFetch } from "./entry-test";
 let host: string;
 let cases: Array<{
 	name: string;
+	platform: string;
 	command?: string;
 	envOverride?: Record<string, string>;
 	fetch?: typeof fetch;
@@ -24,6 +26,10 @@ let cases: Array<{
 	skipStaticFileTest?: boolean;
 	skipAdvancedStaticFileTest?: boolean;
 	skipMultipartTest?: boolean;
+	skipContentLengthTest?: boolean;
+	skipDefaultStatusTextTest?: boolean;
+	skipCustomStatusTextTest?: boolean;
+	skipRequestCancelationTest?: boolean;
 	tryStreamingWithoutCompression?: boolean;
 	streamingMinimumChunkCount?: number;
 }>;
@@ -37,75 +43,113 @@ const bunAvailable = process.platform !== "win32";
 if (process.env.CI === "true") {
 	const noFetchFlag = "--no-experimental-fetch";
 
-	cases = [
+	const unfiltered: Array<boolean | (typeof cases)[0]> = [
 		{
 			name: "Test adapter",
+			platform: "test",
 			fetch: testFetch,
 			requiresForwardedIp: true,
 			skipStaticFileTest: true,
+			skipContentLengthTest: true,
+			skipDefaultStatusTextTest: true,
 		},
 		{
 			name: "Node with native fetch",
+			platform: "node",
 			command: "node --experimental-fetch entry-node-native-fetch.js",
 		},
 		{
 			name: "Node with node-fetch",
+			platform: "node",
 			command: `node ${noFetchFlag} entry-node.js`,
 			skipCryptoTest: nodeVersionMajor < 16,
 			skipMultipartTest: true, // node-fetch doesn't support streaming
+			skipRequestCancelationTest: true, // node-fetch doesn't support request cancelation
 		},
 		{
 			name: "Node with @whatwg-node/fetch",
+			platform: "node",
 			command: `node ${noFetchFlag} entry-node-whatwg.js`,
 			skipCryptoTest: nodeVersionMajor < 16,
+			skipRequestCancelationTest: true, // @whatwgnode/fetch doesn't support request cancelation
 		},
 		{
 			name: "Node with fast-fetch patch",
+			platform: "node",
 			command: `node entry-node-fast-fetch.js`,
 			skipCryptoTest: nodeVersionMajor < 16,
 		},
 		{
 			name: "Deno",
+			platform: "deno",
 			command: "pnpm build:deno && pnpm start:deno",
 			requiresForwardedIp: true,
+			skipCustomStatusTextTest: true,
 		},
 		{
 			name: "Deno with std/http",
+			platform: "deno",
 			command: "pnpm build:deno-std && pnpm start:deno",
+			skipCustomStatusTextTest: true,
 		},
 		{
 			name: "Deno with node:http",
+			platform: "node",
 			command: "pnpm build:deno-node && pnpm start:deno",
 			requiresForwardedIp: true,
+			skipCustomStatusTextTest: true,
+			skipRequestCancelationTest: true, // Deno's node:http doesn't support request cancelation
 			envOverride: {
 				TRUST_PROXY: "1",
 			},
 		},
 		bunAvailable && {
 			name: "Bun",
+			platform: "bun",
 			command: "bun run entry-bun.js",
+			skipCustomStatusTextTest: true,
 		},
 		bunAvailable && {
 			name: "Bun with node:http",
+			platform: "node",
 			command: "bun run entry-node-native-fetch.js",
+			skipCustomStatusTextTest: true,
 		},
 		{
 			name: "Cloudflare Workers",
+			platform: "cloudflare-workers",
 			command: "pnpm build:cfw && pnpm start:cfw",
 			streamingMinimumChunkCount: 1,
+			// CF does support request cancelation but
+			// wrangler doesn't seem to.
+			//
+			// Even on real CF, request.signal's abort event
+			// isn't fired, the worker is killed instead.
+			// But the response stream is canceled
+			// correctly.
+			skipRequestCancelationTest: true,
 		},
 		{
 			name: "Netlify Functions with netlify dev",
+			platform: "netlify-functions",
 			command: "pnpm build:netlify-functions && pnpm start:netlify",
 			skipStreamingTest: true,
 			skipCryptoTest: nodeVersionMajor < 16,
+			skipContentLengthTest: true,
+			skipCustomStatusTextTest: true,
+			skipRequestCancelationTest: true, // netlify dev doesn't support request cancelation
 		},
 		{
 			name: "Netlify Edge Functions with netlify dev",
+			platform: "netlify-edge",
 			command: "pnpm build:netlify-edge && pnpm start:netlify",
+			skipContentLengthTest: true,
+			skipCustomStatusTextTest: true,
+			skipRequestCancelationTest: true, // netlify dev doesn't support request cancelation
 		},
 		{
 			name: "uWebSockets.js",
+			platform: "uwebsockets",
 			command: `node entry-uws.js`,
 		},
 		false && {
@@ -117,15 +161,19 @@ if (process.env.CI === "true") {
 		},
 		{
 			name: "Google Cloud Functions",
+			platform: "node",
 			command: "functions-framework --port=3000",
 			requiresForwardedIp: true,
 		},
-	].filter(Boolean) as typeof cases;
+	];
+
+	cases = unfiltered.filter(Boolean) as typeof cases;
 	host = "http://127.0.0.1:3000";
 } else {
 	cases = [
 		{
 			name: "Existing server",
+			platform: process.env.TEST_PLATFORM || "unknown",
 		},
 	];
 	host = process.env.TEST_HOST || "http://127.0.0.1:3000";
@@ -137,8 +185,8 @@ const test = originalTest as typeof originalTest & {
 
 test.failsIf = function failsIf(condition) {
 	if (condition) {
-		function fails(name, fn, options) {
-			return originalTest.fails(`[EXPECTED FAIL] ${name}`, fn, options);
+		function fails(name: string, options: any, fn: TestFunction) {
+			return originalTest.fails(`[EXPECTED FAIL] ${name}`, options, fn);
 		}
 
 		Object.assign(fails, originalTest);
@@ -155,17 +203,22 @@ describe.each(cases)(
 	"$name",
 	({
 		name,
+		platform,
 		command,
 		envOverride,
 		fetch = globalThis.fetch,
-		requiresForwardedIp,
-		tryStreamingWithoutCompression,
-		skipStreamingTest,
-		skipCryptoTest,
-		skipStaticFileTest,
-		skipAdvancedStaticFileTest,
-		skipMultipartTest: skipMultipartTest,
+		requiresForwardedIp = false,
+		tryStreamingWithoutCompression = false,
+		skipStreamingTest = false,
+		skipCryptoTest = false,
+		skipStaticFileTest = false,
+		skipAdvancedStaticFileTest = false,
+		skipMultipartTest = false,
 		streamingMinimumChunkCount = 3,
+		skipContentLengthTest = false,
+		skipDefaultStatusTextTest = false,
+		skipCustomStatusTextTest = false,
+		skipRequestCancelationTest = false,
 	}) => {
 		beforeAll(async () => {
 			const original = fetch;
@@ -263,7 +316,7 @@ describe.each(cases)(
 			const response = await fetch(host + "/platform");
 			const text = await response.text();
 			expect(response.status).toBe(200);
-			console.log(text);
+			expect(text).toBe(`Platform: ${platform}`);
 		});
 
 		test("renders HTML", async () => {
@@ -316,6 +369,19 @@ describe.each(cases)(
 				"text/html; charset=utf-8",
 			);
 		});
+
+		test.failsIf(skipContentLengthTest)(
+			"renders text with Content-Length",
+			async () => {
+				const response = await fetch(host + "/text", {
+					// Ensure uncompressed response
+					headers: { "Accept-Encoding": "" },
+				});
+				const text = await response.text();
+				expect(text).toEqual("Hello world!");
+				expect(response.headers.get("content-length")).toEqual("12");
+			},
+		);
 
 		test.failsIf(skipStaticFileTest)("serves static files", async () => {
 			const response = await fetch(host + "/static.txt");
@@ -428,6 +494,15 @@ describe.each(cases)(
 		test("sets status", async () => {
 			const response = await fetch(host + "/status");
 			expect(response.status).toEqual(400);
+
+			if (!skipDefaultStatusTextTest) {
+				expect(response.statusText).toEqual("Bad Request");
+			}
+
+			if (!skipCustomStatusTextTest) {
+				const response = await fetch(host + "/status?custom");
+				expect(response.statusText).toEqual("Custom Status Text");
+			}
 		});
 
 		test("sends 404", async () => {
@@ -501,32 +576,33 @@ describe.each(cases)(
 			expect(text2).toEqual("You have visited this page 2 time(s).");
 		});
 
-		/* Only run manually
-		test.only("cancels response stream when client disconnects", async () => {
-			const controller = new AbortController();
-			const { signal } = controller;
+		test.failsIf(skipRequestCancelationTest)(
+			"cancels response stream when client disconnects",
+			async () => {
+				const controller = new AbortController();
+				const { signal } = controller;
 
-			const response = await fetch(host + "/abort", { signal });
-			const stream = response.body!;
+				const response = await fetch(host + "/abort", { signal });
+				const stream = response.body!;
 
-			for await (const chunk of stream) {
-				expect(chunk.slice(0, 4)).toStrictEqual(new Uint8Array([1, 2, 3, 4]));
-				break;
-			}
+				for await (const chunk of stream) {
+					expect(chunk.slice(0, 4)).toStrictEqual(new Uint8Array([1, 2, 3, 4]));
+					break;
+				}
 
-			controller.abort();
+				controller.abort();
 
-			await new Promise((resolve) => {
-				setTimeout(resolve, 1000);
-			});
+				await new Promise((resolve) => {
+					setTimeout(resolve, 1000);
+				});
 
-			const result = await fetch(host + "/abort-check").then((r) => r.json());
-			expect(result).toStrictEqual({
-				aborted: true,
-				intervalCleared: true,
-			});
-		});
-		*/
+				const result = await fetch(host + "/abort-check").then((r) => r.json());
+				expect(result).toStrictEqual({
+					aborted: true,
+					intervalCleared: true,
+				});
+			},
+		);
 	},
 );
 
