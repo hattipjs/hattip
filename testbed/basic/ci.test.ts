@@ -30,6 +30,8 @@ let cases: Array<{
 	skipDefaultStatusTextTest?: boolean;
 	skipCustomStatusTextTest?: boolean;
 	skipRequestCancelationTest?: boolean;
+	skipRequestStreamingTest?: boolean;
+	skipFormDataContentTypeCheck?: boolean;
 	tryStreamingWithoutCompression?: boolean;
 	streamingMinimumChunkCount?: number;
 }>;
@@ -63,15 +65,13 @@ if (process.env.CI === "true") {
 			platform: "node",
 			command: `node ${noFetchFlag} entry-node.js`,
 			skipCryptoTest: nodeVersionMajor < 16,
-			skipMultipartTest: true, // node-fetch doesn't support streaming
-			skipRequestCancelationTest: true, // node-fetch doesn't support request cancelation
+			skipMultipartTest: true, // node-fetch doesn't support streaming request bodies
 		},
 		{
 			name: "Node with @whatwg-node/fetch",
 			platform: "node",
 			command: `node ${noFetchFlag} entry-node-whatwg.js`,
 			skipCryptoTest: nodeVersionMajor < 16,
-			skipRequestCancelationTest: true, // @whatwgnode/fetch doesn't support request cancelation
 		},
 		{
 			name: "Node with fast-fetch patch",
@@ -108,12 +108,15 @@ if (process.env.CI === "true") {
 			platform: "bun",
 			command: "bun run entry-bun.js",
 			skipCustomStatusTextTest: true,
+			skipFormDataContentTypeCheck: true, // Bun doesn't honor content-type of uploads
 		},
 		bunAvailable && {
 			name: "Bun with node:http",
 			platform: "node",
 			command: "bun run entry-node-native-fetch.js",
 			skipCustomStatusTextTest: true,
+			skipFormDataContentTypeCheck: true, // Bun doesn't honor content-type of uploads
+			skipRequestStreamingTest: true, // Bun's node:http can't read streaming requests
 		},
 		{
 			name: "Cloudflare Workers",
@@ -137,7 +140,9 @@ if (process.env.CI === "true") {
 			skipCryptoTest: nodeVersionMajor < 16,
 			skipContentLengthTest: true,
 			skipCustomStatusTextTest: true,
-			skipRequestCancelationTest: true, // netlify dev doesn't support request cancelation
+			// netlify functions doesn't support request cancelation
+			skipRequestStreamingTest: true,
+			skipRequestCancelationTest: true,
 		},
 		{
 			name: "Netlify Edge Functions with netlify dev",
@@ -218,7 +223,9 @@ describe.each(cases)(
 		skipContentLengthTest = false,
 		skipDefaultStatusTextTest = false,
 		skipCustomStatusTextTest = false,
+		skipRequestStreamingTest = false,
 		skipRequestCancelationTest = false,
+		skipFormDataContentTypeCheck = false,
 	}) => {
 		beforeAll(async () => {
 			const original = fetch;
@@ -239,10 +246,6 @@ describe.each(cases)(
 		if (command) {
 			beforeAll(async () => {
 				console.log("Starting", name);
-				if (skipStreamingTest) {
-					console.warn("Skipping streaming test for", name);
-				}
-
 				cp = spawn(command, {
 					shell: true,
 					stdio: "inherit",
@@ -450,13 +453,42 @@ describe.each(cases)(
 		);
 
 		test("echoes text", async () => {
-			const response = await fetch(host + "/echo-text", {
+			const body = "Hello world! 😊";
+
+			// Stream the text to test request body streaming
+			const text = await fetch(host + "/echo-text", {
 				method: "POST",
-				body: "Hello world! 😊",
-			});
-			const text = await response.text();
-			expect(text).toEqual("Hello world! 😊");
+				body,
+			}).then((r) => r.text());
+
+			expect(text).toEqual(body);
 		});
+
+		test.failsIf(skipRequestStreamingTest)(
+			"echoes streaming request text",
+			async () => {
+				let index = 0;
+				const string = "Hello world! 😊";
+				const buffer = Buffer.from(string);
+
+				const text = await fetch(host + "/echo-text", {
+					method: "POST",
+					body: new ReadableStream({
+						pull(controller) {
+							if (index >= buffer.length) {
+								controller.close();
+							} else {
+								controller.enqueue(new Uint8Array([buffer[index++]]));
+							}
+						},
+					}),
+					// @ts-ignore
+					duplex: "half",
+				}).then((r) => r.text());
+
+				expect(text).toEqual(string);
+			},
+		);
 
 		test("echoes binary", async () => {
 			const response = await fetch(host + "/echo-bin", {
@@ -538,12 +570,17 @@ describe.each(cases)(
 			expect(r3).toStrictEqual({ data: { sum: 3 } });
 		});
 
-		test.failsIf(skipMultipartTest)("multipart form data works", async () => {
+		test("multipart form data works", async () => {
 			const fd = new FormData();
 			const data = Uint8Array.from(
 				new Array(300).fill(0).map((_, i) => i & 0xff),
 			);
-			fd.append("file", new File([data], "hello.txt", { type: "text/plain" }));
+			fd.append(
+				"file",
+				new File([data], "hello.txt", {
+					type: "application/vnd.hattip.custom",
+				}),
+			);
 			fd.append("text", "Hello world! 😊");
 
 			const r = await fetch(host + "/form", {
@@ -556,12 +593,46 @@ describe.each(cases)(
 				file: {
 					name: "file",
 					filename: "hello.txt",
-					unsanitizedFilename: "hello.txt",
-					contentType: "text/plain",
+					contentType: skipFormDataContentTypeCheck
+						? "text/plain;charset=utf-8"
+						: "application/vnd.hattip.custom",
 					body: Buffer.from(data).toString("base64"),
 				},
 			});
 		});
+
+		test.failsIf(skipMultipartTest)(
+			"streaming multipart form data works",
+			async () => {
+				const fd = new FormData();
+				const data = Uint8Array.from(
+					new Array(300).fill(0).map((_, i) => i & 0xff),
+				);
+				fd.append(
+					"file",
+					new File([data], "hello.txt", {
+						type: "application/vnd.hattip.custom",
+					}),
+				);
+				fd.append("text", "Hello world! 😊");
+
+				const r = await fetch(host + "/streaming-form", {
+					method: "POST",
+					body: fd,
+				}).then((r) => r.json());
+
+				expect(r).toEqual({
+					text: "Hello world! 😊",
+					file: {
+						name: "file",
+						filename: "hello.txt",
+						unsanitizedFilename: "hello.txt",
+						contentType: "application/vnd.hattip.custom",
+						body: Buffer.from(data).toString("base64"),
+					},
+				});
+			},
+		);
 
 		test.failsIf(skipCryptoTest)("session", async () => {
 			const response = await fetch(host + "/session");
@@ -576,33 +647,37 @@ describe.each(cases)(
 			expect(text2).toEqual("You have visited this page 2 time(s).");
 		});
 
-		test.failsIf(skipRequestCancelationTest)(
-			"cancels response stream when client disconnects",
-			async () => {
-				const controller = new AbortController();
-				const { signal } = controller;
+		if (!skipStreamingTest)
+			test.failsIf(skipRequestCancelationTest)(
+				"cancels response stream when client disconnects",
+				async () => {
+					const controller = new AbortController();
+					const { signal } = controller;
 
-				const response = await fetch(host + "/abort", { signal });
-				const stream = response.body!;
+					const response = await fetch(host + "/abort", { signal });
+					const stream = response.body!;
 
-				for await (const chunk of stream) {
-					expect(chunk.slice(0, 4)).toStrictEqual(new Uint8Array([1, 2, 3, 4]));
-					break;
-				}
+					for await (const chunk of stream) {
+						expect(chunk.slice(0, 4)).toStrictEqual(
+							new Uint8Array([1, 2, 3, 4]),
+						);
+						break;
+					}
 
-				controller.abort();
+					controller.abort();
 
-				await new Promise((resolve) => {
-					setTimeout(resolve, 1000);
-				});
+					// Wait untiol the server has detected the abort
+					for (;;) {
+						const result = await fetch(host + "/abort-check").then((r) =>
+							r.json(),
+						);
 
-				const result = await fetch(host + "/abort-check").then((r) => r.json());
-				expect(result).toStrictEqual({
-					aborted: true,
-					intervalCleared: true,
-				});
-			},
-		);
+						if (result.aborted && result.intervalCleared) {
+							break;
+						}
+					}
+				},
+			);
 	},
 );
 

@@ -3,11 +3,10 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import type { Socket } from "node:net";
 import process from "node:process";
 import { Buffer } from "node:buffer";
+import { Readable } from "node:stream";
 
 // @ts-ignore
-const deno = typeof Deno !== "undefined";
-// @ts-ignore
-const bun = typeof Bun !== "undefined";
+const isDeno = typeof Deno !== "undefined";
 
 interface PossiblyEncryptedSocket extends Socket {
 	encrypted?: boolean;
@@ -143,16 +142,10 @@ function convertBody(req: DecoratedRequest): BodyInit | null | undefined {
 		return req.rawBody;
 	}
 
-	if (!bun && !deno) {
-		// Real Node can handle ReadableStream
+	if (!isDeno) {
+		// Bun and real Node can handle Readable as request body
 		return req as any;
 	}
 
-	return new ReadableStream({
-		start(controller) {
-			req.on("data", (chunk) => controller.enqueue(chunk));
-			req.on("end", () => controller.close());
-			req.on("error", (err) => controller.error(err));
-		},
-	});
+	return Readable.toWeb(req) as any;
 }

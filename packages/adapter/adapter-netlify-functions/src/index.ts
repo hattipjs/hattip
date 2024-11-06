@@ -26,6 +26,8 @@ export default function netlifyFunctionsAdapter(
 	handler: HattipHandler<NetlifyFunctionsPlatformInfo>,
 ): NetlifyFunction {
 	return async (event, netlifyContext) => {
+		const requestBody = event.body;
+
 		const ip =
 			event.headers["x-nf-client-connection-ip"] ||
 			event.headers["client-ip"] ||
@@ -36,13 +38,13 @@ export default function netlifyFunctionsAdapter(
 				method: event.httpMethod,
 
 				body:
-					!event.body ||
 					event.httpMethod === "GET" ||
-					event.httpMethod === "HEAD"
+					event.httpMethod === "HEAD" ||
+					!requestBody
 						? undefined
 						: event.isBase64Encoded
-							? Buffer.from(event.body, "base64")
-							: event.body,
+							? Buffer.from(requestBody, "base64")
+							: requestBody,
 
 				headers: event.headers,
 			}),

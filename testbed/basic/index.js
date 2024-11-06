@@ -199,6 +199,23 @@ function toBase64(data) {
 }
 
 app.post("/form", async (ctx) => {
+	const fd = await ctx.request.formData();
+
+	/** @type {File} */
+	// @ts-expect-error
+	const file = fd.get("file");
+	return json({
+		text: fd.get("text"),
+		file: {
+			name: "file",
+			filename: file.name,
+			contentType: file.type,
+			body: toBase64(await readAll(file.stream())),
+		},
+	});
+});
+
+app.post("/streaming-form", async (ctx) => {
 	const fd = await parseMultipartFormData(ctx.request, {
 		handleFile: async (fileInfo) => ({
 			...fileInfo,

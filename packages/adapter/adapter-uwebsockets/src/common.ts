@@ -169,7 +169,8 @@ export function createServer(
 							: new ReadableStream({
 									start(controller) {
 										res.onData((chunk, isLast) => {
-											controller.enqueue(new Uint8Array(chunk));
+											// The .slice here is required to here to allow chunked bodies :(
+											controller.enqueue(new Uint8Array(chunk.slice(0)));
 											if (isLast) controller.close();
 										});
 									},
