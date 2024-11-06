@@ -16,6 +16,13 @@ app.get("/", (ctx) => {
 	);
 });
 
+app.get("/ip-and-url", (ctx) => {
+	return json({
+		ip: ctx.ip,
+		url: ctx.url.href,
+	});
+});
+
 app.get("/text", (ctx) => {
 	return text("Hello world!");
 });

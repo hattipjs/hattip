@@ -107,6 +107,7 @@ export default function awsLambdaAdapter(
 				const readable = Readable.fromWeb(response.body as any);
 				readable.pipe(responseStream);
 			} else {
+				// Lambda always seems to return 200 if we don't call write first
 				responseStream.write("");
 				responseStream.end();
 			}
@@ -114,6 +115,8 @@ export default function awsLambdaAdapter(
 			await new Promise((resolve, reject) => {
 				responseStream.on("finish", resolve);
 				responseStream.on("error", reject);
+				// This never seems to fire
+				// responseStream.on("close", () => {});
 			});
 		},
 	);

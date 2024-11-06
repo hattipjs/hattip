@@ -18,18 +18,55 @@ Publish with `wrangler publish`.
 
 Build locally with `pnpm build:vercel` and deploy with `vercel deploy --prebuilt`.
 
+Not supported:
+
+- Custom status text
+- Request cancelation
+
 ### Vercel Edge Functions
 
 Build locally with `pnpm build:vercel-edge` and deploy with `vercel deploy --prebuilt`.
+
+Not supported:
+
+- Custom status text
+- Request cancelation
 
 ### Netlify Functions (live)
 
 Build locally with `pnpm build:netlify-functions`, deploy with `netlify deploy`.
 
+Not supported:
+
+- Always uses chunked encoding when without compression
+- Streaming responses
+- Custom status text
+- Request cancelation
+
 ### Netlify Edge Functions (live)
 
 Build locally with `pnpm build:netlify-edge`, deploy with `netlify deploy`.
 
+Not supported:
+
+- Always uses chunked encoding when without compression
+- Custom status text
+
 ### Deno Deploy
 
 Build with `pnpm build:deno`, `cd` into `dist/deno` and deploy with `deployctl deploy --token <TOKEN> --project=<PROJECT> index.js`.
+
+Not supported:
+
+- Custom status text
+
+### AWS Lambda
+
+Change `InvokeMode` to whatever you want and deploy with `node aws-deploy.js deploy`. Destroy with `node aws-deploy.js destroy`.
+
+Not supported:
+
+- Streaming responses only supported with `@hattip/adapter-aws-lambda/streaming`
+- Always uses chunked encoding when without compression
+- Custom status text
+- Request cancelation

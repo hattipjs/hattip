@@ -40,8 +40,6 @@ const nodeVersions = process.versions.node.split(".");
 const nodeVersionMajor = +nodeVersions[0];
 // const nodeVersionMinor = +nodeVersions[1];
 
-const bunAvailable = process.platform !== "win32";
-
 if (process.env.CI === "true") {
 	const noFetchFlag = "--no-experimental-fetch";
 
@@ -103,14 +101,14 @@ if (process.env.CI === "true") {
 				TRUST_PROXY: "1",
 			},
 		},
-		bunAvailable && {
+		{
 			name: "Bun",
 			platform: "bun",
 			command: "bun run entry-bun.js",
 			skipCustomStatusTextTest: true,
 			skipFormDataContentTypeCheck: true, // Bun doesn't honor content-type of uploads
 		},
-		bunAvailable && {
+		{
 			name: "Bun with node:http",
 			platform: "node",
 			command: "bun run entry-node-native-fetch.js",
@@ -323,15 +321,30 @@ describe.each(cases)(
 		});
 
 		test("renders HTML", async () => {
-			const response = await fetch(
-				host,
-				requiresForwardedIp
-					? {
-							headers: { "x-forwarded-for": "127.0.0.1" },
-						}
-					: undefined,
-			);
+			const response = await fetch(host);
 			const text = await response.text();
+
+			let hostName = host;
+			if (name === "Lagon") {
+				// Lagon CLI reports the wrong protocol
+				hostName = hostName.replace(/^http/, "https");
+			}
+			expect(text).toContain("<h1>Hello from Hattip!</h1>");
+
+			expect(response.headers.get("content-type")).toEqual(
+				"text/html; charset=utf-8",
+			);
+		});
+
+		test("resolves IP and URL", async () => {
+			const response = await fetch(
+				host + "/ip-and-url",
+				requiresForwardedIp
+					? { headers: { "x-forwarded-for": "127.0.0.1" } }
+					: undefined,
+			).then((r) => r.json());
+
+			expect(response.url).toBe(host + "/ip-and-url");
 
 			let ip: string;
 			let ip6: string;
@@ -347,30 +360,7 @@ describe.each(cases)(
 			}
 
 			const ip6_2 = "::ffff:" + ip;
-
-			let hostName = host;
-			if (name === "Lagon") {
-				// Lagon CLI reports the wrong protocol
-				hostName = hostName.replace(/^http/, "https");
-			}
-
-			const EXPECTED = `<h1>Hello from Hattip!</h1><p>URL: <span>${
-				hostName + "/"
-			}</span></p><p>Your IP address is: <span>${ip}</span></p>`;
-
-			const EXPECTED_6 = `<h1>Hello from Hattip!</h1><p>URL: <span>${
-				hostName + "/"
-			}</span></p><p>Your IP address is: <span>${ip6}</span></p>`;
-
-			const EXPECTED_6_2 = `<h1>Hello from Hattip!</h1><p>URL: <span>${
-				hostName + "/"
-			}</span></p><p>Your IP address is: <span>${ip6_2}</span></p>`;
-
-			expect([EXPECTED, EXPECTED_6, EXPECTED_6_2]).toContain(text);
-
-			expect(response.headers.get("content-type")).toEqual(
-				"text/html; charset=utf-8",
-			);
+			expect([ip, ip6, ip6_2]).toContain(response.ip);
 		});
 
 		test.failsIf(skipContentLengthTest)(

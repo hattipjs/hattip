@@ -14,7 +14,7 @@ import {
 import fs from "node:fs";
 import { bundle } from "@hattip/bundler-aws-lambda";
 
-const PREFIX = "hattip";
+const PREFIX = "hattip-streaming";
 const LAMBDA_EXECUTION_ROLE_NAME = `${PREFIX}-lambda-execution-role`;
 const FUNCTION_NAME = `${PREFIX}-function`;
 
@@ -127,6 +127,7 @@ async function deploy() {
 		url = await lambda.createFunctionUrlConfig({
 			FunctionName: FUNCTION_NAME,
 			InvokeMode: "RESPONSE_STREAM",
+			// InvokeMode: "BUFFERED",
 			AuthType: "NONE",
 		});
 	}
