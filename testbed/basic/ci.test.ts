@@ -5,6 +5,7 @@ import {
 	describe,
 	beforeAll,
 	afterAll,
+	TestFunction,
 } from "vitest";
 import { ChildProcess, spawn } from "node:child_process";
 import psTree from "ps-tree";
@@ -15,6 +16,7 @@ import { testFetch } from "./entry-test";
 let host: string;
 let cases: Array<{
 	name: string;
+	platform: string;
 	command?: string;
 	envOverride?: Record<string, string>;
 	fetch?: typeof fetch;
@@ -24,6 +26,12 @@ let cases: Array<{
 	skipStaticFileTest?: boolean;
 	skipAdvancedStaticFileTest?: boolean;
 	skipMultipartTest?: boolean;
+	skipContentLengthTest?: boolean;
+	skipDefaultStatusTextTest?: boolean;
+	skipCustomStatusTextTest?: boolean;
+	skipRequestCancelationTest?: boolean;
+	skipRequestStreamingTest?: boolean;
+	skipFormDataContentTypeCheck?: boolean;
 	tryStreamingWithoutCompression?: boolean;
 	streamingMinimumChunkCount?: number;
 }>;
@@ -32,80 +40,119 @@ const nodeVersions = process.versions.node.split(".");
 const nodeVersionMajor = +nodeVersions[0];
 // const nodeVersionMinor = +nodeVersions[1];
 
-const bunAvailable = process.platform !== "win32";
-
 if (process.env.CI === "true") {
 	const noFetchFlag = "--no-experimental-fetch";
 
-	cases = [
+	const unfiltered: Array<boolean | (typeof cases)[0]> = [
 		{
 			name: "Test adapter",
+			platform: "test",
 			fetch: testFetch,
 			requiresForwardedIp: true,
 			skipStaticFileTest: true,
+			skipContentLengthTest: true,
+			skipDefaultStatusTextTest: true,
 		},
 		{
 			name: "Node with native fetch",
+			platform: "node",
 			command: "node --experimental-fetch entry-node-native-fetch.js",
 		},
 		{
 			name: "Node with node-fetch",
+			platform: "node",
 			command: `node ${noFetchFlag} entry-node.js`,
 			skipCryptoTest: nodeVersionMajor < 16,
-			skipMultipartTest: true, // node-fetch doesn't support streaming
+			skipMultipartTest: true, // node-fetch doesn't support streaming request bodies
 		},
 		{
 			name: "Node with @whatwg-node/fetch",
+			platform: "node",
 			command: `node ${noFetchFlag} entry-node-whatwg.js`,
 			skipCryptoTest: nodeVersionMajor < 16,
 		},
 		{
 			name: "Node with fast-fetch patch",
+			platform: "node",
 			command: `node entry-node-fast-fetch.js`,
 			skipCryptoTest: nodeVersionMajor < 16,
 		},
 		{
 			name: "Deno",
+			platform: "deno",
 			command: "pnpm build:deno && pnpm start:deno",
 			requiresForwardedIp: true,
+			skipCustomStatusTextTest: true,
 		},
 		{
 			name: "Deno with std/http",
+			platform: "deno",
 			command: "pnpm build:deno-std && pnpm start:deno",
+			skipCustomStatusTextTest: true,
 		},
 		{
 			name: "Deno with node:http",
+			platform: "node",
 			command: "pnpm build:deno-node && pnpm start:deno",
 			requiresForwardedIp: true,
+			skipCustomStatusTextTest: true,
+			skipRequestCancelationTest: true, // Deno's node:http doesn't support request cancelation
 			envOverride: {
 				TRUST_PROXY: "1",
 			},
 		},
-		bunAvailable && {
+		{
 			name: "Bun",
+			platform: "bun",
 			command: "bun run entry-bun.js",
+			skipCustomStatusTextTest: true,
+			skipFormDataContentTypeCheck: true, // Bun doesn't honor content-type of uploads
 		},
-		bunAvailable && {
+		{
 			name: "Bun with node:http",
+			platform: "node",
 			command: "bun run entry-node-native-fetch.js",
+			skipCustomStatusTextTest: true,
+			skipFormDataContentTypeCheck: true, // Bun doesn't honor content-type of uploads
+			skipRequestStreamingTest: true, // Bun's node:http can't read streaming requests
 		},
 		{
 			name: "Cloudflare Workers",
+			platform: "cloudflare-workers",
 			command: "pnpm build:cfw && pnpm start:cfw",
 			streamingMinimumChunkCount: 1,
+			// CF does support request cancelation but
+			// wrangler doesn't seem to.
+			//
+			// Even on real CF, request.signal's abort event
+			// isn't fired, the worker is killed instead.
+			// But the response stream is canceled
+			// correctly.
+			skipRequestCancelationTest: true,
 		},
 		{
 			name: "Netlify Functions with netlify dev",
+			platform: "netlify-functions",
 			command: "pnpm build:netlify-functions && pnpm start:netlify",
 			skipStreamingTest: true,
 			skipCryptoTest: nodeVersionMajor < 16,
+			skipContentLengthTest: true,
+			skipCustomStatusTextTest: true,
+			// netlify functions doesn't support request cancelation
+			skipRequestStreamingTest: true,
+			skipRequestCancelationTest: true,
 		},
 		{
 			name: "Netlify Edge Functions with netlify dev",
+			platform: "netlify-edge",
 			command: "pnpm build:netlify-edge && pnpm start:netlify",
+			skipContentLengthTest: true,
+			skipCustomStatusTextTest: true,
+			skipRequestCancelationTest: true, // netlify dev doesn't support request cancelation
 		},
 		{
 			name: "uWebSockets.js",
+			platform: "uwebsockets",
 			command: `node entry-uws.js`,
 		},
 		false && {
@@ -117,15 +164,19 @@ if (process.env.CI === "true") {
 		},
 		{
 			name: "Google Cloud Functions",
+			platform: "node",
 			command: "functions-framework --port=3000",
 			requiresForwardedIp: true,
 		},
-	].filter(Boolean) as typeof cases;
+	];
+
+	cases = unfiltered.filter(Boolean) as typeof cases;
 	host = "http://127.0.0.1:3000";
 } else {
 	cases = [
 		{
 			name: "Existing server",
+			platform: process.env.TEST_PLATFORM || "unknown",
 		},
 	];
 	host = process.env.TEST_HOST || "http://127.0.0.1:3000";
@@ -137,8 +188,8 @@ const test = originalTest as typeof originalTest & {
 
 test.failsIf = function failsIf(condition) {
 	if (condition) {
-		function fails(name, fn, options) {
-			return originalTest.fails(`[EXPECTED FAIL] ${name}`, fn, options);
+		function fails(name: string, options: any, fn: TestFunction) {
+			return originalTest.fails(`[EXPECTED FAIL] ${name}`, options, fn);
 		}
 
 		Object.assign(fails, originalTest);
@@ -155,17 +206,24 @@ describe.each(cases)(
 	"$name",
 	({
 		name,
+		platform,
 		command,
 		envOverride,
 		fetch = globalThis.fetch,
-		requiresForwardedIp,
-		tryStreamingWithoutCompression,
-		skipStreamingTest,
-		skipCryptoTest,
-		skipStaticFileTest,
-		skipAdvancedStaticFileTest,
-		skipMultipartTest: skipMultipartTest,
+		requiresForwardedIp = false,
+		tryStreamingWithoutCompression = false,
+		skipStreamingTest = false,
+		skipCryptoTest = false,
+		skipStaticFileTest = false,
+		skipAdvancedStaticFileTest = false,
+		skipMultipartTest = false,
 		streamingMinimumChunkCount = 3,
+		skipContentLengthTest = false,
+		skipDefaultStatusTextTest = false,
+		skipCustomStatusTextTest = false,
+		skipRequestStreamingTest = false,
+		skipRequestCancelationTest = false,
+		skipFormDataContentTypeCheck = false,
 	}) => {
 		beforeAll(async () => {
 			const original = fetch;
@@ -186,10 +244,6 @@ describe.each(cases)(
 		if (command) {
 			beforeAll(async () => {
 				console.log("Starting", name);
-				if (skipStreamingTest) {
-					console.warn("Skipping streaming test for", name);
-				}
-
 				cp = spawn(command, {
 					shell: true,
 					stdio: "inherit",
@@ -263,19 +317,34 @@ describe.each(cases)(
 			const response = await fetch(host + "/platform");
 			const text = await response.text();
 			expect(response.status).toBe(200);
-			console.log(text);
+			expect(text).toBe(`Platform: ${platform}`);
 		});
 
 		test("renders HTML", async () => {
-			const response = await fetch(
-				host,
-				requiresForwardedIp
-					? {
-							headers: { "x-forwarded-for": "127.0.0.1" },
-						}
-					: undefined,
-			);
+			const response = await fetch(host);
 			const text = await response.text();
+
+			let hostName = host;
+			if (name === "Lagon") {
+				// Lagon CLI reports the wrong protocol
+				hostName = hostName.replace(/^http/, "https");
+			}
+			expect(text).toContain("<h1>Hello from Hattip!</h1>");
+
+			expect(response.headers.get("content-type")).toEqual(
+				"text/html; charset=utf-8",
+			);
+		});
+
+		test("resolves IP and URL", async () => {
+			const response = await fetch(
+				host + "/ip-and-url",
+				requiresForwardedIp
+					? { headers: { "x-forwarded-for": "127.0.0.1" } }
+					: undefined,
+			).then((r) => r.json());
+
+			expect(response.url).toBe(host + "/ip-and-url");
 
 			let ip: string;
 			let ip6: string;
@@ -291,31 +360,21 @@ describe.each(cases)(
 			}
 
 			const ip6_2 = "::ffff:" + ip;
-
-			let hostName = host;
-			if (name === "Lagon") {
-				// Lagon CLI reports the wrong protocol
-				hostName = hostName.replace(/^http/, "https");
-			}
-
-			const EXPECTED = `<h1>Hello from Hattip!</h1><p>URL: <span>${
-				hostName + "/"
-			}</span></p><p>Your IP address is: <span>${ip}</span></p>`;
-
-			const EXPECTED_6 = `<h1>Hello from Hattip!</h1><p>URL: <span>${
-				hostName + "/"
-			}</span></p><p>Your IP address is: <span>${ip6}</span></p>`;
-
-			const EXPECTED_6_2 = `<h1>Hello from Hattip!</h1><p>URL: <span>${
-				hostName + "/"
-			}</span></p><p>Your IP address is: <span>${ip6_2}</span></p>`;
-
-			expect([EXPECTED, EXPECTED_6, EXPECTED_6_2]).toContain(text);
-
-			expect(response.headers.get("content-type")).toEqual(
-				"text/html; charset=utf-8",
-			);
+			expect([ip, ip6, ip6_2]).toContain(response.ip);
 		});
+
+		test.failsIf(skipContentLengthTest)(
+			"renders text with Content-Length",
+			async () => {
+				const response = await fetch(host + "/text", {
+					// Ensure uncompressed response
+					headers: { "Accept-Encoding": "" },
+				});
+				const text = await response.text();
+				expect(text).toEqual("Hello world!");
+				expect(response.headers.get("content-length")).toEqual("12");
+			},
+		);
 
 		test.failsIf(skipStaticFileTest)("serves static files", async () => {
 			const response = await fetch(host + "/static.txt");
@@ -384,13 +443,42 @@ describe.each(cases)(
 		);
 
 		test("echoes text", async () => {
-			const response = await fetch(host + "/echo-text", {
+			const body = "Hello world! 😊";
+
+			// Stream the text to test request body streaming
+			const text = await fetch(host + "/echo-text", {
 				method: "POST",
-				body: "Hello world! 😊",
-			});
-			const text = await response.text();
-			expect(text).toEqual("Hello world! 😊");
+				body,
+			}).then((r) => r.text());
+
+			expect(text).toEqual(body);
 		});
+
+		test.failsIf(skipRequestStreamingTest)(
+			"echoes streaming request text",
+			async () => {
+				let index = 0;
+				const string = "Hello world! 😊";
+				const buffer = Buffer.from(string);
+
+				const text = await fetch(host + "/echo-text", {
+					method: "POST",
+					body: new ReadableStream({
+						pull(controller) {
+							if (index >= buffer.length) {
+								controller.close();
+							} else {
+								controller.enqueue(new Uint8Array([buffer[index++]]));
+							}
+						},
+					}),
+					// @ts-ignore
+					duplex: "half",
+				}).then((r) => r.text());
+
+				expect(text).toEqual(string);
+			},
+		);
 
 		test("echoes binary", async () => {
 			const response = await fetch(host + "/echo-bin", {
@@ -428,6 +516,15 @@ describe.each(cases)(
 		test("sets status", async () => {
 			const response = await fetch(host + "/status");
 			expect(response.status).toEqual(400);
+
+			if (!skipDefaultStatusTextTest) {
+				expect(response.statusText).toEqual("Bad Request");
+			}
+
+			if (!skipCustomStatusTextTest) {
+				const response = await fetch(host + "/status?custom");
+				expect(response.statusText).toEqual("Custom Status Text");
+			}
 		});
 
 		test("sends 404", async () => {
@@ -463,12 +560,17 @@ describe.each(cases)(
 			expect(r3).toStrictEqual({ data: { sum: 3 } });
 		});
 
-		test.failsIf(skipMultipartTest)("multipart form data works", async () => {
+		test("multipart form data works", async () => {
 			const fd = new FormData();
 			const data = Uint8Array.from(
 				new Array(300).fill(0).map((_, i) => i & 0xff),
 			);
-			fd.append("file", new File([data], "hello.txt", { type: "text/plain" }));
+			fd.append(
+				"file",
+				new File([data], "hello.txt", {
+					type: "application/vnd.hattip.custom",
+				}),
+			);
 			fd.append("text", "Hello world! 😊");
 
 			const r = await fetch(host + "/form", {
@@ -481,12 +583,46 @@ describe.each(cases)(
 				file: {
 					name: "file",
 					filename: "hello.txt",
-					unsanitizedFilename: "hello.txt",
-					contentType: "text/plain",
+					contentType: skipFormDataContentTypeCheck
+						? "text/plain;charset=utf-8"
+						: "application/vnd.hattip.custom",
 					body: Buffer.from(data).toString("base64"),
 				},
 			});
 		});
+
+		test.failsIf(skipMultipartTest)(
+			"streaming multipart form data works",
+			async () => {
+				const fd = new FormData();
+				const data = Uint8Array.from(
+					new Array(300).fill(0).map((_, i) => i & 0xff),
+				);
+				fd.append(
+					"file",
+					new File([data], "hello.txt", {
+						type: "application/vnd.hattip.custom",
+					}),
+				);
+				fd.append("text", "Hello world! 😊");
+
+				const r = await fetch(host + "/streaming-form", {
+					method: "POST",
+					body: fd,
+				}).then((r) => r.json());
+
+				expect(r).toEqual({
+					text: "Hello world! 😊",
+					file: {
+						name: "file",
+						filename: "hello.txt",
+						unsanitizedFilename: "hello.txt",
+						contentType: "application/vnd.hattip.custom",
+						body: Buffer.from(data).toString("base64"),
+					},
+				});
+			},
+		);
 
 		test.failsIf(skipCryptoTest)("session", async () => {
 			const response = await fetch(host + "/session");
@@ -501,32 +637,37 @@ describe.each(cases)(
 			expect(text2).toEqual("You have visited this page 2 time(s).");
 		});
 
-		/* Only run manually
-		test.only("cancels response stream when client disconnects", async () => {
-			const controller = new AbortController();
-			const { signal } = controller;
+		if (!skipStreamingTest)
+			test.failsIf(skipRequestCancelationTest)(
+				"cancels response stream when client disconnects",
+				async () => {
+					const controller = new AbortController();
+					const { signal } = controller;
 
-			const response = await fetch(host + "/abort", { signal });
-			const stream = response.body!;
+					const response = await fetch(host + "/abort", { signal });
+					const stream = response.body!;
 
-			for await (const chunk of stream) {
-				expect(chunk.slice(0, 4)).toStrictEqual(new Uint8Array([1, 2, 3, 4]));
-				break;
-			}
+					for await (const chunk of stream) {
+						expect(chunk.slice(0, 4)).toStrictEqual(
+							new Uint8Array([1, 2, 3, 4]),
+						);
+						break;
+					}
 
-			controller.abort();
+					controller.abort();
 
-			await new Promise((resolve) => {
-				setTimeout(resolve, 1000);
-			});
+					// Wait untiol the server has detected the abort
+					for (;;) {
+						const result = await fetch(host + "/abort-check").then((r) =>
+							r.json(),
+						);
 
-			const result = await fetch(host + "/abort-check").then((r) => r.json());
-			expect(result).toStrictEqual({
-				aborted: true,
-				intervalCleared: true,
-			});
-		});
-		*/
+						if (result.aborted && result.intervalCleared) {
+							break;
+						}
+					}
+				},
+			);
 	},
 );
 

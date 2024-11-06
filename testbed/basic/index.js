@@ -16,6 +16,17 @@ app.get("/", (ctx) => {
 	);
 });
 
+app.get("/ip-and-url", (ctx) => {
+	return json({
+		ip: ctx.ip,
+		url: ctx.url.href,
+	});
+});
+
+app.get("/text", (ctx) => {
+	return text("Hello world!");
+});
+
 app.get(
 	"/binary",
 	() =>
@@ -77,7 +88,16 @@ app.get("/set-cookie", (ctx) => {
 	return text("Cookies set");
 });
 
-app.get("/status", () => new Response(null, { status: 400 }));
+app.get("/status", (ctx) => {
+	if (ctx.url.searchParams.has("custom")) {
+		return new Response(null, {
+			status: 400,
+			statusText: "Custom Status Text",
+		});
+	}
+
+	return new Response(null, { status: 400 });
+});
 
 app.get("/headers", (ctx) => {
 	const headers = Object.fromEntries(ctx.request.headers.entries());
@@ -186,6 +206,23 @@ function toBase64(data) {
 }
 
 app.post("/form", async (ctx) => {
+	const fd = await ctx.request.formData();
+
+	/** @type {File} */
+	// @ts-expect-error
+	const file = fd.get("file");
+	return json({
+		text: fd.get("text"),
+		file: {
+			name: "file",
+			filename: file.name,
+			contentType: file.type,
+			body: toBase64(await readAll(file.stream())),
+		},
+	});
+});
+
+app.post("/streaming-form", async (ctx) => {
 	const fd = await parseMultipartFormData(ctx.request, {
 		handleFile: async (fileInfo) => ({
 			...fileInfo,
@@ -211,10 +248,25 @@ let interval;
 let aborted = false;
 
 app.get("/abort", (ctx) => {
+	/** @type {() => void} */
+	let resolve;
+	/** @type {(reason: unknown) => void} */
+	let reject;
+	/** @type {Promise<void>} */
+	const promise = new Promise((res, rej) => {
+		resolve = res;
+		reject = rej;
+	});
+
 	ctx.request.signal.addEventListener("abort", () => {
 		console.log("Aborted");
 		aborted = true;
+		if (interval === undefined) {
+			resolve();
+		}
 	});
+
+	ctx.waitUntil(promise);
 
 	return new Response(
 		new ReadableStream({
@@ -225,8 +277,12 @@ app.get("/abort", (ctx) => {
 				}, 1000);
 			},
 			cancel() {
+				console.log("Response stream canceled");
 				clearInterval(interval);
 				interval = undefined;
+				if (aborted) {
+					resolve();
+				}
 			},
 		}),
 	);

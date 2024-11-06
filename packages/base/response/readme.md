@@ -56,4 +56,4 @@ serverSentEvents({
 
 `serverSentEvents` is intentionally very low-level. It doesn't handle data serialization (it only accepts strings), or keep track of connections, event IDs, or the `Last-Event-ID` header. But it is very flexible and allows you to implement your own logic for a full pub/sub system.
 
-`serverSentEvents` works on all adapters that support streaming responses but since it requires a long-running server, using it with edge runtimes is not very useful. It leaves Node (optionally with uWebSockets.js) and Deno as the only real options. In particular, Bun and AWS-based serverless offerings of Netlify and Vercel don't support streaming responses.
+`serverSentEvents` works on all adapters that support streaming responses but since it requires a long-running server, using it with edge or serverless runtimes is not very useful. It leaves Node, Deno, and Bun as the only real options.

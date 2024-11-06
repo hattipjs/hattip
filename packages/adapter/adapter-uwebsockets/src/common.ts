@@ -7,6 +7,7 @@ import {
 	SSLApp,
 	TemplatedApp,
 } from "uWebSockets.js";
+import { STATUS_CODES } from "node:http";
 
 /** Adapter options */
 export interface UWebSocketAdapterOptions {
@@ -79,6 +80,8 @@ export function createServer(
 	return app.any("/*", (res, req) => {
 		let finished = false;
 		const controller = new AbortController();
+		const signal = controller.signal;
+
 		res.onAborted(() => {
 			if (!finished) {
 				controller.abort();
@@ -166,7 +169,8 @@ export function createServer(
 							: new ReadableStream({
 									start(controller) {
 										res.onData((chunk, isLast) => {
-											controller.enqueue(new Uint8Array(chunk));
+											// The .slice here is required to here to allow chunked bodies :(
+											controller.enqueue(new Uint8Array(chunk.slice(0)));
 											if (isLast) controller.close();
 										});
 									},
@@ -186,18 +190,22 @@ export function createServer(
 		}
 
 		async function finish(response: Response) {
-			const stream = response.body;
-
+			const body = response.body;
 			if (controller.signal.aborted) {
+				if (body) {
+					body.cancel().catch(() => {});
+				}
 				return;
 			}
 
-			res.cork(() => {
-				res.writeStatus(
-					`${response.status}${
-						response.statusText ? " " + response.statusText : ""
-					}`,
-				);
+			function writeHead() {
+				let statusLine = `${response.status}`;
+				const statusText = response.statusText || STATUS_CODES[response.status];
+				if (statusText) {
+					statusLine += " " + statusText;
+				}
+
+				res.writeStatus(statusLine);
 
 				const uniqueHeaderNames = new Set(response.headers.keys());
 				for (const name of uniqueHeaderNames) {
@@ -209,34 +217,80 @@ export function createServer(
 						res.writeHeader(name, response.headers.get(name)!);
 					}
 				}
+			}
 
-				if (!stream) {
-					res.end();
-				}
+			if (!body) {
+				writeHead();
+				res.cork(() => {
+					res.endWithoutBody();
+				});
+				finished = true;
+				return;
+			}
+
+			async function writeAndAwait(chunk: Uint8Array) {
+				await new Promise<void>((resolve) => {
+					res.cork(() => {
+						const backpressure = !res.write(chunk);
+						if (backpressure) {
+							// TODO: Handle backpressure
+						}
+						resolve();
+					});
+				});
+			}
+
+			let setImmediateFired = false;
+			setImmediate(() => {
+				setImmediateFired = true;
 			});
 
-			if (stream) {
-				const reader = stream.getReader();
-				for (;;) {
-					const chunk = await reader.read();
-					if (controller.signal.aborted) {
-						await reader.cancel();
-						break;
-					}
-
-					if (chunk.done) {
-						break;
-					}
-
-					res.cork(() => res.write(chunk.value));
+			const chunks: Uint8Array[] = [];
+			let bufferWritten = false;
+			for await (const chunk of body) {
+				if (signal.aborted) {
+					body.cancel().catch(() => {});
+					return;
 				}
+				if (setImmediateFired) {
+					if (!bufferWritten) {
+						res.cork(() => {
+							writeHead();
+							for (const chunk of chunks) {
+								// TODO: Handle backpressure
+								res.write(chunk);
+							}
+						});
 
-				if (!controller.signal.aborted) {
-					res.cork(() => {
-						res.end();
-					});
+						bufferWritten = true;
+					}
+
+					await writeAndAwait(chunk);
+					if (signal.aborted) {
+						body.cancel().catch(() => {});
+						return;
+					}
+				} else {
+					chunks.push(chunk);
 				}
 			}
+
+			if (signal.aborted) return;
+
+			if (setImmediateFired) {
+				res.cork(() => {
+					res.end();
+				});
+				finished = true;
+				return;
+			}
+
+			// We were able to read the whole body. Write at once.
+			const buffer = Buffer.concat(chunks);
+			res.cork(() => {
+				writeHead();
+				res.end(buffer);
+			});
 
 			finished = true;
 		}

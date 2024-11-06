@@ -8,7 +8,7 @@
     "start:native-fetch": "node --experimental-fetch entry-node-native-fetch.js",
     "build:cfw": "hattip-cloudflare-workers -e entry-cfw.js dist/cloudflare-workers-bundle/index.js",
     "start:cfw": "wrangler dev --port 3000",
-    "build:netlify-functions": "rimraf .netlify/edge-functions-dist && hattip-netlify -c --staticDir public --func entry-netlify-function.js",
+    "build:netlify-functions": "rimraf .netlify/edge-functions && hattip-netlify -c --staticDir public --func entry-netlify-function.js",
     "build:netlify-edge": "hattip-netlify -c --staticDir public --edge entry-netlify-edge.js",
     "start:netlify": "cross-env BROWSER=none netlify dev -op 3000",
     "build:vercel": "hattip-vercel -c --staticDir public --serverless entry-vercel-serverless.js",
@@ -58,6 +58,7 @@
     "ps-tree": "^1.2.0",
     "rimraf": "^6.0.1",
     "typescript": "^5.6.3",
+    "vercel": "^37.14.0",
     "vitest": "^2.1.4",
     "wrangler": "^3.84.1"
   },
