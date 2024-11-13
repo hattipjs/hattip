@@ -7,6 +7,10 @@ import type {
 
 export type { IncomingMessage, ServerResponse, Server, ServerOptions };
 
+/**
+ * `IncomingMessage` possibly augmented by Express-specific
+ * `ip` and `protocol` properties.
+ */
 export type DecoratedRequest =
 	import("./common").DecoratedRequest<IncomingMessage>;
 
