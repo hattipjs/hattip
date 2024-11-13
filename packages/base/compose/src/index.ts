@@ -29,9 +29,9 @@ export interface ResponseConvertible {
 
 export type ResponseLike = Response | ResponseConvertible;
 
-export type MaybeRespone = ResponseLike | void;
+export type MaybeResponse = ResponseLike | void;
 
-export type MaybeAsyncResponse = MaybeRespone | Promise<MaybeRespone>;
+export type MaybeAsyncResponse = MaybeResponse | Promise<MaybeResponse>;
 
 export type RequestHandler<P = unknown> = (
 	context: RequestContext<P>,
