@@ -44,7 +44,7 @@ export function createRequestAdapter(
 		const ip =
 			req.ip ||
 			(trustProxy && parseForwardedHeader("for")) ||
-			req.socket?.remoteAddress ||
+			req.socket.remoteAddress ||
 			"";
 
 		const protocol =
@@ -52,7 +52,7 @@ export function createRequestAdapter(
 			req.protocol ||
 			(trustProxy && parseForwardedHeader("proto")) ||
 			headers[":scheme"] ||
-			(req.socket?.encrypted && "https") ||
+			(req.socket.encrypted && "https") ||
 			"http";
 
 		let host =

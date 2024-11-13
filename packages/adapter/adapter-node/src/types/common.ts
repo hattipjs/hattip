@@ -1,10 +1,6 @@
 import type { Socket } from "node:net";
 import type { Buffer } from "node:buffer";
 
-interface PossiblyEncryptedSocket extends Socket {
-	encrypted?: boolean;
-}
-
 /**
  * `IncomingMessage` possibly augmented by Express-specific
  * `ip` and `protocol` properties.
@@ -12,7 +8,7 @@ interface PossiblyEncryptedSocket extends Socket {
 export type DecoratedRequest<NodeRequest> = Omit<NodeRequest, "socket"> & {
 	ip?: string;
 	protocol?: string;
-	socket?: PossiblyEncryptedSocket;
+	socket: Socket & { encrypted?: boolean };
 	rawBody?: Buffer | null;
 };
 
