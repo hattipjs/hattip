@@ -34,4 +34,4 @@ export type {
 	DecoratedRequest,
 	NodeMiddleware,
 	NodePlatformInfo,
-} from "../types/http";
+} from "../types/http2";
