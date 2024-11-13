@@ -1,51 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import type { IncomingMessage, ServerResponse } from "node:http";
-import type { Socket } from "node:net";
 import process from "node:process";
-import { Buffer } from "node:buffer";
 import { Readable } from "node:stream";
+import {
+	DecoratedRequest,
+	NodeRequestAdapterOptions,
+	ServerResponse,
+} from "./types";
 
 // @ts-ignore
 const isDeno = typeof Deno !== "undefined";
-
-interface PossiblyEncryptedSocket extends Socket {
-	encrypted?: boolean;
-}
-
-/**
- * `IncomingMessage` possibly augmented with some environment-specific
- * properties.
- */
-export interface DecoratedRequest extends Omit<IncomingMessage, "socket"> {
-	ip?: string;
-	protocol?: string;
-	socket?: PossiblyEncryptedSocket;
-	rawBody?: Buffer | null;
-}
-
-/** Adapter options */
-export interface NodeRequestAdapterOptions {
-	/**
-	 * Set the origin part of the URL to a constant value.
-	 * It defaults to `process.env.ORIGIN`. If neither is set,
-	 * the origin is computed from the protocol and hostname.
-	 * To determine the protocol, `req.protocol` is tried first.
-	 * If `trustProxy` is set, `X-Forwarded-Proto` header is used.
-	 * Otherwise, `req.socket.encrypted` is used.
-	 * To determine the hostname, `X-Forwarded-Host`
-	 * (if `trustProxy` is set) or `Host` header is used.
-	 */
-	origin?: string;
-	/**
-	 * Whether to trust `X-Forwarded-*` headers. `X-Forwarded-Proto`
-	 * and `X-Forwarded-Host` are used to determine the origin when
-	 * `origin` and `process.env.ORIGIN` are not set. `X-Forwarded-For`
-	 * is used to determine the IP address. The leftmost values are used
-	 * if multiple values are set. Defaults to true if `process.env.TRUST_PROXY`
-	 * is set to `1`, otherwise false.
-	 */
-	trustProxy?: boolean;
-}
 
 /** Create a function that converts a Node HTTP request into a fetch API `Request` object */
 export function createRequestAdapter(
