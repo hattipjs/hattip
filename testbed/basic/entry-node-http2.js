@@ -1,17 +1,23 @@
 // @ts-check
-import { createServer } from "node:http2";
-import connect from "connect";
-import { createMiddleware } from "@hattip/adapter-node/native-fetch";
+import * as http2 from "node:http2";
+import { createMiddleware } from "@hattip/adapter-node/http2";
 import handler from "./index.js";
-import sirv from "sirv";
+import { walk } from "@hattip/walk";
+import { createStaticMiddleware } from "@hattip/static/node";
 
-const app = connect();
+const root = new URL("./public", import.meta.url);
+const files = walk(root);
 
-app.use(sirv("public"));
-app.use(createMiddleware(handler));
+/**
+ * @type {(request: http2.Http2ServerRequest, response: http2.Http2ServerResponse) => boolean}
+ */
+const staticMiddleware = createStaticMiddleware(root, files, { gzip: true });
+const middleware = createMiddleware(handler);
 
-createServer();
-
-createServer(app).listen(3000, "127.0.0.1", () => {
-	console.log("Server listening on http://127.0.0.1:3000");
-});
+http2
+	.createServer((req, res) => {
+		return staticMiddleware(req, res) || middleware(req, res);
+	})
+	.listen(3000, "127.0.0.1", () => {
+		console.log("Server listening on http://127.0.0.1:3000");
+	});
