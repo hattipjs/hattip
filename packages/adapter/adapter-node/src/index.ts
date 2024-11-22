@@ -1,4 +1,3 @@
-// TODO: Remove or update this rule!
 import { ServerResponse } from "node:http";
 import { DecoratedRequest, NodeAdapterOptions } from "./common";
 import installNodeFetch from "@hattip/polyfills/node-fetch";
