@@ -3,3 +3,5 @@ packages:
   - "testbed/*"
   - "examples/*/*"
   - "deno-build"
+catalog:
+  uWebSockets.js: "github:uNetworking/uWebSockets.js#v20.44.0"
