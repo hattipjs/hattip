@@ -31,6 +31,7 @@ Not supported:
 
 - Custom status text
 - Request cancelation
+- Content-Length in simple text response
 
 ### Netlify Functions (live)
 

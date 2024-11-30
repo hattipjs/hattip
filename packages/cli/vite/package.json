@@ -39,7 +39,7 @@
     "suppress-loader-warnings.cjs"
   ],
   "peerDependencies": {
-    "vite": "^4 || ^5"
+    "vite": "^4 || ^5 || ^6"
   },
   "devDependencies": {
     "@cyco130/eslint-config": "^5.0.1",
@@ -48,13 +48,13 @@
     "rimraf": "^6.0.1",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2",
-    "vite": "^5.4.11"
+    "vite": "^6.0.1"
   },
   "dependencies": {
     "@hattip/adapter-node": "workspace:*",
-    "@vavite/connect": "^5.0.1",
-    "@vavite/multibuild": "^5.0.1",
-    "@vavite/node-loader": "^5.0.1",
+    "@vavite/connect": "^5.1.0",
+    "@vavite/multibuild": "^5.1.0",
+    "@vavite/node-loader": "^5.1.0",
     "cac": "^6.7.14",
     "import-meta-resolve": "^4.1.0",
     "picocolors": "^1.1.1",
