@@ -35,11 +35,14 @@
     "eslint": "^9.14.0",
     "publint": "^0.2.12",
     "tsup": "^8.3.5",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "uWebSockets.js": "catalog:"
   },
   "dependencies": {
     "@hattip/core": "workspace:*",
-    "@hattip/polyfills": "workspace:*",
-    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.44.0"
+    "@hattip/polyfills": "workspace:*"
+  },
+  "peerDependencies": {
+    "uWebSockets.js": "*"
   }
 }
