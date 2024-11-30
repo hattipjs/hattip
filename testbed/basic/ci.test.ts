@@ -58,14 +58,17 @@ if (process.env.CI === "true") {
 			platform: "node",
 			command: "node --experimental-fetch entry-node-native-fetch.js",
 		},
-		{
+		// The --no-experimental-fetch flag is only available on Node 20 and below. Since node-fetch and
+		// @whatwg-node/fetch are only used when native fetch is not available, we can skip them on Node
+		// 21 and above.
+		nodeVersionMajor < 21 && {
 			name: "Node with node-fetch",
 			platform: "node",
 			command: `node ${noFetchFlag} entry-node.js`,
 			skipCryptoTest: nodeVersionMajor < 16,
 			skipMultipartTest: true, // node-fetch doesn't support streaming request bodies
 		},
-		{
+		nodeVersionMajor < 21 && {
 			name: "Node with @whatwg-node/fetch",
 			platform: "node",
 			command: `node ${noFetchFlag} entry-node-whatwg.js`,
