@@ -42,13 +42,13 @@
     "vite": "^4 || ^5"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^5.0.0",
-    "eslint": "^9.14.0",
+    "@cyco130/eslint-config": "^5.0.1",
+    "eslint": "^9.16.0",
     "publint": "^0.2.12",
     "rimraf": "^6.0.1",
     "tsup": "^8.3.5",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.10"
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11"
   },
   "dependencies": {
     "@hattip/adapter-node": "workspace:*",

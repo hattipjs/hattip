@@ -34,17 +34,17 @@
     "test:package": "publint --strict"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^5.0.0",
-    "@types/node": "^18.19.64",
-    "eslint": "^9.14.0",
+    "@cyco130/eslint-config": "^5.0.1",
+    "@types/node": "^18.19.67",
+    "eslint": "^9.16.0",
     "publint": "^0.2.12",
     "tsup": "^8.3.5",
-    "typescript": "^5.6.3",
-    "vitest": "^2.1.4"
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.6"
   },
   "dependencies": {
     "@hattip/core": "workspace:*",
-    "@whatwg-node/fetch": "^0.9.22",
+    "@whatwg-node/fetch": "^0.10.1",
     "node-fetch-native": "^1.6.4"
   }
 }
