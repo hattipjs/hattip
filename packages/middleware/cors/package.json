@@ -33,18 +33,18 @@
     "@hattip/core": "workspace:*",
     "@hattip/headers": "workspace:*",
     "@types/cookie": "^1.0.0",
-    "cookie": "^1.0.1"
+    "cookie": "^1.0.2"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^5.0.0",
+    "@cyco130/eslint-config": "^5.0.1",
     "@hattip/adapter-test": "workspace:*",
     "@hattip/polyfills": "workspace:*",
     "@hattip/response": "workspace:*",
-    "@types/node": "^18.19.64",
-    "eslint": "^9.14.0",
+    "@types/node": "^18.19.67",
+    "eslint": "^9.16.0",
     "publint": "^0.2.12",
     "tsup": "^8.3.5",
-    "typescript": "^5.6.3",
-    "vitest": "^2.1.4"
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.6"
   }
 }
