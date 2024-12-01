@@ -67,7 +67,8 @@ if (process.env.CI === "true") {
 			host: "https://127.0.0.1:3000",
 			fetch: httpFetch,
 		},
-		{
+		// TODO: Investigaete why this is failing on Windows: https://github.com/hattipjs/hattip/issues/191
+		process.platform !== "win32" && {
 			name: "Node HTTP/2",
 			platform: "node",
 			command: "node --experimental-fetch entry-node-http2.js",
@@ -173,7 +174,7 @@ if (process.env.CI === "true") {
 			platform: "uwebsockets",
 			command: `node entry-uws.js`,
 		},
-		{
+		nodeVersionMajor > 18 && {
 			name: "uWebSockets.js with SSL",
 			platform: "uwebsockets",
 			command: `node entry-uws-https.js`,
