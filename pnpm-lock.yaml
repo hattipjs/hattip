@@ -1193,6 +1193,9 @@ importers:
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
+      mkcert:
+        specifier: ^3.2.0
+        version: 3.2.0
       sirv:
         specifier: ^3.0.0
         version: 3.0.0
@@ -6880,6 +6883,13 @@ packages:
       }
     engines: { node: ">=14" }
 
+  commander@11.1.0:
+    resolution:
+      {
+        integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==,
+      }
+    engines: { node: ">=16" }
+
   commander@12.1.0:
     resolution:
       {
@@ -11162,6 +11172,14 @@ packages:
         integrity: sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==,
       }
     engines: { node: ">= 8" }
+
+  mkcert@3.2.0:
+    resolution:
+      {
+        integrity: sha512-026Eivq9RoOjOuLJGzbhGwXUAjBxRX11Z7Jbm4/7lqT/Av+XNy9SPrJte6+UpEt7i+W3e/HZYxQqlQcqXZWSzg==,
+      }
+    engines: { node: ">=16" }
+    hasBin: true
 
   mkdirp-classic@0.5.3:
     resolution:
@@ -15794,7 +15812,7 @@ snapshots:
       "@babel/traverse": 7.25.9
       "@babel/types": 7.26.0
       convert-source-map: 2.0.0
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -15973,7 +15991,7 @@ snapshots:
       "@babel/parser": 7.26.2
       "@babel/template": 7.25.9
       "@babel/types": 7.26.0
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -16129,9 +16147,9 @@ snapshots:
       "@eslint/js": 9.16.0
       eslint: 9.16.0(jiti@2.4.0)
       eslint-config-prettier: 9.1.0(eslint@9.16.0(jiti@2.4.0))
-      eslint-import-resolver-typescript: 3.6.3(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-plugin-import@2.31.0)(eslint@9.16.0(jiti@2.4.0))
+      eslint-import-resolver-typescript: 3.6.3(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint@9.16.0(jiti@2.4.0)))(eslint@9.16.0(jiti@2.4.0))
       eslint-plugin-css-modules: 2.12.0(eslint@9.16.0(jiti@2.4.0))
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-import-resolver-typescript@3.6.3)(eslint@9.16.0(jiti@2.4.0))
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint@9.16.0(jiti@2.4.0)))(eslint@9.16.0(jiti@2.4.0)))(eslint@9.16.0(jiti@2.4.0))
       eslint-plugin-no-only-tests: 3.3.0
       eslint-plugin-only-warn: 1.1.0
       eslint-plugin-react: 7.37.2(eslint@9.16.0(jiti@2.4.0))
@@ -16591,7 +16609,7 @@ snapshots:
   "@eslint/config-array@0.19.0":
     dependencies:
       "@eslint/object-schema": 2.1.4
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       minimatch: 3.1.2
     transitivePeerDependencies:
       - supports-color
@@ -16601,7 +16619,7 @@ snapshots:
   "@eslint/eslintrc@3.2.0":
     dependencies:
       ajv: 6.12.6
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       espree: 10.3.0
       globals: 14.0.0
       ignore: 5.3.2
@@ -16813,21 +16831,6 @@ snapshots:
       - debug
 
   "@lukeed/ms@2.0.2": {}
-
-  "@mapbox/node-pre-gyp@1.0.11":
-    dependencies:
-      detect-libc: 2.0.3
-      https-proxy-agent: 5.0.1
-      make-dir: 3.1.0
-      node-fetch: 2.7.0
-      nopt: 5.0.0
-      npmlog: 5.0.1
-      rimraf: 3.0.2
-      semver: 7.6.3
-      tar: 6.2.1
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
 
   "@mapbox/node-pre-gyp@1.0.11(supports-color@9.4.0)":
     dependencies:
@@ -17063,35 +17066,6 @@ snapshots:
       validate-npm-package-name: 4.0.0
       yargs: 17.7.2
 
-  "@netlify/edge-bundler@12.2.3":
-    dependencies:
-      "@import-maps/resolve": 1.0.1
-      "@vercel/nft": 0.27.5
-      ajv: 8.17.1
-      ajv-errors: 3.0.0(ajv@8.17.1)
-      better-ajv-errors: 1.2.0(ajv@8.17.1)
-      common-path-prefix: 3.0.0
-      env-paths: 3.0.0
-      esbuild: 0.21.2
-      execa: 6.1.0
-      find-up: 6.3.0
-      get-package-name: 2.2.0
-      get-port: 6.1.2
-      is-path-inside: 4.0.0
-      jsonc-parser: 3.3.1
-      node-fetch: 3.3.2
-      node-stream-zip: 1.15.0
-      p-retry: 5.1.2
-      p-wait-for: 4.1.0
-      path-key: 4.0.0
-      semver: 7.6.3
-      tmp-promise: 3.0.3
-      urlpattern-polyfill: 8.0.2
-      uuid: 9.0.1
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-
   "@netlify/edge-bundler@12.2.3(supports-color@9.4.0)":
     dependencies:
       "@import-maps/resolve": 1.0.1
@@ -17222,46 +17196,6 @@ snapshots:
     dependencies:
       "@netlify/node-cookies": 0.1.0
       urlpattern-polyfill: 8.0.2
-
-  "@netlify/zip-it-and-ship-it@9.41.1":
-    dependencies:
-      "@babel/parser": 7.26.2
-      "@babel/types": 7.25.6
-      "@netlify/binary-info": 1.0.0
-      "@netlify/serverless-functions-api": 1.31.0
-      "@vercel/nft": 0.27.5
-      archiver: 7.0.1
-      common-path-prefix: 3.0.0
-      cp-file: 10.0.0
-      es-module-lexer: 1.5.4
-      esbuild: 0.19.11
-      execa: 6.1.0
-      fast-glob: 3.3.2
-      filter-obj: 5.1.0
-      find-up: 6.3.0
-      glob: 8.1.0
-      is-builtin-module: 3.2.1
-      is-path-inside: 4.0.0
-      junk: 4.0.1
-      locate-path: 7.2.0
-      merge-options: 3.0.4
-      minimatch: 9.0.5
-      normalize-path: 3.0.0
-      p-map: 5.5.0
-      path-exists: 5.0.0
-      precinct: 11.0.5
-      require-package-name: 2.0.1
-      resolve: 2.0.0-next.5
-      semver: 7.6.3
-      tmp-promise: 3.0.3
-      toml: 3.0.0
-      unixify: 1.0.0
-      urlpattern-polyfill: 8.0.2
-      yargs: 17.7.2
-      zod: 3.23.8
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
 
   "@netlify/zip-it-and-ship-it@9.41.1(supports-color@9.4.0)":
     dependencies:
@@ -18108,7 +18042,7 @@ snapshots:
       "@typescript-eslint/types": 8.16.0
       "@typescript-eslint/typescript-estree": 8.16.0(typescript@5.7.2)
       "@typescript-eslint/visitor-keys": 8.16.0
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       eslint: 9.16.0(jiti@2.4.0)
     optionalDependencies:
       typescript: 5.7.2
@@ -18124,7 +18058,7 @@ snapshots:
     dependencies:
       "@typescript-eslint/typescript-estree": 8.16.0(typescript@5.7.2)
       "@typescript-eslint/utils": 8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2)
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       eslint: 9.16.0(jiti@2.4.0)
       ts-api-utils: 1.3.0(typescript@5.7.2)
     optionalDependencies:
@@ -18150,25 +18084,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  "@typescript-eslint/typescript-estree@5.62.0(typescript@5.7.2)":
-    dependencies:
-      "@typescript-eslint/types": 5.62.0
-      "@typescript-eslint/visitor-keys": 5.62.0
-      debug: 4.3.7(supports-color@5.5.0)
-      globby: 11.1.0
-      is-glob: 4.0.3
-      semver: 7.6.3
-      tsutils: 3.21.0(typescript@5.7.2)
-    optionalDependencies:
-      typescript: 5.7.2
-    transitivePeerDependencies:
-      - supports-color
-
   "@typescript-eslint/typescript-estree@8.16.0(typescript@5.7.2)":
     dependencies:
       "@typescript-eslint/types": 8.16.0
       "@typescript-eslint/visitor-keys": 8.16.0
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       fast-glob: 3.3.2
       is-glob: 4.0.3
       minimatch: 9.0.5
@@ -18278,7 +18198,7 @@ snapshots:
 
   "@vercel/nft@0.27.3":
     dependencies:
-      "@mapbox/node-pre-gyp": 1.0.11
+      "@mapbox/node-pre-gyp": 1.0.11(supports-color@9.4.0)
       "@rollup/pluginutils": 4.2.1
       acorn: 8.14.0
       acorn-import-attributes: 1.9.5(acorn@8.14.0)
@@ -18289,24 +18209,6 @@ snapshots:
       graceful-fs: 4.2.11
       micromatch: 4.0.8
       node-gyp-build: 4.8.4
-      resolve-from: 5.0.0
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-
-  "@vercel/nft@0.27.5":
-    dependencies:
-      "@mapbox/node-pre-gyp": 1.0.11
-      "@rollup/pluginutils": 4.2.1
-      acorn: 8.14.0
-      acorn-import-attributes: 1.9.5(acorn@8.14.0)
-      async-sema: 3.1.1
-      bindings: 1.5.0
-      estree-walker: 2.0.2
-      glob: 7.2.3
-      graceful-fs: 4.2.11
-      micromatch: 4.0.8
-      node-gyp-build: 4.8.2
       resolve-from: 5.0.0
     transitivePeerDependencies:
       - encoding
@@ -18408,6 +18310,14 @@ snapshots:
       "@vitest/utils": 2.1.6
       chai: 5.1.2
       tinyrainbow: 1.2.0
+
+  "@vitest/mocker@2.1.6(vite@6.0.1(@types/node@18.19.67)(jiti@2.4.0)(terser@5.36.0)(tsx@4.19.2)(yaml@2.6.0))":
+    dependencies:
+      "@vitest/spy": 2.1.6
+      estree-walker: 3.0.3
+      magic-string: 0.30.12
+    optionalDependencies:
+      vite: 6.0.1(@types/node@18.19.67)(jiti@2.4.0)(terser@5.36.0)(tsx@4.19.2)(yaml@2.6.0)
 
   "@vitest/mocker@2.1.6(vite@6.0.1(@types/node@22.5.5)(jiti@2.4.0)(terser@5.36.0)(tsx@4.19.2)(yaml@2.6.0))":
     dependencies:
@@ -18547,12 +18457,6 @@ snapshots:
 
   acorn@8.14.0: {}
 
-  agent-base@6.0.2:
-    dependencies:
-      debug: 4.3.7(supports-color@5.5.0)
-    transitivePeerDependencies:
-      - supports-color
-
   agent-base@6.0.2(supports-color@9.4.0):
     dependencies:
       debug: 4.3.7(supports-color@9.4.0)
@@ -18561,7 +18465,7 @@ snapshots:
 
   agent-base@7.1.1:
     dependencies:
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -19102,7 +19006,7 @@ snapshots:
 
   capnp-ts@0.7.0:
     dependencies:
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       tslib: 2.8.1
     transitivePeerDependencies:
       - supports-color
@@ -19288,6 +19192,8 @@ snapshots:
       typical: 4.0.0
 
   commander@10.0.1: {}
+
+  commander@11.1.0: {}
 
   commander@12.1.0: {}
 
@@ -19670,15 +19576,6 @@ snapshots:
       node-source-walk: 6.0.2
 
   detective-stylus@4.0.0: {}
-
-  detective-typescript@11.2.0:
-    dependencies:
-      "@typescript-eslint/typescript-estree": 5.62.0(typescript@5.7.2)
-      ast-module-types: 5.0.0
-      node-source-walk: 6.0.2
-      typescript: 5.7.2
-    transitivePeerDependencies:
-      - supports-color
 
   detective-typescript@11.2.0(supports-color@9.4.0):
     dependencies:
@@ -20144,19 +20041,19 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-plugin-import@2.31.0)(eslint@9.16.0(jiti@2.4.0)):
+  eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint@9.16.0(jiti@2.4.0)))(eslint@9.16.0(jiti@2.4.0)):
     dependencies:
       "@nolyfill/is-core-module": 1.0.39
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       enhanced-resolve: 5.17.1
       eslint: 9.16.0(jiti@2.4.0)
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@9.16.0(jiti@2.4.0))
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint@9.16.0(jiti@2.4.0)))(eslint@9.16.0(jiti@2.4.0)))(eslint@9.16.0(jiti@2.4.0))
       fast-glob: 3.3.2
       get-tsconfig: 4.8.1
       is-bun-module: 1.2.1
       is-glob: 4.0.3
     optionalDependencies:
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-import-resolver-typescript@3.6.3)(eslint@9.16.0(jiti@2.4.0))
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint@9.16.0(jiti@2.4.0)))(eslint@9.16.0(jiti@2.4.0)))(eslint@9.16.0(jiti@2.4.0))
     transitivePeerDependencies:
       - "@typescript-eslint/parser"
       - eslint-import-resolver-node
@@ -20166,7 +20063,7 @@ snapshots:
   eslint-import-resolver-typescript@3.6.3(eslint-plugin-import@2.31.0)(eslint@9.16.0(jiti@2.4.0)):
     dependencies:
       "@nolyfill/is-core-module": 1.0.39
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       enhanced-resolve: 5.17.1
       eslint: 9.16.0(jiti@2.4.0)
       eslint-module-utils: 2.12.0(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@9.16.0(jiti@2.4.0))
@@ -20182,14 +20079,14 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@9.16.0(jiti@2.4.0)):
+  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint@9.16.0(jiti@2.4.0)))(eslint@9.16.0(jiti@2.4.0)))(eslint@9.16.0(jiti@2.4.0)):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
       "@typescript-eslint/parser": 8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2)
       eslint: 9.16.0(jiti@2.4.0)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.6.3(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-plugin-import@2.31.0)(eslint@9.16.0(jiti@2.4.0))
+      eslint-import-resolver-typescript: 3.6.3(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint@9.16.0(jiti@2.4.0)))(eslint@9.16.0(jiti@2.4.0))
     transitivePeerDependencies:
       - supports-color
 
@@ -20209,7 +20106,7 @@ snapshots:
       gonzales-pe: 4.3.0
       lodash: 4.17.21
 
-  eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-import-resolver-typescript@3.6.3)(eslint@9.16.0(jiti@2.4.0)):
+  eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint@9.16.0(jiti@2.4.0)))(eslint@9.16.0(jiti@2.4.0)))(eslint@9.16.0(jiti@2.4.0)):
     dependencies:
       "@rtsao/scc": 1.1.0
       array-includes: 3.1.8
@@ -20220,7 +20117,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.16.0(jiti@2.4.0)
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@9.16.0(jiti@2.4.0))
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.0))(typescript@5.7.2))(eslint@9.16.0(jiti@2.4.0)))(eslint@9.16.0(jiti@2.4.0)))(eslint@9.16.0(jiti@2.4.0))
       hasown: 2.0.2
       is-core-module: 2.15.1
       is-glob: 4.0.3
@@ -20326,7 +20223,7 @@ snapshots:
       ajv: 6.12.6
       chalk: 4.1.2
       cross-spawn: 7.0.6
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       escape-string-regexp: 4.0.0
       eslint-scope: 8.2.0
       eslint-visitor-keys: 4.2.0
@@ -20518,7 +20415,7 @@ snapshots:
 
   extract-zip@2.0.1:
     dependencies:
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
@@ -20757,7 +20654,7 @@ snapshots:
 
   follow-redirects@1.15.9(debug@4.3.7):
     optionalDependencies:
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
 
   for-each@0.3.3:
     dependencies:
@@ -21194,13 +21091,6 @@ snapshots:
       quick-lru: 5.1.1
       resolve-alpn: 1.2.1
 
-  https-proxy-agent@5.0.1:
-    dependencies:
-      agent-base: 6.0.2
-      debug: 4.3.7(supports-color@5.5.0)
-    transitivePeerDependencies:
-      - supports-color
-
   https-proxy-agent@5.0.1(supports-color@9.4.0):
     dependencies:
       agent-base: 6.0.2(supports-color@9.4.0)
@@ -21211,7 +21101,7 @@ snapshots:
   https-proxy-agent@7.0.5:
     dependencies:
       agent-base: 7.1.1
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -22060,6 +21950,11 @@ snapshots:
       minipass: 3.3.6
       yallist: 4.0.0
 
+  mkcert@3.2.0:
+    dependencies:
+      commander: 11.1.0
+      node-forge: 1.3.1
+
   mkdirp-classic@0.5.3: {}
 
   mkdirp@0.5.6:
@@ -22142,10 +22037,10 @@ snapshots:
       "@netlify/build": 29.56.0(@opentelemetry/api@1.8.0)(@types/node@18.19.67)(picomatch@4.0.2)
       "@netlify/build-info": 7.15.2
       "@netlify/config": 20.19.0
-      "@netlify/edge-bundler": 12.2.3
+      "@netlify/edge-bundler": 12.2.3(supports-color@9.4.0)
       "@netlify/edge-functions": 2.9.0
       "@netlify/local-functions-proxy": 1.1.1
-      "@netlify/zip-it-and-ship-it": 9.41.1
+      "@netlify/zip-it-and-ship-it": 9.41.1(supports-color@9.4.0)
       "@octokit/rest": 20.1.1
       "@opentelemetry/api": 1.8.0
       ansi-escapes: 7.0.0
@@ -22166,7 +22061,7 @@ snapshots:
       content-type: 1.0.5
       cookie: 0.7.2
       cron-parser: 4.9.0
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       decache: 4.6.2
       dot-prop: 9.0.0
       dotenv: 16.4.5
@@ -22876,23 +22771,6 @@ snapshots:
       simple-get: 4.0.1
       tar-fs: 2.1.1
       tunnel-agent: 0.6.0
-
-  precinct@11.0.5:
-    dependencies:
-      "@dependents/detective-less": 4.1.0
-      commander: 10.0.1
-      detective-amd: 5.0.2
-      detective-cjs: 5.0.1
-      detective-es6: 4.0.1
-      detective-postcss: 6.1.3
-      detective-sass: 5.0.3
-      detective-scss: 4.0.3
-      detective-stylus: 4.0.0
-      detective-typescript: 11.2.0
-      module-definition: 5.0.1
-      node-source-walk: 6.0.2
-    transitivePeerDependencies:
-      - supports-color
 
   precinct@11.0.5(supports-color@9.4.0):
     dependencies:
@@ -23771,7 +23649,7 @@ snapshots:
 
   tabtab@3.0.2:
     dependencies:
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       es6-promisify: 6.1.1
       inquirer: 6.5.2
       minimist: 1.2.8
@@ -24044,7 +23922,7 @@ snapshots:
       cac: 6.7.14
       chokidar: 4.0.1
       consola: 3.2.3
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       esbuild: 0.24.0
       joycon: 3.1.1
       picocolors: 1.1.1
@@ -24377,7 +24255,7 @@ snapshots:
   vite-node@2.1.6(@types/node@18.19.67)(jiti@2.4.0)(terser@5.36.0)(tsx@4.19.2)(yaml@2.6.0):
     dependencies:
       cac: 6.7.14
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       es-module-lexer: 1.5.4
       pathe: 1.1.2
       vite: 6.0.1(@types/node@18.19.67)(jiti@2.4.0)(terser@5.36.0)(tsx@4.19.2)(yaml@2.6.0)
@@ -24398,7 +24276,7 @@ snapshots:
   vite-node@2.1.6(@types/node@22.5.5)(jiti@2.4.0)(terser@5.36.0)(tsx@4.19.2)(yaml@2.6.0):
     dependencies:
       cac: 6.7.14
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       es-module-lexer: 1.5.4
       pathe: 1.1.2
       vite: 6.0.1(@types/node@22.5.5)(jiti@2.4.0)(terser@5.36.0)(tsx@4.19.2)(yaml@2.6.0)
@@ -24445,14 +24323,14 @@ snapshots:
   vitest@2.1.6(@edge-runtime/vm@3.2.0)(@types/node@18.19.67)(jiti@2.4.0)(terser@5.36.0)(tsx@4.19.2)(yaml@2.6.0):
     dependencies:
       "@vitest/expect": 2.1.6
-      "@vitest/mocker": 2.1.6(vite@6.0.1(@types/node@22.5.5)(jiti@2.4.0)(terser@5.36.0)(tsx@4.19.2)(yaml@2.6.0))
+      "@vitest/mocker": 2.1.6(vite@6.0.1(@types/node@18.19.67)(jiti@2.4.0)(terser@5.36.0)(tsx@4.19.2)(yaml@2.6.0))
       "@vitest/pretty-format": 2.1.6
       "@vitest/runner": 2.1.6
       "@vitest/snapshot": 2.1.6
       "@vitest/spy": 2.1.6
       "@vitest/utils": 2.1.6
       chai: 5.1.2
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       expect-type: 1.1.0
       magic-string: 0.30.12
       pathe: 1.1.2
@@ -24491,7 +24369,7 @@ snapshots:
       "@vitest/spy": 2.1.6
       "@vitest/utils": 2.1.6
       chai: 5.1.2
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
       expect-type: 1.1.0
       magic-string: 0.30.12
       pathe: 1.1.2
@@ -24524,7 +24402,7 @@ snapshots:
     dependencies:
       chalk: 4.1.2
       commander: 9.5.0
-      debug: 4.3.7(supports-color@5.5.0)
+      debug: 4.3.7(supports-color@9.4.0)
     transitivePeerDependencies:
       - supports-color
 

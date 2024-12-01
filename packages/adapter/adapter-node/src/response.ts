@@ -41,7 +41,7 @@ export async function sendResponse(
 	const hasContentLength = fetchResponse.headers.has("Content-Length");
 
 	if ((fetchResponse as any)[rawBodySymbol]) {
-		writeHead(fetchResponse, res);
+		writeHead(fetchResponse, res, req);
 		res.end((fetchResponse as any)[rawBodySymbol]);
 		return;
 	}
@@ -52,7 +52,7 @@ export async function sendResponse(
 		if (!hasContentLength) {
 			res.setHeader("Content-Length", "0");
 		}
-		writeHead(fetchResponse, res);
+		writeHead(fetchResponse, res, req);
 		res.end();
 		return;
 	}
@@ -71,7 +71,7 @@ export async function sendResponse(
 		}
 		if (setImmediateFired) {
 			if (!bufferWritten) {
-				writeHead(fetchResponse, res);
+				writeHead(fetchResponse, res, req);
 				for (const chunk of chunks) {
 					await writeAndAwait(chunk, res, signal);
 					if (signal.aborted) {
@@ -107,13 +107,17 @@ export async function sendResponse(
 	if (!hasContentLength) {
 		res.setHeader("Content-Length", buffer.length);
 	}
-	writeHead(fetchResponse, res);
+	writeHead(fetchResponse, res, req);
 	res.end(buffer);
 }
 
-function writeHead(fetchResponse: Response, nodeResponse: ServerResponse) {
+function writeHead(
+	fetchResponse: Response,
+	nodeResponse: ServerResponse,
+	nodeRequest: DecoratedRequest,
+) {
 	nodeResponse.statusCode = fetchResponse.status;
-	if (fetchResponse.statusText) {
+	if (nodeRequest.httpVersionMajor === 1 && fetchResponse.statusText) {
 		nodeResponse.statusMessage = fetchResponse.statusText;
 	}
 
@@ -134,7 +138,7 @@ async function writeAndAwait(
 	res: ServerResponse,
 	signal: AbortSignal,
 ) {
-	const written = res.write(chunk);
+	const written = (res.write as any)(chunk);
 	if (!written) {
 		await new Promise<void>((resolve, reject) => {
 			function cleanup() {

@@ -77,12 +77,6 @@ export function createRequestAdapter(
 		}
 
 		let headers = req.headers as any;
-		// Filter out pseudo-headers
-		if (headers[":method"]) {
-			headers = Object.fromEntries(
-				Object.entries(headers).filter(([key]) => !key.startsWith(":")),
-			);
-		}
 
 		const ip =
 			req.ip ||
@@ -94,12 +88,14 @@ export function createRequestAdapter(
 			protocolOverride ||
 			req.protocol ||
 			(trustProxy && parseForwardedHeader("proto")) ||
+			headers[":scheme"] ||
 			(req.socket?.encrypted && "https") ||
 			"http";
 
 		let host =
 			hostOverride ||
 			(trustProxy && parseForwardedHeader("host")) ||
+			headers[":authority"] ||
 			headers.host;
 
 		if (!host && !warned) {
@@ -109,6 +105,13 @@ export function createRequestAdapter(
 			);
 			warned = true;
 			host = "localhost";
+		}
+
+		// Filter out HTTP/2 pseudo-headers
+		if (headers[":method"]) {
+			headers = Object.fromEntries(
+				Object.entries(headers).filter(([key]) => !key.startsWith(":")),
+			);
 		}
 
 		const controller = new AbortController();

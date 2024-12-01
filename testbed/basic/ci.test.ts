@@ -12,13 +12,15 @@ import psTree from "ps-tree";
 import { kill } from "node:process";
 import { promisify } from "node:util";
 import { testFetch } from "./entry-test";
+import { http2Fetch, httpFetch } from "./alt-fetch.js";
 
-let host: string;
+let defaultHost: string;
 let cases: Array<{
 	name: string;
 	platform: string;
 	command?: string;
 	envOverride?: Record<string, string>;
+	host?: string;
 	fetch?: typeof fetch;
 	requiresForwardedIp?: boolean;
 	skipStreamingTest?: boolean;
@@ -57,6 +59,22 @@ if (process.env.CI === "true") {
 			name: "Node with native fetch",
 			platform: "node",
 			command: "node --experimental-fetch entry-node-native-fetch.js",
+		},
+		{
+			name: "Node HTTPS",
+			platform: "node",
+			command: "node --experimental-fetch entry-node-https.js",
+			host: "https://127.0.0.1:3000",
+			fetch: httpFetch,
+		},
+		{
+			name: "Node HTTP/2",
+			platform: "node",
+			command: "node --experimental-fetch entry-node-http2.js",
+			fetch: http2Fetch,
+			// HTTP/2 doesn't support status text
+			skipDefaultStatusTextTest: true,
+			skipCustomStatusTextTest: true,
 		},
 		{
 			name: "Node with node-fetch",
@@ -155,6 +173,13 @@ if (process.env.CI === "true") {
 			platform: "uwebsockets",
 			command: `node entry-uws.js`,
 		},
+		{
+			name: "uWebSockets.js with SSL",
+			platform: "uwebsockets",
+			command: `node entry-uws-https.js`,
+			host: "https://127.0.0.1:3000",
+			fetch: httpFetch,
+		},
 		false && {
 			// TODO: Lagon is no more and it doesn't seem to work on Node 21
 			name: "Lagon",
@@ -171,7 +196,7 @@ if (process.env.CI === "true") {
 	];
 
 	cases = unfiltered.filter(Boolean) as typeof cases;
-	host = "http://127.0.0.1:3000";
+	defaultHost = "http://127.0.0.1:3000";
 } else {
 	cases = [
 		{
@@ -179,7 +204,7 @@ if (process.env.CI === "true") {
 			platform: process.env.TEST_PLATFORM || "unknown",
 		},
 	];
-	host = process.env.TEST_HOST || "http://127.0.0.1:3000";
+	defaultHost = process.env.TEST_HOST || "http://127.0.0.1:3000";
 }
 
 const test = originalTest as typeof originalTest & {
@@ -209,7 +234,8 @@ describe.each(cases)(
 		platform,
 		command,
 		envOverride,
-		fetch = globalThis.fetch,
+		host = defaultHost,
+		fetch = global.fetch,
 		requiresForwardedIp = false,
 		tryStreamingWithoutCompression = false,
 		skipStreamingTest = false,
@@ -354,8 +380,8 @@ describe.each(cases)(
 				ip6 = "::1";
 			} else {
 				[ip, ip6] = await Promise.all([
-					fetch("http://api.ipify.org").then((r) => r.text()),
-					fetch("http://api64.ipify.org").then((r) => r.text()),
+					global.fetch("http://api.ipify.org").then((r) => r.text()),
+					global.fetch("http://api64.ipify.org").then((r) => r.text()),
 				]);
 			}
 
