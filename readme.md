@@ -193,6 +193,12 @@ Hattip is extremely modular so you can use as little or as much as you need:
 
 A zero-config development environment based on [Vite](https://vitejs.dev) is also in the works.
 
+## Contributors
+
+<a href="https://github.com/hattipjs/hattip/graphscontributors">
+  <img src="https://contrib.rocks/image?repo=hattipjs/hattip&max=12&columns=6" />
+</a>
+
 ## Credits
 
 [MIT license](./LICENSE)
