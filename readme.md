@@ -195,7 +195,7 @@ A zero-config development environment based on [Vite](https://vitejs.dev) is als
 
 ## Contributors
 
-<a href="https://github.com/hattipjs/hattip/graphscontributors">
+<a href="https://github.com/hattipjs/hattip/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=hattipjs/hattip&max=12&columns=6" />
 </a>
 
