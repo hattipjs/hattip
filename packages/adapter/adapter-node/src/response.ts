@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { ServerResponse } from "node:http";
 import { rawBodySymbol } from "./raw-body-symbol";
-import { DecoratedRequest } from "./common";
+import { DecoratedRequest, ServerResponse } from "./types";
 
 // @ts-ignore
 const deno = typeof Deno !== "undefined";
@@ -25,7 +24,9 @@ if (deno) {
 export async function sendResponse(
 	req: DecoratedRequest,
 	res: ServerResponse,
-	fetchResponse: Response,
+	fetchResponse: Response & {
+		[rawBodySymbol]?: any;
+	},
 ): Promise<void> {
 	const controller = new AbortController();
 	const signal = controller.signal;
@@ -40,9 +41,9 @@ export async function sendResponse(
 
 	const hasContentLength = fetchResponse.headers.has("Content-Length");
 
-	if ((fetchResponse as any)[rawBodySymbol]) {
+	if (fetchResponse[rawBodySymbol]) {
 		writeHead(fetchResponse, res, req);
-		res.end((fetchResponse as any)[rawBodySymbol]);
+		res.end(fetchResponse[rawBodySymbol]);
 		return;
 	}
 
@@ -133,9 +134,17 @@ function writeHead(
 	}
 }
 
+type GenericResponse = {
+	write(chunk: Uint8Array): boolean;
+	once(event: "drain", listener: () => void): void;
+	once(event: "error", listener: (err: unknown) => void): void;
+	off(event: "drain", listener: () => void): void;
+	off(event: "error", listener: (err: unknown) => void): void;
+};
+
 async function writeAndAwait(
 	chunk: Uint8Array,
-	res: ServerResponse,
+	res: GenericResponse,
 	signal: AbortSignal,
 ) {
 	const written = (res.write as any)(chunk);

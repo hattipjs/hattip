@@ -12,12 +12,3 @@ for (const key of Object.keys(webStream)) {
 		(globalThis as any)[key] = (webStream as any)[key];
 	}
 }
-
-export type {
-	DecoratedRequest,
-	NodeMiddleware,
-	NodeAdapterOptions,
-	NodePlatformInfo,
-} from "./common";
-
-export { createMiddleware, createServer } from "./common";

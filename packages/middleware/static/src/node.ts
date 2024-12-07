@@ -1,6 +1,7 @@
 import { parseHeaderValue } from "@hattip/headers";
 import { createReadStream } from "node:fs";
-import type { IncomingMessage, ServerResponse } from "node:http";
+import type * as http from "node:http";
+import type * as http2 from "node:http2";
 import { fileURLToPath } from "node:url";
 
 export interface ReadOnlyFile {
@@ -10,7 +11,13 @@ export interface ReadOnlyFile {
 	readonly etag?: string;
 }
 
-export interface StaticMiddlewareOptions {
+type IncomingMessage = http.IncomingMessage | http2.Http2ServerRequest;
+type ServerResponse = http.ServerResponse | http2.Http2ServerResponse;
+
+export interface StaticMiddlewareOptions<
+	NodeRequest extends IncomingMessage,
+	NodeResponse extends ServerResponse,
+> {
 	/**
 	 * The URL path to serve files from. It must start and end with a slash.
 	 * @default "/"
@@ -34,17 +41,16 @@ export interface StaticMiddlewareOptions {
 	/**
 	 * Callback function to set custom headers.
 	 */
-	setHeaders?(
-		req: IncomingMessage,
-		res: ServerResponse,
-		file: ReadOnlyFile,
-	): void;
+	setHeaders?(req: NodeRequest, res: NodeResponse, file: ReadOnlyFile): void;
 }
 
-export function createStaticMiddleware(
+export function createStaticMiddleware<
+	NodeRequest extends IncomingMessage = http.IncomingMessage,
+	NodeResponse extends ServerResponse = http.ServerResponse,
+>(
 	root: string | URL,
 	files: Map<string, ReadOnlyFile>,
-	options: StaticMiddlewareOptions = {},
+	options: StaticMiddlewareOptions<NodeRequest, NodeResponse> = {},
 ) {
 	if (root instanceof URL || root.startsWith("file://")) {
 		root = fileURLToPath(root);
@@ -59,8 +65,8 @@ export function createStaticMiddleware(
 	} = options;
 
 	return function staticMiddleware(
-		req: IncomingMessage,
-		res: ServerResponse,
+		req: NodeRequest,
+		res: NodeResponse,
 	): boolean {
 		const method = req.method;
 		const isHeadRequest = method === "HEAD";

@@ -7,9 +7,12 @@
     "dist"
   ],
   "exports": {
-    ".": "./dist/index.js",
-    "./native-fetch": "./dist/native-fetch.js",
-    "./whatwg-node": "./dist/whatwg-node.js",
+    ".": "./dist/http/index.js",
+    "./native-fetch": "./dist/http/native-fetch.js",
+    "./whatwg-node": "./dist/http/whatwg-node.js",
+    "./http2": "./dist/http2/index.js",
+    "./http2/native-fetch": "./dist/http2/native-fetch.js",
+    "./http2/whatwg-node": "./dist/http2/whatwg-node.js",
     "./request": "./dist/request.js",
     "./response": "./dist/response.js",
     "./fast-fetch": "./dist/fast-fetch.js"

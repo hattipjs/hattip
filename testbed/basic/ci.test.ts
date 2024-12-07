@@ -97,6 +97,11 @@ if (process.env.CI === "true") {
 			skipCryptoTest: nodeVersionMajor < 16,
 		},
 		{
+			name: "Node HTTP/2 with native fetch",
+			platform: "node",
+			command: "node --experimental-fetch entry-node-http2.js",
+		},
+		{
 			name: "Deno",
 			platform: "deno",
 			command: "pnpm build:deno && pnpm start:deno",
