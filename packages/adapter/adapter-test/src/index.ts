@@ -6,7 +6,7 @@ installNodeFetch();
 export interface CreateTestClientArgs<P = unknown> {
 	handler: HattipHandler<P>;
 	baseUrl?: string | URL;
-	platform?: P;
+	platform?: P | ((request: Request) => P);
 	env?: Record<string, string>;
 }
 
@@ -30,7 +30,10 @@ export function createTestClient<P = { name: "test" }>({
 			ip: (request.headers.get("x-forwarded-for") || "")
 				.split(",", 1)[0]
 				.trim(),
-			platform,
+			platform:
+				typeof platform === "function"
+					? (platform as (request: Request) => P)(request)
+					: platform,
 			passThrough() {
 				void 0;
 			},
