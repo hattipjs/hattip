@@ -27,7 +27,7 @@
     "test:package": "publint --strict"
   },
   "dependencies": {
-    "@fastly/js-compute": "^3.27.2",
+    "@fastly/js-compute": "^3.28.0",
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {

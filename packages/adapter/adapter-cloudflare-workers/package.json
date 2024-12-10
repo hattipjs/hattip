@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.3.4",
-    "@cloudflare/workers-types": "^4.20241127.0",
+    "@cloudflare/workers-types": "^4.20241205.0",
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
