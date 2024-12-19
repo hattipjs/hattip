@@ -27,13 +27,13 @@
     "test:package": "publint --strict"
   },
   "dependencies": {
-    "@fastly/js-compute": "^3.27.2",
+    "@fastly/js-compute": "^3.28.0",
     "@hattip/core": "workspace:*"
   },
   "devDependencies": {
     "@cyco130/eslint-config": "^5.0.1",
-    "@types/node": "^18.19.67",
-    "eslint": "^9.16.0",
+    "@types/node": "^18.19.68",
+    "eslint": "^9.17.0",
     "publint": "^0.2.12",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"
