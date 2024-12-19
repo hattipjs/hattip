@@ -40,11 +40,11 @@
     "@hattip/adapter-test": "workspace:*",
     "@hattip/polyfills": "workspace:*",
     "@hattip/response": "workspace:*",
-    "@types/node": "^18.19.67",
-    "eslint": "^9.16.0",
+    "@types/node": "^18.19.68",
+    "eslint": "^9.17.0",
     "publint": "^0.2.12",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.6"
+    "vitest": "^2.1.8"
   }
 }
