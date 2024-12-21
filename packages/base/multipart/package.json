@@ -28,12 +28,12 @@
   "devDependencies": {
     "@cyco130/eslint-config": "^5.0.1",
     "@hattip/polyfills": "workspace:*",
-    "eslint": "^9.16.0",
+    "eslint": "^9.17.0",
     "node-fetch-native": "^1.6.4",
     "publint": "^0.2.12",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.6"
+    "vitest": "^2.1.8"
   },
   "dependencies": {
     "@hattip/headers": "workspace:*"

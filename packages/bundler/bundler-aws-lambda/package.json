@@ -32,8 +32,8 @@
   "devDependencies": {
     "@cyco130/eslint-config": "^5.0.1",
     "@types/archiver": "^6.0.3",
-    "@types/node": "^18.19.67",
-    "eslint": "^9.16.0",
+    "@types/node": "^18.19.68",
+    "eslint": "^9.17.0",
     "publint": "^0.2.12",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"
@@ -42,6 +42,6 @@
     "@hattip/walk": "workspace:*",
     "archiver": "^7.0.1",
     "cac": "^6.7.14",
-    "esbuild": "^0.24.0"
+    "esbuild": "^0.24.2"
   }
 }
