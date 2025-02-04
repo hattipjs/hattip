@@ -1,4 +1,15 @@
 /**
+ * Interface defining the shape of environment variables
+ */
+export interface AdapterEnv {}
+
+export type AdapterEnvKey = keyof AdapterEnv | (string & {});
+
+export type AdapterEnvGetter = <K extends AdapterEnvKey>(
+	variable: K,
+) => K extends keyof AdapterEnv ? AdapterEnv[K] : string | undefined;
+
+/**
  * Request context as dispatched by the platform adapter
  */
 export interface AdapterRequestContext<P = unknown> {
@@ -24,7 +35,7 @@ export interface AdapterRequestContext<P = unknown> {
 	 *
 	 * @returns The value of the variable or undefined if it doesn't exist.
 	 */
-	env(variable: string): string | undefined;
+	env: AdapterEnvGetter;
 	/**
 	 * Signal that the request hasn't been handled and the returned response is
 	 * a placeholder (usually a 404). In this case the adapter should handle the

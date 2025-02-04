@@ -7,7 +7,7 @@ export interface CreateTestClientArgs<P = unknown> {
 	handler: HattipHandler<P>;
 	baseUrl?: string | URL;
 	platform?: P;
-	env?: Record<string, string>;
+	env?: Record<string, string | undefined>;
 }
 
 export function createTestClient<P = { name: "test" }>({
@@ -38,7 +38,7 @@ export function createTestClient<P = { name: "test" }>({
 				void promise;
 			},
 			env(variable) {
-				return env[variable];
+				return env[variable] as any;
 			},
 		});
 	};
