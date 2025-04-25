@@ -52,7 +52,7 @@
     "cookie": "^1.0.2",
     "cross-env": "^7.0.3",
     "esbuild": "^0.24.0",
-    "netlify-cli": "^17.37.2",
+    "netlify-cli": "^20.1.1",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.7",
     "ps-tree": "^1.2.0",
