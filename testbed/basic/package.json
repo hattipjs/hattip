@@ -64,7 +64,7 @@
     "wrangler": "^3.91.0"
   },
   "dependencies": {
-    "@google-cloud/functions-framework": "^3.4.2",
+    "@google-cloud/functions-framework": "^4.0.1",
     "@graphql-tools/schema": "^10.0.10",
     "@hattip/adapter-node": "workspace:*",
     "@hattip/compose": "workspace:*",
