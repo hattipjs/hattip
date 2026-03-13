@@ -1,0 +1,39 @@
+{
+  "name": "@hattip/core",
+  "version": "0.1.0",
+  "description": "hattip",
+  "keywords": [
+    "nextjs",
+    "react",
+    "ssr",
+    "vite"
+  ],
+  "license": "MIT",
+  "repository": "github:cyco130/hattip",
+  "files": [
+    "src",
+    "*.d.ts"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts"
+    },
+    "./whatwg": {
+      "types": "./src/whatwg.ts"
+    }
+  },
+  "scripts": {
+    "test": "pnpm run /^test:/",
+    "test:typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
+    "test:package": "publint"
+  },
+  "devDependencies": {
+    "@cyco130/eslint-config": "^6.2.1",
+    "eslint": "^10.0.2",
+    "publint": "^0.3.18",
+    "tsdown": "0.21.2",
+    "typescript": "^5.9.3"
+  }
+}

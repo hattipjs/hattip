@@ -1,0 +1,8 @@
+packages:
+  - packages/base/*
+  - packages/adapter/*
+  - examples/*
+
+onlyBuiltDependencies:
+  - esbuild
+  - unrs-resolver

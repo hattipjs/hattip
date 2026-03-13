@@ -1,0 +1,21 @@
+{
+  "name": "hattip-workspace-root",
+  "private": "true",
+  "scripts": {
+    "dev": "pnpm -r --parallel --filter \"./packages/*/*\" run dev",
+    "build": "pnpm -r --filter \"./packages/*/*\" run build",
+    "prepare": "husky",
+    "precommit": "lint-staged",
+    "format": "prettier --write .",
+    "ci": "pnpm -r --stream run ci",
+    "test": "pnpm run /^test:/",
+    "test:packages": "pnpm -r --stream run test",
+    "test:format": "prettier --check ."
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.3.3",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3"
+  }
+}
