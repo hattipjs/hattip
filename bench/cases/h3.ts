@@ -27,4 +27,4 @@ app.post(
 	eventHandler((event) => readBody(event)),
 );
 
-serve(app, { port: 3000 });
+serve(app, { port: 3000, silent: true });

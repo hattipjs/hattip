@@ -9,6 +9,7 @@
     "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist"
   },
   "dependencies": {
+    "@elysiajs/node": "^1.2.0",
     "@hattip/adapter-bun": "workspace:*",
     "@hattip/adapter-cloudflare": "workspace:*",
     "@hattip/adapter-deno": "workspace:*",
@@ -17,13 +18,14 @@
     "@hattip/core": "workspace:*",
     "@hono/node-server": "^1.19.11",
     "@types/node": "^20.19.34",
-    "@elysiajs/node": "^1.2.0",
     "elysia": "^1.2.0",
     "express": "^5.2.1",
     "fastify": "^5.8.2",
     "h3": "2.0.1-rc.17",
     "hono": "^4.12.8",
+    "hyper-express": "^6.17.3",
     "kill-em-all": "^0.0.5",
+    "path-to-regexp": "^6.3.0",
     "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.59.0"
   },
   "devDependencies": {

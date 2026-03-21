@@ -23,13 +23,13 @@ const runtimes: Runtime[] = [
 		name: "Deno",
 		runCommand: "deno run --allow-net --allow-env",
 	},
-	// {
-	// 	name: "Cloudflare",
-	// 	runCommand: "wrangler dev --log-level=none --port 3000",
-	// 	excludeFromSummary: true,
-	// 	intro:
-	// 		"These benchmarks run locally via `wrangler` and do not reflect production Cloudflare Workers performance. Included for reference only.",
-	// },
+	{
+		name: "Cloudflare",
+		runCommand: "wrangler dev --log-level=none --port 3000",
+		excludeFromSummary: true,
+		intro:
+			"These benchmarks run locally via `wrangler` and do not reflect production Cloudflare Workers performance. Included for reference only.",
+	},
 ];
 
 const nodeCompatibles: RuntimeName[] = ["Node", "Bun", "Deno"];
@@ -101,6 +101,11 @@ const entries: Entry[] = [
 		supportedRuntimes: [...nodeCompatibles, "Cloudflare"],
 	},
 	{
+		name: "Hyper Express",
+		entry: "hyper-express.ts",
+		supportedRuntimes: ["Node"],
+	},
+	{
 		name: "Hono",
 		entry: "hono-node.ts",
 		supportedRuntimes: ["Node"],
@@ -150,6 +155,14 @@ interface BenchmarkEntry {
 }
 
 const benchmarkEntries: BenchmarkEntry[] = [];
+
+interface Failure {
+	name: string;
+	runtime: RuntimeName;
+	reason: string;
+}
+
+const failures: Failure[] = [];
 
 const hasOnlyRuntime = runtimes.some((runtime) => runtime.only);
 const hasOnlyEntry = entries.some((entry) => entry.only);
@@ -265,9 +278,14 @@ for (const entry of benchmarkEntries) {
 		},
 	});
 
-	const kill = await launchAndTest(cp, HOST, 1000).catch((error) => {
+	const kill = await launchAndTest(cp, HOST, 5000).catch((error) => {
 		console.log("Launch failed");
 		console.log(error);
+		failures.push({
+			name: entry.name,
+			runtime: entry.runtime,
+			reason: `Launch failed: ${error instanceof Error ? error.message : String(error)}`,
+		});
 	});
 
 	if (!kill) {
@@ -280,6 +298,11 @@ for (const entry of benchmarkEntries) {
 		} catch (error) {
 			console.log("Tests failed!");
 			console.log(error);
+			failures.push({
+				name: entry.name,
+				runtime: entry.runtime,
+				reason: `Tests failed: ${error instanceof Error ? error.message : String(error)}`,
+			});
 			continue;
 		}
 
@@ -440,6 +463,15 @@ for (const runtime of runtimes) {
 			["Framework", ...benchmarkNames],
 			(e) => [e.name],
 		);
+	}
+}
+
+if (failures.length > 0) {
+	output += "\n## Failures\n\n";
+	output += "| Framework | Runtime | Reason |\n";
+	output += "|-----------|---------|--------|\n";
+	for (const f of failures) {
+		output += `| ${f.name} | ${f.runtime} | ${f.reason} |\n`;
 	}
 }
 
