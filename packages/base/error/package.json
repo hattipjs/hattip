@@ -1,0 +1,40 @@
+{
+  "name": "@hattip/error",
+  "version": "0.1.0",
+  "description": "hattip",
+  "keywords": [
+    "nextjs",
+    "react",
+    "ssr",
+    "vite"
+  ],
+  "license": "MIT",
+  "repository": "github:hattipjs/hattip",
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsdown --clean",
+    "dev": "tsdown --watch",
+    "prepack": "rm -rf dist && pnpm build",
+    "test": "pnpm run /^test:/",
+    "test:unit": "vitest run",
+    "test:typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
+    "test:package": "publint"
+  },
+  "devDependencies": {
+    "@cyco130/eslint-config": "^6.2.1",
+    "eslint": "^10.0.2",
+    "publint": "^0.3.18",
+    "tinybench": "^6.0.0",
+    "tsdown": "0.21.2",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  }
+}

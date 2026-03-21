@@ -9,7 +9,7 @@
     "vite"
   ],
   "license": "MIT",
-  "repository": "github:cyco130/TODO",
+  "repository": "github:hattipjs/TODO",
   "files": [
     "dist",
     "*.d.ts"
@@ -30,13 +30,13 @@
     "dev": "tsdown --watch",
     "prepack": "rm -rf dist && pnpm build",
     "test": "pnpm run /^test:/",
-    "test:unit": "vitest run",
     "test:typecheck": "tsc -p tsconfig.json --noEmit",
     "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
     "test:package": "publint"
   },
   "dependencies": {
     "@hattip/core": "workspace:*",
+    "@hattip/fast-request-response": "workspace:*",
     "@types/node": "^20.19.34"
   },
   "devDependencies": {

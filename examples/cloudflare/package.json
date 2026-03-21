@@ -1,0 +1,12 @@
+{
+  "name": "@hattip/example-node",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@hattip/adapter-cloudflare": "0.1.0",
+    "@hattip/core": "0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

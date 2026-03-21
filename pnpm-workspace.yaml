@@ -1,8 +1,12 @@
 packages:
   - packages/base/*
   - packages/adapter/*
+  - packages/util/*
   - examples/*
+  - bench
 
 onlyBuiltDependencies:
   - esbuild
+  - sharp
   - unrs-resolver
+  - workerd

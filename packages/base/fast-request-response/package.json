@@ -1,0 +1,50 @@
+{
+  "name": "@hattip/fast-request-response",
+  "version": "0.1.0",
+  "description": "TODO",
+  "keywords": [
+    "nextjs",
+    "react",
+    "ssr",
+    "vite"
+  ],
+  "license": "MIT",
+  "repository": "github:hattipjs/TODO",
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
+  "type": "module",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*.d.ts"
+      ]
+    }
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsdown --clean",
+    "dev": "tsdown --watch",
+    "prepack": "rm -rf dist && pnpm build",
+    "test": "pnpm run /^test:/",
+    "test:unit": "vitest run",
+    "test:typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
+    "test:package": "publint"
+  },
+  "dependencies": {
+    "@hattip/core": "workspace:*",
+    "@types/node": "^20.19.34"
+  },
+  "devDependencies": {
+    "@cyco130/eslint-config": "^6.2.1",
+    "eslint": "^10.0.2",
+    "publint": "^0.3.18",
+    "tsdown": "0.21.2",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.16"
+  }
+}

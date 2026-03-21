@@ -1,0 +1,14 @@
+{
+  "name": "@hattip/example-node",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@hattip/adapter-bun": "0.1.0",
+    "@hattip/core": "0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.37",
+    "bun-types": "^1.3.10",
+    "typescript": "^5.9.3"
+  }
+}

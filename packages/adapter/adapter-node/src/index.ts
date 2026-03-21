@@ -1,8 +1,9 @@
-import type { RequestContext, HattipHandler } from "@hattip/core";
+import { RequestContext, type HattipHandler } from "@hattip/core";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { Socket } from "node:net";
-import { createFetchRequestFromNodeRequest } from "./request";
-import { writeFetchResponseToNodeResponse } from "./response";
+import { createRequestAdapter } from "./request.ts";
+import { writeFetchResponseToNodeResponse } from "./response.ts";
+import { FastResponse } from "@hattip/fast-request-response";
 
 interface PossiblyEncryptedSocket extends Socket {
 	encrypted?: boolean;
@@ -32,46 +33,58 @@ export interface NodeAdapterOptions {
 	 * was handled.@default false
 	 */
 	alwaysCallNext?: boolean;
+
+	origin?: string;
+	trustProxcies?: number;
+
+	useFastRequestResponse?: boolean;
 }
 
-export interface NodePlatformInfo {
+export interface NodePlatform {
 	name: "node";
 	request: DecoratedRequest;
 	response: ServerResponse;
 }
+
+class NodeFastRequestContext extends RequestContext<NodePlatform> {
+	override response(
+		body: ConstructorParameters<typeof FastResponse>[0],
+		init: ResponseInit,
+	) {
+		return new FastResponse(body, init);
+	}
+
+	override json(data: any, init: ResponseInit) {
+		return FastResponse.json(data, init);
+	}
+}
+
+class NodeStandardRequestContext extends RequestContext<NodePlatform> {}
 
 /**
  * Creates a request handler to be passed to http.createServer() or used as a
  * middleware in Connect-style frameworks like Express.
  */
 export function createMiddleware(
-	handler: HattipHandler<NodePlatformInfo>,
+	handler: HattipHandler<NodeStandardRequestContext>,
 	options: NodeAdapterOptions = {},
 ): NodeRequestListener {
-	const { alwaysCallNext = true } = options;
+	const { alwaysCallNext = true, useFastRequestResponse = true } = options;
+	const Context = useFastRequestResponse
+		? NodeFastRequestContext
+		: NodeStandardRequestContext;
+	const requestAdapter = createRequestAdapter(options);
 
-	return async (req, res, next) => {
-		try {
-			const request = createFetchRequestFromNodeRequest(req);
-
-			const context: RequestContext<NodePlatformInfo> = {
-				request,
-
-				platform: {
-					name: "node",
-					request: req,
-					response: res,
-				},
-			};
-
-			const response = await handler(context);
-
+	return (req, res, next) => {
+		function handleSuccess(response: Response) {
 			writeFetchResponseToNodeResponse(response, res);
 
 			if (next && alwaysCallNext) {
 				next();
 			}
-		} catch (error) {
+		}
+
+		function handleError(error: unknown) {
 			if (next) {
 				next(error);
 			} else {
@@ -86,5 +99,33 @@ export function createMiddleware(
 				}
 			}
 		}
+
+		try {
+			const request = requestAdapter(req, res);
+
+			const ctx = new Context(
+				{
+					name: "node",
+					request: req,
+					response: res,
+				},
+				request,
+			);
+
+			const response = handler(ctx);
+
+			if (isPromiseLike(response)) {
+				response.then(handleSuccess).catch(handleError);
+				return;
+			}
+
+			handleSuccess(response);
+		} catch (error) {
+			handleError(error);
+		}
 	};
+}
+
+function isPromiseLike(x: unknown): x is Promise<any> {
+	return typeof (x as any)?.then === "function";
 }

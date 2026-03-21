@@ -1,0 +1,62 @@
+{
+  "name": "@hattip/body",
+  "version": "0.1.0",
+  "description": "Body parsing utilities for Hattip",
+  "keywords": [
+    "hattip",
+    "body",
+    "parsing"
+  ],
+  "license": "MIT",
+  "repository": "github:hattipjs/hattip",
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
+  "type": "module",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*.d.ts"
+      ]
+    }
+  },
+  "exports": {
+    ".": {
+      "bun": "./dist/web.js",
+      "deno": "./dist/web.js",
+      "workerd": "./dist/web.js",
+      "fastly": "./dist/web.js",
+      "node": "./dist/node.js",
+      "worker": "./dist/web.js",
+      "browser": "./dist/web.js",
+      "default": "./dist/detect.js"
+    },
+    "./web": "./dist/web.js",
+    "./node": "./dist/node.js",
+    "./detect": "./dist/detect.js"
+  },
+  "scripts": {
+    "build": "tsdown --clean",
+    "dev": "tsdown --watch",
+    "prepack": "rm -rf dist && pnpm build",
+    "test": "pnpm run /^test:/",
+    "test:unit": "vitest run",
+    "test:typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
+    "test:package": "publint"
+  },
+  "dependencies": {
+    "@hattip/core": "workspace:*",
+    "@hattip/error": "workspace:*"
+  },
+  "devDependencies": {
+    "@cyco130/eslint-config": "^6.2.1",
+    "@types/node": "^20.19.37",
+    "eslint": "^10.0.2",
+    "publint": "^0.3.18",
+    "tsdown": "0.21.2",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.16"
+  }
+}

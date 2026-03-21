@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"noEmit": true,
+
+		"checkJs": true,
+		"forceConsistentCasingInFileNames": true,
+		"skipLibCheck": true,
+
+		"strict": true,
+		"noImplicitOverride": true,
+		"noUncheckedIndexedAccess": true,
+
+		"module": "preserve",
+		"esModuleInterop": true,
+		"verbatimModuleSyntax": true,
+		"isolatedModules": true,
+		"moduleDetection": "force",
+		"resolveJsonModule": true,
+		"customConditions": ["import"],
+
+		"target": "es2022",
+		"lib": ["es2022"],
+		"types": ["bun-types"]
+	},
+	"exclude": ["node_modules", "dist"]
+}

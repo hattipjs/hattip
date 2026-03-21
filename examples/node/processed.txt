@@ -1,0 +1,363 @@
+Statistical profiling result from isolate-0xc7f40c000-38156-v8.log, (9115 ticks, 7761 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+     80    0.9%          /usr/local/bin/node
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+     70    0.8%    0.8%  Builtin: LoadIC
+     42    0.5%    0.5%  Builtin: KeyedStoreIC_Megamorphic
+     39    0.4%    0.4%  Builtin: RecordWriteSaveFP
+     38    0.4%    0.4%  JS: *processTicksAndRejections node:internal/process/task_queues:71:35
+     38    0.4%    0.4%  Builtin: KeyedLoadIC_Megamorphic
+     36    0.4%    0.4%  Builtin: KeyedStoreIC
+     31    0.3%    0.3%  JS: *appendHeader node:internal/deps/undici/undici:8830:26
+     26    0.3%    0.3%  JS: *parserOnIncoming node:_http_server:1073:26
+     24    0.3%    0.3%  JS: *parserOnHeadersComplete node:_http_common:77:33
+     22    0.2%    0.2%  Builtin: StringIndexOf
+     22    0.2%    0.2%  Builtin: StringAdd_CheckNone
+     21    0.2%    0.2%  Builtin: WeakCollectionSet
+     20    0.2%    0.2%  JS: *writeFetchResponseToNodeResponse file:///Users/fatih/Documents/github/hattip-next/packages/adapter/adapter-node/dist/index.js:486:42
+     20    0.2%    0.2%  JS: *requestAdapter file:///Users/fatih/Documents/github/hattip-next/packages/adapter/adapter-node/dist/index.js:146:32
+     20    0.2%    0.2%  Builtin: LoadIC_Megamorphic
+     20    0.2%    0.2%  Builtin: CallFunction_ReceiverIsAny
+     19    0.2%    0.2%  JS: *onwrite node:internal/streams/writable:615:17
+     19    0.2%    0.2%  JS: *clearBuffer node:internal/streams/writable:744:21
+     19    0.2%    0.2%  Builtin: MapConstructor
+     18    0.2%    0.2%  Builtin: CallBoundFunction
+     17    0.2%    0.2%  JS: *createBody file:///Users/fatih/Documents/github/hattip-next/packages/adapter/adapter-node/dist/index.js:320:20
+     14    0.2%    0.2%  JS: *nextTick node:internal/process/task_queues:111:18
+     14    0.2%    0.2%  JS: *ReadableState node:internal/streams/readable:262:23
+     14    0.2%    0.2%  Builtin: CreateShallowObjectLiteral
+     13    0.1%    0.1%  RegExp: ^[\^_`a-zA-Z\-0-9!#$%&'*+.|~]+$
+     13    0.1%    0.1%  JS: *setStreamTimeout node:internal/stream_base_commons:236:26
+     13    0.1%    0.1%  Builtin: StringToLowerCaseIntl
+     13    0.1%    0.1%  Builtin: SetPrototypeDelete
+     12    0.1%    0.1%  JS: *afterWriteTick node:internal/streams/writable:693:24
+     12    0.1%    0.1%  JS: *_storeHeader node:_http_outgoing:455:22
+     12    0.1%    0.1%  JS: *_Headers node:internal/deps/undici/undici:9030:18
+     12    0.1%    0.1%  JS: *OutgoingMessage node:_http_outgoing:106:25
+     12    0.1%    0.1%  JS: *<anonymous> node:internal/deps/undici/undici:3900:14
+     11    0.1%    0.1%  JS: *onParserExecute node:_http_server:874:25
+     11    0.1%    0.1%  JS: *endReadable node:internal/streams/readable:1682:21
+     11    0.1%    0.1%  JS: *dispatchEvent node:internal/event_target:764:16
+     11    0.1%    0.1%  JS: *_write node:internal/streams/writable:453:16
+     11    0.1%    0.1%  Builtin: FindOrderedHashMapEntry
+     10    0.1%    0.1%  JS: *emitReadable node:internal/streams/readable:819:22
+     10    0.1%    0.1%  JS: *Readable.on node:internal/streams/readable:1127:33
+     10    0.1%    0.1%  JS: *<anonymous> file:///Users/fatih/Documents/github/hattip-next/packages/adapter/adapter-node/dist/index.js:152:21
+     10    0.1%    0.1%  Builtin: RegExpPrototypeTestFast
+     10    0.1%    0.1%  Builtin: KeyedLoadIC
+      9    0.1%    0.1%  JS: *Readable.removeListener node:internal/streams/readable:1159:45
+      9    0.1%    0.1%  Builtin: FastNewObject
+      9    0.1%    0.1%  Builtin: ArrayPrototypeShift
+      8    0.1%    0.1%  JS: *resOnFinish node:_http_server:1007:21
+      8    0.1%    0.1%  JS: *emitReadable_ node:internal/streams/readable:830:23
+      8    0.1%    0.1%  Builtin: StoreIC_Megamorphic
+      8    0.1%    0.1%  Builtin: CloneFastJSArrayFillingHoles
+      7    0.1%    0.1%  RegExp: [^\t\x20-\x7e\x80-\xff]
+      7    0.1%    0.1%  JS: *writevGeneric node:internal/stream_base_commons:121:23
+      7    0.1%    0.1%  JS: *onceWrapper node:events:628:21
+      7    0.1%    0.1%  JS: *get node:internal/bootstrap/node:100:8
+      7    0.1%    0.1%  JS: *endReadableNT node:internal/streams/readable:1692:23
+      7    0.1%    0.1%  JS: *end node:_http_outgoing:1087:45
+      7    0.1%    0.1%  JS: *<anonymous> node:internal/event_target:780:20
+      7    0.1%    0.1%  Builtin: MapIteratorPrototypeNext
+      7    0.1%    0.1%  Builtin: JSConstructStubGeneric
+      7    0.1%    0.1%  Builtin: JSBuiltinsConstructStub
+      6    0.1%    0.1%  JS: *write_ node:_http_outgoing:945:16
+      6    0.1%    0.1%  JS: *parserOnMessageComplete node:_http_common:143:33
+      6    0.1%    0.1%  JS: *onFinish node:_http_outgoing:1082:18
+      6    0.1%    0.1%  JS: *onDestroy node:internal/streams/destroy:93:21
+      6    0.1%    0.1%  JS: *get node:_http_incoming:109:16
+      6    0.1%    0.1%  JS: *_send node:_http_outgoing:399:49
+      6    0.1%    0.1%  JS: *Event node:internal/event_target:115:14
+      6    0.1%    0.1%  Builtin: ObjectSetPrototypeOf
+      6    0.1%    0.1%  Builtin: ObjectEntries
+      6    0.1%    0.1%  Builtin: MapPrototypeSet
+      6    0.1%    0.1%  Builtin: KeyedLoadIC_PolymorphicName
+      6    0.1%    0.1%  Builtin: JSEntryTrampoline
+      5    0.1%    0.1%  JS: *writeOrBuffer node:internal/streams/writable:548:23
+      5    0.1%    0.1%  JS: *unenroll node:timers:75:18
+      5    0.1%    0.1%  JS: *processPromiseRejections node:internal/process/promises:439:34
+      5    0.1%    0.1%  JS: *Headers node:internal/deps/undici/undici:9138:30
+      5    0.1%    0.1%  JS: *<anonymous> file:///Users/fatih/Documents/github/hattip-next/packages/adapter/adapter-node/dist/index.js:552:9
+      5    0.1%    0.1%  Builtin: StrictEqual
+      5    0.1%    0.1%  Builtin: LoadICTrampoline
+      5    0.1%    0.1%  Builtin: InstanceOf
+      5    0.1%    0.1%  Builtin: GetProperty
+      5    0.1%    0.1%  Builtin: EphemeronKeyBarrierSaveFP
+      5    0.1%    0.1%  Builtin: Call_ReceiverIsNotNullOrUndefined
+      4    0.0%    0.0%  JS: *resume_ node:internal/streams/readable:1254:17
+      4    0.0%    0.0%  JS: *matchKnownFields node:_http_incoming:276:26
+      4    0.0%    0.0%  JS: *initAsyncResource node:internal/timers:163:27
+      4    0.0%    0.0%  JS: *<anonymous> node:_http_outgoing:668:85
+      4    0.0%    0.0%  Builtin: StringAddConvertRight
+      4    0.0%    0.0%  Builtin: Call_ReceiverIsAny
+      4    0.0%    0.0%  Builtin: CEntry_Return1_ArgvOnStack_BuiltinExit
+      4    0.0%    0.0%  Builtin: BaselineLeaveFrame
+      4    0.0%    0.0%  Builtin: ArrayPrototypeSlice
+      3    0.0%    0.0%  JS: *toSortedArray node:internal/deps/undici/undici:8977:20
+      3    0.0%    0.0%  JS: *socketListenerWrap node:_http_server:1236:37
+      3    0.0%    0.0%  JS: *set node:_http_outgoing:251:16
+      3    0.0%    0.0%  JS: *getRequestOrigin file:///Users/fatih/Documents/github/hattip-next/packages/adapter/adapter-node/dist/index.js:168:26
+      3    0.0%    0.0%  JS: *get node:internal/streams/duplex:161:8
+      3    0.0%    0.0%  JS: *emit node:events:466:44
+      3    0.0%    0.0%  JS: *clearIncoming node:_http_server:994:23
+      3    0.0%    0.0%  JS: *append node:internal/linkedlist:30:16
+      3    0.0%    0.0%  JS: *Writable.write node:internal/streams/writable:504:36
+      3    0.0%    0.0%  JS: *FastIterableIterator node:internal/deps/undici/undici:4599:20
+      3    0.0%    0.0%  Builtin: WeakMapPrototypeSet
+      3    0.0%    0.0%  Builtin: StringEqual
+      3    0.0%    0.0%  Builtin: LoadIC_NoFeedback
+      3    0.0%    0.0%  Builtin: JSEntry
+      3    0.0%    0.0%  Builtin: GrowFastSmiOrObjectElements
+      3    0.0%    0.0%  Builtin: FunctionPrototypeHasInstance
+      3    0.0%    0.0%  Builtin: ForInFilter
+      3    0.0%    0.0%  Builtin: DeleteProperty
+      3    0.0%    0.0%  Builtin: Construct
+      3    0.0%    0.0%  Builtin: CallApiCallbackOptimizedNoProfiling
+      3    0.0%    0.0%  Builtin: CEntry_Return1_ArgvOnStack_NoBuiltinExit
+      2    0.0%    0.0%  JS: ^Readable.push node:internal/streams/readable:387:35
+      2    0.0%    0.0%  JS: ^<anonymous> node:internal/deps/undici/undici:3900:14
+      2    0.0%    0.0%  JS: *writeHead node:_http_server:351:19
+      2    0.0%    0.0%  JS: *wrappedFn node:internal/errors:535:21
+      2    0.0%    0.0%  JS: *Readable.resume node:internal/streams/readable:1227:37
+      2    0.0%    0.0%  JS: *Readable.read node:internal/streams/readable:647:35
+      2    0.0%    0.0%  JS: *R /Users/fatih/Library/pnpm/global/5/.pnpm/tsx@4.21.0/node_modules/tsx/dist/lexer-DgIbo0BU.cjs:3:642
+      2    0.0%    0.0%  Builtin: StringSubstring
+      2    0.0%    0.0%  Builtin: LoadIC_FunctionPrototype
+      2    0.0%    0.0%  Builtin: KeyedLoadICTrampoline
+      2    0.0%    0.0%  Builtin: FindNonDefaultConstructorOrConstruct
+      2    0.0%    0.0%  Builtin: DefineKeyedOwnIC
+      2    0.0%    0.0%  Builtin: CompileLazy
+      2    0.0%    0.0%  Builtin: CloneFastJSArray
+      2    0.0%    0.0%  Builtin: CallFunction_ReceiverIsNullOrUndefined
+      2    0.0%    0.0%  Builtin: BitwiseOr_Baseline
+      2    0.0%    0.0%  Builtin: Add_Baseline
+      1    0.0%    0.0%  JS: ~appendHeader node:_http_outgoing:756:63
+      1    0.0%    0.0%  JS: ~<anonymous> /Users/fatih/Library/pnpm/global/5/.pnpm/tsx@4.21.0/node_modules/tsx/dist/get-pipe-path-BoR10qr8.cjs:1:1
+      1    0.0%    0.0%  JS: wasm-function[40]
+      1    0.0%    0.0%  JS: wasm-function[38]
+      1    0.0%    0.0%  JS: ^webidl.converters.HeadersInit node:internal/deps/undici/undici:9198:45
+      1    0.0%    0.0%  JS: ^trySelf node:internal/modules/cjs/loader:596:17
+      1    0.0%    0.0%  JS: ^parseSource node:internal/deps/cjs-module-lexer/lexer:85:22
+      1    0.0%    0.0%  JS: ^next node:internal/deps/undici/undici:4604:13
+      1    0.0%    0.0%  JS: ^get node:internal/streams/writable:131:8
+      1    0.0%    0.0%  JS: ^emitReadable_ node:internal/streams/readable:830:23
+      1    0.0%    0.0%  JS: ^connectionListener node:_http_server:689:28
+      1    0.0%    0.0%  JS: ^ServerResponse node:_http_server:197:24
+      1    0.0%    0.0%  JS: ^R /Users/fatih/Library/pnpm/global/5/.pnpm/tsx@4.21.0/node_modules/tsx/dist/lexer-DgIbo0BU.cjs:3:642
+      1    0.0%    0.0%  JS: ^Headers node:internal/deps/undici/undici:9138:30
+      1    0.0%    0.0%  JS: ^<anonymous> node:internal/event_target:780:20
+      1    0.0%    0.0%  JS: ^<anonymous> file:///Users/fatih/Documents/github/hattip-next/examples/node/src/index.ts:1:303
+      1    0.0%    0.0%  JS: *webidl.converters.ByteString node:internal/deps/undici/undici:4001:44
+      1    0.0%    0.0%  JS: *wasm-function[20]
+      1    0.0%    0.0%  JS: *once node:events:652:44
+      1    0.0%    0.0%  JS: *nop node:_http_outgoing:91:13
+      1    0.0%    0.0%  JS: *next node:internal/per_context/primordials:333:9
+      1    0.0%    0.0%  JS: *lineLengths node:internal/source_map/source_map_cache:257:21
+      1    0.0%    0.0%  JS: *isValidHTTPToken node:internal/deps/undici/undici:1663:30
+      1    0.0%    0.0%  JS: *get signal node:internal/abort_controller:495:13
+      1    0.0%    0.0%  JS: *emitCloseNT node:internal/streams/destroy:133:21
+      1    0.0%    0.0%  JS: *FastRequest file:///Users/fatih/Documents/github/hattip-next/packages/adapter/adapter-node/dist/index.js:24:37
+      1    0.0%    0.0%  Builtin: ToString
+      1    0.0%    0.0%  Builtin: ToName
+      1    0.0%    0.0%  Builtin: ToBooleanForBaselineJump
+      1    0.0%    0.0%  Builtin: StringConstructor
+      1    0.0%    0.0%  Builtin: StrictEqual_Baseline
+      1    0.0%    0.0%  Builtin: StoreIC_NoFeedback
+      1    0.0%    0.0%  Builtin: StoreICBaseline
+      1    0.0%    0.0%  Builtin: NumberToString
+      1    0.0%    0.0%  Builtin: MapPrototypeHas
+      1    0.0%    0.0%  Builtin: FastNewFunctionContextFunction
+      1    0.0%    0.0%  Builtin: DefineNamedOwnIC
+      1    0.0%    0.0%  Builtin: Call_ReceiverIsNullOrUndefined_Baseline_Compact
+      1    0.0%    0.0%  Builtin: Call_ReceiverIsNotNullOrUndefined_Baseline_Compact
+      1    0.0%    0.0%  Builtin: CallVarargs
+      1    0.0%    0.0%  Builtin: BitwiseNot_Baseline
+      1    0.0%    0.0%  Builtin: BitwiseAnd_Baseline
+      1    0.0%    0.0%  Builtin: BaselineOutOfLinePrologue
+      1    0.0%    0.0%  Builtin: ArraySingleArgumentConstructor_Holey_DisableAllocationSites
+      1    0.0%    0.0%  Builtin: AdaptorWithBuiltinExitFrame
+
+ [C++]:
+   ticks  total  nonlib   name
+
+ [Summary]:
+   ticks  total  nonlib   name
+   1274   14.0%   14.1%  JavaScript
+      0    0.0%    0.0%  C++
+    122    1.3%    1.4%  GC
+     80    0.9%          Shared libraries
+   7761   85.1%          Unaccounted
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 1.0% are not shown.
+
+   ticks parent  name
+   7761   85.1%  UNKNOWN
+   2647   34.1%    JS: *writevGeneric node:internal/stream_base_commons:121:23
+   2641   99.8%      JS: *clearBuffer node:internal/streams/writable:744:21
+   2622   99.3%        JS: *end node:_http_outgoing:1087:45
+   2622  100.0%          JS: *writeFetchResponseToNodeResponse file:///Users/fatih/Documents/github/hattip-next/packages/adapter/adapter-node/dist/index.js:486:42
+   2622  100.0%            JS: *<anonymous> file:///Users/fatih/Documents/github/hattip-next/packages/adapter/adapter-node/dist/index.js:552:9
+   1231   15.9%    JS: *<anonymous> file:///Users/fatih/Documents/github/hattip-next/packages/adapter/adapter-node/dist/index.js:152:21
+   1231  100.0%      JS: *onceWrapper node:events:628:21
+   1231  100.0%        JS: *emitCloseNT node:internal/streams/destroy:133:21
+   1231  100.0%          JS: *processTicksAndRejections node:internal/process/task_queues:71:35
+     95    1.2%    JS: ~waitForWorker node:internal/modules/esm/hooks:519:16
+     95  100.0%      JS: ~makeSyncRequest node:internal/modules/esm/hooks:598:18
+     95  100.0%        JS: ~register node:internal/modules/esm/loader:902:11
+     95  100.0%          JS: ~register node:internal/modules/esm/loader:677:11
+     95  100.0%            JS: ~register node:internal/modules/esm/loader:1047:18
+     92    1.2%    JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+     86   93.5%      JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+     21   24.4%        JS: ~lazyUndici node:http:122:20
+     21  100.0%          JS: ~get node:http:177:6
+     21  100.0%            Builtin: ReflectGet
+      5    5.8%        JS: ~<anonymous> node:http2:1:1
+      5  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      5  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      4    4.7%        JS: ~lib/web/fetch/response.js node:internal/deps/undici/undici:9234:30
+      4  100.0%          JS: ^__require node:internal/deps/undici/undici:5:49
+      4  100.0%            JS: ~lib/web/fetch/index.js node:internal/deps/undici/undici:10396:27
+      3    3.5%        JS: ~<anonymous> node:internal/streams/duplex:1:1
+      3  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      3  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      3    3.5%        JS: ~<anonymous> node:internal/fs/promises:1:1
+      3  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      3  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      3    3.5%        JS: ~<anonymous> node:http:1:1
+      3  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      3  100.0%            JS: ^compileForPublicLoader node:internal/bootstrap/realm:332:25
+      3    3.5%        JS: ~<anonymous> node:crypto:1:1
+      3  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      3  100.0%            JS: ^compileForPublicLoader node:internal/bootstrap/realm:332:25
+      3    3.5%        JS: ~<anonymous> node:_http_client:1:1
+      3  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      3  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      2    2.3%        JS: ~initCJSParseSync node:internal/modules/esm/translators:79:26
+      2  100.0%          JS: ~commonjsStrategy node:internal/modules/esm/translators:299:54
+      2  100.0%            JS: ^#translate node:internal/modules/esm/loader:538:13
+      2    2.3%        JS: ~<anonymous> node:tls:1:1
+      2  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      2  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      2    2.3%        JS: ~<anonymous> node:module:1:1
+      2  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      2  100.0%            JS: ~<anonymous> /Users/fatih/Library/pnpm/global/5/.pnpm/tsx@4.21.0/node_modules/tsx/dist/get-pipe-path-BoR10qr8.cjs:1:1
+      2    2.3%        JS: ~<anonymous> node:internal/worker:1:1
+      2  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      2  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      2    2.3%        JS: ~<anonymous> node:internal/streams/operators:1:1
+      2  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      2  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      2    2.3%        JS: ~<anonymous> node:internal/http2/core:1:1
+      2  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      2  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      2    2.3%        JS: ^requireWithFallbackInDeps node:internal/bootstrap/realm:436:35
+      2  100.0%          JS: ~lib/web/fetch/util.js node:internal/deps/undici/undici:4135:26
+      2  100.0%            JS: ^__require node:internal/deps/undici/undici:5:49
+      2    2.3%        Builtin: ReflectGet
+      2  100.0%          JS: ^getOwn node:internal/bootstrap/realm:205:16
+      2  100.0%            JS: ^syncExports node:internal/bootstrap/realm:373:14
+      1    1.2%        JS: ~lib/dispatcher/client.js node:internal/deps/undici/undici:7664:29
+      1  100.0%          JS: ~__require node:internal/deps/undici/undici:5:49
+      1  100.0%            JS: ~lib/dispatcher/pool.js node:internal/deps/undici/undici:8173:27
+      1    1.2%        JS: ~lazyWebCrypto node:crypto:125:23
+      1  100.0%          JS: ~get node:crypto:350:8
+      1  100.0%            Builtin: ReflectGet
+      1    1.2%        JS: ~getHooksProxy node:internal/modules/esm/loader:992:23
+      1  100.0%          JS: ~CustomizedModuleLoader node:internal/modules/esm/loader:886:14
+      1  100.0%            JS: ~register node:internal/modules/esm/loader:677:11
+      1    1.2%        JS: ~get BlockList node:net:2519:16
+      1  100.0%          Builtin: ReflectGet
+      1  100.0%            JS: ^getOwn node:internal/bootstrap/realm:205:16
+      1    1.2%        JS: ~<anonymous> node:tty:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^compileForPublicLoader node:internal/bootstrap/realm:332:25
+      1    1.2%        JS: ~<anonymous> node:stream:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ~<anonymous> node:net:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ~<anonymous> /Users/fatih/Library/pnpm/global/5/.pnpm/tsx@4.21.0/node_modules/tsx/dist/client-D6NvIMSC.cjs:1:1
+      1    1.2%        JS: ~<anonymous> node:internal/worker/io:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ~<anonymous> node:internal/webstreams/readablestream:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ~<anonymous> node:internal/streams/pipeline:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ~<anonymous> node:internal/readline/interface:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ~<anonymous> node:internal/perf/usertiming:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ~<anonymous> node:internal/modules/esm/loader:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ~<anonymous> node:internal/modules/esm/get_format:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ~<anonymous> node:internal/http2/compat:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ~<anonymous> node:internal/fs/streams:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ~<anonymous> node:internal/crypto/hkdf:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ~<anonymous> node:internal/crypto/cipher:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ~<anonymous> node:dgram:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ~<anonymous> node:cluster:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ~<anonymous> node:child_process:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^compileForPublicLoader node:internal/bootstrap/realm:332:25
+      1    1.2%        JS: ~<anonymous> node:assert:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ~<anonymous> node:_tls_wrap:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ~<anonymous> node:_http_agent:1:1
+      1  100.0%          JS: ^compileForInternalLoader node:internal/bootstrap/realm:385:27
+      1  100.0%            JS: ^requireBuiltin node:internal/bootstrap/realm:422:24
+      1    1.2%        JS: ^defaultResolveImpl node:internal/modules/cjs/loader:1011:30
+      1  100.0%          JS: ^<anonymous> node:internal/modules/cjs/loader:1169:24
+      1  100.0%            JS: ^traceSync node:diagnostics_channel:326:12
+      3    3.3%      JS: ~<anonymous> /Users/fatih/Library/pnpm/global/5/.pnpm/tsx@4.21.0/node_modules/tsx/dist/client-D6NvIMSC.cjs:1:1
+      3  100.0%        JS: ~<anonymous> /Users/fatih/Library/pnpm/global/5/.pnpm/tsx@4.21.0/node_modules/tsx/dist/preflight.cjs:1:1
+      3  100.0%          JS: ~<anonymous> node:internal/main/run_main_module:1:1
+      2    2.2%      JS: ^compileForPublicLoader node:internal/bootstrap/realm:332:25
+      2  100.0%        JS: ^loadBuiltinModule node:internal/modules/helpers:113:27
+      2  100.0%          JS: ^loadBuiltinWithHooks node:internal/modules/cjs/loader:1141:30
+      2  100.0%            JS: ^<anonymous> node:internal/modules/cjs/loader:1169:24
+      1    1.1%      JS: ~<anonymous> /Users/fatih/Library/pnpm/global/5/.pnpm/tsx@4.21.0/node_modules/tsx/dist/preflight.cjs:1:1
+      1  100.0%        JS: ~<anonymous> node:internal/main/run_main_module:1:1
+     91    1.2%    Builtin: WeakMapPrototypeSet
+     89   97.8%      JS: *<anonymous> file:///Users/fatih/Documents/github/hattip-next/packages/adapter/adapter-node/dist/index.js:152:21
+     89  100.0%        JS: *onceWrapper node:events:628:21
+     89  100.0%          JS: *emitCloseNT node:internal/streams/destroy:133:21
+     89  100.0%            JS: *processTicksAndRejections node:internal/process/task_queues:71:35
+      2    2.2%      JS: ^DOMException node:internal/per_context/domexception:72:14
+      2  100.0%        JS: ^abort node:internal/abort_controller:504:8
+      2  100.0%          JS: ^<anonymous> file:///Users/fatih/Documents/github/hattip-next/packages/adapter/adapter-node/dist/index.js:152:21
+      2  100.0%            JS: ^onceWrapper node:events:628:21
+

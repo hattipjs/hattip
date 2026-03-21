@@ -9,21 +9,19 @@
     "vite"
   ],
   "license": "MIT",
-  "repository": "github:cyco130/hattip",
+  "repository": "github:hattipjs/hattip",
   "files": [
-    "src",
+    "dist",
     "*.d.ts"
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./src/index.ts"
-    },
-    "./whatwg": {
-      "types": "./src/whatwg.ts"
-    }
+    ".": "./dist/index.js"
   },
   "scripts": {
+    "build": "tsdown --clean",
+    "dev": "tsdown --watch",
+    "prepack": "rm -rf dist && pnpm build",
     "test": "pnpm run /^test:/",
     "test:typecheck": "tsc -p tsconfig.json --noEmit",
     "test:lint": "eslint . --max-warnings 0 --ignore-pattern dist",
@@ -33,6 +31,7 @@
     "@cyco130/eslint-config": "^6.2.1",
     "eslint": "^10.0.2",
     "publint": "^0.3.18",
+    "tinybench": "^6.0.0",
     "tsdown": "0.21.2",
     "typescript": "^5.9.3"
   }

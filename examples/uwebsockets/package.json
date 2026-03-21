@@ -1,0 +1,15 @@
+{
+  "name": "@hattip/example-uwebsockets",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@hattip/adapter-uwebsockets": "0.1.0",
+    "@hattip/core": "0.1.0",
+    "fast-json-stringify": "^6.3.0",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.59.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.37",
+    "typescript": "^5.9.3"
+  }
+}

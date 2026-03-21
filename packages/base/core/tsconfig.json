@@ -15,8 +15,10 @@
 		"verbatimModuleSyntax": true,
 		"isolatedModules": true,
 		"moduleDetection": "force",
+		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
 		"customConditions": ["import"],
+		"allowImportingTsExtensions": true,
 
 		"target": "es2022",
 		"lib": ["es2022"]

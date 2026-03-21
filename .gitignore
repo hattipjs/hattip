@@ -131,3 +131,6 @@ dist
 
 # Packed packages
 *.tgz
+
+# wrangler
+.wrangler
