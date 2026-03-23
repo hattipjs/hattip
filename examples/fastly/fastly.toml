@@ -1,0 +1,14 @@
+# This file describes a Fastly Compute package. To learn more visit:
+# https://www.fastly.com/documentation/reference/compute/fastly-toml
+
+authors = []
+description = ""
+language = "javascript"
+manifest_version = 3
+name = "hattip-fastly-example"
+service_id = ""
+
+[local_server]
+
+[scripts]
+    build = "js-compute-runtime src/index.ts"

@@ -1,0 +1,17 @@
+{
+  "name": "@hattip/example-fastly",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "fastly compute serve --watch"
+  },
+  "dependencies": {
+    "@fastly/cli": "^14.1.1",
+    "@hattip/adapter-fastly": "0.1.0",
+    "@hattip/core": "0.1.0"
+  },
+  "devDependencies": {
+    "@fastly/js-compute": "^3.40.1",
+    "typescript": "^5.9.3"
+  }
+}

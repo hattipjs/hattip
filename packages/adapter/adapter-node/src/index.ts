@@ -102,6 +102,9 @@ export function createMiddleware(
 
 		try {
 			const request = requestAdapter(req, res);
+			if (!request) {
+				return;
+			}
 
 			const ctx = new Context(
 				{

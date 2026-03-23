@@ -26,7 +26,7 @@ export class FastRequest implements Request {
 	}
 
 	get headers(): Headers {
-		return this.headers;
+		return this.#headers;
 	}
 
 	get method(): string {

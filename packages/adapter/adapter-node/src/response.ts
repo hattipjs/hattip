@@ -13,9 +13,6 @@ export function writeFetchResponseToNodeResponse(
 		return writeInternalServerError(nodeResponse);
 	}
 
-	nodeResponse.statusCode = fetchResponse.status;
-	nodeResponse.statusMessage = fetchResponse.statusText;
-
 	const headers: OutgoingHttpHeaders = {};
 	const setCookie: string[] = [];
 	for (const [key, value] of fetchResponse.headers) {
@@ -34,27 +31,49 @@ export function writeFetchResponseToNodeResponse(
 		try {
 			const body = fetchResponse.getRawBody();
 
-			if (body instanceof Blob) {
-				headers["content-length"] ??= body.size;
-			}
-
-			nodeResponse.writeHead(
-				fetchResponse.status,
-				fetchResponse.statusText,
-				headers,
-			);
-
 			if (body === null) {
+				nodeResponse.writeHead(
+					fetchResponse.status,
+					fetchResponse.statusText,
+					headers,
+				);
 				nodeResponse.end();
 			} else if (typeof body === "string") {
+				headers["content-length"] ??= Buffer.byteLength(body);
+				nodeResponse.writeHead(
+					fetchResponse.status,
+					fetchResponse.statusText,
+					headers,
+				);
 				nodeResponse.end(body);
 			} else if (body instanceof Readable) {
+				nodeResponse.writeHead(
+					fetchResponse.status,
+					fetchResponse.statusText,
+					headers,
+				);
 				body.pipe(nodeResponse);
 			} else if (body instanceof ReadableStream) {
+				nodeResponse.writeHead(
+					fetchResponse.status,
+					fetchResponse.statusText,
+					headers,
+				);
 				Readable.fromWeb(body).pipe(nodeResponse);
 			} else if (body instanceof Uint8Array) {
+				nodeResponse.writeHead(
+					fetchResponse.status,
+					fetchResponse.statusText,
+					headers,
+				);
 				nodeResponse.end(body);
 			} else {
+				headers["content-length"] ??= body.size;
+				nodeResponse.writeHead(
+					fetchResponse.status,
+					fetchResponse.statusText,
+					headers,
+				);
 				Readable.fromWeb(body.stream()).pipe(nodeResponse);
 			}
 

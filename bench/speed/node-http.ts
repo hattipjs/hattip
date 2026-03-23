@@ -5,11 +5,6 @@ createServer((req, res) => {
 	const [pathname, search] = split(req.url ?? "/");
 	const method = req.method;
 
-	if (pathname === "/" && method === "GET") {
-		res.setHeader("content-type", "text/plain;charset=UTF-8");
-		return res.end("Hi");
-	}
-
 	if (pathname === "/json" && method === "POST") {
 		return json(req)
 			.then((text) => {
@@ -67,6 +62,31 @@ function json(req: Readable): Promise<any> {
 
 			const buffer = Buffer.concat(chunks);
 			resolve(JSON.parse(buffer.toString()));
+		});
+	});
+}
+
+function buffer(req: Readable): Promise<Buffer> {
+	return new Promise((resolve, reject) => {
+		const chunks: Buffer[] = [];
+
+		function onData(chunk: Buffer) {
+			chunks.push(chunk);
+		}
+
+		function onError(error: any) {
+			req.off("data", onData);
+			reject(error);
+		}
+
+		req.on("data", onData);
+		req.once("error", onError);
+
+		req.once("end", () => {
+			req.off("data", onData);
+			req.off("error", onError);
+
+			resolve(Buffer.concat(chunks));
 		});
 	});
 }

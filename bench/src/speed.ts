@@ -8,7 +8,7 @@ import { launchAndTest } from "kill-em-all";
 
 const HOST = "http://localhost:3000";
 const WARMUP_TIME = 1;
-const BENCHMARK_TIME = 10;
+const BENCHMARK_TIME = 1;
 
 const runtimes: Runtime[] = [
 	{
@@ -127,7 +127,7 @@ const entries: Entry[] = [
 	},
 ];
 
-const root = import.meta.dirname + "/../cases";
+const root = import.meta.dirname + "/../speed";
 
 const execAsync = promisify(exec);
 
