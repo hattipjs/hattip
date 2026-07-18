@@ -25,7 +25,7 @@
     "@aws-sdk/client-cloudwatch-logs": "^3.699.0",
     "@aws-sdk/client-iam": "^3.699.0",
     "@aws-sdk/client-lambda": "^3.699.0",
-    "@fastly/compute-js-static-publish": "^6.2.0",
+    "@fastly/compute-js-static-publish": "^7.0.7",
     "@fastly/js-compute": "^3.27.2",
     "@hattip/adapter-aws-lambda": "workspace:*",
     "@hattip/adapter-bun": "workspace:*",
