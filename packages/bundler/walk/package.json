@@ -36,11 +36,11 @@
   "dependencies": {
     "@hattip/headers": "workspace:*",
     "cac": "^6.7.14",
-    "mime-types": "^2.1.35"
+    "mime-types": "^3.0.2"
   },
   "devDependencies": {
     "@cyco130/eslint-config": "^5.0.1",
-    "@types/mime-types": "^2.1.4",
+    "@types/mime-types": "^3.0.1",
     "@types/node": "^18.19.67",
     "eslint": "^9.16.0",
     "publint": "^0.2.12",
