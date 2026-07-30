@@ -60,7 +60,7 @@
     "typescript": "^5.7.2",
     "uWebSockets.js": "catalog:",
     "vercel": "^39.1.2",
-    "vitest": "^2.1.6",
+    "vitest": "^4.1.10",
     "wrangler": "^3.91.0"
   },
   "dependencies": {
