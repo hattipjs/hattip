@@ -28,14 +28,14 @@
   },
   "dependencies": {
     "@hattip/core": "workspace:*",
-    "bun-types": "^1.1.38"
+    "bun-types": "^1.3.14"
   },
   "devDependencies": {
-    "@cyco130/eslint-config": "^5.0.1",
-    "@types/node": "^18.19.67",
-    "eslint": "^9.16.0",
-    "publint": "^0.2.12",
-    "tsup": "^8.3.5",
-    "typescript": "^5.7.2"
+    "@cyco130/eslint-config": "^5.1.0",
+    "@types/node": "^18.19.130",
+    "eslint": "^9.39.5",
+    "publint": "^0.3.23",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
   }
 }
