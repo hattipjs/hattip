@@ -9,15 +9,15 @@
     "start": "tsx src/index.ts"
   },
   "dependencies": {
-    "@babel/core": "^7.26.0",
-    "@babel/preset-typescript": "^7.26.0",
-    "@babel/traverse": "^7.25.9",
-    "@cyco130/eslint-config": "^5.0.1",
+    "@babel/core": "^7.29.7",
+    "@babel/preset-typescript": "^7.29.7",
+    "@babel/traverse": "^7.29.8",
+    "@cyco130/eslint-config": "^5.1.0",
     "@types/babel__core": "^7.20.5",
-    "@types/babel__traverse": "^7.20.6",
-    "@types/node": "^18.19.67",
-    "eslint": "^9.16.0",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "@types/babel__traverse": "^7.28.0",
+    "@types/node": "^18.19.130",
+    "eslint": "^9.39.5",
+    "tsx": "^4.23.12",
+    "typescript": "^5.9.3"
   }
 }

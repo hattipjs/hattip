@@ -5,13 +5,13 @@
   "author": "you@example.com",
   "type": "module",
   "devDependencies": {
-    "@fastly/compute-js-static-publish": "^5.1.1"
+    "@fastly/compute-js-static-publish": "^5.2.1"
   },
   "dependencies": {
-    "@fastly/js-compute": "^3.3.1"
+    "@fastly/js-compute": "^3.44.3"
   },
   "engines": {
-    "node": ">=v18.17.1"
+    "node": ">=18.20.8"
   },
   "license": "UNLICENSED",
   "private": true,
