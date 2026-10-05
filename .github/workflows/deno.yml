@@ -32,7 +32,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install Deno
-        uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@v2.0.5
         with:
           deno-version: v1.x
 
